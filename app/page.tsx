@@ -2,6 +2,7 @@ import HeroGrid from "./components/home/heroGrid"
 import WorkGallery from "./components/home/workGallery"
 import Unplugged from "./components/home/unplugged"
 import Contact from "./components/home/contact"
+import Reveal from "./components/reveal/revealWrapper"
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <div data-section="contact">
         <Contact />
       </div>
+      <Reveal />
     </div>
   )
 }

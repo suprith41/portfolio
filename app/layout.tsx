@@ -30,8 +30,12 @@ export default function RootLayout({
           src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js" 
           strategy="beforeInteractive"
         />
+        <Script 
+          src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" 
+          strategy="beforeInteractive"
+        />
       </head>
-      <body className={`${inter.className} bg-white min-h-screen`}>
+      <body className={`${inter.className} bg-white min-h-screen`} suppressHydrationWarning>
         <Navbar />
         <main>
           {children}

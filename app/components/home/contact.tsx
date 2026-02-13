@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const Contact = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f5f5f5]">
       {/* Main Container with Grid Lines */}
       <div className="max-w-6xl mx-auto md:rounded-lg border border-gray-300 h-full">
 

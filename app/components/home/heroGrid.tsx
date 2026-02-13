@@ -20,7 +20,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-4 md:p-6">
+    <div className="min-h-screen bg-[#f5f5f5] p-4 md:p-6">
       <div className="max-w-5xl mx-auto h-full">
         {/* Main Grid Container - Desktop: 2x2 grid, Mobile: 1 column */}
         <div className="flex flex-col md:grid md:grid-cols-2 gap-0 h-full min-h-[calc(100vh-8rem)] rounded-xl border border-gray-300">

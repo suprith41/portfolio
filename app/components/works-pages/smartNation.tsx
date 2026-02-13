@@ -52,7 +52,7 @@ const SmartNation = () => {
   const [selectedIcon, setSelectedIcon] = useState(appIcons[1]); // Default to 'Default' icon
 
   return (
-    <div className="min-h-screen bg-white mt-16 md:mt-16 px-4 md:px-0">
+    <div className="min-h-screen bg-[#f5f5f5] mt-16 md:mt-16 px-4 md:px-0">
       {/* Main Container with Grid Lines */}
       <div className="max-w-6xl mx-auto rounded-t-lg md:rounded-t-lg border-l border-r border-t border-gray-300 h-full">
         

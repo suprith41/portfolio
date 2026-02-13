@@ -50,7 +50,7 @@ const WorkGallery = () => {
   }, [isMobile]);
 
   return (
-    <div className="bg-white mt-8 md:mt-0">
+    <div className="bg-[#f5f5f5] mt-8 md:mt-0">
       {/* Works Title */}
       <div className="text-center mb-8 md:mb-12">
         <h2 className="text-4xl md:text-6xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>

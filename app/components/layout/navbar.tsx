@@ -265,7 +265,7 @@ export default function Navbar() {
   }, [pathname])
   
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 pointer-events-none">
+    <div className="fixed top-0 left-0 right-0 flex justify-center p-4 pointer-events-none" style={{ zIndex: 10000 }}>
       <nav 
         ref={navRef}
         className={`flex items-center rounded-full py-2 relative transition-all duration-300 hover:shadow-lg pointer-events-auto ${

@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="bg-white">
+    <html lang="en" className="bg-[#f5f5f5]">
       <head>
         {/* GSAP CDN */}
         <Script 
@@ -35,7 +35,7 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
       </head>
-      <body className={`${inter.className} bg-white min-h-screen`} suppressHydrationWarning>
+      <body className={`${inter.className} bg-[#f5f5f5] min-h-screen`} suppressHydrationWarning>
         <Navbar />
         <main>
           {children}

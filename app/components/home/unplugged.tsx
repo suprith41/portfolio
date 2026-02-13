@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Unplugged = () => {
   return (
-    <div className="bg-white py-16 md:py-24">
+    <div className="bg-[#f5f5f5] py-16 md:py-24">
       {/* Section Title */}
       <div className="text-center mb-12 md:mb-16">
         <h2 className="text-4xl md:text-6xl font-light text-black mb-4" style={{ fontFamily: 'Garamond, Georgia, serif' }}>

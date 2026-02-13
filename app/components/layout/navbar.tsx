@@ -265,10 +265,10 @@ export default function Navbar() {
   }, [pathname])
   
   return (
-    <div className="fixed top-0 left-0 right-0 flex justify-center p-4 pointer-events-none" style={{ zIndex: 10000 }}>
+    <div className="fixed top-0 left-0 right-0 flex justify-center p-4 pointer-events-none" style={{ zIndex: 10005 }}>
       <nav 
         ref={navRef}
-        className={`flex items-center rounded-full py-2 relative transition-all duration-300 hover:shadow-lg pointer-events-auto ${
+        className={`flex items-center rounded-none py-2 relative transition-all duration-300 hover:shadow-lg pointer-events-auto ${
           isMounted 
             ? "gap-3 md:gap-6 px-4 md:px-6" 
             : "gap-6 px-6"
@@ -276,7 +276,7 @@ export default function Navbar() {
         style={{
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'url(#liquid-lens) blur(2px)',
-          border: '1px solid rgba(250, 250, 250, 0.2)',
+          border: '2px solid rgb(212, 212, 216)',
           boxShadow: `
             inset 0 1px 0 rgba(255, 255, 255, 0.2),
             inset 0 -1px 0 rgba(255, 255, 255, 0.1),
@@ -284,6 +284,11 @@ export default function Navbar() {
           `
         }}
       >
+        {/* Corner squares - half outside */}
+        <div className="absolute -top-1 -left-1 w-2 h-2 bg-zinc-300" />
+        <div className="absolute -top-1 -right-1 w-2 h-2 bg-zinc-300" />
+        <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-zinc-300" />
+        <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-zinc-300" />
         {navItems.map((item, index) => (
           <div key={item.name} className={`flex items-center ${
             isMounted ? "gap-3 md:gap-6" : "gap-6"

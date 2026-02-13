@@ -70,10 +70,23 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  cursor: url('/images/common/cursor.svg') 2 4, auto;
+}
+
+/* Custom cursor on interactive elements (same cursor, pointer fallback) */
+a, button, [role="button"], [type="button"], [type="submit"], input[type="checkbox"], input[type="radio"], select, label[for] {
+  cursor: url('/images/common/cursor.svg') 2 4, pointer;
 }
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background-color: #caf182;
+}
+::-moz-selection {
+  background-color: #caf182;
 }
 
 /* Advanced Gradient Blur Effect */
@@ -198,5 +211,31 @@ body {
     background-size: 3em 3em;
     background-position: 1.5em 1.5em;
   }
+}
+
+/* Scroll indicator dot - up and down animation */
+@keyframes scroll-indicator-dot {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(22px);
+  }
+}
+
+.reveal-scroll-dot {
+  animation: scroll-indicator-dot 1.8s ease-in-out infinite;
+}
+
+/* Text split animation styles */
+.word,
+.char {
+  display: inline-block;
+}
+
+.word {
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
 }
 

@@ -60,6 +60,28 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Floating loop animation for reveal section (Abhay & Tejas images) - different timing so they don't sync */
+.reveal-floating-abhay {
+  animation: reveal-floating-abhay 5s ease-in-out infinite;
+}
+
+.reveal-floating-tejas {
+  animation: reveal-floating-tejas 6s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+@keyframes reveal-floating-abhay {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(0, 14px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes reveal-floating-tejas {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(0, 18px); }
+  100% { transform: translate(0, 0); }
+}
+
 /* Force light mode - remove dark mode support */
 html,
 body {

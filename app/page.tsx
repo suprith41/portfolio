@@ -11,10 +11,20 @@ export default function Home() {
       </div>
       
       <div className="grid grid-cols-2 gap-4 max-w-6xl mx-auto">
-        {Array.from({ length: 8 }).map((_, index) => (
+        {[
+          '#f7e3d5', // warm peach
+          '#d5e8f0', // soft blue
+          '#e8f0d5', // sage green
+          '#f0d5e8', // dusty rose
+          '#e8e0d5', // warm sand
+          '#d5e0f0', // pale blue-gray
+          '#f0e8d5', // cream
+          '#e0d5f0', // lavender
+        ].map((color, index) => (
           <div
             key={index}
-            className="bg-[#f7e3d5] rounded-lg p-6 aspect-square flex items-center justify-center"
+            className="rounded-lg p-6 aspect-square flex items-center justify-center"
+            style={{ backgroundColor: color }}
           >
             <span className="text-gray-700">Card {index + 1}</span>
           </div>

@@ -17,14 +17,19 @@ export default function Reveal() {
   const borderSvgRef = useRef<SVGSVGElement>(null)
   const rectRef = useRef<SVGRectElement>(null)
   const borderRef = useRef<SVGRectElement>(null)
+  const middleRingRef = useRef<SVGRectElement>(null)
+  const outerRingRef = useRef<SVGRectElement>(null)
+  const outerRing2Ref = useRef<SVGRectElement>(null)
+  const outerRing3Ref = useRef<SVGRectElement>(null)
   const dotsRef = useRef<SVGGElement>(null)
-  const abhayRef = useRef<HTMLImageElement>(null)
-  const tejasRef = useRef<HTMLImageElement>(null)
+  const abhayRef = useRef<HTMLDivElement>(null)
+  const tejasRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const productDesignerRef = useRef<HTMLDivElement>(null)
   const webDeveloperRef = useRef<HTMLDivElement>(null)
   const hiImARef = useRef<HTMLDivElement>(null)
   const basedInRef = useRef<HTMLDivElement>(null)
+  const introParagraphRef = useRef<HTMLDivElement>(null)
   const logoRef = useRef<HTMLDivElement>(null)
   const scrollIndicatorRef = useRef<HTMLDivElement>(null)
   const scrollTriggerRef = useRef<any>(null)
@@ -35,14 +40,16 @@ export default function Reveal() {
   const [mounted, setMounted] = useState(false)
   const [initialCenter, setInitialCenter] = useState({ x: 0, y: 0 })
 
-  // Initialize text animations
+  // Initialize text animations (all 6 so resize works; visibility handled in handleTextAnimations)
   const initTextAnimations = () => {
     if (typeof window === 'undefined') return
 
+    const isMobile = window.innerWidth < 768
     const textElements = [
       { ref: textRef, id: 'satish-hebbal' },
       { ref: productDesignerRef, id: 'product-designer' },
       { ref: webDeveloperRef, id: 'web-developer' },
+      { ref: introParagraphRef, id: 'intro-paragraph' },
       { ref: hiImARef, id: 'hi-im-a' },
       { ref: basedInRef, id: 'based-in' },
     ]
@@ -50,43 +57,83 @@ export default function Reveal() {
     textElements.forEach(({ ref, id }) => {
       if (!ref.current) return
 
-      // Split text into words & characters
+      const isInactiveOnMobile =
+        isMobile && (id === 'hi-im-a' || id === 'based-in' || id === 'product-designer' || id === 'web-developer')
+      const isInactiveOnDesktop = !isMobile && id === 'intro-paragraph'
+      const isActive = !isInactiveOnMobile && !isInactiveOnDesktop
+
+      // On mobile: no SplitType or timelines — just show/hide by visibility
+      if (isMobile) {
+        ref.current.style.opacity = isActive ? '1' : '0'
+        ref.current.style.visibility = isActive ? 'visible' : 'hidden'
+        ref.current.style.pointerEvents = isActive ? 'auto' : 'none'
+        return
+      }
+
+      // Desktop: full character split and slide animations
       const split = new SplitType(ref.current, {
         types: ['words', 'chars'],
         tagName: 'span',
       })
 
-      // Set initial opacity to 1 for the container and ensure it's visible
       gsap.set(ref.current, { opacity: 1, visibility: 'visible' })
-      
-      // Ensure characters are visible and positioned correctly initially
       if (split.chars && split.chars.length > 0) {
         gsap.set(split.chars, { opacity: 1, yPercent: 0 })
       }
 
-      // Create slide-up animation (for initial load and scroll back to top)
+      const isRightToLeft = id === 'web-developer' || id === 'based-in'
+      const isSatishHebbal = id === 'satish-hebbal'
+
       const slideUpTl = gsap.timeline({ paused: true })
-      slideUpTl.from(split.chars, {
-        yPercent: 100,
-        duration: 0.2,
-        ease: 'ease.out',
-        stagger: { amount: 0.3 },
-      })
-
-      // Create slide-down animation (for initial scroll)
       const slideDownTl = gsap.timeline({ paused: true })
-      slideDownTl.from(split.chars, {
-        yPercent: -120,
-        duration: 0.18,
-        ease: 'ease.out',
-        stagger: { amount: 0.35 },
-      })
 
-      // Store animations
+      if (isSatishHebbal && split.words && split.words.length >= 2) {
+        // "Satish" right-to-left, "Hebbal" left-to-right
+        const satishChars = Array.from(split.words[0].children) as Element[]
+        const hebbalChars = Array.from(split.words[1].children) as Element[]
+        slideUpTl
+          .from(satishChars, {
+            yPercent: 100,
+            duration: 0.2,
+            ease: 'ease.out',
+            stagger: { amount: 0.15, from: 'end' },
+          }, 0)
+          .from(hebbalChars, {
+            yPercent: 100,
+            duration: 0.2,
+            ease: 'ease.out',
+            stagger: { amount: 0.15, from: 'start' },
+          }, 0)
+        slideDownTl
+          .from(satishChars, {
+            yPercent: -120,
+            duration: 0.18,
+            ease: 'ease.out',
+            stagger: { amount: 0.18, from: 'end' },
+          }, 0)
+          .from(hebbalChars, {
+            yPercent: -120,
+            duration: 0.18,
+            ease: 'ease.out',
+            stagger: { amount: 0.18, from: 'start' },
+          }, 0)
+      } else {
+        slideUpTl.from(split.chars, {
+          yPercent: 100,
+          duration: 0.2,
+          ease: 'ease.out',
+          stagger: { amount: 0.3, from: isRightToLeft ? 'end' : 'start' },
+        })
+        slideDownTl.from(split.chars, {
+          yPercent: -120,
+          duration: 0.18,
+          ease: 'ease.out',
+          stagger: { amount: 0.35, from: isRightToLeft ? 'end' : 'start' },
+        })
+      }
+
       textAnimationsRef.current.set(`${id}-up`, slideUpTl)
       textAnimationsRef.current.set(`${id}-down`, slideDownTl)
-
-      // Play slide-up on initial load (characters will animate from below to their position)
       slideUpTl.play()
     })
   }
@@ -105,19 +152,37 @@ export default function Reveal() {
     const isScrollingDown = scrollDelta >= SCROLL_DIRECTION_THRESHOLD
     lastScrollYRef.current = currentScrollY
 
+    const isMobile = window.innerWidth < 768
     const textElements = [
-      { ref: textRef, id: 'satish-hebbal' },
-      { ref: productDesignerRef, id: 'product-designer' },
-      { ref: webDeveloperRef, id: 'web-developer' },
-      { ref: hiImARef, id: 'hi-im-a' },
-      { ref: basedInRef, id: 'based-in' },
+      { ref: textRef, id: 'satish-hebbal' as const },
+      { ref: productDesignerRef, id: 'product-designer' as const },
+      { ref: webDeveloperRef, id: 'web-developer' as const },
+      { ref: introParagraphRef, id: 'intro-paragraph' as const },
+      { ref: hiImARef, id: 'hi-im-a' as const },
+      { ref: basedInRef, id: 'based-in' as const },
     ]
 
     // Once scroll progress passes threshold, hide all text so it fully disappears
     const shouldHideText = progress >= PROGRESS_HIDE_TEXT
+    // On mobile: fast fade out/in tied to scroll progress (no character animations)
+    const mobileFadeEnd = 0.12 // fade completes in first 12% of scroll
+    const mobileFadeOpacity = isMobile ? Math.max(0, 1 - progress / mobileFadeEnd) : 1
     textElements.forEach(({ ref, id }) => {
+      // On mobile: only show intro-paragraph; hide product-designer, web-developer, hi-im-a, based-in
+      const isInactive =
+        (isMobile && (id === 'hi-im-a' || id === 'based-in' || id === 'product-designer' || id === 'web-developer')) ||
+        (!isMobile && id === 'intro-paragraph')
       if (ref.current) {
-        if (shouldHideText) {
+        if (isInactive) {
+          ref.current.style.opacity = '0'
+          ref.current.style.visibility = 'hidden'
+          ref.current.style.pointerEvents = 'none'
+        } else if (isMobile) {
+          // Mobile: fade out as user scrolls, fade in as they scroll back
+          ref.current.style.opacity = String(mobileFadeOpacity)
+          ref.current.style.visibility = mobileFadeOpacity > 0 ? 'visible' : 'hidden'
+          ref.current.style.pointerEvents = mobileFadeOpacity > 0 ? 'auto' : 'none'
+        } else if (shouldHideText) {
           ref.current.style.opacity = '0'
           ref.current.style.visibility = 'hidden'
           ref.current.style.pointerEvents = 'none'
@@ -127,6 +192,8 @@ export default function Reveal() {
           ref.current.style.pointerEvents = 'auto'
         }
       }
+
+      if (isInactive) return
 
       const slideUpTl = textAnimationsRef.current.get(`${id}-up`)
       const slideDownTl = textAnimationsRef.current.get(`${id}-down`)
@@ -161,8 +228,8 @@ export default function Reveal() {
     const updateCenter = () => {
       if (typeof window !== 'undefined') {
         const isMobile = window.innerWidth < 768
-        const initialWidth = isMobile ? 300 : 500
-        const initialHeight = isMobile ? 100 : 150
+        const initialWidth = isMobile ? 340 : 500
+        const initialHeight = isMobile ? 130 : 150
         setInitialCenter({
           x: window.innerWidth / 2 - initialWidth / 2,
           y: window.innerHeight / 2 - initialHeight / 2
@@ -177,15 +244,19 @@ export default function Reveal() {
   }, [])
 
   useEffect(() => {
-    if (!mounted || !overlayRef.current || !svgRef.current || !borderSvgRef.current || !rectRef.current || !borderRef.current || !dotsRef.current || !abhayRef.current || !tejasRef.current || !textRef.current) return
+    if (!mounted || !overlayRef.current || !svgRef.current || !borderSvgRef.current || !rectRef.current || !borderRef.current || !middleRingRef.current || !outerRingRef.current || !outerRing2Ref.current || !outerRing3Ref.current || !dotsRef.current || !abhayRef.current || !tejasRef.current || !textRef.current) return
 
-    // Initial mask size - small rectangle in the center (smaller on mobile)
+    // Initial mask size - small rectangle in the center (wider + taller proportion on mobile)
     const isMobile = window.innerWidth < 768
-    const initialWidth = isMobile ? 300 : 500
-    const initialHeight = isMobile ? 100 : 150
-    
+    const initialWidth = isMobile ? 340 : 500
+    const initialHeight = isMobile ? 130 : 150
+    const ringGap1 = isMobile ? 28 : 40
+    const ringGap2 = isMobile ? 40 : 56
+    const ringGap3 = isMobile ? 72 : 100
+    const ringGap4 = isMobile ? 88 : 120
+
     const updateMask = (progress: number) => {
-      if (!rectRef.current || !svgRef.current || !borderSvgRef.current || !borderRef.current || !dotsRef.current) return
+      if (!rectRef.current || !svgRef.current || !borderSvgRef.current || !borderRef.current || !middleRingRef.current || !outerRingRef.current || !outerRing2Ref.current || !outerRing3Ref.current || !dotsRef.current) return
       const borderBlurEl = borderSvgRef.current?.querySelector('#reveal-border-blur feGaussianBlur') as SVGFEGaussianBlurElement | null
       if (borderBlurEl) {
         const maxBorderBlur = 4
@@ -199,9 +270,13 @@ export default function Reveal() {
       
       // Calculate growing dimensions
       const maxDimension = Math.max(viewportWidth, viewportHeight) * 1.5
-      // Slow down height growth to match width growth proportionally
-      const heightProgress = progress * 0.7 // Height grows slower to match width growth rate
-      const currentWidth = initialWidth + (maxDimension - initialWidth) * progress
+      // Mobile: width ends at viewport width (grow less in width); height grows more (uses maxDimension)
+      const widthProgress = isMobile ? progress * 0.88 : progress
+      const heightProgress = isMobile ? progress * 1.2 : progress * 0.7
+      const endWidthMobile = viewportWidth * 1.1
+      const currentWidth = isMobile
+        ? initialWidth + (endWidthMobile - initialWidth) * widthProgress
+        : initialWidth + (maxDimension - initialWidth) * widthProgress
       const currentHeight = initialHeight + (maxDimension - initialHeight) * heightProgress
       
       // Update SVG size to match viewport exactly
@@ -230,6 +305,28 @@ export default function Reveal() {
       borderRef.current.setAttribute('y', String(rectY))
       borderRef.current.setAttribute('width', String(currentWidth))
       borderRef.current.setAttribute('height', String(currentHeight))
+      // Update middle concentric ring
+      middleRingRef.current.setAttribute('x', String(rectX - ringGap1))
+      middleRingRef.current.setAttribute('y', String(rectY - ringGap1))
+      middleRingRef.current.setAttribute('width', String(currentWidth + 2 * ringGap1))
+      middleRingRef.current.setAttribute('height', String(currentHeight + 2 * ringGap1))
+      // Update outer concentric ring
+      outerRingRef.current.setAttribute('x', String(rectX - ringGap1 - ringGap2))
+      outerRingRef.current.setAttribute('y', String(rectY - ringGap1 - ringGap2))
+      outerRingRef.current.setAttribute('width', String(currentWidth + 2 * (ringGap1 + ringGap2)))
+      outerRingRef.current.setAttribute('height', String(currentHeight + 2 * (ringGap1 + ringGap2)))
+      // Update outer ring 2
+      const offset3 = ringGap1 + ringGap2 + ringGap3
+      outerRing2Ref.current.setAttribute('x', String(rectX - offset3))
+      outerRing2Ref.current.setAttribute('y', String(rectY - offset3))
+      outerRing2Ref.current.setAttribute('width', String(currentWidth + 2 * offset3))
+      outerRing2Ref.current.setAttribute('height', String(currentHeight + 2 * offset3))
+      // Update outer ring 3
+      const offset4 = ringGap1 + ringGap2 + ringGap3 + ringGap4
+      outerRing3Ref.current.setAttribute('x', String(rectX - offset4))
+      outerRing3Ref.current.setAttribute('y', String(rectY - offset4))
+      outerRing3Ref.current.setAttribute('width', String(currentWidth + 2 * offset4))
+      outerRing3Ref.current.setAttribute('height', String(currentHeight + 2 * offset4))
       
       // Update dots positions
       const dotSize = 4 // Half size of the squares (so 8x8 total)
@@ -259,7 +356,7 @@ export default function Reveal() {
       // Update text position - centered inside the reveal box
       if (textRef.current) {
         const textX = centerX // Center horizontally
-        const textYOffset = isMobile ? 15 : 20 // Mobile: 5px up
+        const textYOffset = isMobile ? 3 : 20 // Mobile: 12px up from center
         const textY = centerY + textYOffset
         textRef.current.style.left = `${textX}px`
         textRef.current.style.top = `${textY}px`
@@ -323,7 +420,7 @@ export default function Reveal() {
 
     // Initialize - ensure it starts centered
     const initSVG = () => {
-      if (!rectRef.current || !svgRef.current || !borderSvgRef.current || !borderRef.current || !dotsRef.current) return
+      if (!rectRef.current || !svgRef.current || !borderSvgRef.current || !borderRef.current || !middleRingRef.current || !outerRingRef.current || !outerRing2Ref.current || !outerRing3Ref.current || !dotsRef.current) return
       
       const viewportWidth = window.innerWidth
       const viewportHeight = window.innerHeight
@@ -352,6 +449,25 @@ export default function Reveal() {
       borderRef.current.setAttribute('y', String(initialY))
       borderRef.current.setAttribute('width', String(initialWidth))
       borderRef.current.setAttribute('height', String(initialHeight))
+      // Initialize middle and outer concentric rings
+      middleRingRef.current.setAttribute('x', String(initialX - ringGap1))
+      middleRingRef.current.setAttribute('y', String(initialY - ringGap1))
+      middleRingRef.current.setAttribute('width', String(initialWidth + 2 * ringGap1))
+      middleRingRef.current.setAttribute('height', String(initialHeight + 2 * ringGap1))
+      outerRingRef.current.setAttribute('x', String(initialX - ringGap1 - ringGap2))
+      outerRingRef.current.setAttribute('y', String(initialY - ringGap1 - ringGap2))
+      outerRingRef.current.setAttribute('width', String(initialWidth + 2 * (ringGap1 + ringGap2)))
+      outerRingRef.current.setAttribute('height', String(initialHeight + 2 * (ringGap1 + ringGap2)))
+      const offset3 = ringGap1 + ringGap2 + ringGap3
+      outerRing2Ref.current.setAttribute('x', String(initialX - offset3))
+      outerRing2Ref.current.setAttribute('y', String(initialY - offset3))
+      outerRing2Ref.current.setAttribute('width', String(initialWidth + 2 * offset3))
+      outerRing2Ref.current.setAttribute('height', String(initialHeight + 2 * offset3))
+      const offset4 = ringGap1 + ringGap2 + ringGap3 + ringGap4
+      outerRing3Ref.current.setAttribute('x', String(initialX - offset4))
+      outerRing3Ref.current.setAttribute('y', String(initialY - offset4))
+      outerRing3Ref.current.setAttribute('width', String(initialWidth + 2 * offset4))
+      outerRing3Ref.current.setAttribute('height', String(initialHeight + 2 * offset4))
       
       // Initialize dots
       const dots = dotsRef.current.children
@@ -384,7 +500,7 @@ export default function Reveal() {
         
         textRef.current.style.position = 'fixed'
         textRef.current.style.left = `${centerX}px`
-        textRef.current.style.top = `${centerY + (isMobile ? 15 : 20)}px` // Center vertically; mobile: 5px up
+        textRef.current.style.top = `${centerY + (isMobile ? 3 : 20)}px` // Center vertically; mobile: 12px up from center
         textRef.current.style.transform = 'translate(-50%, -50%)' // Center the text
         textRef.current.style.zIndex = '10003'
         textRef.current.style.pointerEvents = 'auto'
@@ -520,8 +636,8 @@ export default function Reveal() {
       const centerX = viewportWidth / 2
       const centerY = viewportHeight / 2
       const isMobile = window.innerWidth < 768
-      const initialWidth = isMobile ? 300 : 500
-      const initialHeight = isMobile ? 100 : 150
+      const initialWidth = isMobile ? 340 : 500
+      const initialHeight = isMobile ? 130 : 150
       const initialX = centerX - initialWidth / 2
       const initialY = centerY - initialHeight / 2
       
@@ -546,7 +662,7 @@ export default function Reveal() {
       // Initialize text position - centered inside the reveal box
       if (textRef.current) {
         textRef.current.style.left = `${centerX}px`
-        textRef.current.style.top = `${centerY + (isMobile ? 15 : 20)}px` // Center vertically; mobile: 5px up
+        textRef.current.style.top = `${centerY + (isMobile ? 3 : 20)}px` // Center vertically; mobile: 12px up from center
         textRef.current.style.transform = 'translate(-50%, -50%)' // Center the text
       }
       
@@ -567,10 +683,10 @@ export default function Reveal() {
 
   if (!mounted) return null
 
-  // Calculate responsive dimensions for initial SVG values
+  // Calculate responsive dimensions for initial SVG values (mobile: wider, taller proportion)
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-  const svgInitialWidth = isMobile ? 300 : 500
-  const svgInitialHeight = isMobile ? 100 : 150
+  const svgInitialWidth = isMobile ? 340 : 500
+  const svgInitialHeight = isMobile ? 130 : 150
 
   // Match SVG viewBox to window so mask/rect coordinates (innerWidth/innerHeight) align and box is centered
   const viewportW = typeof window !== 'undefined' ? window.innerWidth : 1920
@@ -582,6 +698,12 @@ export default function Reveal() {
     initialCenter.x === 0 && initialCenter.y === 0 && typeof window !== 'undefined'
       ? { x: viewportW / 2 - svgInitialWidth / 2, y: viewportH / 2 - svgInitialHeight / 2 }
       : initialCenter
+
+  // Concentric rectangle gaps (outward from inner box) - increased sizes
+  const ringGap1 = isMobile ? 28 : 40
+  const ringGap2 = isMobile ? 40 : 56
+  const ringGap3 = isMobile ? 72 : 100
+  const ringGap4 = isMobile ? 88 : 120
 
   const revealContent = (
     <>
@@ -652,7 +774,59 @@ export default function Reveal() {
           </filter>
         </defs>
         <g filter="url(#reveal-border-blur)">
-          {/* Border rectangle - light reddish-orange */}
+          {/* Outermost concentric rectangle 3 - 25% opacity */}
+          <rect
+            ref={outerRing3Ref}
+            x={boxCenter.x - ringGap1 - ringGap2 - ringGap3 - ringGap4}
+            y={boxCenter.y - ringGap1 - ringGap2 - ringGap3 - ringGap4}
+            width={svgInitialWidth + 2 * (ringGap1 + ringGap2 + ringGap3 + ringGap4)}
+            height={svgInitialHeight + 2 * (ringGap1 + ringGap2 + ringGap3 + ringGap4)}
+            fill="none"
+            stroke="rgb(212, 212, 216)"
+            strokeWidth="2"
+            strokeDasharray="2 6"
+            strokeOpacity="0.25"
+          />
+          {/* Outermost concentric rectangle 2 - 40% opacity */}
+          <rect
+            ref={outerRing2Ref}
+            x={boxCenter.x - ringGap1 - ringGap2 - ringGap3}
+            y={boxCenter.y - ringGap1 - ringGap2 - ringGap3}
+            width={svgInitialWidth + 2 * (ringGap1 + ringGap2 + ringGap3)}
+            height={svgInitialHeight + 2 * (ringGap1 + ringGap2 + ringGap3)}
+            fill="none"
+            stroke="rgb(212, 212, 216)"
+            strokeWidth="2"
+            strokeDasharray="2 6"
+            strokeOpacity="0.4"
+          />
+          {/* Outer concentric rectangle - 65% opacity */}
+          <rect
+            ref={outerRingRef}
+            x={boxCenter.x - ringGap1 - ringGap2}
+            y={boxCenter.y - ringGap1 - ringGap2}
+            width={svgInitialWidth + 2 * (ringGap1 + ringGap2)}
+            height={svgInitialHeight + 2 * (ringGap1 + ringGap2)}
+            fill="none"
+            stroke="rgb(212, 212, 216)"
+            strokeWidth="2"
+            strokeDasharray="2 6"
+            strokeOpacity="0.65"
+          />
+          {/* Middle concentric rectangle - 80% opacity */}
+          <rect
+            ref={middleRingRef}
+            x={boxCenter.x - ringGap1}
+            y={boxCenter.y - ringGap1}
+            width={svgInitialWidth + 2 * ringGap1}
+            height={svgInitialHeight + 2 * ringGap1}
+            fill="none"
+            stroke="rgb(212, 212, 216)"
+            strokeWidth="2"
+            strokeDasharray="2 6"
+            strokeOpacity="0.8"
+          />
+          {/* Innermost border rectangle (with corner handles) - 100% opacity */}
           <rect
             ref={borderRef}
             x={boxCenter.x}
@@ -662,6 +836,7 @@ export default function Reveal() {
             fill="none"
             stroke="rgb(212, 212, 216)"
             strokeWidth="2"
+            strokeDasharray="2 6"
           />
           {/* Dots group */}
           <g ref={dotsRef}>
@@ -733,10 +908,8 @@ export default function Reveal() {
       </div>
       
       {/* Abhay Image - positioned LEFT, moves left off screen, enlarges, and blurs (hidden on mobile) */}
-      <img
+      <div
         ref={abhayRef}
-        src="/images/reveal/abhay.png"
-        alt="Abhay"
         style={{
           position: 'fixed',
           left: '50%',
@@ -754,13 +927,21 @@ export default function Reveal() {
           border: 'none',
           display: isMobile ? 'none' : 'block',
         }}
-      />
-      
+      >
+        <div className="reveal-floating-abhay" style={{ width: '100%', height: '100%' }}>
+          <img
+            src="/images/reveal/abhay.png"
+            alt="Abhay"
+            width={400}
+            height={400}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
+        </div>
+      </div>
+
       {/* Tejas Image - positioned RIGHT, moves right off screen, enlarges, and blurs (hidden on mobile) */}
-      <img
+      <div
         ref={tejasRef}
-        src="/images/reveal/tejas.png"
-        alt="Tejas"
         style={{
           position: 'fixed',
           left: '50%',
@@ -778,7 +959,17 @@ export default function Reveal() {
           border: 'none',
           display: isMobile ? 'none' : 'block',
         }}
-      />
+      >
+        <div className="reveal-floating-tejas" style={{ width: '100%', height: '100%' }}>
+          <img
+            src="/images/reveal/tejas.png"
+            alt="Tejas"
+            width={400}
+            height={400}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
+        </div>
+      </div>
       
       {/* Text inside reveal box - centered and visible */}
       <div
@@ -786,7 +977,7 @@ export default function Reveal() {
         style={{
           position: 'fixed',
           left: '50%',
-          top: isMobile ? 'calc(50% + 15px)' : 'calc(50% + 20px)',
+          top: isMobile ? 'calc(50% + 3px)' : 'calc(50% + 20px)',
           transform: 'translate(-50%, -50%)',
           zIndex: 10003,
           pointerEvents: 'auto',
@@ -802,20 +993,21 @@ export default function Reveal() {
         Satish Hebbal
       </div>
 
-      {/* Product Design: above mask box, right edge aligned with mask box */}
+      {/* Product Designer: above mask box (hidden on mobile) */}
       <div
         ref={productDesignerRef}
         style={{
           position: 'fixed',
+          display: isMobile ? 'none' : 'block',
           left: '50%',
           top: '50%',
-          transform: isMobile ? 'translate(-50%, calc(-50% - 80px))' : 'translate(-50%, calc(-50% - 95px))',
+          transform: 'translate(-50%, calc(-50% - 95px))',
           width: svgInitialWidth,
           zIndex: 10003,
           pointerEvents: 'auto',
           color: '#7A7A7A',
           fontFamily: 'Saans Regular, sans-serif',
-          fontSize: isMobile ? '16px' : '20px',
+          fontSize: '20px',
           lineHeight: 1.2,
           textAlign: 'right',
           opacity: 0,
@@ -824,39 +1016,72 @@ export default function Reveal() {
         Product Designer
       </div>
 
-      {/* Front-End Engineer: below mask box, left edge aligned with mask box */}
+      {/* Web Developer: below mask box (hidden on mobile) */}
       <div
         ref={webDeveloperRef}
         style={{
           position: 'fixed',
+          display: isMobile ? 'none' : 'block',
           left: '50%',
           top: '50%',
-          transform: isMobile ? 'translate(calc(-50% + 14px), calc(-50% + 80px))' : 'translate(calc(-50% + 14px), calc(-50% + 95px))',
+          transform: 'translate(calc(-50% + 14px), calc(-50% + 95px))',
           width: svgInitialWidth,
           zIndex: 10003,
           pointerEvents: 'auto',
           color: '#7A7A7A',
           fontFamily: 'Saans Regular, sans-serif',
-          fontSize: isMobile ? '16px' : '20px',
+          fontSize: '20px',
           lineHeight: 1.2,
           textAlign: 'left',
           opacity: 0,
         }}
       >
-        Web Developer 
+        Web Developer
       </div>
 
-      {/* Top-right: Hi, I'm a / Product Designer & Front-End Engineer */}
+      {/* Mobile only: single paragraph below mask, above scroll */}
+      <div
+        ref={introParagraphRef}
+        style={{
+          position: 'fixed',
+          left: 'clamp(1.5rem, 6vw, 4rem)',
+          right: 'clamp(1.5rem, 6vw, 4rem)',
+          bottom: 'calc(clamp(1.5rem, 5vh, 2.5rem) + 175px)',
+          marginLeft: 15,
+          display: isMobile ? 'block' : 'none',
+          zIndex: 10003,
+          pointerEvents: 'auto',
+          fontFamily: 'Saans Regular, sans-serif',
+          fontSize: '18px',
+          lineHeight: 1.4,
+          textAlign: 'left',
+          color: '#7A7A7A',
+          opacity: 0,
+        }}
+      >
+        <span style={{ color: '#BEBEBE' }}>Hi, I'm a </span>
+        <span>Product Designer & Front-End Engineer </span>
+        <span style={{ color: '#BEBEBE' }}>based in </span>
+        <span>
+          <span className="reveal-hubli-hover" style={{ color: '#7A7A7A' }}>Hubli</span>
+          <span style={{ color: '#7A7A7A' }}>, </span>
+          <span className="reveal-karnataka-hover" style={{ color: '#7A7A7A' }}>Karnataka</span>
+          <span style={{ color: '#7A7A7A' }}>.</span>
+        </span>
+      </div>
+
+      {/* Desktop: top-right */}
       <div
         ref={hiImARef}
         style={{
           position: 'fixed',
+          display: isMobile ? 'none' : 'block',
           right: 'clamp(1.5rem, 6vw, 4rem)',
-          top: isMobile ? 'calc(clamp(6rem, 18vh, 12rem) - 80px)' : 'calc(clamp(6rem, 18vh, 12rem) - 90px)',
+          top: 'calc(clamp(6rem, 18vh, 12rem) - 90px)',
           zIndex: 10003,
           pointerEvents: 'auto',
           fontFamily: 'Saans Regular, sans-serif',
-          fontSize: isMobile ? '18px' : '24px',
+          fontSize: '24px',
           lineHeight: 1.2,
           textAlign: 'right',
           whiteSpace: 'pre-line',
@@ -870,17 +1095,18 @@ export default function Reveal() {
 & Front-End Engineer`}</span>
       </div>
 
-      {/* Bottom-left: based in / Hubli, Karnataka. */}
+      {/* Desktop: bottom-left */}
       <div
         ref={basedInRef}
         style={{
           position: 'fixed',
+          display: isMobile ? 'none' : 'block',
           left: 'clamp(1.5rem, 6vw, 4rem)',
-          bottom: isMobile ? 'calc(clamp(5rem, 18vh, 10rem) - 120px)' : 'calc(clamp(5rem, 18vh, 10rem) - 110px)',
+          bottom: 'calc(clamp(5rem, 18vh, 10rem) - 110px)',
           zIndex: 10003,
           pointerEvents: 'auto',
           fontFamily: 'Saans Regular, sans-serif',
-          fontSize: isMobile ? '18px' : '24px',
+          fontSize: '24px',
           lineHeight: 1.2,
           textAlign: 'left',
           whiteSpace: 'pre-line',
@@ -890,7 +1116,9 @@ export default function Reveal() {
       >
         <span style={{ color: '#BEBEBE' }}>based in</span>
         {'\n'}
-        <span style={{ color: '#7A7A7A' }}>Hubli, Karnataka.</span>
+        <span style={{ color: '#7A7A7A' }}>
+          <span className="reveal-hubli-hover">Hubli</span>, <span className="reveal-karnataka-hover">Karnataka</span>.
+        </span>
       </div>
 
       {/* Scroll indicator - bottom center */}

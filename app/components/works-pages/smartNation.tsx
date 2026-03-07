@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image'
 
 const Plus = ({ h, v = 'bottom' }: { h: 'left' | 'right'; v?: 'top' | 'bottom' }) => (
@@ -50,6 +50,16 @@ const SmartNation = () => {
 
   const [selectedIcon, setSelectedIcon] = useState(appIcons[1]);
 
+  useEffect(() => {
+    const prev = document.documentElement.style.background;
+    document.documentElement.style.background = 'white';
+    document.body.style.background = 'white';
+    return () => {
+      document.documentElement.style.background = prev;
+      document.body.style.background = '';
+    };
+  }, []);
+
   const brandColors = [
     { name: 'Background',  hex: '#0A0A0F' },
     { name: 'Surface',     hex: '#18181F' },
@@ -61,7 +71,7 @@ const SmartNation = () => {
   ];
 
   return (
-    <div className="bg-[#f5f5f5] mt-16 px-4 md:px-0">
+    <div className="bg-white min-h-screen mt-16 px-4 md:px-0">
       <div className="relative overflow-visible max-w-5xl mx-auto border-l border-r border-t border-gray-200 rounded-t-lg">
         <Plus h="left"  v="top" />
         <Plus h="right" v="top" />
@@ -72,7 +82,7 @@ const SmartNation = () => {
           <h1 className="text-2xl md:text-4xl font-light tracking-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
             Smart Nation
           </h1>
-          <Image src="/images/WorkImages/smartNationImages/sa-header-logo.svg" alt="SA" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-20" />
+          <Image src="/images/common/sa26.svg" alt="SA" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-20" />
           <Plus h="left" />
           <Plus h="right" />
           <PlusAt x="50%" />
@@ -342,7 +352,7 @@ const SmartNation = () => {
             <div className="px-6 md:px-10 py-10 md:py-14 flex flex-col justify-center md:border-r border-gray-200 order-2 md:order-1">
               <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'Poppins, sans-serif' }}>Appliance Icons</p>
               <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                No library had the right icons for Indian homes. Ceiling fans, geysers, inverter ACs — I drew them from scratch. Every icon follows the same grid, stroke weight, and corner radius so the system feels coherent across 40+ appliance types.
+                Material Icons covered the basics, but Indian homes needed more — ceiling fans, geysers, inverter ACs. I extended the library by drawing the missing appliances and altering existing icons to match, keeping the same grid and stroke weight across all 40+ types.
               </p>
             </div>
             <div className="flex items-center justify-center px-6 md:px-10 py-10 order-1 md:order-2">
@@ -492,6 +502,53 @@ const SmartNation = () => {
           <Plus h="right" />
         </div>
 
+        {/* ── 09 · From the Team ─────────────────────────────────────── */}
+        <div className="relative overflow-visible border-b border-gray-200">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>09</span>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>From the Team</h2>
+            <Plus h="left" />
+            <Plus h="right" />
+            <PlusAt x="50%" desktop />
+          </div>
+
+          <div className="relative overflow-visible grid grid-cols-1 md:grid-cols-3 border-gray-200">
+            <PlusAt x="33.33%" desktop />
+            <PlusAt x="66.66%" desktop />
+
+            {[
+              {
+                quote: "The brand came together faster than I expected — and it actually looked like what I had in my head. That's rare.",
+                name: 'Founder',
+                role: 'Abhiyantrik Solutions',
+              },
+              {
+                quote: "Having proper icons for every appliance made a real difference. The hardware team could finally show clients exactly what each switch would control.",
+                name: 'Hardware Developer',
+                role: 'Abhiyantrik Solutions',
+              },
+              {
+                quote: "The app felt polished from the first build. Customers kept commenting on how easy it was to figure out — no one asked for a manual.",
+                name: 'Hardware Developer',
+                role: 'Abhiyantrik Solutions',
+              },
+            ].map((t, i) => (
+              <div key={i} className="px-6 md:px-10 py-10 md:border-r border-gray-200 last:border-r-0 border-b md:border-b-0 border-gray-200 flex flex-col justify-between gap-6">
+                <p className="text-base md:text-lg font-light leading-relaxed text-gray-700" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div>
+                  <p className="text-xs text-gray-700" style={{ fontFamily: 'Poppins, sans-serif' }}>{t.name}</p>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-0.5" style={{ fontFamily: 'Poppins, sans-serif' }}>{t.role}</p>
+                </div>
+              </div>
+            ))}
+
+            <Plus h="left" />
+            <Plus h="right" />
+          </div>
+        </div>
+
         {/* ── Closing note ───────────────────────────────────────────── */}
         <div className="px-6 md:px-10 py-12 md:py-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 rounded-b-lg bg-white">
           <div>
@@ -500,7 +557,7 @@ const SmartNation = () => {
               One designer. One brand. 40+ installs, 280+ switches in the field — and a product anyone can pick up and use on day one.
             </p>
           </div>
-          <Image src="/images/WorkImages/smartNationImages/sa-footer-logo.svg" alt="" width={96} height={96} className="w-20 h-20 opacity-10 shrink-0" />
+          <Image src="/images/common/sa26.svg" alt="" width={96} height={96} className="w-20 h-20 opacity-10 shrink-0" />
         </div>
 
       </div>

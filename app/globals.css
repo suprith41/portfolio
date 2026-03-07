@@ -82,17 +82,31 @@
   100% { transform: translate(0, 0); }
 }
 
-/* Force light mode - remove dark mode support */
-html,
-body {
-  background: #f5f5f5 !important;
-  color: #171717 !important;
+html {
+  background: #f5f5f5;
+  color: #171717;
   font-family: 'Garamond', Georgia, serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: clip;
   cursor: url('/images/common/cursor.svg') 2 4, auto;
+}
+
+body {
+  background: #f5f5f5;
+}
+
+/*
+  GSAP ScrollTrigger injects  overflow: auto  on both <html> and <body> at
+  runtime. This silently makes body a second scroll container which renders
+  a second scrollbar. Hiding scrollbars on both elements kills the bar no
+  matter what GSAP sets at runtime.
+*/
+html, body {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE / Edge legacy */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;              /* Chrome · Safari · Edge Chromium */
 }
 
 /* Custom cursor on interactive elements (same cursor, pointer fallback) */

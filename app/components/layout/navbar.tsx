@@ -12,6 +12,7 @@ const navItems = [
   { name: "Home", href: "/" },
   { name: "Work", href: "/work" },
   { name: "Unplugged", href: "/unplugged" },
+  { name: "Lab", href: "/lab" },
   { name: "Contact", href: "/contact" },
 ]
 
@@ -268,9 +269,9 @@ export default function Navbar() {
     <div className="fixed top-0 left-0 right-0 flex justify-center p-4 pointer-events-none" style={{ zIndex: 10005 }}>
       <nav 
         ref={navRef}
-        className={`flex items-center rounded-none py-2 relative transition-all duration-300 hover:shadow-lg pointer-events-auto ${
-          isMounted 
-            ? "gap-3 md:gap-6 px-4 md:px-6" 
+        className={`flex items-center rounded-none py-2 relative transition-all duration-300 hover:shadow-lg pointer-events-auto w-full md:w-auto justify-between md:justify-start ${
+          isMounted
+            ? "gap-1.5 md:gap-6 px-4 md:px-6"
             : "gap-6 px-6"
         }`}
         style={{
@@ -291,12 +292,12 @@ export default function Navbar() {
         <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-zinc-300" />
         {navItems.map((item, index) => (
           <div key={item.name} className={`flex items-center ${
-            isMounted ? "gap-3 md:gap-6" : "gap-6"
+            isMounted ? "gap-1.5 md:gap-6" : "gap-6"
           }`}>
             <button
               onClick={(e) => handleNavigation(item, e)}
               className={`font-light transition-all duration-300 relative hover:text-orange-500 hover:scale-105 ${
-                isMounted ? "text-sm md:text-md" : "text-md"
+                isMounted ? "text-[11px] md:text-md" : "text-md"
               } ${
                 (pathname === item.href) ||
                 (item.name === "Work" && pathname.startsWith('/works/')) ||
@@ -314,7 +315,7 @@ export default function Navbar() {
             </button>
             {index < navItems.length - 1 && (
               <span className={`text-zinc-300 ${
-                isMounted ? "text-[6px] md:text-[8px]" : "text-[8px]"
+                isMounted ? "text-[5px] md:text-[8px]" : "text-[8px]"
               }`}>•</span>
             )}
           </div>

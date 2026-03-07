@@ -1,206 +1,200 @@
 "use client"
-import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import './workGallery.css';
+import Link from 'next/link'
+import Image from 'next/image'
+import GridDivider from '../ui/GridDivider'
 
-const WorkGallery = () => {
-  const galleryRef = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const [scrollX, setScrollX] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+const majorWorks = [
+  {
+    id: 'smartNation',
+    num: '01',
+    title: 'Smart Nation',
+    tag: 'App Design · Branding · Motion',
+    description: 'Built the brand from scratch — logo, design system, app UI, and motion graphics for a smart home IoT startup going from zero to launch.',
+    image: '/images/HomeImages/smartNation-frame.png',
+    href: '/works/smartNation',
+    available: true,
+    client: 'Smart Nation',
+    year: '2024',
+  },
+  {
+    id: 'abhiyantrik',
+    num: '02',
+    title: 'Abhiyantrik Website',
+    tag: 'Web Design · Development',
+    description: 'Redesigned and built the company website end-to-end, along with a product experience deck that communicates the hardware offering clearly.',
+    image: '/images/HomeImages/abhiyantrik-frame.png',
+    href: '/works/abhiyantrikWebsite',
+    available: true,
+    client: 'Abhiyantrik Solutions',
+    year: '2023',
+  },
+  {
+    id: 'wagwan',
+    num: '03',
+    title: 'Wagwan',
+    tag: 'Coming Soon',
+    description: 'Details dropping soon.',
+    image: '/images/HomeImages/wagwan-frame.png',
+    href: null,
+    available: false,
+    client: '—',
+    year: '—',
+  },
+  {
+    id: 'wagwanEvents',
+    num: '04',
+    title: 'Wagwan Events',
+    tag: 'Coming Soon',
+    description: 'Details dropping soon.',
+    image: '/images/HomeImages/wagwan-events-frame.png',
+    href: null,
+    available: false,
+    client: '—',
+    year: '—',
+  },
+]
 
-  useEffect(() => {
-    // Check if mobile on mount and resize
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // md breakpoint
-    };
+const smallWorks = [
+  { id: 's1',  title: 'Brand Identity',    tag: 'Branding' },
+  { id: 's2',  title: 'Mobile App UI',     tag: 'App Design' },
+  { id: 's3',  title: 'Dashboard Design',  tag: 'Web Design' },
+  { id: 's4',  title: 'Logo System',       tag: 'Branding' },
+  { id: 's5',  title: 'Onboarding Flow',   tag: 'UX Design' },
+  { id: 's6',  title: 'Design System',     tag: 'Systems' },
+  { id: 's7',  title: 'Landing Page',      tag: 'Web Design' },
+  { id: 's8',  title: 'Icon Set',          tag: 'Illustration' },
+  { id: 's9',  title: 'Pitch Deck',        tag: 'Presentation' },
+  { id: 's10', title: 'Motion Graphics',   tag: 'Motion' },
+]
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, []);
-
-  useEffect(() => {
-    const gallery = galleryRef.current;
-    const wrapper = wrapperRef.current;
-
-    if (!gallery || !wrapper || isMobile) return; // Skip mouse interaction on mobile
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const mouseX = e.clientX;
-      const percent = mouseX / window.innerWidth; // from 0 (left) to 1 (right)
-      const maxScroll = gallery.scrollWidth - wrapper.offsetWidth;
-      const targetScrollX = maxScroll * percent;
-
-      // Move right = scroll left (negative direction)
-      // Start from 0 (left position) when mouse is at left edge
-      setScrollX(-targetScrollX);
-    };
-
-    // Add event listener to the whole window for full screen interaction
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [isMobile]);
-
+export default function WorkGallery() {
   return (
-    <div className="bg-[#f5f5f5] mt-8 md:mt-0">
-      {/* Works Title */}
-      <div className="text-center mb-8 md:mb-12">
-        <h2 className="text-4xl md:text-6xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
-          Works
+    <section>
+
+      {/* ── Section heading ──────────────────────────────── */}
+      <GridDivider />
+      <div className="max-w-5xl mx-auto px-4 md:px-8 lg:px-16 py-10 md:py-12">
+        <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-4"
+           style={{ fontFamily: 'Poppins, sans-serif' }}>
+          Selected Works
+        </p>
+        <h2 className="text-4xl md:text-6xl lg:text-7xl font-light leading-[1.1]"
+            style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <span className="text-gray-300">I partner with early-stage</span><br />
+          <span className="text-black">teams building something real</span>
         </h2>
       </div>
 
-      {/* Full Width Gallery Container */}
-      <div 
-        ref={wrapperRef}
-        className={`gallery-wrapper relative w-full ${
-          isMobile ? 'overflow-x-auto overflow-y-hidden' : 'overflow-hidden'
-        }`}
-        style={{ height: isMobile ? '500px' : '700px' }}
-      >
-        <div 
-          ref={galleryRef}
-          className={`gallery flex items-start gap-12 md:gap-18 h-full ${
-            isMobile ? 'pl-6 pt-4' : 'justify-center pl-16 pt-8'
-          }`}
-          style={{ 
-            width: isMobile ? 'max-content' : 'max-content',
-            transform: isMobile ? 'none' : `translateX(${scrollX}px)`,
-            transition: isMobile ? 'none' : 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-          }}
-        >
-          {/* Text Info */}
-          <div className="flex-shrink-0" style={{ width: isMobile ? '180px' : '320px' }}>
-            <p
-              className={`text-gray-300 ${isMobile ? 'text-2xl' : 'text-4xl'} leading-relaxed`}
-              style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '400' }}
-            >
-              <span className="text-orange-300">constantly</span>{' '}
-              chasing that perfect{' '}
-              <span className="text-orange-300">balance</span> between{' '}
-              <span className="text-orange-300">form</span> and{' '}
-              <span className="text-orange-300">function</span>,{' '}
-              <span className="text-orange-300">one interface at a time.</span>
-            </p>
-          </div>
+      {/* ── Major works ──────────────────────────────────── */}
+      {majorWorks.map((work) => (
+        <div key={work.id}>
+          <GridDivider />
 
-          {/* Frame 1 - Smart Nation */}
-          <div className="flex-shrink-0">
-            <Link href="/works/smartNation" className="block">
-              <figure className={`cursor-pointer ${isMobile ? 'mobile-frame' : 'picture-frame'}`}>
-                <div className="frame-content">
-                  <Image
-                    src="/images/HomeImages/smartNation-frame.png"
-                    alt="Smart Nation Project"
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    className="rounded-sm"
-                  />
-                  <span>Smart Nation</span>
-                </div>
-              </figure>
-            </Link>
-            <div className="mt-4 px-2" style={{ width: '280px' }}>
-              <p className="text-gray-600 text-sm leading-relaxed" 
-                 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '400' }}>
-                Worked on product brand creation, app design, animations and graphics
-              </p>
-            </div>
-          </div>
-
-          {/* Frame 2 - Abhiyantrik Website */}
-          <div className="flex-shrink-0">
-            <Link href="/works/abhiyantrikWebsite" className="block">
-              <figure className={`cursor-pointer ${isMobile ? 'mobile-frame' : 'picture-frame'}`}>
-                <div className="frame-content">
-                  <Image
-                    src="/images/HomeImages/abhiyantrik-frame.png"
-                    alt="Abhiyantrik Website Project"
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    className="rounded-sm"
-                  />
-                  <span>Abhiyantrik Website</span>
-                </div>
-              </figure>
-            </Link>
-            <div className="mt-4 px-2" style={{ width: '280px' }}>
-              <p className="text-gray-600 text-sm leading-relaxed" 
-                 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '400' }}>
-                Designed and developed a new company website with product experience deck
-              </p>
-            </div>
-          </div>
-
-          {/* Frame 3 - Project 3 (Coming Soon) */}
-          <div className="flex-shrink-0">
-            <figure className={`cursor-not-allowed ${isMobile ? 'mobile-frame' : 'picture-frame'}`}>
-                <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <span className="text-white text-lg md:text-xl font-md" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                    Posting soon!
+          {/* Full-width image flush against guide lines */}
+          <div className="max-w-5xl mx-auto">
+            <div className="relative w-full aspect-[16/9] bg-zinc-100">
+              <Image
+                src={work.image}
+                alt={work.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                className={`object-cover${work.available ? '' : ' blur-sm brightness-75'}`}
+              />
+              {!work.available && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white/70 text-sm tracking-widest uppercase"
+                        style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    Posting soon
                   </span>
                 </div>
-              <div className="frame-content relative">
-                <Image
-                  src="/images/HomeImages/wagwan-frame.png"
-                  alt="Project 3 Coming Soon"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="rounded-sm"
-                />
-                <div className="absolute inset-0 bg-transparent bg-opacity-30 backdrop-blur-md rounded-sm"></div>
-              </div>
-            </figure>
-            <div className="mt-4 px-2" style={{ width: '280px' }}>
-              <p className="text-gray-400 text-sm leading-relaxed" 
-                 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '400' }}>
-                Coming soon
-              </p>
+              )}
             </div>
           </div>
 
-          {/* Frame 4 - Project 4 (Coming Soon) */}
-          <div className="flex-shrink-0">
-            <figure className={`cursor-not-allowed ${isMobile ? 'mobile-frame' : 'picture-frame'}`}>
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <span className="text-white text-lg md:text-xl font-md" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                    cooking
-                  </span>
+          {/* Info row */}
+          <div className="max-w-5xl mx-auto px-4 md:px-8 lg:px-16 py-5 md:py-6">
+            <div className="flex items-start justify-between gap-8">
+
+              {/* Left */}
+              <div className="flex gap-4 md:gap-6 items-start">
+                <span className="text-gray-300 text-xs mt-1 shrink-0"
+                      style={{ fontFamily: 'Poppins, sans-serif' }}>
+                  {work.num}
+                </span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1"
+                     style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    {work.tag}
+                  </p>
+                  <h3 className="text-2xl md:text-3xl font-light text-black mb-2 leading-tight"
+                      style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    {work.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed max-w-md"
+                     style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    {work.description}
+                  </p>
                 </div>
-              <div className="frame-content relative">
-                <Image
-                  src="/images/HomeImages/wagwan-events-frame.png"
-                  alt="Project 4 Coming Soon"
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="rounded-sm"
-                />
-                <div className="absolute inset-0 bg-transparent bg-opacity-30 backdrop-blur-md rounded-sm"></div>
-               
               </div>
-            </figure>
-            <div className="mt-4 px-2" style={{ width: '280px' }}>
-              <p className="text-gray-400 text-sm leading-relaxed" 
-                 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '400' }}>
-                Coming soon
-              </p>
+
+              {/* Right */}
+              <div className="shrink-0 text-right hidden md:flex flex-col gap-3">
+                <div>
+                  <p className="text-[9px] uppercase tracking-widest text-gray-300 mb-0.5"
+                     style={{ fontFamily: 'Poppins, sans-serif' }}>Client</p>
+                  <p className="text-sm text-gray-600"
+                     style={{ fontFamily: 'Poppins, sans-serif' }}>{work.client}</p>
+                </div>
+                <div>
+                  <p className="text-[9px] uppercase tracking-widest text-gray-300 mb-0.5"
+                     style={{ fontFamily: 'Poppins, sans-serif' }}>Year</p>
+                  <p className="text-sm text-gray-600"
+                     style={{ fontFamily: 'Poppins, sans-serif' }}>{work.year}</p>
+                </div>
+                {work.available && work.href && (
+                  <Link href={work.href}
+                        className="text-xs text-black border-b border-black/20 pb-0.5 hover:border-black transition-colors duration-200 self-end"
+                        style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    View case study ↗
+                  </Link>
+                )}
+              </div>
+
             </div>
           </div>
+        </div>
+      ))}
 
-          {/* Extra spacing at the end */}
-          <div style={{ width: isMobile ? '20px' : '100px' }}></div>
+      {/* ── Small works ──────────────────────────────────── */}
+      <GridDivider />
+      <div className="max-w-5xl mx-auto px-4 md:px-8 lg:px-16 pt-8 pb-4">
+        <p className="text-[11px] uppercase tracking-widest text-gray-400"
+           style={{ fontFamily: 'Poppins, sans-serif' }}>
+          More Works
+        </p>
+      </div>
+
+      <div className="max-w-5xl mx-auto">
+        {/* 1px grid lines between cells via bg on parent + gap */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+             style={{ gap: '1px', backgroundColor: '#e5e7eb' }}>
+          {smallWorks.map((w) => (
+            <div key={w.id}
+                 className="bg-[#f5f5f5] aspect-square flex flex-col justify-end p-4
+                            hover:bg-zinc-100 transition-colors duration-200 cursor-pointer">
+              <p className="text-[9px] uppercase tracking-widest text-gray-300 mb-1"
+                 style={{ fontFamily: 'Poppins, sans-serif' }}>
+                {w.tag}
+              </p>
+              <p className="text-sm font-light text-gray-300"
+                 style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                {w.title}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
-  );
-};
 
-export default WorkGallery;
+    </section>
+  )
+}

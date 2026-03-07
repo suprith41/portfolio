@@ -3,13 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
-
-// Register ScrollTrigger plugin
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
-}
 
 export default function Reveal() {
   const overlayRef = useRef<HTMLDivElement>(null)
@@ -545,72 +539,62 @@ export default function Reveal() {
     // Set initial state
     updateMask(0)
 
-    // Wait a frame to ensure DOM is ready, then create scroll trigger
-    const timeoutId = setTimeout(() => {
-      // Initialize text animations after DOM is ready
-      initTextAnimations()
-      
-      // Make it complete in one scroll - use viewport height
-      const scrollDistance = window.innerHeight
-      
-      // Ensure body/html is scrollable on mobile
-      document.body.style.overflow = 'auto'
-      document.documentElement.style.overflow = 'auto'
-      document.body.style.height = 'auto'
-      document.documentElement.style.height = 'auto'
-      
-      const isMobile = window.innerWidth < 768
-      // Slightly smoother scrub on mobile to reduce jitter (higher = more smoothing)
-      const scrubVal = isMobile ? 1.8 : 1
+    // Ensure body is the scroll container (only body, not html — setting both
+    // overflow:auto can make body an inner scroll container where window.scrollY
+    // stays 0 and the animation never advances).
+    document.body.style.overflow = 'auto'
+    document.body.style.height = 'auto'
+    // html stays at its natural overflow (from CSS: overflow-x:clip, no y override)
+    document.documentElement.style.height = 'auto'
 
-      // Create scroll animation with mobile-friendly settings
-      scrollTriggerRef.current = ScrollTrigger.create({
-        trigger: document.body,
-        start: "top top",
-        end: () => `+=${window.innerHeight}`,
-        scrub: scrubVal,
-        onUpdate: (self) => {
-          updateMask(self.progress)
-          handleTextAnimations(self.progress)
-        },
-        invalidateOnRefresh: true,
+    // Direct scroll → progress mapping. No GSAP ScrollTrigger — avoids any
+    // scroll management interference that caused touchpad stickiness.
+    const getScrollProgress = () => {
+      // window.scrollY is the canonical viewport scroll; fall back to
+      // documentElement/body for edge-cases where body is the scroll container.
+      const scrollTop = window.scrollY
+        || document.documentElement.scrollTop
+        || document.body.scrollTop
+        || 0
+      return Math.min(1, Math.max(0, scrollTop / window.innerHeight))
+    }
+
+    const handleScroll = () => {
+      if (scrollRafIdRef.current != null) return
+      scrollRafIdRef.current = requestAnimationFrame(() => {
+        scrollRafIdRef.current = null
+        const progress = getScrollProgress()
+        updateMask(progress)
+        handleTextAnimations(progress)
       })
+    }
 
-      ScrollTrigger.refresh()
+    // Attach immediately — no timeout so zero scroll events are missed.
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    // Sync on mount (handles page reload mid-scroll).
+    handleScroll()
 
-      // Only react to actual scroll (not touchmove) so mobile doesn't feel sluggish when finger is on screen
-      const handleScroll = () => {
-        if (scrollRafIdRef.current != null) return
-        scrollRafIdRef.current = requestAnimationFrame(() => {
-          scrollRafIdRef.current = null
-          if (scrollTriggerRef.current) {
-            const progress = scrollTriggerRef.current.progress
-            updateMask(progress)
-            handleTextAnimations(progress)
-          }
-        })
-      }
-      
-      window.addEventListener('scroll', handleScroll, { passive: true })
-      
-      // Store cleanup
-      ;(window as any).__revealScrollCleanup = () => {
-        if (scrollRafIdRef.current != null) {
-          cancelAnimationFrame(scrollRafIdRef.current)
-          scrollRafIdRef.current = null
-        }
-        window.removeEventListener('scroll', handleScroll)
-      }
+    // Initialize text animations slightly later so SplitType has painted chars.
+    const timeoutId = setTimeout(() => {
+      initTextAnimations()
+      // Re-sync in case scroll position changed during the delay.
+      handleScroll()
     }, 100)
+
+    // Store cleanup
+    ;(window as any).__revealScrollCleanup = () => {
+      if (scrollRafIdRef.current != null) {
+        cancelAnimationFrame(scrollRafIdRef.current)
+        scrollRafIdRef.current = null
+      }
+      window.removeEventListener('scroll', handleScroll)
+    }
 
     // Handle resize
     const handleResize = () => {
-      if (scrollTriggerRef.current) {
-        const currentProgress = scrollTriggerRef.current.progress
-        initSVG()
-        updateMask(currentProgress)
-        ScrollTrigger.refresh()
-      }
+      const progress = Math.min(1, Math.max(0, window.scrollY / window.innerHeight))
+      initSVG()
+      updateMask(progress)
     }
     window.addEventListener('resize', handleResize)
 
@@ -620,10 +604,6 @@ export default function Reveal() {
       if ((window as any).__revealScrollCleanup) {
         ;(window as any).__revealScrollCleanup()
         delete (window as any).__revealScrollCleanup
-      }
-      if (scrollTriggerRef.current) {
-        scrollTriggerRef.current.kill()
-        scrollTriggerRef.current = null
       }
     }
   }, [mounted])

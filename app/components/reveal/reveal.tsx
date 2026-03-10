@@ -26,7 +26,7 @@ export default function Reveal() {
   const introParagraphRef = useRef<HTMLDivElement>(null)
   const logoRef = useRef<HTMLDivElement>(null)
   const scrollIndicatorRef = useRef<HTMLDivElement>(null)
-  const scrollTriggerRef = useRef<any>(null)
+
   const scrollRafIdRef = useRef<number | null>(null)
   const textAnimationsRef = useRef<Map<string, gsap.core.Timeline>>(new Map())
   const lastScrollYRef = useRef<number>(typeof window !== 'undefined' ? window.scrollY : 0)
@@ -582,7 +582,7 @@ export default function Reveal() {
     }, 100)
 
     // Store cleanup
-    ;(window as any).__revealScrollCleanup = () => {
+    ;(window as Window & { __revealScrollCleanup?: () => void }).__revealScrollCleanup = () => {
       if (scrollRafIdRef.current != null) {
         cancelAnimationFrame(scrollRafIdRef.current)
         scrollRafIdRef.current = null
@@ -601,9 +601,10 @@ export default function Reveal() {
     return () => {
       clearTimeout(timeoutId)
       window.removeEventListener('resize', handleResize)
-      if ((window as any).__revealScrollCleanup) {
-        ;(window as any).__revealScrollCleanup()
-        delete (window as any).__revealScrollCleanup
+      const w = window as Window & { __revealScrollCleanup?: () => void }
+      if (w.__revealScrollCleanup) {
+        w.__revealScrollCleanup()
+        delete w.__revealScrollCleanup
       }
     }
   }, [mounted])

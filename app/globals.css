@@ -118,6 +118,11 @@ a, button, [role="button"], [type="button"], [type="submit"], input[type="checkb
   box-sizing: border-box;
 }
 
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 ::selection {
   background-color: #caf182;
 }

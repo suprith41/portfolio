@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image'
 
 const Plus = ({ h, v = 'bottom' }: { h: 'left' | 'right'; v?: 'top' | 'bottom' }) => (
@@ -51,6 +52,16 @@ const SmartNation = () => {
   const [selectedIcon, setSelectedIcon] = useState(appIcons[1]);
   const [showProcess, setShowProcess]   = useState(false);
   const [processSlide, setProcessSlide] = useState(0);
+  const [mounted, setMounted] = useState(false);
+  const [hoveredStat, setHoveredStat] = useState<string | null>(null);
+  const [copied, setCopied] = useState<'email' | 'phone' | null>(null);
+  const handleCopy = (type: 'email' | 'phone', value: string) => {
+    navigator.clipboard.writeText(value);
+    setCopied(type);
+    setTimeout(() => setCopied(null), 2000);
+  };
+  useEffect(() => { setMounted(true); }, []);
+  const [activeSection, setActiveSection] = useState('sn-brief');
   const clickSound    = useRef<HTMLAudioElement | null>(null);
   const deepawaliSound = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
@@ -94,6 +105,38 @@ const SmartNation = () => {
     };
   }, []);
 
+  const sections = [
+    { id: 'sn-brief', label: 'Brief' },
+    { id: 'sn-01',    label: 'App Experience' },
+    { id: 'sn-02',    label: 'Onboarding' },
+    { id: 'sn-03',    label: 'Provisioning' },
+    { id: 'sn-04',    label: 'Automation' },
+    { id: 'sn-05',    label: 'Design System' },
+    { id: 'sn-06',    label: 'Iconography' },
+    { id: 'sn-07',    label: 'Packaging' },
+    { id: 'sn-08',    label: 'Brochures' },
+    { id: 'sn-09',    label: 'Team' },
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-30% 0px -60% 0px' }
+    );
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const brandColors = [
     { name: 'Primary',    hex: '#080A30' },
     { name: 'Secondary',  hex: '#2A3281' },
@@ -104,6 +147,76 @@ const SmartNation = () => {
 
   return (
     <div className="bg-white min-h-screen mt-16 px-4 md:px-0">
+      {/* Sticky sidebar index — portalled to body so fixed positioning always works */}
+      {mounted && createPortal(
+        <>
+          {/* Bracket shape: right edge aligns with + markers, curves hug nav items */}
+          <div
+            className="hidden xl:block fixed z-[9998] pointer-events-none"
+            style={{
+              top: 'calc(50% - 175px)',
+              bottom: 'calc(50% - 175px)',
+              left: 0,
+              width: '32px',
+              border: '1px solid #d1d5db',
+              borderLeft: 'none',
+              borderTopRightRadius: '16px',
+              borderBottomRightRadius: '16px',
+            }}
+          />
+          <nav
+            className="hidden xl:flex fixed z-[9999]"
+            style={{ top: '50%', transform: 'translateY(-50%)', left: '26px' }}
+          >
+          <div className="absolute" style={{ left: '5px', top: 0, bottom: 0, width: 0 }} />
+          <div className="flex flex-col">
+            {sections.map((s) => {
+              const isActive = activeSection === s.id;
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => {
+                    const el = document.getElementById(s.id);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  style={{ fontFamily: 'Poppins, sans-serif' }}
+                  className="flex items-center gap-3 py-[6px] text-left group relative"
+                >
+                  {/* Marker: + for inactive, filled square for active */}
+                  <span
+                    className="shrink-0 flex items-center justify-center transition-all duration-300 relative z-10 bg-white"
+                    style={{ width: '11px', height: '11px' }}
+                  >
+                    {isActive ? (
+                      <span style={{ width: '7px', height: '7px', background: '#111827', display: 'block' }} />
+                    ) : (
+                      <span
+                        style={{
+                          fontFamily: 'monospace',
+                          fontSize: '11px',
+                          lineHeight: 1,
+                          color: '#9ca3af',
+                          display: 'block',
+                        }}
+                        className="group-hover:text-gray-500 transition-colors duration-200"
+                      >+</span>
+                    )}
+                  </span>
+                  <span
+                    className={`text-[9px] uppercase tracking-[0.15em] transition-all duration-200 whitespace-nowrap ${
+                      isActive ? 'text-gray-900 font-semibold' : 'text-gray-400 group-hover:text-gray-600'
+                    }`}
+                  >
+                    {s.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          </nav>
+        </>,
+        document.body
+      )}
       <div className="relative overflow-visible max-w-5xl mx-auto border-l border-r border-t border-gray-200 rounded-t-lg">
         <Plus h="left"  v="top" />
         <Plus h="right" v="top" />
@@ -117,45 +230,32 @@ const SmartNation = () => {
           <Image src="/images/common/sa26.svg" alt="SA" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-20" />
           <Plus h="left" />
           <Plus h="right" />
-          <PlusAt x="50%" />
-          <PlusAt x="25%" desktop />
-          <PlusAt x="75%" desktop />
         </div>
 
         {/* ── Project Meta ───────────────────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible grid grid-cols-2 md:grid-cols-4 border-b border-gray-200">
-            <PlusAt x="50%" />
-            <PlusAt x="25%"  desktop />
-            <PlusAt x="75%"  desktop />
-            {/* Company */}
-            <div className="px-6 md:px-10 py-5 border-r border-gray-200 flex flex-col justify-between" style={{ minHeight: '72px' }}>
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>Company</p>
-              <p className="text-sm text-gray-700 leading-snug" style={{ fontFamily: 'Poppins, sans-serif' }}>Abhiyantrik Solutions</p>
-            </div>
-            {/* Scope — marquee */}
-            <div className="py-5 border-r border-gray-200 flex flex-col justify-between overflow-hidden" style={{ minHeight: '72px' }}>
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-2 shrink-0 px-6 md:px-10" style={{ fontFamily: 'Poppins, sans-serif' }}>Scope</p>
-              <div className="overflow-hidden w-full">
+        <div id="sn-brief" className="relative overflow-visible border-b border-gray-200">
+          <div className="relative flex flex-wrap md:flex-nowrap items-stretch gap-0 border-b border-gray-200">
+            {[
+              { label: 'Company',     value: 'Abhiyantrik Solutions' },
+              { label: 'Role',        value: 'Designer' },
+              { label: 'Deliverable', value: 'Zero to Launch' },
+            ].map((item, i) => (
+              <div key={item.label} className={`flex items-center gap-2 px-6 md:px-8 py-3 ${i === 1 ? 'border-l border-gray-200' : ''} ${i === 2 ? 'w-full md:w-auto border-t md:border-t-0 md:border-l border-gray-200' : ''}`}>
+                <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'Poppins, sans-serif' }}>{item.label}</span>
+                <span className="text-[11px] text-gray-700" style={{ fontFamily: 'Poppins, sans-serif' }}>{item.value}</span>
+              </div>
+            ))}
+            {/* Scope marquee — full row on mobile, inline on desktop */}
+            <div className="flex items-center gap-2 w-full md:w-auto pl-6 md:pl-8 pr-6 py-3 border-t md:border-t-0 md:border-l border-gray-200 overflow-hidden min-w-0 md:flex-1">
+              <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'Poppins, sans-serif' }}>Scope</span>
+              <div className="overflow-hidden flex-1" style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)' }}>
                 <div className="flex gap-2 w-max" style={{ animation: 'marquee 12s linear infinite' }}>
-                  {['Brand Identity', 'App UI/UX', 'Motion', 'Web', 'Packaging', 'Brochures', 'Brand Identity', 'App UI/UX', 'Motion', 'Web', 'Packaging', 'Brochures'].map((tag, i) => (
-                    <span key={i} className="text-[10px] px-2 py-0.5 border border-gray-300 text-gray-500 leading-snug whitespace-nowrap" style={{ fontFamily: 'Poppins, sans-serif' }}>{tag}</span>
+                  {['Brand Identity', 'Motion', 'Web', 'Packaging', 'Brochures', 'User Research', 'Application UI/UX', 'Brand Identity', 'Motion', 'Web', 'Packaging', 'Brochures', 'User Research', 'Application UI/UX'].map((tag, i) => (
+                    <span key={i} className="text-[9px] px-2 py-0.5 border border-gray-200 text-gray-500 whitespace-nowrap" style={{ fontFamily: 'Poppins, sans-serif' }}>{tag}</span>
                   ))}
                 </div>
               </div>
             </div>
-            {/* Role */}
-            <div className="px-6 md:px-10 py-5 border-r border-gray-200 flex flex-col justify-between" style={{ minHeight: '72px' }}>
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>Role</p>
-              <p className="text-sm text-gray-700 leading-snug" style={{ fontFamily: 'Poppins, sans-serif' }}>Designer</p>
-            </div>
-            {/* Deliverable */}
-            <div className="px-6 md:px-10 py-5 flex flex-col justify-between" style={{ minHeight: '72px' }}>
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1" style={{ fontFamily: 'Poppins, sans-serif' }}>Deliverable</p>
-              <p className="text-sm text-gray-700 leading-snug" style={{ fontFamily: 'Poppins, sans-serif' }}>Zero to Launch</p>
-            </div>
-            <Plus h="left" />
-            <Plus h="right" />
           </div>
 
           {/* Hero Image */}
@@ -180,7 +280,9 @@ const SmartNation = () => {
                 Your entire home, automated. Every switch controlled from one app.
               </h2>
               <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                Most Indian homes have 20–30 wall switches. Smart Nation&apos;s hardware fits into those same boxes, no rewiring, no replacing appliances. What the product needed was a complete experience: full control over every device, automations that run without thinking about them, and the kind of reliability that makes people trust technology in their home. I built the brand and product from the ground up to deliver that.
+                In a typical Indian home there are 20–30 switches controlling lights, fans, and appliances. Instead of replacing every device, the idea was to make the switchboard smart.
+                <br /><br />
+                Smart Nation&apos;s hardware fits into existing switchboards, enabling control of any connected device through one app, no rewiring, no replacing appliances. The goal was to create a simple experience with full control, reliable automations, and technology that works effortlessly in everyday life.
               </p>
             </div>
 
@@ -211,7 +313,7 @@ const SmartNation = () => {
                         alt={processSessions[2].label}
                         width={1200}
                         height={800}
-                        className="hidden md:block w-full h-full object-cover rounded-sm"
+                        className="hidden md:block w-full h-full object-cover"
                       />
                     )}
                     {/* Mobile image for all sessions on mobile; also session 1 & 2 on desktop */}
@@ -220,7 +322,7 @@ const SmartNation = () => {
                       alt={processSessions[processSlide].label}
                       width={600}
                       height={800}
-                      className={`w-full h-full object-cover rounded-sm${processSlide === 2 ? ' md:hidden' : ''}`}
+                      className={`w-full h-full object-cover${processSlide === 2 ? ' md:hidden' : ''}`}
                     />
                   </div>
                   {/* Dot nav */}
@@ -255,43 +357,74 @@ const SmartNation = () => {
                 )}
                 <button
                   onClick={() => { setShowProcess(p => !p); setProcessSlide(0); }}
-                  className="text-[10px] uppercase tracking-widest px-3 py-1.5 border border-gray-300 text-gray-500 bg-white hover:bg-gray-50 transition-colors"
+                  className="text-[10px] uppercase tracking-widest px-4 py-2 border border-gray-300 text-black bg-white hover:bg-gray-50 transition-colors"
                   style={{ fontFamily: 'Poppins, sans-serif' }}
                 >
-                  {showProcess ? '✕ Close' : 'Logo Making Process'}
+                  {showProcess ? '✕ Close' : (
+                    <span className="flex flex-row items-center gap-2">
+                      <Image src="/images/WorkImages/smartNationImages/draw-icon.svg" alt="" width={16} height={16} className="w-4 h-4" style={{ filter: 'brightness(0)' }} />
+                      Logo Making Process
+                    </span>
+                  )}
                 </button>
               </div>
             </div>
           </div>
-          <Plus h="left" />
-          <Plus h="right" />
           <PlusAt x="50%" />
-          <PlusAt x="25%" desktop />
-          <PlusAt x="75%" desktop />
         </div>
 
         {/* ── Impact Numbers ─────────────────────────────────────────── */}
-        <div className="relative overflow-visible grid grid-cols-2 md:grid-cols-4 border-b border-gray-200">
-          <PlusAt x="50%" />
-          <PlusAt x="25%"  desktop />
-          <PlusAt x="75%"  desktop />
+        <div className="relative overflow-visible grid grid-cols-1 md:grid-cols-3 border-b border-gray-200">
+          <PlusAt x="33.33%" v="top" desktop />
+          <PlusAt x="66.66%" v="top" desktop />
+          <PlusAt x="33.33%" desktop />
+          <PlusAt x="66.66%" desktop />
           {[
-            { stat: '40+',    label: 'Installed across homes, offices & commercial spaces' },
-            { stat: '280+',   label: 'Smart switches live, every tile, state and icon designed' },
-            { stat: '3 mo',   label: 'First sketch to live product' },
-            { stat: 'Day 1',  label: 'Usable by anyone, no manual, no learning curve' },
-          ].map((item) => (
-            <div key={item.stat} className="px-6 md:px-10 py-8 border-r border-gray-200 last:border-r-0">
-              <p className="text-4xl md:text-5xl font-light text-black mb-2" style={{ fontFamily: 'Garamond, Georgia, serif' }}>{item.stat}</p>
-              <p className="text-xs text-gray-400 leading-snug" style={{ fontFamily: 'Poppins, sans-serif' }}>{item.label}</p>
-            </div>
-          ))}
+            { stat: '40+',  label: 'Installed across homes, offices & commercial spaces', hoverImg: '/images/WorkImages/smartNationImages/home-asset.png',   dir: 'top',    size: 80  },
+            { stat: '280+', label: 'Smart switches live, every tile, state and icon designed', hoverImg: '/images/WorkImages/smartNationImages/swb-asset.png',    dir: 'right',  size: 100 },
+            { stat: '3 mo', label: 'First sketch to live product',                             hoverImg: '/images/WorkImages/smartNationImages/rocket-asset.png', dir: 'bottom', size: 48  },
+          ].map((item) => {
+            const hovered = hoveredStat === item.stat;
+
+            const imgStyle: React.CSSProperties = {
+              position: 'absolute',
+              pointerEvents: 'none',
+              zIndex: 20,
+              width: `${item.size}px`,
+              opacity: hovered ? 1 : 0,
+              transition: 'opacity 0.28s ease, top 0.28s ease, right 0.28s ease, bottom 0.28s ease',
+              ...(item.dir === 'top'    && { top:    hovered ? '12px'  : '-40px', right:  '12px' }),
+              ...(item.dir === 'right'  && { top: '12px', right: hovered ? '12px' : '-50px' }),
+              ...(item.dir === 'bottom' && { bottom: hovered ? '0px' : '-60px', right: '12px' }),
+            };
+
+            return (
+              <div
+                key={item.stat}
+                className="relative px-8 py-8 md:px-10 border-b border-gray-200 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 overflow-hidden"
+                onMouseEnter={() => setHoveredStat(item.stat)}
+                onMouseLeave={() => setHoveredStat(null)}
+              >
+                <p className="text-5xl font-light text-black mb-3" style={{ fontFamily: 'Garamond, Georgia, serif' }}>{item.stat}</p>
+                <p className="text-sm text-gray-400 leading-snug max-w-[260px]" style={{ fontFamily: 'Poppins, sans-serif' }}>{item.label}</p>
+                <div style={imgStyle}>
+                  <Image
+                    src={item.hoverImg}
+                    alt={item.stat}
+                    width={item.size}
+                    height={item.size}
+                    className="w-full h-auto object-contain drop-shadow-md"
+                  />
+                </div>
+              </div>
+            );
+          })}
           <Plus h="left" />
           <Plus h="right" />
         </div>
 
         {/* ── 01 · App Experience ────────────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
+        <div id="sn-01" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>01</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Control, Simplified</h2>
@@ -339,7 +472,7 @@ const SmartNation = () => {
         </div>
 
         {/* ── 02 · Adding an Appliance ───────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
+        <div id="sn-02" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>02</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Switchboard to Dashboard in Four Taps</h2>
@@ -359,7 +492,7 @@ const SmartNation = () => {
         </div>
 
         {/* ── 03 · Device Provisioning ───────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
+        <div id="sn-03" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>03</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Hardware in Hand, Online in Minutes</h2>
@@ -379,7 +512,7 @@ const SmartNation = () => {
         </div>
 
         {/* ── 04 · Automation ────────────────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
+        <div id="sn-04" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>04</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Set It Once, Live Freely</h2>
@@ -391,15 +524,15 @@ const SmartNation = () => {
               Two modes, not one, because the use cases are fundamentally different. <strong className="text-gray-700 font-medium">Routine</strong> handles fixed daily habits: lights on at 6am, geyser at 6:30, fans off at bedtime. <strong className="text-gray-700 font-medium">Timer</strong> handles spontaneous needs: run the AC for 90 minutes, then off. Merging them would have confused both. Kept visually separate, each with its own logic.
             </p>
           </div>
-          <div className="px-6 md:px-10 py-10 md:py-16 flex justify-center">
-            <Image src="/images/WorkImages/smartNationImages/automation.png" alt="Automation Features" width={1400} height={800} className="w-full h-auto" />
+          <div className="px-0 md:px-10 pt-6 md:pt-10 pb-0 flex justify-center">
+            <Image src="/images/WorkImages/smartNationImages/automation.png" alt="Automation Features" width={1400} height={800} className="w-full h-auto block" />
           </div>
           <Plus h="left" />
           <Plus h="right" />
         </div>
 
         {/* ── 05 · Design System ─────────────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
+        <div id="sn-05" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>05</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Design System</h2>
@@ -414,8 +547,8 @@ const SmartNation = () => {
               {brandColors.map((c) => (
                 <div key={c.name}>
                   <div
-                    className="w-full aspect-square mb-2 border border-gray-200"
-                    style={{ background: c.hex }}
+                    className="w-full mb-2 border border-gray-200"
+                    style={{ background: c.hex, aspectRatio: '5 / 3' }}
                   />
                   <p className="text-[10px] text-gray-500 leading-snug" style={{ fontFamily: 'Poppins, sans-serif' }}>{c.name}</p>
                   <p className="text-[10px] text-gray-400" style={{ fontFamily: 'monospace' }}>{c.hex}</p>
@@ -468,7 +601,7 @@ const SmartNation = () => {
         </div>
 
         {/* ── 06 · Icon System ───────────────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
+        <div id="sn-06" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>06</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Iconography</h2>
@@ -535,8 +668,8 @@ const SmartNation = () => {
 
           <div className="relative overflow-visible grid grid-cols-1 md:grid-cols-2 items-start">
             <PlusAt x="50%"  desktop />
-            <div className="flex flex-col md:hidden px-6 py-8 items-center gap-6">
-              <Image src={selectedIcon.mockup} alt={`${selectedIcon.name} mockup`} width={280} height={450} className="w-56 h-auto object-contain" />
+            <div className="flex flex-col md:hidden px-6 pt-0 pb-8 items-center gap-6">
+              <Image src={selectedIcon.mockup} alt={`${selectedIcon.name} mockup`} width={340} height={550} className="w-72 h-auto object-contain object-top" style={{ marginTop: '-2px' }} />
               <Image src={selectedIcon.src} alt="Selected icon" width={160} height={160} className="w-36 h-36 object-contain" style={{ filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.2))' }} />
               <p className="text-sm text-gray-500" style={{ fontFamily: 'Poppins, sans-serif' }}>{selectedIcon.name}</p>
             </div>
@@ -652,7 +785,7 @@ const SmartNation = () => {
         </div>
 
         {/* ── 07 · Packaging ─────────────────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
+        <div id="sn-07" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>07</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Packaging Design</h2>
@@ -661,48 +794,54 @@ const SmartNation = () => {
           </div>
           <div className="px-6 md:px-10 pt-6 pb-3">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              The product lands in a box before it lands in the wall. This is the first physical proof that Smart Nation is premium, not another generic IoT import. The packaging needed to earn trust before the app even opened. Clean, minimal, unmistakably Smart Nation.
+              Simple and minimal. The packaging stays out of its own way: clean surfaces, restrained typography, and just enough brand presence to feel intentional without being loud.
             </p>
           </div>
-          {/* Placeholder grid for packaging images */}
-          <div className="px-6 md:px-10 py-10 md:py-14 grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="aspect-[4/3] rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center">
-                <p className="text-xs text-gray-300" style={{ fontFamily: 'Poppins, sans-serif' }}>Image {i}</p>
-              </div>
-            ))}
-          </div>
+          <Image
+            src="/images/WorkImages/smartNationImages/smartnation-box-package-design.png"
+            alt="Smart Nation packaging design"
+            width={1600}
+            height={900}
+            className="w-full h-auto block"
+          />
           <Plus h="left" />
           <Plus h="right" />
         </div>
 
         {/* ── 08 · Brochures ─────────────────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
+        <div id="sn-08" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>08</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Brochures & User Guides</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
-          <div className="px-6 md:px-10 pt-6 pb-3">
-            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              Sales in Indian B2B channels still happen face-to-face. The brochure is the leave-behind that does the selling after the meeting ends, carrying the same visual language as the app so every touchpoint feels like one coherent brand, not a patchwork of vendors.
-            </p>
+          <div className="border-t border-gray-200">
+            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>SWB</p>
+            <Image
+              src="/images/WorkImages/smartNationImages/SWB-brousher.png"
+              alt="SWB brochure design"
+              width={1600}
+              height={1000}
+              className="w-full h-auto block"
+            />
           </div>
-          {/* Placeholder grid for brochure images */}
-          <div className="px-6 md:px-10 py-10 md:py-14 grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="aspect-[3/2] rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center">
-                <p className="text-xs text-gray-300" style={{ fontFamily: 'Poppins, sans-serif' }}>Image {i}</p>
-              </div>
-            ))}
+          <div className="border-t border-gray-200">
+            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>MCB</p>
+            <Image
+              src="/images/WorkImages/smartNationImages/MCB-brousher.png"
+              alt="MCB brochure design"
+              width={1600}
+              height={1000}
+              className="w-full h-auto block"
+            />
           </div>
           <Plus h="left" />
           <Plus h="right" />
         </div>
 
         {/* ── 09 · From the Team ─────────────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200">
+        <div id="sn-09" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>09</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>From the Team</h2>
@@ -722,13 +861,13 @@ const SmartNation = () => {
                 role: 'Abhiyantrik Solutions',
               },
               {
-                quote: "Having proper icons for every appliance made a real difference. The hardware team could finally show clients exactly what each switch would control.",
-                name: 'Hardware Developer',
+                quote: "The early prototype gave me a clear picture of the app architecture before I wrote a single line. Combined with a complete design system, the initial development moved faster than any project I've worked on.",
+                name: 'App Developer',
                 role: 'Abhiyantrik Solutions',
               },
               {
-                quote: "The app felt polished from the first build. Customers kept commenting on how easy it was to figure out. No one asked for a manual.",
-                name: 'Hardware Developer',
+                quote: "Brainstorming with Satish in the early stages pushed the product to a different level. We mapped out features we didn't even think were possible at the start, and most of them made it in.",
+                name: 'Hardware Engineer',
                 role: 'Abhiyantrik Solutions',
               },
             ].map((t, i) => (
@@ -749,16 +888,66 @@ const SmartNation = () => {
         </div>
 
         {/* ── Closing note ───────────────────────────────────────────── */}
-        <div className="px-6 md:px-10 py-12 md:py-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 rounded-b-lg bg-white">
-          <div>
-            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'Poppins, sans-serif' }}>Outcome</p>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-lg" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              Three months. One designer. A brand built from nothing, a product anyone can pick up on day one, and 280+ switches running live in homes and offices. What I'm most proud of: the founder has never had to explain the app to a customer.
-            </p>
-          </div>
-          <Image src="/images/common/sa26.svg" alt="" width={96} height={96} className="w-20 h-20 opacity-10 shrink-0" />
+        <div className="relative overflow-visible border-b border-gray-200 px-6 md:px-10 py-12 md:py-16 bg-white">
+          <Plus h="left" />
+          <Plus h="right" />
+          <PlusAt x="50%" />
+          <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'Poppins, sans-serif' }}>Outcome</p>
+          <p className="text-sm text-gray-500 leading-relaxed w-2/3" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            Three months. One designer. A brand built from nothing, a product anyone can pick up on day one, and 280+ switches running live in homes and offices.
+          </p>
+          <p className="text-sm text-gray-500 leading-relaxed w-2/3 mt-3 ml-auto text-right" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            None of it would have happened at this pace without the team. Everyone moved like a high-performance unit: sharp, focused, and completely bought in. That's the only reason we launched when we did. ❤️
+          </p>
         </div>
 
+
+      </div>
+
+      {/* ── Let's Talk CTA — outside project box ────────────────────── */}
+      <div className="max-w-5xl mx-auto mt-10 mb-16 border border-gray-200 px-6 md:px-10 py-12 md:py-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative overflow-visible">
+        <Plus h="left" v="top" />
+        <Plus h="right" v="top" />
+        <Plus h="left" />
+        <Plus h="right" />
+        <div>
+          <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'Poppins, sans-serif' }}>Let's Work Together</p>
+          <Image src="/images/common/sa26.svg" alt="Satish" width={56} height={56} className="w-12 h-12 mb-4" />
+          <h3 className="text-3xl md:text-4xl font-light text-gray-900 leading-snug" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+            Great products happen<br />when the right people meet.
+          </h3>
+          <p className="text-sm text-gray-400 mt-3 max-w-md" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            If you're building something and need a designer who goes all in, let's talk.
+          </p>
+        </div>
+        <div className="flex flex-col gap-3 shrink-0">
+          <button
+            onClick={() => handleCopy('email', 'satishdezn@gmail.com')}
+            className="w-full flex items-center gap-3 px-5 py-3 border border-gray-900 text-gray-900 text-xs tracking-wide hover:bg-gray-900 hover:text-white transition-colors duration-200"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            {copied === 'email' ? 'Copied!' : 'satishdezn@gmail.com'}
+          </button>
+          <button
+            onClick={() => handleCopy('phone', '+918722519704')}
+            className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.44 2 2 0 0 1 3.57 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            {copied === 'phone' ? 'Copied!' : '+91 87225 19704'}
+          </button>
+          <a
+            href="https://www.linkedin.com/in/satish-hebbal/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
       </div>
     </div>
   );

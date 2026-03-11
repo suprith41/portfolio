@@ -87,7 +87,7 @@ html {
   color: #171717;
   font-family: 'Garamond', Georgia, serif;
   overflow-x: clip;
-  cursor: url('/images/common/cursor.svg') 2 4, auto;
+  cursor: auto;
 }
 
 body {
@@ -109,10 +109,6 @@ body::-webkit-scrollbar {
   display: none;              /* Chrome · Safari · Edge Chromium */
 }
 
-/* Custom cursor on interactive elements (same cursor, pointer fallback) */
-a, button, [role="button"], [type="button"], [type="submit"], input[type="checkbox"], input[type="radio"], select, label[for] {
-  cursor: url('/images/common/cursor.svg') 2 4, pointer;
-}
 
 * {
   box-sizing: border-box;
@@ -278,5 +274,24 @@ a, button, [role="button"], [type="button"], [type="submit"], input[type="checkb
   overflow: hidden;
   padding-bottom: 0.1em;
   margin-bottom: -0.1em;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #9ca3af #f3f4f6;
 }
 

@@ -229,7 +229,7 @@ const AbhiyantrikWebsite = () => {
             </div>
             <div className="px-6 md:px-10 py-8 md:py-12">
               <div className="flex items-center justify-center mb-8">
-                <Image src="/images/WorkImages/abhiyantrikImages/flow.png" alt="Development Flow" width={1400} height={600} className="w-2/3 max-w-2xl h-auto mx-auto" />
+                <Image src="/images/WorkImages/abhiyantrikImages/flow.png" alt="Development Flow" width={1400} height={600} className="w-full md:w-2/3 max-w-2xl h-auto mx-auto" />
               </div>
               <h3 className="text-xl md:text-2xl font-light mb-4" style={{ fontFamily: 'Garamond, Georgia, serif' }}>From Concept to Deployment</h3>
               <p className="text-sm text-gray-500 leading-relaxed w-full" style={{ fontFamily: 'Poppins, sans-serif' }}>

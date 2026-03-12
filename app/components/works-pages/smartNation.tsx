@@ -49,6 +49,28 @@ const SmartNation = () => {
     { name: 'Christmas',        src: '/images/WorkImages/smartNationImages/app-occations/crismas.png',       mockup: '/images/WorkImages/smartNationImages/mobileMockUP/crismas-mockup.png' },
   ];
 
+  const [setupSlide, setSetupSlide] = useState(0);
+  const [desktopSetupSlide, setDesktopSetupSlide] = useState(0);
+  const [swbPan, setSwbPan] = useState(0);
+  const [mcbPan, setMcbPan] = useState(0);
+  const swbWrapperRef = useRef<HTMLDivElement>(null);
+  const mcbWrapperRef = useRef<HTMLDivElement>(null);
+  const swbTouchX = useRef(0);
+  const mcbTouchX = useRef(0);
+
+  // Sync pan state → wrapper transform with transition
+  useEffect(() => {
+    const el = swbWrapperRef.current; if (!el) return;
+    el.style.transition = 'transform 0.5s ease-in-out';
+    el.style.transform = swbPan === 0 ? 'translateX(0)' : 'translateX(-50%)';
+  }, [swbPan]);
+  useEffect(() => {
+    const el = mcbWrapperRef.current; if (!el) return;
+    el.style.transition = 'transform 0.5s ease-in-out';
+    el.style.transform = mcbPan === 0 ? 'translateX(0)' : 'translateX(-50%)';
+  }, [mcbPan]);
+  const [addAppSlide, setAddAppSlide] = useState(0);
+  const [desktopAddAppSlide, setDesktopAddAppSlide] = useState(0);
   const [selectedIcon, setSelectedIcon] = useState(appIcons[1]);
   const [showProcess, setShowProcess]   = useState(false);
   const [processSlide, setProcessSlide] = useState(0);
@@ -108,8 +130,8 @@ const SmartNation = () => {
   const sections = [
     { id: 'sn-brief', label: 'Brief' },
     { id: 'sn-01',    label: 'App Experience' },
-    { id: 'sn-02',    label: 'Onboarding' },
-    { id: 'sn-03',    label: 'Provisioning' },
+    { id: 'sn-02',    label: 'Provisioning' },
+    { id: 'sn-03',    label: 'Onboarding' },
     { id: 'sn-04',    label: 'Automation' },
     { id: 'sn-05',    label: 'Design System' },
     { id: 'sn-06',    label: 'Iconography' },
@@ -261,7 +283,7 @@ const SmartNation = () => {
           {/* Hero Image */}
           <div className="relative overflow-visible border-b border-gray-200">
             <Image
-              src="/images/WorkImages/smartNationImages/smartSWB-asset-1.png"
+              src="/images/HomeImages/SN-tumb-1.png"
               alt="Smart Nation switchboard"
               width={2000}
               height={900}
@@ -438,8 +460,8 @@ const SmartNation = () => {
             </p>
           </div>
 
-          <div className="grid-bg-mobile py-10 md:py-16 flex justify-center px-6 md:px-10">
-            <Image src="/images/WorkImages/smartNationImages/AppMockups-3screens.png" alt="Smart Nation App — 3-screen mockup" width={1200} height={800} className="w-full h-auto max-w-4xl" />
+          <div className="w-full">
+            <Image src="/images/HomeImages/SN-tumb-2.png" alt="Smart Nation App — 3-screen mockup" width={1200} height={800} className="w-full h-auto" />
           </div>
 
           {/* Switch states */}
@@ -471,30 +493,10 @@ const SmartNation = () => {
           <Plus h="right" />
         </div>
 
-        {/* ── 02 · Adding an Appliance ───────────────────────────────── */}
+        {/* ── 02 · Device Provisioning ───────────────────────────────── */}
         <div id="sn-02" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>02</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Switchboard to Dashboard in Four Taps</h2>
-            <Plus h="left" />
-            <Plus h="right" />
-          </div>
-          <div className="px-6 md:px-10 pt-6 pb-3">
-            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              Once the hardware is in the wall, the homeowner should own it completely, no dependency on the installer after day one. I designed this flow to be fully self-serve: pick the board, pick the module, give it a name. Four taps and any family member can map a new switch themselves.
-            </p>
-          </div>
-          <div className="px-6 md:px-10 py-10 md:py-16 flex justify-center">
-            <Image src="/images/WorkImages/smartNationImages/AddApp.png" alt="Adding Appliance Flow" width={1400} height={800} className="w-full h-auto" />
-          </div>
-          <Plus h="left" />
-          <Plus h="right" />
-        </div>
-
-        {/* ── 03 · Device Provisioning ───────────────────────────────── */}
-        <div id="sn-03" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>03</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Hardware in Hand, Online in Minutes</h2>
             <Plus h="left" />
             <Plus h="right" />
@@ -504,8 +506,146 @@ const SmartNation = () => {
               IoT setup is where trust breaks. Most users assume the product is broken the moment it takes more than five seconds. I redesigned provisioning into a linear flow: detect, connect, name, assign, confirm. Every step tells you exactly what's happening. The screen stays calm so the user does too.
             </p>
           </div>
-          <div className="px-6 md:px-10 py-10 md:py-16 flex justify-center">
-            <Image src="/images/WorkImages/smartNationImages/deviceProv.png" alt="Device Provisioning Flow" width={1400} height={800} className="w-full h-auto" />
+          {/* ── Mobile: 1 image per slide, 4 slides ── */}
+          <div className="md:hidden relative overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${setupSlide * 100}%)` }}
+            >
+              {['setup-slide-1', 'setup-slide-2', 'setup-slide-3', 'setup-slide-4'].map((slide) => (
+                <div key={slide} className="w-full shrink-0">
+                  <Image src={`/images/WorkImages/smartNationImages/${slide}.png`} alt={slide} width={800} height={1200} className="w-full h-auto block" />
+                </div>
+              ))}
+            </div>
+            {setupSlide > 0 && (
+              <button onClick={() => setSetupSlide(s => s - 1)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+            )}
+            {setupSlide < 3 && (
+              <button onClick={() => setSetupSlide(s => s + 1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            )}
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+              {[0, 1, 2, 3].map(i => (
+                <button key={i} onClick={() => setSetupSlide(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === setupSlide ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+              ))}
+            </div>
+          </div>
+
+          {/* ── Desktop: 2 images per slide, 2 slides ── */}
+          <div className="hidden md:block relative overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${desktopSetupSlide * 100}%)` }}
+            >
+              {/* Slide 1: images 1 + 2 */}
+              <div className="w-full shrink-0 flex">
+                <div className="w-1/2">
+                  <Image src="/images/WorkImages/smartNationImages/setup-slide-1.png" alt="Setup step 1" width={800} height={1200} className="w-full h-auto block" />
+                </div>
+                <div className="w-1/2">
+                  <Image src="/images/WorkImages/smartNationImages/setup-slide-2.png" alt="Setup step 2" width={800} height={1200} className="w-full h-auto block" />
+                </div>
+              </div>
+              {/* Slide 2: images 3 + 4 */}
+              <div className="w-full shrink-0 flex">
+                <div className="w-1/2">
+                  <Image src="/images/WorkImages/smartNationImages/setup-slide-3.png" alt="Setup step 3" width={800} height={1200} className="w-full h-auto block" />
+                </div>
+                <div className="w-1/2">
+                  <Image src="/images/WorkImages/smartNationImages/setup-slide-4.png" alt="Setup step 4" width={800} height={1200} className="w-full h-auto block" />
+                </div>
+              </div>
+            </div>
+            {desktopSetupSlide > 0 && (
+              <button onClick={() => setDesktopSetupSlide(0)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+            )}
+            {desktopSetupSlide < 1 && (
+              <button onClick={() => setDesktopSetupSlide(1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            )}
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+              {[0, 1].map(i => (
+                <button key={i} onClick={() => setDesktopSetupSlide(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === desktopSetupSlide ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+              ))}
+            </div>
+          </div>
+          <Plus h="left" />
+          <Plus h="right" />
+        </div>
+
+        {/* ── 03 · Adding an Appliance ───────────────────────────────── */}
+        <div id="sn-03" className="relative overflow-visible border-b border-gray-200">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>03</span>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Switchboard to Dashboard in Four Taps</h2>
+            <Plus h="left" />
+            <Plus h="right" />
+          </div>
+          <div className="px-6 md:px-10 pt-6 pb-3">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              Once the hardware is in the wall, the homeowner should own it completely, no dependency on the installer after day one. I designed this flow to be fully self-serve: pick the board, pick the module, give it a name. Four taps and any family member can map a new switch themselves.
+            </p>
+          </div>
+          {/* ── Mobile: 1 image per slide, 4 slides ── */}
+          <div className="md:hidden relative overflow-hidden">
+            <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${addAppSlide * 100}%)` }}>
+              {['add-app-slide-1', 'add-app-slide-2', 'add-app-slide-3', 'add-app-slide-4'].map((slide) => (
+                <div key={slide} className="w-full shrink-0">
+                  <Image src={`/images/WorkImages/smartNationImages/${slide}.png`} alt={slide} width={800} height={1200} className="w-full h-auto block" />
+                </div>
+              ))}
+            </div>
+            {addAppSlide > 0 && (
+              <button onClick={() => setAddAppSlide(s => s - 1)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+            )}
+            {addAppSlide < 3 && (
+              <button onClick={() => setAddAppSlide(s => s + 1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            )}
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+              {[0, 1, 2, 3].map(i => (
+                <button key={i} onClick={() => setAddAppSlide(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === addAppSlide ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+              ))}
+            </div>
+          </div>
+
+          {/* ── Desktop: 2 images per slide, 2 slides ── */}
+          <div className="hidden md:block relative overflow-hidden">
+            <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${desktopAddAppSlide * 100}%)` }}>
+              <div className="w-full shrink-0 flex">
+                <div className="w-1/2"><Image src="/images/WorkImages/smartNationImages/add-app-slide-1.png" alt="Add app step 1" width={800} height={1200} className="w-full h-auto block" /></div>
+                <div className="w-1/2"><Image src="/images/WorkImages/smartNationImages/add-app-slide-2.png" alt="Add app step 2" width={800} height={1200} className="w-full h-auto block" /></div>
+              </div>
+              <div className="w-full shrink-0 flex">
+                <div className="w-1/2"><Image src="/images/WorkImages/smartNationImages/add-app-slide-3.png" alt="Add app step 3" width={800} height={1200} className="w-full h-auto block" /></div>
+                <div className="w-1/2"><Image src="/images/WorkImages/smartNationImages/add-app-slide-4.png" alt="Add app step 4" width={800} height={1200} className="w-full h-auto block" /></div>
+              </div>
+            </div>
+            {desktopAddAppSlide > 0 && (
+              <button onClick={() => setDesktopAddAppSlide(0)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+            )}
+            {desktopAddAppSlide < 1 && (
+              <button onClick={() => setDesktopAddAppSlide(1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            )}
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+              {[0, 1].map(i => (
+                <button key={i} onClick={() => setDesktopAddAppSlide(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === desktopAddAppSlide ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+              ))}
+            </div>
           </div>
           <Plus h="left" />
           <Plus h="right" />
@@ -543,12 +683,12 @@ const SmartNation = () => {
           {/* Colour palette */}
           <div className="relative overflow-visible px-6 md:px-10 py-10 border-b border-gray-200">
             <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>Brand Colours</p>
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
+            <div className="grid grid-cols-3 md:grid-cols-5">
               {brandColors.map((c) => (
                 <div key={c.name}>
                   <div
-                    className="w-full mb-2 border border-gray-200"
-                    style={{ background: c.hex, aspectRatio: '5 / 3' }}
+                    className={`w-full mb-2${c.hex === '#FFFFFF' ? ' border border-gray-200' : ''}`}
+                    style={{ background: c.hex, aspectRatio: '5 / 2' }}
                   />
                   <p className="text-[10px] text-gray-500 leading-snug" style={{ fontFamily: 'Poppins, sans-serif' }}>{c.name}</p>
                   <p className="text-[10px] text-gray-400" style={{ fontFamily: 'monospace' }}>{c.hex}</p>
@@ -797,13 +937,15 @@ const SmartNation = () => {
               Simple and minimal. The packaging stays out of its own way: clean surfaces, restrained typography, and just enough brand presence to feel intentional without being loud.
             </p>
           </div>
-          <Image
-            src="/images/WorkImages/smartNationImages/smartnation-box-package-design.png"
-            alt="Smart Nation packaging design"
-            width={1600}
-            height={900}
-            className="w-full h-auto block"
-          />
+          <div className="overflow-hidden">
+            <Image
+              src="/images/WorkImages/smartNationImages/smartnation-box-package-design.png"
+              alt="Smart Nation packaging design"
+              width={1600}
+              height={900}
+              className="w-full h-auto block animate-slow-zoom"
+            />
+          </div>
           <Plus h="left" />
           <Plus h="right" />
         </div>
@@ -816,25 +958,120 @@ const SmartNation = () => {
             <Plus h="left" />
             <Plus h="right" />
           </div>
+          {/* SWB brochure */}
           <div className="border-t border-gray-200">
             <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>SWB</p>
-            <Image
-              src="/images/WorkImages/smartNationImages/SWB-brousher.png"
-              alt="SWB brochure design"
-              width={1600}
-              height={1000}
-              className="w-full h-auto block"
-            />
+            {/* Mobile: live-drag pan */}
+            <div
+              className="md:hidden relative overflow-hidden w-full"
+              onTouchStart={(e) => {
+                swbTouchX.current = e.touches[0].clientX;
+                if (swbWrapperRef.current) swbWrapperRef.current.style.transition = 'none';
+              }}
+              onTouchMove={(e) => {
+                const diff = e.touches[0].clientX - swbTouchX.current;
+                const cw = e.currentTarget.offsetWidth;
+                const base = swbPan === 0 ? 0 : -cw;
+                const offset = Math.max(-cw, Math.min(0, base + diff));
+                if (swbWrapperRef.current) swbWrapperRef.current.style.transform = `translateX(${offset}px)`;
+              }}
+              onTouchEnd={(e) => {
+                const diff = e.changedTouches[0].clientX - swbTouchX.current;
+                const cw = e.currentTarget.offsetWidth;
+                if (swbWrapperRef.current) swbWrapperRef.current.style.transition = 'transform 0.5s ease-in-out';
+                if (diff < -cw * 0.25 && swbPan === 0) setSwbPan(1);
+                else if (diff > cw * 0.25 && swbPan === 1) setSwbPan(0);
+                else {
+                  if (swbWrapperRef.current) swbWrapperRef.current.style.transform = swbPan === 0 ? 'translateX(0)' : 'translateX(-50%)';
+                }
+              }}
+            >
+              <div ref={swbWrapperRef} style={{ width: '200%' }}>
+                <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure" width={1600} height={1000} className="w-full h-auto block" />
+              </div>
+              {/* Bottom controls: arrows + dots in one row */}
+              <div className="absolute bottom-3 left-0 right-0 flex items-center justify-between px-3">
+                <button
+                  onClick={() => setSwbPan(0)}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${swbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div className="flex gap-2">
+                  {[0, 1].map(i => (
+                    <button key={i} onClick={() => setSwbPan(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === swbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+                  ))}
+                </div>
+                <button
+                  onClick={() => setSwbPan(1)}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${swbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+            {/* Desktop: full image */}
+            <div className="hidden md:block">
+              <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure design" width={1600} height={1000} className="w-full h-auto block" />
+            </div>
           </div>
+
+          {/* MCB brochure */}
           <div className="border-t border-gray-200">
             <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>MCB</p>
-            <Image
-              src="/images/WorkImages/smartNationImages/MCB-brousher.png"
-              alt="MCB brochure design"
-              width={1600}
-              height={1000}
-              className="w-full h-auto block"
-            />
+            {/* Mobile: live-drag pan */}
+            <div
+              className="md:hidden relative overflow-hidden w-full"
+              onTouchStart={(e) => {
+                mcbTouchX.current = e.touches[0].clientX;
+                if (mcbWrapperRef.current) mcbWrapperRef.current.style.transition = 'none';
+              }}
+              onTouchMove={(e) => {
+                const diff = e.touches[0].clientX - mcbTouchX.current;
+                const cw = e.currentTarget.offsetWidth;
+                const base = mcbPan === 0 ? 0 : -cw;
+                const offset = Math.max(-cw, Math.min(0, base + diff));
+                if (mcbWrapperRef.current) mcbWrapperRef.current.style.transform = `translateX(${offset}px)`;
+              }}
+              onTouchEnd={(e) => {
+                const diff = e.changedTouches[0].clientX - mcbTouchX.current;
+                const cw = e.currentTarget.offsetWidth;
+                if (mcbWrapperRef.current) mcbWrapperRef.current.style.transition = 'transform 0.5s ease-in-out';
+                if (diff < -cw * 0.25 && mcbPan === 0) setMcbPan(1);
+                else if (diff > cw * 0.25 && mcbPan === 1) setMcbPan(0);
+                else {
+                  if (mcbWrapperRef.current) mcbWrapperRef.current.style.transform = mcbPan === 0 ? 'translateX(0)' : 'translateX(-50%)';
+                }
+              }}
+            >
+              <div ref={mcbWrapperRef} style={{ width: '200%' }}>
+                <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure" width={1600} height={1000} className="w-full h-auto block" />
+              </div>
+              {/* Bottom controls: arrows + dots in one row */}
+              <div className="absolute bottom-3 left-0 right-0 flex items-center justify-between px-3">
+                <button
+                  onClick={() => setMcbPan(0)}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${mcbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div className="flex gap-2">
+                  {[0, 1].map(i => (
+                    <button key={i} onClick={() => setMcbPan(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === mcbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+                  ))}
+                </div>
+                <button
+                  onClick={() => setMcbPan(1)}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${mcbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+            {/* Desktop: full image as-is */}
+            <div className="hidden md:block">
+              <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure design" width={1600} height={1000} className="w-full h-auto block" />
+            </div>
           </div>
           <Plus h="left" />
           <Plus h="right" />

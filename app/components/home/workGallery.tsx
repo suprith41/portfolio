@@ -8,7 +8,7 @@ const works = [
     title: 'Smart Nation',
     tag: 'App Design · Branding · Motion',
     description: 'Built the brand from scratch — logo, design system, app UI, and motion graphics for a smart home IoT startup going from zero to launch.',
-    image: '/images/HomeImages/smartNation-frame.png',
+    image: '/images/HomeImages/SN-tumb-2.png',
     href: '/works/smartNation',
     client: 'Abhiyantrik Solutions',
     year: '2024',
@@ -19,39 +19,17 @@ const works = [
     title: 'Abhiyantrik Website',
     tag: 'Web Design · Development',
     description: 'Redesigned and built the company website end-to-end, along with a product experience deck that communicates the hardware offering clearly.',
-    image: '/images/HomeImages/abhiyantrik-frame.png',
+    image: '/images/WorkImages/abhiyantrikImages/Abhiyantrik-tumb-1.png',
     href: '/works/abhiyantrikWebsite',
     client: 'Abhiyantrik Solutions',
     year: '2023',
     available: true,
   },
-  {
-    num: '03',
-    title: 'Wagwan',
-    tag: 'Coming Soon',
-    description: 'Details dropping soon.',
-    image: '/images/HomeImages/wagwan-frame.png',
-    href: null,
-    client: '—',
-    year: '—',
-    available: false,
-  },
-  {
-    num: '04',
-    title: 'Wagwan Events',
-    tag: 'Coming Soon',
-    description: 'Details dropping soon.',
-    image: '/images/HomeImages/wagwan-events-frame.png',
-    href: null,
-    client: '—',
-    year: '—',
-    available: false,
-  },
 ]
 
 export default function WorkGallery() {
   return (
-    <div className="relative overflow-visible border-b border-gray-200">
+    <div className="relative overflow-visible">
 
       {/* ── Section header ─────────────────────────────────── */}
       <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
@@ -75,7 +53,7 @@ export default function WorkGallery() {
       {works.map((work) => (
         <div
           key={work.num}
-          className="relative overflow-visible grid grid-cols-1 md:grid-cols-2 border-b border-gray-200 last:border-b-0"
+          className="relative overflow-visible grid grid-cols-1 md:grid-cols-2 border-b border-gray-200 mt-12 first:mt-0"
         >
           <PlusAt x="50%" v="top" desktop />
 
@@ -154,13 +132,14 @@ export default function WorkGallery() {
           </div>
 
           {/* Image — right on desktop, above info on mobile */}
-          <div className="relative aspect-video md:aspect-auto overflow-hidden order-1 md:order-2" style={{ minHeight: '220px' }}>
+          <div className="relative overflow-hidden order-1 md:order-2">
             <Image
               src={work.image}
               alt={work.title}
-              fill
+              width={800}
+              height={600}
               sizes="(max-width: 768px) 100vw, 50vw"
-              className={`object-cover${work.available ? '' : ' blur-sm brightness-75'}`}
+              className={`w-full h-auto block${work.available ? '' : ' blur-sm brightness-75'}`}
             />
             {!work.available && (
               <div className="absolute inset-0 flex items-center justify-center">

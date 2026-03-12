@@ -250,6 +250,17 @@ body::-webkit-scrollbar {
   }
 }
 
+/* Packaging image — very slow breathe zoom */
+@keyframes slow-zoom {
+  0%   { transform: scale(1);    }
+  50%  { transform: scale(1.8); }
+  100% { transform: scale(1);    }
+}
+.animate-slow-zoom {
+  animation: slow-zoom 10s ease-in-out infinite;
+  transform-origin: center center;
+}
+
 /* Switchboard ripple hint — expands only ~10px outward, not full scale */
 @keyframes ping-ring {
   0% {

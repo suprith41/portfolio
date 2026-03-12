@@ -198,7 +198,7 @@ const AbhiyantrikWebsite = () => {
 
           {/* ── Hero image ───────────────────────────────── */}
           <div className="w-full border-b border-gray-200">
-            <Image src="/images/WorkImages/abhiyantrikImages/websiteMockup.png" alt="Abhiyantrik Website Mockup" width={1200} height={800} className="w-full h-auto" />
+            <Image src="/images/WorkImages/abhiyantrikImages/Abhiyantrik-tumb-1.png" alt="Abhiyantrik Website Mockup" width={1200} height={800} className="w-full h-auto" />
           </div>
 
           {/* ── 01 · Landing Page ────────────────────────── */}

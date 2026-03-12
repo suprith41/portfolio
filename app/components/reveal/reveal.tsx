@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import SplitType from 'split-type'
 
@@ -873,7 +874,7 @@ export default function Reveal() {
           transition: 'opacity 0.05s ease-out',
         }}
       >
-        <img
+        <Image
           src="/images/common/saaa-logo.svg"
           alt=""
           width={48}
@@ -910,7 +911,7 @@ export default function Reveal() {
         }}
       >
         <div className="reveal-floating-abhay" style={{ width: '100%', height: '100%' }}>
-          <img
+          <Image
             src="/images/reveal/abhay.png"
             alt="Abhay"
             width={400}
@@ -942,7 +943,7 @@ export default function Reveal() {
         }}
       >
         <div className="reveal-floating-tejas" style={{ width: '100%', height: '100%' }}>
-          <img
+          <Image
             src="/images/reveal/tejas.png"
             alt="Tejas"
             width={400}

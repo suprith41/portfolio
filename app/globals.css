@@ -49,7 +49,7 @@
 }
 
 :root {
-  --background: #f5f5f5;
+  --background: #ffffff;
   --foreground: #171717;
 }
 
@@ -83,7 +83,7 @@
 }
 
 html {
-  background: #f5f5f5;
+  background: #ffffff;
   color: #171717;
   font-family: 'Garamond', Georgia, serif;
   overflow-x: clip;
@@ -91,7 +91,7 @@ html {
 }
 
 body {
-  background: #f5f5f5;
+  background: #ffffff;
 }
 
 /*
@@ -248,6 +248,36 @@ body::-webkit-scrollbar {
     background-size: 3em 3em;
     background-position: 1.5em 1.5em;
   }
+}
+
+/* Switchboard ripple hint — expands only ~10px outward, not full scale */
+@keyframes ping-ring {
+  0% {
+    box-shadow: 0 0 0 0px rgba(96, 165, 250, 0.9);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(96, 165, 250, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0px rgba(96, 165, 250, 0);
+  }
+}
+@keyframes ping-ring-2 {
+  0% {
+    box-shadow: 0 0 0 0px rgba(147, 197, 253, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 24px rgba(147, 197, 253, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0px rgba(147, 197, 253, 0);
+  }
+}
+.animate-ring-1 {
+  animation: ping-ring 1.6s ease-out infinite;
+}
+.animate-ring-2 {
+  animation: ping-ring-2 1.6s ease-out 0.6s infinite;
 }
 
 /* Scroll indicator dot - up and down animation */

@@ -217,12 +217,12 @@ const SmartNation = () => {
         </>,
         document.body
       )}
-      <div className="relative overflow-visible max-w-5xl mx-auto border-l border-r border-t border-gray-200 rounded-t-lg">
+      <div className="relative overflow-visible max-w-5xl mx-auto border-l border-r border-t border-gray-200">
         <Plus h="left"  v="top" />
         <Plus h="right" v="top" />
 
         {/* ── Project Header ─────────────────────────────────────────── */}
-        <div className="relative overflow-visible flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-200 bg-white rounded-t-lg">
+        <div className="relative overflow-visible flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-200 bg-white">
           <Image src="/images/WorkImages/smartNationImages/sn-header-logo.png" alt="Smart Nation" width={48} height={48} className="w-10 h-10 md:w-12 md:h-12 object-contain" />
           <h1 className="text-2xl md:text-4xl font-light tracking-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
             Smart Nation

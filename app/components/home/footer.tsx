@@ -1,42 +1,104 @@
+"use client"
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import GridDivider from '../ui/GridDivider'
+import { Plus } from '../ui/Markers'
 
 export default function Footer() {
+  const [copied, setCopied] = useState<'email' | 'phone' | null>(null)
+
+  const handleCopy = (type: 'email' | 'phone', value: string) => {
+    navigator.clipboard.writeText(value)
+    setCopied(type)
+    setTimeout(() => setCopied(null), 2000)
+  }
+
   return (
     <>
-      <GridDivider />
-      <footer className="max-w-5xl mx-auto px-4 md:px-8 lg:px-16 py-10 md:py-12">
+      {/* ── Let's Work Together CTA ────────────────────────── */}
+      <div className="max-w-5xl mx-auto mt-10 mb-6 border border-gray-200 px-6 md:px-10 py-12 md:py-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative overflow-visible">
+        <Plus h="left" v="top" />
+        <Plus h="right" v="top" />
+        <Plus h="left" />
+        <Plus h="right" />
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+        <div>
+          <p
+            className="text-[10px] uppercase tracking-widest text-gray-400 mb-3"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+          >
+            Let&apos;s Work Together
+          </p>
+          <Image
+            src="/images/common/sa26.svg"
+            alt="Satish"
+            width={56}
+            height={56}
+            className="w-12 h-12 mb-4 opacity-80"
+          />
+          <h3
+            className="text-3xl md:text-4xl font-light text-gray-900 leading-snug"
+            style={{ fontFamily: 'Garamond, Georgia, serif' }}
+          >
+            Great products happen<br />when the right people meet.
+          </h3>
+          <p
+            className="text-sm text-gray-400 mt-3 max-w-md"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+          >
+            If you&apos;re building something and need a designer who goes all in, let&apos;s talk.
+          </p>
+        </div>
 
-          {/* Logo + tagline */}
-          <div>
-            <Image src="/images/HomeImages/sa.svg" alt="SA" width={40} height={24} className="mb-2" />
-            <p className="text-gray-400 text-xs max-w-[200px]"
-               style={{ fontFamily: 'Poppins, sans-serif' }}>
-              Product design for early-stage teams.
-            </p>
-          </div>
+        <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
+          <button
+            onClick={() => handleCopy('email', 'satishdezn@gmail.com')}
+            className="w-full flex items-center gap-3 px-5 py-3 border border-gray-900 text-gray-900 text-xs tracking-wide hover:bg-gray-900 hover:text-white transition-colors duration-200"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m2 7 10 7 10-7"/>
+            </svg>
+            {copied === 'email' ? 'Copied!' : 'satishdezn@gmail.com'}
+          </button>
+          <button
+            onClick={() => handleCopy('phone', '+918722519704')}
+            className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.44 2 2 0 0 1 3.57 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            {copied === 'phone' ? 'Copied!' : '+91 87225 19704'}
+          </button>
+          <a
+            href="https://www.linkedin.com/in/satish-hebbal/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
 
-          {/* Nav */}
-          <nav className="flex gap-6">
-            {[
-              { label: 'Work',      href: '/work' },
-              { label: 'Unplugged', href: '/unplugged' },
-              { label: 'Lab',       href: '/lab' },
-              { label: 'Contact',   href: '/contact' },
-            ].map((l) => (
-              <Link key={l.label} href={l.href}
-                    className="text-gray-400 hover:text-black text-sm transition-colors duration-200"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}>
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Socials */}
-          <div className="flex items-center gap-3">
+      {/* ── Bottom bar ─────────────────────────────────────── */}
+      <div className="max-w-5xl mx-auto px-6 md:px-10 pb-10">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+          <p
+            className="text-gray-300 text-xs"
+            style={{ fontFamily: 'Poppins, sans-serif' }}
+          >
+            &copy; {new Date().getFullYear()} Satish Hebbal. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4">
             {[
               { href: 'https://www.linkedin.com/in/satish-hebbal/', src: '/images/HomeImages/social/linkedin.svg',  alt: 'LinkedIn'  },
               { href: 'https://www.behance.net/satish-designs',     src: '/images/HomeImages/social/behance.svg',   alt: 'Behance'   },
@@ -44,26 +106,18 @@ export default function Footer() {
               { href: 'https://www.instagram.com/sat_dez',          src: '/images/HomeImages/social/instagram.svg', alt: 'Instagram' },
             ].map((s) => (
               <Link key={s.alt} href={s.href} target="_blank" rel="noopener noreferrer">
-                <Image src={s.src} alt={s.alt} width={22} height={22}
-                       className="opacity-40 hover:opacity-80 transition-opacity duration-200" />
+                <Image
+                  src={s.src}
+                  alt={s.alt}
+                  width={20}
+                  height={20}
+                  className="opacity-30 hover:opacity-60 transition-opacity duration-200"
+                />
               </Link>
             ))}
           </div>
-
         </div>
-
-        {/* Bottom bar */}
-        <div className="mt-8 pt-5 border-t border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-1">
-          <p className="text-gray-300 text-xs" style={{ fontFamily: 'Poppins, sans-serif' }}>
-            &copy; {new Date().getFullYear()} Satish Hebbal. All rights reserved.
-          </p>
-          <p className="text-gray-200 text-xs" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
-            Designed &amp; built by Satish
-          </p>
-        </div>
-
-      </footer>
-      <GridDivider />
+      </div>
     </>
   )
 }

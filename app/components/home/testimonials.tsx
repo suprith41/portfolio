@@ -1,4 +1,4 @@
-import GridDivider from '../ui/GridDivider'
+import { Plus, PlusAt } from '../ui/Markers'
 
 const testimonials = [
   {
@@ -23,43 +23,64 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <>
-      <GridDivider />
-      <div className="max-w-5xl mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16">
+    <div className="relative overflow-visible border-b border-gray-200">
 
-        <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-4"
-           style={{ fontFamily: 'Poppins, sans-serif' }}>
+      {/* ── Section header ─────────────────────────────────── */}
+      <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+        <span
+          className="text-[10px] uppercase tracking-widest text-gray-400"
+          style={{ fontFamily: 'Poppins, sans-serif' }}
+        >
+          02
+        </span>
+        <h2
+          className="text-2xl md:text-3xl font-light text-black"
+          style={{ fontFamily: 'Garamond, Georgia, serif' }}
+        >
           Kind Words
-        </p>
-        <h2 className="text-4xl md:text-5xl font-light text-black mb-10"
-            style={{ fontFamily: 'Garamond, Georgia, serif' }}>
-          What founders say
         </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {testimonials.map((t) => (
-            <div key={t.id}
-                 className="border border-gray-100 rounded-2xl p-6 flex flex-col gap-6 bg-white">
-              <p className="text-gray-500 text-sm leading-relaxed flex-1"
-                 style={{ fontFamily: 'Poppins, sans-serif' }}>
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <div>
-                <div className="w-6 h-px bg-gray-200 mb-2.5" />
-                <p className="text-black text-xs font-medium"
-                   style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  {t.name}
-                </p>
-                <p className="text-gray-400 text-xs mt-0.5"
-                   style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  {t.role}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
+        <Plus h="left" />
+        <Plus h="right" />
+        <PlusAt x="33.33%" desktop />
+        <PlusAt x="66.66%" desktop />
       </div>
-    </>
+
+      {/* ── 3-col grid ─────────────────────────────────────── */}
+      <div className="relative overflow-visible grid grid-cols-1 md:grid-cols-3">
+        <PlusAt x="33.33%" desktop />
+        <PlusAt x="66.66%" desktop />
+
+        {testimonials.map((t, i) => (
+          <div
+            key={t.id}
+            className={`px-6 md:px-10 py-10 flex flex-col justify-between gap-6 border-b md:border-b-0 border-gray-200 last:border-b-0 ${i < 2 ? 'md:border-r border-gray-200' : ''}`}
+          >
+            <p
+              className="text-base md:text-lg font-light leading-relaxed text-gray-700"
+              style={{ fontFamily: 'Garamond, Georgia, serif' }}
+            >
+              &ldquo;{t.quote}&rdquo;
+            </p>
+            <div>
+              <p
+                className="text-xs text-gray-700"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                {t.name}
+              </p>
+              <p
+                className="text-[10px] text-gray-400 uppercase tracking-widest mt-0.5"
+                style={{ fontFamily: 'Poppins, sans-serif' }}
+              >
+                {t.role}
+              </p>
+            </div>
+          </div>
+        ))}
+
+        <Plus h="left" />
+        <Plus h="right" />
+      </div>
+    </div>
   )
 }

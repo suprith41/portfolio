@@ -1,38 +1,79 @@
+import Image from "next/image"
 import WorkGallery from "./components/home/workGallery"
-import { Plus } from "./components/ui/Markers"
+import MouseColorBloom from "./components/home/MouseColorBloom"
+import ParallaxImages from "./components/home/ParallaxImages"
+import EmailCopy from "./components/home/EmailCopy"
+import UnpluggedGallery from "./components/home/unpluggedGallery"
+
 
 export default function Home() {
   return (
-    <div className="bg-white min-h-screen mt-16 px-4 md:px-0">
-      <div className="relative overflow-visible max-w-5xl mx-auto border-l border-r border-t border-gray-200">
-        <Plus h="left" v="top" />
-        <Plus h="right" v="top" />
+    <div className="bg-white">
 
-        {/* Title row */}
-        <div className="relative overflow-visible flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-200">
-          <span
-            className="text-[10px] uppercase tracking-widest text-gray-400"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
-          >
-            Portfolio
-          </span>
-          <h1
-            className="text-2xl md:text-4xl font-light tracking-tight"
-            style={{ fontFamily: 'Garamond, Georgia, serif' }}
-          >
-            Satish Hebbal
-          </h1>
-          <span
-            className="text-[10px] uppercase tracking-widest text-gray-400"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
-          >
-            2026
-          </span>
-          <Plus h="left" />
-          <Plus h="right" />
+      {/* ── Pillar decorations — fixed to viewport edges ─────── */}
+      <Image
+        src="/images/HomeImages/piller-v.svg"
+        alt=""
+        width={120}
+        height={800}
+        className="fixed top-0 h-screen w-auto object-contain object-top pointer-events-none select-none hidden md:block"
+        style={{ zIndex: 0, opacity: 0.18, left: '-70px' }}
+      />
+      <Image
+        src="/images/HomeImages/piller-2-v.svg"
+        alt=""
+        width={120}
+        height={800}
+        className="fixed top-0 h-screen w-auto object-contain object-top pointer-events-none select-none hidden md:block"
+        style={{ zIndex: 0, opacity: 0.18, right: '-40px' }}
+      />
+
+      <div className="max-w-5xl mx-auto px-6 md:px-10">
+
+        {/* First fold — name + description, full viewport height */}
+        <MouseColorBloom />
+        <div className="relative min-h-[calc(100vh-120px)] flex flex-col justify-center items-center text-center gap-6 overflow-hidden md:overflow-visible">
+
+          <ParallaxImages />
+
+          {/* Text isolated above the bloom layer so color blend doesn't affect it */}
+          <div className="relative flex flex-col items-center gap-6 md:bg-white md:px-6 md:py-4" style={{ zIndex: 5 }}>
+            <Image
+              src="/images/common/sa26.svg"
+              alt="SA26"
+              width={48}
+              height={48}
+              className="opacity-50"
+              style={{ marginBottom: '70px' }}
+            />
+            <h1 className="text-4xl md:text-5xl tracking-tight text-black">
+              <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>S</span><span style={{ fontFamily: 'SatishSans, sans-serif', marginLeft: '4px' }}>atish </span>
+              <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>H</span><span style={{ fontFamily: 'SatishSans, sans-serif', marginLeft: '4px' }}>ebbal</span>
+            </h1>
+            <p
+              className="text-sm md:text-base text-gray-400 leading-relaxed max-w-md"
+              style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: '300' }}
+            >
+              A product designer and vibe coder who loves building digital products and tools. Yes, &ldquo;vibe coder&rdquo; is a real job title now, we&rsquo;re all figuring this out together.
+            </p>
+          </div>
+
+          {/* Email box — absolutely anchored to bottom of first fold, not part of centered group */}
+          <div className="absolute bottom-28 md:bottom-20 left-0 right-0 flex justify-center" style={{ zIndex: 5 }}>
+            <EmailCopy />
+          </div>
         </div>
 
-        <WorkGallery />
+        {/* Work section */}
+        <div data-section="work">
+          <WorkGallery />
+        </div>
+
+        {/* Unplugged section */}
+        <div data-section="unplugged">
+          <UnpluggedGallery />
+        </div>
+
       </div>
     </div>
   )

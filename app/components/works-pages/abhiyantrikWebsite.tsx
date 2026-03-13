@@ -136,7 +136,7 @@ const AbhiyantrikWebsite = () => {
                       const el = document.getElementById(s.id);
                       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
+                    style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                     className="flex items-center gap-3 py-[6px] text-left group relative"
                   >
                     <span
@@ -185,13 +185,13 @@ const AbhiyantrikWebsite = () => {
           {/* ── Meta row ─────────────────────────────────── */}
           <div className="flex flex-col md:flex-row items-stretch border-b border-gray-200">
             <div className="flex items-center gap-3 px-6 md:px-8 py-3 border-b md:border-b-0 md:border-r border-gray-200">
-              <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'Poppins, sans-serif' }}>Company</span>
-              <span className="text-[11px] text-gray-700" style={{ fontFamily: 'Poppins, sans-serif' }}>Abhiyantrik Solutions</span>
+              <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Company</span>
+              <span className="text-[11px] text-gray-700" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Abhiyantrik Solutions</span>
             </div>
             <div className="flex items-center gap-2 px-6 md:px-8 py-3">
-              <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0 mr-1" style={{ fontFamily: 'Poppins, sans-serif' }}>Scope</span>
+              <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0 mr-1" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Scope</span>
               {['Web Design', 'Development', 'Creative Direction'].map(tag => (
-                <span key={tag} className="text-[9px] px-2 py-1 border border-gray-200 text-gray-500" style={{ fontFamily: 'Poppins, sans-serif' }}>{tag}</span>
+                <span key={tag} className="text-[9px] px-2 py-1 border border-gray-200 text-gray-500" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{tag}</span>
               ))}
             </div>
           </div>
@@ -204,15 +204,15 @@ const AbhiyantrikWebsite = () => {
           {/* ── 01 · Landing Page ────────────────────────── */}
           <div id="aby-01" className="relative overflow-visible border-b border-gray-200">
             <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>01</span>
+              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>01</span>
               <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Landing Page</h2>
               <Plus h="left" /><Plus h="right" />
             </div>
             <div className="relative overflow-visible px-6 md:px-10 py-8 flex flex-col gap-6">
-              <p className="text-sm text-gray-500 leading-relaxed w-full" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <p className="text-sm text-gray-500 leading-relaxed w-full" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                 I designed and developed Abhiyantrik Solutions&apos; complete website experience, from initial sketches to a fully interactive platform. The site showcases Smart Nation&apos;s innovative home automation products through immersive product demonstrations, allowing visitors to experience the technology before they buy.
               </p>
-              <a href="https://www.abhiyantriksolutions.in/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs text-black border border-gray-200 w-fit hover:bg-gray-50 transition-colors" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <a href="https://www.abhiyantriksolutions.in/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs text-black border border-gray-200 w-fit hover:bg-gray-50 transition-colors" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                 <span className="px-4 py-2 border-r border-gray-200">Visit website ↗</span>
                 <span className="px-4 py-2 text-gray-400">abhiyantriksolutions.in</span>
               </a>
@@ -223,7 +223,7 @@ const AbhiyantrikWebsite = () => {
           {/* ── 02 · Flow ────────────────────────────────── */}
           <div id="aby-02" className="relative overflow-visible border-b border-gray-200">
             <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>02</span>
+              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>02</span>
               <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Flow</h2>
               <Plus h="left" /><Plus h="right" />
             </div>
@@ -232,7 +232,7 @@ const AbhiyantrikWebsite = () => {
                 <Image src="/images/WorkImages/abhiyantrikImages/flow.png" alt="Development Flow" width={1400} height={600} className="w-full md:w-2/3 max-w-2xl h-auto mx-auto" />
               </div>
               <h3 className="text-xl md:text-2xl font-light mb-4" style={{ fontFamily: 'Garamond, Georgia, serif' }}>From Concept to Deployment</h3>
-              <p className="text-sm text-gray-500 leading-relaxed w-full" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <p className="text-sm text-gray-500 leading-relaxed w-full" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                 Started with the idea of bringing an interactive product experience into the website itself, so users could feel the product before they buy. Concept got confirmed, then moved into full Figma design for the entire site. Created all 3D assets and visuals in Blender and Photoshop. Moved into development using Claude AI to vibe-code and complete the build, then deployed live.
               </p>
             </div>
@@ -242,12 +242,12 @@ const AbhiyantrikWebsite = () => {
           {/* ── 03 · Interactive Product Experience — header + intro + toggle ── */}
           <div id="aby-03" className="relative overflow-visible">
             <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>03</span>
+              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>03</span>
               <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Interactive Product Experience</h2>
               <Plus h="left" /><Plus h="right" />
             </div>
             <div className="px-6 md:px-10 py-8 flex flex-col gap-6">
-              <p className="text-sm text-gray-500 leading-relaxed w-full" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <p className="text-sm text-gray-500 leading-relaxed w-full" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                 Traditional product pages tell. Interactive experiences sell. I built two core product demonstrations that let users actually feel the Smart Nation ecosystem right in their browser.
               </p>
               <div className="flex justify-center">
@@ -283,7 +283,7 @@ const AbhiyantrikWebsite = () => {
                       onClick={() => setActiveDemo('switch')}
                       className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300"
                       style={{
-                        fontFamily: 'Poppins, sans-serif',
+                        fontFamily: 'FunnelDisplay, sans-serif',
                         fontSize: '9px',
                         letterSpacing: '0.12em',
                         textTransform: 'uppercase',
@@ -299,7 +299,7 @@ const AbhiyantrikWebsite = () => {
                       onClick={() => setActiveDemo('mcb')}
                       className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300"
                       style={{
-                        fontFamily: 'Poppins, sans-serif',
+                        fontFamily: 'FunnelDisplay, sans-serif',
                         fontSize: '9px',
                         letterSpacing: '0.12em',
                         textTransform: 'uppercase',
@@ -337,7 +337,7 @@ const AbhiyantrikWebsite = () => {
             <div className="flex-1 w-full order-1 md:order-1 flex flex-col gap-3">
               {activeDemo === 'switch' ? (
                 <>
-                  <p className="text-center text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>Click any switch to toggle</p>
+                  <p className="text-center text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Click any switch to toggle</p>
                   <SmartTouchSwitchBoard
                     switchState={switchState}
                     onSwitchToggle={toggleSwitch}
@@ -347,7 +347,7 @@ const AbhiyantrikWebsite = () => {
                 </>
               ) : (
                 <>
-                  <p className="text-center text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>Click the MCB to toggle power</p>
+                  <p className="text-center text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Click the MCB to toggle power</p>
                   <SmartMCB mcbState={mcbState} onMCBToggle={toggleMCB} />
                 </>
               )}
@@ -355,7 +355,7 @@ const AbhiyantrikWebsite = () => {
 
             {/* Phone — always mounted, screens slide internally */}
             <div className="shrink-0 order-2 md:order-2 flex flex-col gap-3 items-center">
-              <p className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <p className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
                 Synced mobile app
               </p>
@@ -386,12 +386,12 @@ const AbhiyantrikWebsite = () => {
           {/* ── 04 · 3D Product Mockup ─────────────────────── */}
           <div id="aby-04" className="relative overflow-visible border-b border-gray-200">
             <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>04</span>
+              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>04</span>
               <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>3D Product Mockups</h2>
               <Plus h="left" /><Plus h="right" />
             </div>
             <div className="flex flex-col">
-              <p className="text-sm text-gray-500 leading-relaxed py-8 md:py-10 px-6 md:px-10 text-center" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <p className="text-sm text-gray-500 leading-relaxed py-8 md:py-10 px-6 md:px-10 text-center" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                 Used Blender to create realistic 3D product mockups for the website.
               </p>
               <div
@@ -415,8 +415,8 @@ const AbhiyantrikWebsite = () => {
                     </svg>
                   </div>
                 </div>
-                <span className="absolute bottom-3 left-4 text-[9px] uppercase tracking-widest text-white border border-white px-2 py-0.5" style={{ fontFamily: 'Poppins, sans-serif' }}>Rendered</span>
-                <span className="absolute bottom-3 right-4 text-[9px] uppercase tracking-widest text-white border border-white px-2 py-0.5" style={{ fontFamily: 'Poppins, sans-serif' }}>Raw</span>
+                <span className="absolute bottom-3 left-4 text-[9px] uppercase tracking-widest text-white border border-white px-2 py-0.5" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Rendered</span>
+                <span className="absolute bottom-3 right-4 text-[9px] uppercase tracking-widest text-white border border-white px-2 py-0.5" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Raw</span>
               </div>
             </div>
 
@@ -433,24 +433,24 @@ const AbhiyantrikWebsite = () => {
         <div className="max-w-5xl mx-auto mt-10 mb-6 border border-gray-200 px-6 md:px-10 py-12 md:py-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative overflow-visible">
           <Plus h="left" v="top" /><Plus h="right" v="top" /><Plus h="left" /><Plus h="right" />
           <div>
-            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'Poppins, sans-serif' }}>Let&apos;s Work Together</p>
+            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Let&apos;s Work Together</p>
             <h3 className="text-3xl md:text-4xl font-light text-gray-900 leading-snug" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
               Great products happen<br />when the right people meet.
             </h3>
-            <p className="text-sm text-gray-400 mt-3 max-w-md" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <p className="text-sm text-gray-400 mt-3 max-w-md" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               If you&apos;re building something and need a designer who goes all in, let&apos;s talk.
             </p>
           </div>
           <div className="flex flex-col gap-3 shrink-0">
-            <button onClick={() => handleCopy('email', 'satishdezn@gmail.com')} className="w-full flex items-center gap-3 px-5 py-3 border border-gray-900 text-gray-900 text-xs tracking-wide hover:bg-gray-900 hover:text-white transition-colors duration-200" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <button onClick={() => handleCopy('email', 'satishdezn@gmail.com')} className="w-full flex items-center gap-3 px-5 py-3 border border-gray-900 text-gray-900 text-xs tracking-wide hover:bg-gray-900 hover:text-white transition-colors duration-200" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
               {copied === 'email' ? 'Copied!' : 'satishdezn@gmail.com'}
             </button>
-            <button onClick={() => handleCopy('phone', '+918722519704')} className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <button onClick={() => handleCopy('phone', '+918722519704')} className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.44 2 2 0 0 1 3.57 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               {copied === 'phone' ? 'Copied!' : '+91 87225 19704'}
             </button>
-            <a href="https://www.linkedin.com/in/satish-hebbal/" target="_blank" rel="noopener noreferrer" className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <a href="https://www.linkedin.com/in/satish-hebbal/" target="_blank" rel="noopener noreferrer" className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               LinkedIn
             </a>
@@ -459,7 +459,7 @@ const AbhiyantrikWebsite = () => {
 
         <div className="max-w-5xl mx-auto px-6 md:px-10 pb-10">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
-            <p className="text-gray-300 text-xs" style={{ fontFamily: 'Poppins, sans-serif' }}>&copy; {new Date().getFullYear()} Satish Hebbal. All rights reserved.</p>
+            <p className="text-gray-300 text-xs" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>&copy; {new Date().getFullYear()} Satish Hebbal. All rights reserved.</p>
             <p className="text-gray-200 text-xs" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Designed &amp; built by Satish</p>
           </div>
         </div>

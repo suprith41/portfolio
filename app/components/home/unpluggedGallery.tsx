@@ -8,23 +8,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const works = [
+const items = [
   {
     num: '01',
-    title: 'Smart Nation',
-    description: 'Built the brand from scratch — logo, design system, app UI, and motion graphics for a smart home IoT startup going from zero to launch.',
-    image: '/images/HomeImages/SN-tumb-2.png',
-    href: '/works/smartNation',
+    title: 'Corner Table',
+    description: 'Built a corner table from scratch — cut, assembled, painted, and finished. A hands-on experiment in furniture making with zero prior woodworking experience.',
+    image: '/images/Unplugged/table/thumbnail.png',
+    href: '/unplugged/table',
     year: '2024',
-    available: true,
-  },
-  {
-    num: '02',
-    title: 'Abhiyantrik Website',
-    description: 'Redesigned and built the company website end-to-end, along with a product experience deck that communicates the hardware offering clearly.',
-    image: '/images/WorkImages/abhiyantrikImages/Abhiyantrik-tumb-1.png',
-    href: '/works/abhiyantrikWebsite',
-    year: '2023',
     available: true,
   },
 ]
@@ -46,42 +37,30 @@ const Plus = ({ h, v = 'bottom' }: { h: 'left' | 'right'; v?: 'top' | 'bottom' }
   >+</span>
 )
 
-export default function WorkGallery() {
+export default function UnpluggedGallery() {
   const headerRef  = useRef<HTMLDivElement>(null)
-  const selectedEl = useRef<HTMLHeadingElement>(null)
-  const worksEl    = useRef<HTMLHeadingElement>(null)
+  const unpluggedEl = useRef<HTMLHeadingElement>(null)
   const lineEl     = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const header   = headerRef.current
-    const selected = selectedEl.current
-    const worksH   = worksEl.current
-    const line     = lineEl.current
-    if (!header || !selected || !worksH || !line) return
+    const header    = headerRef.current
+    const unplugged = unpluggedEl.current
+    const line      = lineEl.current
+    if (!header || !unplugged || !line) return
 
     let tl: gsap.core.Timeline
 
     const setup = () => {
-      // Words are centered via CSS (justify-center) — this IS the initial state.
-      // We calculate where they need to animate TO (left edge / right edge of content area).
       const cRect = header.getBoundingClientRect()
-      const sRect = selected.getBoundingClientRect()
-      const wRect = worksH.getBoundingClientRect()
+      const uRect = unplugged.getBoundingClientRect()
 
-      // line uses inset-x-0 on the inner wrapper (header minus its padding)
-      const paddingX    = parseFloat(window.getComputedStyle(header).paddingLeft)
-      const contentLeft  = cRect.left  + paddingX
-      const contentRight = cRect.right - paddingX
+      const paddingX   = parseFloat(window.getComputedStyle(header).paddingLeft)
+      const contentLeft = cRect.left + paddingX
 
-      // How far each word moves from its centered position to the edge
-      const selectedFinalX = contentLeft - sRect.left               // negative → moves left
-      const worksFinalX    = (contentRight - wRect.width) - wRect.left  // positive → moves right
+      const unpluggedFinalX = contentLeft - uRect.left
 
-      // Hide line at start
       gsap.set(line, { scaleX: 0, transformOrigin: 'center center', opacity: 0 })
 
-      // One-shot animation triggered when section enters view.
-      // toggleActions: play forward on enter, reverse on leave-back.
       tl = gsap.timeline({
         defaults: { duration: 1.1, ease: 'power3.inOut' },
         scrollTrigger: {
@@ -91,9 +70,8 @@ export default function WorkGallery() {
         },
       })
 
-      tl.to(selected, { x: selectedFinalX }, 0)
-        .to(line,     { scaleX: 1, opacity: 1, ease: 'power2.inOut' }, 0)
-        .to(worksH,   { x: worksFinalX }, 0)
+      tl.to(unplugged, { x: unpluggedFinalX }, 0)
+        .to(line,       { scaleX: 1, opacity: 1, ease: 'power2.inOut' }, 0)
     }
 
     document.fonts.ready.then(() => requestAnimationFrame(setup))
@@ -102,67 +80,56 @@ export default function WorkGallery() {
   }, [])
 
   return (
-    <div>
+    <div className="mt-20 md:mt-28">
 
       {/* ── Section header ──────────────────────────────────────── */}
       <div
         ref={headerRef}
         className="px-6 md:px-10 pb-8 md:pb-12 overflow-hidden"
       >
-        {/* Inner wrapper: height = text height only, so top:50% = text midline */}
         <div className="relative">
-          {/* Line: spans full content width, vertically centred with the text */}
           <div
             ref={lineEl}
             className="absolute inset-x-0 border-t border-gray-300"
             style={{ top: '50%' }}
           />
-
-          {/* Words: start naturally centered side-by-side */}
           <div className="relative flex items-baseline justify-center gap-2">
             <h2
-              ref={selectedEl}
+              ref={unpluggedEl}
               className="relative bg-white pr-3 text-2xl md:text-3xl font-light text-black shrink-0 whitespace-nowrap"
             >
-              <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>S</span><span style={{ fontFamily: 'SatishSans, sans-serif' }}>elected</span>
-            </h2>
-            <h2
-              ref={worksEl}
-              className="relative bg-white pl-3 text-2xl md:text-3xl font-light text-black shrink-0 whitespace-nowrap"
-            >
-              <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>W</span><span style={{ fontFamily: 'SatishSans, sans-serif' }}>orks</span>
+              <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>U</span><span style={{ fontFamily: 'SatishSans, sans-serif' }}>nplugged</span>
             </h2>
           </div>
         </div>
       </div>
 
-      {/* ── Works list ─────────────────────────────────────── */}
+      {/* ── Items list ─────────────────────────────────────── */}
       <div className="flex flex-col gap-20 md:gap-28">
-        {works.map((work) => (
+        {items.map((item) => (
           <div
-            key={work.num}
+            key={item.num}
             className="relative border border-gray-200 grid grid-cols-1 md:grid-cols-2"
           >
-            {/* Corner plus markers */}
             <Plus h="left"  v="top" />
             <Plus h="right" v="top" />
             <Plus h="left"  v="bottom" />
             <Plus h="right" v="bottom" />
 
-            {/* Info — left on desktop, below image on mobile */}
+            {/* Info */}
             <div className="px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between order-2 md:order-1">
               <div>
                 <h3
                   className="text-2xl md:text-3xl font-light text-black mb-4"
                   style={{ fontFamily: 'SatishSans, sans-serif' }}
                 >
-                  {work.title}
+                  {item.title}
                 </h3>
                 <p
                   className="text-sm text-gray-400 leading-relaxed max-w-sm"
                   style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                 >
-                  {work.description}
+                  {item.description}
                 </p>
               </div>
 
@@ -171,31 +138,31 @@ export default function WorkGallery() {
                   className="text-xs text-gray-400"
                   style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                 >
-                  {work.year}
+                  {item.year}
                 </span>
-                {work.available && work.href && (
+                {item.available && item.href && (
                   <Link
-                    href={work.href}
+                    href={item.href}
                     className="px-4 py-2 border border-gray-900 text-xs text-gray-900 hover:bg-gray-900 hover:text-white transition-colors duration-200 shrink-0"
                     style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                   >
-                    View Work
+                    View Project
                   </Link>
                 )}
               </div>
             </div>
 
-            {/* Image — right on desktop, above info on mobile */}
+            {/* Image */}
             <div className="relative overflow-hidden order-1 md:order-2">
               <Image
-                src={work.image}
-                alt={work.title}
+                src={item.image}
+                alt={item.title}
                 width={800}
                 height={600}
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className={`w-full h-auto block${work.available ? '' : ' blur-sm brightness-75'}`}
+                className={`w-full h-auto block${item.available ? '' : ' blur-sm brightness-75'}`}
               />
-              {!work.available && (
+              {!item.available && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span
                     className="text-white/70 text-xs tracking-widest uppercase"

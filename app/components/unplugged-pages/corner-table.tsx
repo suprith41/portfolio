@@ -19,6 +19,7 @@ const CornerTable = () => {
     };
   }, []);
 
+
   useEffect(() => {
     if (!isMobile) {
       // Generate ruler numbers - ONLY TOP for desktop
@@ -104,7 +105,7 @@ const CornerTable = () => {
       {/* Fixed header */}
       <div className="fixed hidden top-0 left-0 right-0 bg-gradient-to-r from-emerald-800/95 to-emerald-900/95 backdrop-blur-sm z-50 p-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-light text-white" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h1 className="text-2xl font-light text-white" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             The Corner table
           </h1>
           <Image 
@@ -122,10 +123,10 @@ const CornerTable = () => {
         
         {/* Section 1: Reason for this project */}
         <section className="space-y-4">
-          <h2 className="text-3xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h2 className="text-3xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Reason for this project
           </h2>
-          <p className="text-lg text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <p className="text-lg text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
             My desk setup had become a nightmare of tangled wires, scattered extensions, and a woofer box sitting awkwardly on the floor. It looked messy and felt chaotic every time I sat down to work.
           </p>
           <div className="w-full">
@@ -141,10 +142,10 @@ const CornerTable = () => {
 
         {/* Section 2: First of all the Design */}
         <section className="space-y-4">
-          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             First of all the Design
           </h2>
-          <p className="text-lg text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <p className="text-lg text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
             I sketched out a simple corner table design - one that could hide all the wires, give my woofer a proper home, and add some storage shelves for my daily essentials like phone, watch, and earphones.
           </p>
           <div className="w-full">
@@ -160,10 +161,10 @@ const CornerTable = () => {
 
         {/* Section 3: Unplanned Arm Day */}
         <section className="space-y-4">
-          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Unplanned Arm Day💪
           </h2>
-          <p className="text-lg text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <p className="text-lg text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
             I had some wood strips lying around for months, so this project cost me nothing but time. Measured twice, cut once - carefully cutting each piece to exact dimensions.
           </p>
           <div className="w-full">
@@ -179,10 +180,10 @@ const CornerTable = () => {
 
         {/* Section 4: Assembly Time */}
         <section className="space-y-4">
-          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Assembly Time
           </h2>
-          <p className="text-lg text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <p className="text-lg text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
             The satisfying part - watching separate pieces come together into something functional. A bit of wood glue and some strategic nailing did the trick.
           </p>
           <div className="w-full">
@@ -198,10 +199,10 @@ const CornerTable = () => {
 
         {/* Section 5: Adding Character */}
         <section className="space-y-4">
-          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Adding Character
           </h2>
-          <p className="text-lg text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <p className="text-lg text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
             Cut the shelves from an old plywood sheet I had stored away. Added rounded corners because details matter - it&apos;s these small touches that make something look intentional rather than thrown together.
           </p>
           <div className="w-full">
@@ -217,36 +218,40 @@ const CornerTable = () => {
 
         {/* Section 6: The Finishing Touch */}
         <section className="space-y-4">
-          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             The Finishing Touch
           </h2>
-          <p className="text-lg text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <p className="text-lg text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
             A coat of dark brown wood stain brought out the natural grain and gave it that rich, finished look. Sometimes the simplest finishes work best.
           </p>
-          <div className="grid grid-cols-2 gap-4">
-            <Image 
-              src="/images/Unplugged/table/roller.png" 
-              alt="Paint roller"
-              width={300}
-              height={200}
-              className="w-full h-auto rounded-lg"
-            />
-            <Image 
-              src="/images/Unplugged/table/paint.png" 
-              alt="Finished corner table"
-              width={420}
-              height={300}
-              className="w-full h-auto rounded-lg"
-            />
+          <div className="flex items-end gap-3">
+            <div className="flex-1">
+              <Image
+                src="/images/Unplugged/table/paint.png"
+                alt="Finished corner table"
+                width={420}
+                height={300}
+                className="w-full h-auto rounded-lg"
+              />
+            </div>
+            <div className="w-16 shrink-0" style={{ transform: 'rotate(15deg)' }}>
+              <Image
+                src="/images/Unplugged/table/roller.png"
+                alt="Paint roller"
+                width={300}
+                height={200}
+                className="w-full h-auto"
+              />
+            </div>
           </div>
         </section>
 
         {/* Section 7: Problem Solved! */}
         <section className="space-y-4">
-          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h2 className="text-4xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Problem Solved!
           </h2>
-          <p className="text-lg text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <p className="text-lg text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
             Set it up in the corner, tucked away all those messy wires, gave my woofer a proper spot, and suddenly my workspace felt organized again. Clean setup, clear mind.
           </p>
           <div className="w-full">
@@ -271,7 +276,7 @@ const CornerTable = () => {
               className="w-full h-auto rounded-lg"
             />
           </div>
-          <p className="text-lg text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <p className="text-lg text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
             From chaos to order. Sometimes the best solutions are the ones you build yourself, exactly the way you need them.
           </p>
         </section>
@@ -287,7 +292,7 @@ const CornerTable = () => {
               className="w-full h-auto rounded-lg"
             />
           </div>
-          <h2 className="text-5xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h2 className="text-5xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Peees✌️
           </h2>
         </section>
@@ -307,11 +312,35 @@ const CornerTable = () => {
         }
 
         .cutting-mat-page {
-          font-family: Arial, sans-serif;
+          font-family: 'FunnelDisplay', sans-serif;
           overflow-x: auto;
           overflow-y: hidden;
           background: #2a8c5a;
           height: 100vh;
+        }
+
+        @keyframes ripple-out {
+          0%   { box-shadow: 0 0 0 0px rgba(255,255,255,0.35), 0 0 0 0px rgba(255,255,255,0.2); }
+          60%  { box-shadow: 0 0 0 10px rgba(255,255,255,0.08), 0 0 0 20px rgba(255,255,255,0.04); }
+          100% { box-shadow: 0 0 0 18px rgba(255,255,255,0), 0 0 0 36px rgba(255,255,255,0); }
+        }
+
+        .scroll-hint {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          padding: 5px 12px;
+          border-radius: 100px;
+          border: 1px solid rgba(255,255,255,0.25);
+          color: rgba(255,255,255,0.55);
+          font-family: 'Poppins', sans-serif;
+          font-size: 0.72rem;
+          font-weight: 300;
+          letter-spacing: 0.04em;
+          width: fit-content;
+          animation: ripple-out 1.8s ease-out infinite;
+          cursor: default;
+          user-select: none;
         }
 
         /* Hide scrollbar for Chrome, Safari and Opera */
@@ -629,8 +658,8 @@ const CornerTable = () => {
           font-size: 6rem;
           font-weight: 300;
           color: rgba(255, 255, 255, 0.95);
-          font-family: 'Garamond', Georgia, serif;
-          text-shadow: 
+          font-family: 'SatishSans', sans-serif;
+          text-shadow:
             0 4px 15px rgba(0,0,0,0.4),
             0 2px 8px rgba(0,0,0,0.3);
           z-index: 100;
@@ -655,7 +684,7 @@ const CornerTable = () => {
             {/* Desktop Table Contents */}
             <>
               {/* Fixed Corner table heading at top left */}
-              <h1 className="fixed top-4 left-16 text-4xl font-light text-white leading-tight m-0 z-[1000]" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+              <h1 className="fixed top-4 left-16 text-4xl font-light text-white leading-tight m-0 z-[1000]" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                 The Corner table
               </h1>
               
@@ -674,11 +703,11 @@ const CornerTable = () => {
 
                 {/* Section 1: Reason for this project */}
                 <div className="flex flex-col gap-3 ml-16 w-[525px]">
-                  <h2 className="text-4xl font-light text-white leading-tight text-left" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                  <h2 className="text-4xl font-light text-white leading-tight text-left" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                     Reason for this project
                   </h2>
 
-                  <p className="text-lg w-96 text-white leading-relaxed text-left" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                  <p className="text-lg w-96 text-white/70 leading-relaxed text-left" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                     My desk setup had become a nightmare of tangled wires, scattered extensions, and a woofer box sitting awkwardly on the floor. It looked messy and felt chaotic every time I sat down to work.
                   </p>
 
@@ -694,16 +723,14 @@ const CornerTable = () => {
                 {/* Section 2: First of all the Design */}
                 <div className="flex items-center ">
                   <div className="flex flex-col gap-12 w-[525px]">
-                    <h2 className="text-6xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <h2 className="text-6xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                       First of all <br/>the Design
                     </h2>
                     
-                    <p className="text-2xl text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <p className="text-2xl text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                       I sketched out a simple corner table design - one that could hide all the wires, give my woofer a proper home, and add some storage shelves for my daily essentials like phone, watch, and earphones.
                     </p>
-                    <p className='text-white opacity-50' style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '400' }}>
-                      scroll horizontally  →
-                    </p>
+                    <span className="scroll-hint">scroll →</span>
                   </div>
 
                   <Image 
@@ -718,11 +745,11 @@ const CornerTable = () => {
                 {/* Section 3: Unplanned Arm Day */}
                 <div className="flex items-center">
                   <div className="w-[525px]">
-                    <h2 className="text-6xl font-light text-white leading-tight mb-9" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <h2 className="text-6xl font-light text-white leading-tight mb-9" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                       Unplanned<br/> Arm Day💪
                     </h2>
                     
-                    <p className="text-2xl text-white leading-relaxed m-0" style={{ fontFamily: 'Garamond, Georgia, serif'}}>
+                    <p className="text-2xl text-white/70 leading-relaxed m-0" style={{ fontFamily: 'FunnelDisplay, sans-serif'}}>
                       I had some wood strips lying around for months, so this project cost me nothing but time. Measured twice, cut once - carefully cutting each piece to exact dimensions.
                     </p>
                   </div>
@@ -739,11 +766,11 @@ const CornerTable = () => {
                 {/* Section 4: Assembly Time */}
                 <div className="flex items-center">
                   <div className="w-[525px]">
-                    <h2 className="text-6xl font-light text-white leading-tight mb-9" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <h2 className="text-6xl font-light text-white leading-tight mb-9" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                       Assembly Time
                     </h2>
 
-                    <p className="text-2xl text-white leading-relaxed m-0" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <p className="text-2xl text-white/70 leading-relaxed m-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                       The satisfying part - watching separate pieces come together into something functional. A bit of wood glue and some strategic nailing did the trick.
                     </p>
                   </div>
@@ -760,11 +787,11 @@ const CornerTable = () => {
                 {/* Section 5: Adding Character */}
                 <div className="flex items-center gap-16">
                   <div className="w-[525px]">
-                    <h2 className="text-6xl font-light text-white leading-tight mb-9" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <h2 className="text-6xl font-light text-white leading-tight mb-9" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                       Adding Character
                     </h2>
                     
-                    <p className="text-2xl text-white leading-relaxed m-0" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <p className="text-2xl text-white/70 leading-relaxed m-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                       Cut the shelves from an old plywood sheet I had stored away. Added rounded corners because details matter - it&apos;s these small touches that make something look intentional rather than thrown together.
                     </p>
                   </div>
@@ -782,11 +809,11 @@ const CornerTable = () => {
                 <div className="flex items-center">
                   <div className='flex flex-col translate-y-36'>
                     <div className="w-[525px]">
-                      <h2 className="text-6xl font-light text-white leading-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                      <h2 className="text-6xl font-light text-white leading-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                         The Finishing Touch
                       </h2>
                       
-                      <p className="text-2xl text-white leading-relaxed" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                      <p className="text-2xl text-white/70 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                         A coat of dark brown wood stain brought out the natural grain and gave it that rich, finished look. Sometimes the simplest finishes work best.
                       </p>
                     </div>
@@ -812,11 +839,11 @@ const CornerTable = () => {
                 {/* Section 7: Problem Solved! */}
                 <div className="flex items-center gap-16">
                   <div className="w-[525px]">
-                    <h2 className="text-7xl font-light text-white leading-tight mb-9" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <h2 className="text-7xl font-light text-white leading-tight mb-9" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                       Problem Solved!
                     </h2>
                     
-                    <p className="text-3xl text-white leading-relaxed m-0" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <p className="text-3xl text-white/70 leading-relaxed m-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                       Set it up in the corner, tucked away all those messy wires, gave my woofer a proper spot, and suddenly my workspace felt organized again. Clean setup, clear mind.
                     </p>
                   </div>
@@ -840,7 +867,7 @@ const CornerTable = () => {
                     className="w-[920px] h-auto"
                   />
                   <div className="w-[920px] translate-x-10">
-                    <p className="text-3xl text-white leading-relaxed " style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                    <p className="text-3xl text-white/70 leading-relaxed " style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                       From chaos to order. Sometimes the best solutions are the ones you build yourself, exactly the way you need them.
                     </p>
                   </div>
@@ -855,7 +882,7 @@ const CornerTable = () => {
                     height={300}
                     className="w-[820px] h-auto translate-y-36"
                   />
-                  <h2 className="text-8xl font-light text-white leading-tight m-0" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                  <h2 className="text-8xl font-light text-white leading-tight m-0" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                     Peees✌️
                   </h2>
                 </div>

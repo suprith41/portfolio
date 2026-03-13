@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { gsap } from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 
@@ -9,11 +10,11 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 gsap.registerPlugin(ScrollToPlugin)
 
 const navItems = [
-  { name: "Home", href: "/" },
   { name: "Work", href: "/work" },
-  { name: "Unplugged", href: "/unplugged" },
+  { name: "Unplug", href: "/unplugged" },
+  { name: "Home", href: "/" },
   { name: "Lab", href: "/lab" },
-  { name: "Contact", href: "/contact" },
+  { name: "About", href: "/about" },
 ]
 
 export default function Navbar() {
@@ -63,20 +64,9 @@ export default function Navbar() {
     
     // Animate navbar entrance
     if (navRef.current) {
-      gsap.fromTo(navRef.current, 
-        { 
-          y: -100, 
-          opacity: 0,
-          scale: 0.8
-        },
-        { 
-          y: 0, 
-          opacity: 1,
-          scale: 1,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-          delay: 0.2
-        }
+      gsap.fromTo(navRef.current,
+        { y: -100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "back.out(1.7)", delay: 0.2 }
       )
     }
     
@@ -121,30 +111,20 @@ export default function Navbar() {
           }, 500)
         })
       }
-    } else if (item.name === "Unplugged") {
+    } else if (item.name === "Unplug") {
       if (pathname === '/') {
         // Already on home, scroll to unplugged
-        scrollToUnpluggedSection()
+        scrollToUnplugSection()
       } else {
         // Navigate to home and scroll to unplugged
         navigateWithTransition('/', () => {
           setTimeout(() => {
-            scrollToUnpluggedSection()
+            scrollToUnplugSection()
           }, 500)
         })
       }
-    } else if (item.name === "Contact") {
-      if (pathname === '/') {
-        // Already on home, scroll to contact
-        scrollToContactSection()
-      } else {
-        // Navigate to home and scroll to contact
-        navigateWithTransition('/', () => {
-          setTimeout(() => {
-            scrollToContactSection()
-          }, 500)
-        })
-      }
+    } else if (item.name === "About") {
+      navigateWithTransition('/about')
     } else if (item.name === "Home") {
       if (pathname !== '/') {
         navigateWithTransition('/')
@@ -187,11 +167,9 @@ export default function Navbar() {
 
   const scrollToWorkSection = () => {
     // Find work section and scroll to it
-    const workSection = document.querySelector('[data-section="work"]') || 
+    const workSection = document.querySelector('[data-section="work"]') ||
                        document.querySelector('.gallery-wrapper') ||
-                       document.querySelector('h2:contains("Works")') ||
-                       // Try to find by text content
-                       Array.from(document.querySelectorAll('h2')).find(el => 
+                       Array.from(document.querySelectorAll('h2')).find(el =>
                          el.textContent?.toLowerCase().includes('work')
                        )?.parentElement
 
@@ -207,10 +185,10 @@ export default function Navbar() {
     }
   }
 
-  const scrollToUnpluggedSection = () => {
+  const scrollToUnplugSection = () => {
     // Find unplugged section
     const unpluggedSection = document.querySelector('[data-section="unplugged"]') ||
-                            // Try to find by text content containing "Unplugged"
+                            // Try to find by text content containing "Unplug"
                             Array.from(document.querySelectorAll('h2, h3')).find(el => 
                               el.textContent?.toLowerCase().includes('unplugged')
                             )?.closest('div')
@@ -227,26 +205,6 @@ export default function Navbar() {
     }
   }
 
-  const scrollToContactSection = () => {
-    // Find contact section
-    const contactSection = document.querySelector('[data-section="contact"]') ||
-                          // Try to find by text content containing "Ready to Collab" or "Contact"
-                          Array.from(document.querySelectorAll('h2, h3')).find(el => 
-                            el.textContent?.toLowerCase().includes('ready to collab') ||
-                            el.textContent?.toLowerCase().includes('contact')
-                          )?.closest('div')
-
-    if (contactSection) {
-      gsap.to(window, {
-        duration: 1.2,
-        scrollTo: {
-          y: contactSection,
-          offsetY: 50
-        },
-        ease: "power2.inOut"
-      })
-    }
-  }
 
   // Page transition in effect
   useEffect(() => {
@@ -266,13 +224,13 @@ export default function Navbar() {
   }, [pathname])
   
   return (
-    <div className="fixed top-0 left-0 right-0 flex justify-center p-4 pointer-events-none" style={{ zIndex: 10005 }}>
-      <nav 
+    <div className="fixed top-0 left-0 right-0 flex justify-center px-3 py-4 pointer-events-none" style={{ zIndex: 10005 }}>
+      <nav
         ref={navRef}
-        className={`flex items-center rounded-none py-2 relative transition-all duration-300 hover:shadow-lg pointer-events-auto w-full md:w-auto justify-between md:justify-start ${
+        className={`flex items-center rounded-none py-1 relative transition-all duration-300 hover:shadow-lg pointer-events-auto w-full max-w-full md:w-auto justify-between md:justify-start ${
           isMounted
-            ? "gap-1.5 md:gap-6 px-4 md:px-6"
-            : "gap-6 px-6"
+            ? "gap-1 md:gap-6 px-3 md:px-6"
+            : "gap-1 px-3"
         }`}
         style={{
           background: 'rgba(255, 255, 255, 0.08)',
@@ -292,30 +250,38 @@ export default function Navbar() {
         <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-zinc-300" />
         {navItems.map((item, index) => (
           <div key={item.name} className={`flex items-center ${
-            isMounted ? "gap-1.5 md:gap-6" : "gap-6"
+            isMounted ? "gap-1 md:gap-6" : "gap-1"
           }`}>
             <button
               onClick={(e) => handleNavigation(item, e)}
               className={`font-light transition-all duration-300 relative hover:text-orange-500 hover:scale-105 ${
-                isMounted ? "text-[11px] md:text-md" : "text-md"
+                isMounted ? "text-xs md:text-sm" : "text-sm"
               } ${
                 (pathname === item.href) ||
                 (item.name === "Work" && pathname.startsWith('/works/')) ||
                 (item.name === "Home" && pathname === '/')
                   ? "text-orange-500"
-                  : (item.name === "Unplugged" && pathname.startsWith('/unplugged/'))
+                  : (item.name === "Unplug" && pathname.startsWith('/unplugged/'))
                     ? "text-orange-400"
                     : pathname.startsWith('/unplugged/')
                       ? "text-gray-300"
                       : "text-zinc-500"
               }`}
-              style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '400' }}
+              style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: '400' }}
             >
-              {item.name}
+              {item.name === "Home" ? (
+                <Image
+                  src="/images/common/sa26-filled.svg"
+                  alt="Home"
+                  width={22}
+                  height={22}
+                  className={`transition-opacity duration-300 ${pathname === '/' ? 'opacity-100' : 'opacity-40 hover:opacity-70'}`}
+                />
+              ) : item.name}
             </button>
             {index < navItems.length - 1 && (
               <span className={`text-zinc-300 ${
-                isMounted ? "text-[5px] md:text-[8px]" : "text-[8px]"
+                isMounted ? "text-[7px] md:text-[10px]" : "text-[10px]"
               }`}>•</span>
             )}
           </div>

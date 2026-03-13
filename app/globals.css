@@ -9,6 +9,38 @@
 }
 
 @font-face {
+  font-family: 'SatishSans';
+  src: url('/fonts/satish-font/Satish-sans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SatishCapsSans';
+  src: url('/fonts/satish-font/satish-caps-sans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FunnelDisplay';
+  src: url('/fonts/FunnelDisplay/FunnelDisplay-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FunnelDisplay';
+  src: url('/fonts/FunnelDisplay/FunnelDisplay-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Poppins';
   src: url('/fonts/Poppins/Poppins-Light.ttf') format('truetype');
   font-weight: 300;
@@ -60,27 +92,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Floating loop animation for reveal section (Abhay & Tejas images) - different timing so they don't sync */
-.reveal-floating-abhay {
-  animation: reveal-floating-abhay 5s ease-in-out infinite;
-}
-
-.reveal-floating-tejas {
-  animation: reveal-floating-tejas 6s ease-in-out infinite;
-  animation-delay: 1.2s;
-}
-
-@keyframes reveal-floating-abhay {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(0, 14px); }
-  100% { transform: translate(0, 0); }
-}
-
-@keyframes reveal-floating-tejas {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(0, 18px); }
-  100% { transform: translate(0, 0); }
-}
 
 html {
   background: #ffffff;
@@ -92,6 +103,7 @@ html {
 
 body {
   background: #ffffff;
+  overflow-x: hidden;
 }
 
 /*
@@ -301,9 +313,6 @@ body::-webkit-scrollbar {
   }
 }
 
-.reveal-scroll-dot {
-  animation: scroll-indicator-dot 1.8s ease-in-out infinite;
-}
 
 /* Text split animation styles */
 .word,

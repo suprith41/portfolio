@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 import { ChevronDownIcon, MenuIcon, XIcon, DownloadIcon } from "lucide-react";
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from "@/components/ui/button";
+const Button = ({ className, children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <button className={className} {...props}>{children}</button>
+);
 import SmartMCB, { MCBState } from './SmartMCB';
 import MCBMobileApp from './MCBMobileApp';
 

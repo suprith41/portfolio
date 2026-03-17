@@ -24,7 +24,7 @@ const works = [
     description: 'Redesigned and built the company website end-to-end, along with a product experience deck that communicates the hardware offering clearly.',
     image: '/images/HomeImages/Abhiyanyrik-tumbnail-home.png',
     href: '/works/abhiyantrikWebsite',
-    year: '2023',
+    year: '2025',
     available: true,
   },
 ]
@@ -189,7 +189,7 @@ export default function WorkGallery() {
             </div>
 
             {/* Image — right on desktop, above info on mobile */}
-            <div className="relative overflow-hidden order-1 md:order-2 aspect-square">
+            <Link href={work.href ?? '#'} className="relative overflow-hidden order-1 md:order-2 aspect-square block">
               <Image
                 src={work.image}
                 alt={work.title}
@@ -207,7 +207,7 @@ export default function WorkGallery() {
                   </span>
                 </div>
               )}
-            </div>
+            </Link>
           </div>
         ))}
       </div>

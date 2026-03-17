@@ -176,10 +176,13 @@ export default function WorkGallery() {
                 {work.available && work.href && (
                   <Link
                     href={work.href}
-                    className="px-4 py-2 border border-gray-900 text-xs text-gray-900 hover:bg-gray-900 hover:text-white transition-colors duration-200 shrink-0"
+                    className="px-4 py-2 border border-gray-900 text-xs text-gray-900 hover:bg-gray-900 hover:text-white transition-colors duration-200 shrink-0 flex items-center gap-2"
                     style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                   >
                     View Work
+                    <svg xmlns="http://www.w3.org/2000/svg" height="14px" viewBox="0 -960 960 960" width="14px" fill="currentColor">
+                      <path d="M251.77-254.23 210-296l393.62-394H245.77v-60h460v460h-60v-357.85l-394 393.62Z"/>
+                    </svg>
                   </Link>
                 )}
               </div>

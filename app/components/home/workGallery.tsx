@@ -15,7 +15,7 @@ const works = [
     description: 'Built the brand from scratch — logo, design system, app UI, and motion graphics for a smart home IoT startup going from zero to launch.',
     image: '/images/HomeImages/smartnation-tumbnail-home.png',
     href: '/works/smartNation',
-    year: '2024',
+    year: '2025',
     available: true,
   },
   {

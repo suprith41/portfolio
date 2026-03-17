@@ -186,14 +186,13 @@ export default function WorkGallery() {
             </div>
 
             {/* Image — right on desktop, above info on mobile */}
-            <div className="relative overflow-hidden order-1 md:order-2">
+            <div className="relative overflow-hidden order-1 md:order-2 aspect-square">
               <Image
                 src={work.image}
                 alt={work.title}
-                width={800}
-                height={600}
+                fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className={`w-full h-auto block${work.available ? '' : ' blur-sm brightness-75'}`}
+                className={`object-cover${work.available ? '' : ' blur-sm brightness-75'}`}
               />
               {!work.available && (
                 <div className="absolute inset-0 flex items-center justify-center">

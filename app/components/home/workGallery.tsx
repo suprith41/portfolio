@@ -150,7 +150,7 @@ export default function WorkGallery() {
             <Plus h="right" v="bottom" />
 
             {/* Info — left on desktop, below image on mobile */}
-            <div className="px-6 md:px-10 py-10 md:py-14 flex flex-col justify-between order-2 md:order-1">
+            <div className="p-6 md:p-10 flex flex-col justify-between order-2 md:order-1">
               <div>
                 <h3
                   className="text-2xl md:text-3xl font-light text-black mb-4"

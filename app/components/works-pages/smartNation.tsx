@@ -358,7 +358,7 @@ const SmartNation = () => {
             {[
               { label: 'Company',     value: 'Abhiyantrik Solutions' },
               { label: 'Role',        value: 'Designer' },
-              { label: 'Deliverable', value: 'Zero to Launch' },
+              { label: 'Deliverable', value: 'Zero to V1' },
             ].map((item, i) => (
               <div key={item.label} className={`flex items-center gap-2 px-6 md:px-8 py-3 ${i === 1 ? 'border-l border-gray-200' : ''} ${i === 2 ? 'w-full md:w-auto border-t md:border-t-0 md:border-l border-gray-200' : ''}`}>
                 <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{item.label}</span>

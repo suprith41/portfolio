@@ -451,20 +451,22 @@ const SmartNation = () => {
               )}
 
               {/* Toggle button — bottom right always */}
-              <div className="absolute bottom-4 right-4 flex gap-2 items-center">
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                {showProcess ? (
+                  <div className="flex gap-1.5 items-center">
+                    {processSessions.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setProcessSlide(i)}
+                        className="w-1.5 h-1.5 rounded-full transition-colors"
+                        style={{ background: i === processSlide ? '#374151' : '#d1d5db' }}
+                      />
+                    ))}
+                  </div>
+                ) : <span />}
+                <div className="flex gap-2 items-center">
                 {showProcess && (
                   <>
-                    {/* Dot nav — inline with buttons */}
-                    <div className="flex gap-1.5 items-center mr-2">
-                      {processSessions.map((_, i) => (
-                        <button
-                          key={i}
-                          onClick={() => setProcessSlide(i)}
-                          className="w-1.5 h-1.5 rounded-full transition-colors"
-                          style={{ background: i === processSlide ? '#374151' : '#d1d5db' }}
-                        />
-                      ))}
-                    </div>
                     <button
                       onClick={() => setProcessSlide(s => Math.max(0, s - 1))}
                       disabled={processSlide === 0}
@@ -489,6 +491,7 @@ const SmartNation = () => {
                     </span>
                   )}
                 </button>
+                </div>
               </div>
             </div>
           </div>

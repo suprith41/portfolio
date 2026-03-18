@@ -918,6 +918,11 @@ const SmartNation = () => {
                         }}
                       />
                     )}
+                    <div className="relative">
+                    {/* Orange selected dot */}
+                    {isSelected && (
+                      <span className="absolute left-1/2 -translate-x-1/2 rounded-full bg-orange-500" style={{ bottom: '-8px', width: '4px', height: '4px' }} />
+                    )}
                     <button
                       onClick={() => {
                         if (clickSound.current) { clickSound.current.currentTime = 0; clickSound.current.play().catch(() => {}); }
@@ -972,6 +977,7 @@ const SmartNation = () => {
                         }}
                       />
                     </button>
+                    </div>
                   </div>
                 );
               })}

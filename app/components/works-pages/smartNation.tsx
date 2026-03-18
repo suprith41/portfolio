@@ -233,7 +233,6 @@ const SmartNation = () => {
     { id: 'sn-03',    label: 'Onboarding' },
     { id: 'sn-04',    label: 'Automation' },
     { id: 'sn-05',    label: 'Design System' },
-    { id: 'sn-06',    label: 'Iconography' },
     { id: 'sn-07',    label: 'Packaging' },
     { id: 'sn-08',    label: 'Brochures' },
     { id: 'sn-09',    label: 'Team' },
@@ -814,20 +813,6 @@ const SmartNation = () => {
             </div>
             <Plus h="left" />
             <Plus h="right" />
-          </div>
-
-          <Plus h="left" />
-          <Plus h="right" />
-        </div>
-
-        {/* ── 06 · Icon System ───────────────────────────────────────── */}
-        <div id="sn-06" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>06</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Iconography</h2>
-            <Plus h="left" />
-            <Plus h="right" />
-            <PlusAt x="50%" desktop />
           </div>
 
           {/* Appliance icons */}

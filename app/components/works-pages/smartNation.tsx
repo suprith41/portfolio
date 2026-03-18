@@ -394,7 +394,7 @@ const SmartNation = () => {
             <PlusAt x="50%" desktop />
 
             {/* Brief — always visible, never changes */}
-            <div className="px-6 md:px-10 py-10 md:py-16 md:border-r border-gray-200 flex flex-col justify-center">
+            <div className="px-6 md:px-10 py-6 md:py-10 md:border-r border-gray-200 flex flex-col justify-start">
               <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>The Brief</p>
               <h2 className="text-3xl md:text-4xl font-light leading-tight text-black mb-6" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
                 Your entire home, automated. Every switch controlled from one app.

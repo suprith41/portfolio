@@ -21,12 +21,47 @@ interface SmartTouchSwitchBoardProps {
   onFanSpeedChange: (newSpeed: number) => void;
 }
 
+const themes = [
+  {
+    id: 'black',
+    swatchTop: '#a8a8a8',
+    swatchBottom: '#111111',
+    outerBody: 'linear-gradient(175deg, #d0d0d0 0%, #b8b8b8 8%, #383838 18%, #1a1a1a 30%, #222222 45%, #181818 55%, #2a2a2a 68%, #404040 80%, #c0c0c0 92%, #d8d8d8 100%)',
+    innerPanel: 'linear-gradient(180deg, #1c1c1c 0%, #111111 40%, #0e0e0e 60%, #161616 100%)',
+    activeBorder: '#1d4ed8',
+    activeFanIcon: '#3b82f6',
+    activeDot: '#1d4ed8',
+  },
+  {
+    id: 'red',
+    swatchTop: '#f08888',
+    swatchBottom: '#5c0a0a',
+    outerBody: 'linear-gradient(175deg, #e8c0c0 0%, #c89090 8%, #6a2020 18%, #3a0808 30%, #4a1010 45%, #300808 55%, #4a1818 68%, #702020 80%, #c08080 92%, #e8b0b0 100%)',
+    innerPanel: 'linear-gradient(180deg, #2a0808 0%, #1a0404 40%, #150303 60%, #200606 100%)',
+    activeBorder: '#b91c1c',
+    activeFanIcon: '#ef4444',
+    activeDot: '#b91c1c',
+  },
+  {
+    id: 'navy',
+    swatchTop: '#8888d8',
+    swatchBottom: '#05050f',
+    outerBody: 'linear-gradient(175deg, #c0c0e8 0%, #9898c8 8%, #202060 18%, #08081a 30%, #10103a 45%, #080818 55%, #181848 68%, #202070 80%, #8080c0 92%, #b0b0e8 100%)',
+    innerPanel: 'linear-gradient(180deg, #08081e 0%, #04040f 40%, #030308 60%, #060618 100%)',
+    activeBorder: '#7c3aed',
+    activeFanIcon: '#a78bfa',
+    activeDot: '#7c3aed',
+  },
+];
+
 const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
   switchState,
   onSwitchToggle,
   fanSpeed,
   onFanSpeedChange
 }) => {
+  const [themeId, setThemeId] = useState('black');
+  const theme = themes.find(t => t.id === themeId) ?? themes[0];
 
   const clickSound = useRef<HTMLAudioElement | null>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -82,7 +117,8 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
         {/* Outer brushed aluminum body */}
         <div className="relative w-full rounded-sm overflow-hidden" style={{
           aspectRatio: '3/1',
-          background: 'linear-gradient(175deg, #d0d0d0 0%, #b8b8b8 8%, #383838 18%, #1a1a1a 30%, #222222 45%, #181818 55%, #2a2a2a 68%, #404040 80%, #c0c0c0 92%, #d8d8d8 100%)',
+          background: theme.outerBody,
+        transition: 'background 0.4s ease',
           boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.12), inset 0 -2px 4px rgba(0,0,0,0.5)',
         }}>
           {/* Horizontal brushed lines overlay */}
@@ -106,7 +142,8 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
             padding: '2px',
           }}>
             <div className="w-full h-full rounded-sm flex overflow-hidden" style={{
-              background: 'linear-gradient(180deg, #1c1c1c 0%, #111111 40%, #0e0e0e 60%, #161616 100%)',
+              background: theme.innerPanel,
+              transition: 'background 0.4s ease',
             }}>
 
               {/* SmartNation logo panel */}
@@ -133,7 +170,7 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
                       className="relative flex items-center justify-center p-1 sm:p-2 md:p-4 cursor-pointer"
                       onClick={() => { playClick(); onSwitchToggle(key); }}
                     >
-                      <div className={`w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-sm lg:rounded-lg border sm:border-2 ${switchState[key] ? 'border-blue-700' : 'border-white'} transition-all duration-300`} />
+                      <div className="w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8 rounded-sm lg:rounded-lg border sm:border-2 transition-all duration-300" style={{ borderColor: switchState[key] ? theme.activeBorder : 'white' }} />
                       {key === 'light1' && !hasInteracted && (
                         <>
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -155,7 +192,8 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 28 29"
-                      className={`lg:w-8 lg:h-8 w-4 h-4 ${switchState.fan ? 'text-blue-500' : 'text-white'} transition-colors duration-300`}
+                      className="lg:w-8 lg:h-8 w-4 h-4 transition-colors duration-300"
+                      style={{ color: switchState.fan ? theme.activeFanIcon : 'white' }}
                     >
                       <rect width="3.598" height="11.805" rx="1.799" transform="matrix(0.796219 0.605009 -0.602206 0.798341 24.785 0)" className="fill-current" />
                       <rect width="3.606" height="3.594" rx="1.797" transform="matrix(0.264158 0.964479 -0.963984 0.265958 17.523 11.273)" className="fill-current" />
@@ -184,7 +222,8 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
                       {[5, 4, 3, 2, 1].map((level) => (
                         <div
                           key={`level-${level}`}
-                          className={`w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 rounded-sm transition-all duration-300 ${level <= fanSpeed && switchState.fan ? 'bg-blue-700 opacity-100' : 'bg-white opacity-20'}`}
+                          className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 rounded-sm transition-all duration-300"
+                          style={{ backgroundColor: level <= fanSpeed && switchState.fan ? theme.activeDot : 'white', opacity: level <= fanSpeed && switchState.fan ? 1 : 0.2 }}
                         />
                       ))}
                     </div>
@@ -199,7 +238,7 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
                       className="flex items-center justify-center p-1 sm:p-2 md:p-4 cursor-pointer"
                       onClick={() => { playClick(); onSwitchToggle(key); }}
                     >
-                      <div className={`w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-sm lg:rounded-xl border sm:border-2 ${switchState[key] ? 'border-blue-700' : 'border-white'} transition-all duration-300`} />
+                      <div className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-sm lg:rounded-xl border sm:border-2 transition-all duration-300" style={{ borderColor: switchState[key] ? theme.activeBorder : 'white' }} />
                     </div>
                   ))}
                 </div>
@@ -209,6 +248,25 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
           </div>
         </div>
       </div>
+      </div>
+
+      {/* Color theme swatches */}
+      <div className="flex items-center justify-center gap-4 mt-5">
+        {themes.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setThemeId(t.id)}
+            className="relative rounded-full overflow-hidden cursor-pointer transition-transform duration-200 hover:scale-110 focus:outline-none"
+            style={{
+              width: '28px',
+              height: '28px',
+              boxShadow: themeId === t.id ? '0 0 0 2px white, 0 0 0 3.5px #555' : '0 1px 4px rgba(0,0,0,0.3)',
+            }}
+          >
+            <div style={{ height: '50%', background: t.swatchTop }} />
+            <div style={{ height: '50%', background: t.swatchBottom }} />
+          </button>
+        ))}
       </div>
 
     </div>

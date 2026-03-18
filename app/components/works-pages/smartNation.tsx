@@ -136,7 +136,7 @@ const SmartNation = () => {
   }, [mcbPan]);
   const [addAppSlide, setAddAppSlide] = useState(0);
   const [desktopAddAppSlide, setDesktopAddAppSlide] = useState(0);
-  const [selectedIcon, setSelectedIcon] = useState(appIcons[1]);
+  const [selectedIcon, setSelectedIcon] = useState(appIcons[0]);
   const [showProcess, setShowProcess]   = useState(false);
   const [processSlide, setProcessSlide] = useState(0);
   const [mounted, setMounted] = useState(false);

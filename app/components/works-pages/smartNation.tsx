@@ -434,6 +434,7 @@ const SmartNation = () => {
                         width={1200}
                         height={800}
                         className="hidden md:block w-full h-full object-cover"
+                        style={{ transform: 'scale(1.12)', transformOrigin: 'center center' }}
                       />
                     )}
                     {/* Mobile image for all sessions on mobile; also session 1 & 2 on desktop */}
@@ -443,6 +444,7 @@ const SmartNation = () => {
                       width={600}
                       height={800}
                       className={`w-full h-full object-cover${processSlide === 2 ? ' md:hidden' : ''}`}
+                      style={processSlide === 2 ? { transform: 'scale(1.12)', transformOrigin: 'center center' } : {}}
                     />
                   </div>
                   {/* Dot nav */}

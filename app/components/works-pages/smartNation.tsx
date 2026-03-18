@@ -39,12 +39,12 @@ const PlusAt = ({ x, v = 'bottom', desktop = false }: { x: string; v?: 'top' | '
 
 const SwitchStatesSection = () => {
   const [lightOn, setLightOn] = useState(true);
-  const [offlineShaking, setOfflineShaking] = useState(false);
+  const [offlineClicked, setOfflineClicked] = useState(false);
 
   const handleOfflineClick = () => {
-    if (offlineShaking) return;
-    setOfflineShaking(true);
-    setTimeout(() => setOfflineShaking(false), 500);
+    if (offlineClicked) return;
+    setOfflineClicked(true);
+    setTimeout(() => setOfflineClicked(false), 600);
   };
 
   return (
@@ -58,7 +58,7 @@ const SwitchStatesSection = () => {
           <p className="text-[10px] text-gray-400 mt-3 italic" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Try tapping the switches →</p>
         </div>
         <div className="flex gap-8 md:gap-12 shrink-0">
-          {/* On button */}
+          {/* On */}
           <div className="text-center cursor-pointer select-none" onClick={() => setLightOn(true)}>
             <img
               src={lightOn ? '/images/WorkImages/smartNationImages/switchOn.png' : '/images/WorkImages/smartNationImages/switchOff.png'}
@@ -67,7 +67,7 @@ const SwitchStatesSection = () => {
             />
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{lightOn ? 'On' : 'Off'}</p>
           </div>
-          {/* Off button */}
+          {/* Off */}
           <div className="text-center cursor-pointer select-none" onClick={() => setLightOn(false)}>
             <img
               src={lightOn ? '/images/WorkImages/smartNationImages/switchOff.png' : '/images/WorkImages/smartNationImages/switchOn.png'}
@@ -76,17 +76,19 @@ const SwitchStatesSection = () => {
             />
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{lightOn ? 'Off' : 'On'}</p>
           </div>
-          {/* Offline button */}
+          {/* Offline */}
           <div
             className="text-center cursor-pointer select-none"
             onClick={handleOfflineClick}
-            style={{ animation: offlineShaking ? 'sn-shake 0.4s ease' : 'none' }}
+            style={{ animation: offlineClicked ? 'sn-shake 0.5s ease' : 'none' }}
           >
-            <img
-              src="/images/WorkImages/smartNationImages/switchOffline.png"
-              alt="Switch Offline"
-              className="h-16 md:h-24 mx-auto object-contain mb-3 pointer-events-none"
-            />
+            <div className={`rounded-2xl transition-all duration-150 ${offlineClicked ? 'ring-2 ring-red-500' : 'ring-0'}`}>
+              <img
+                src="/images/WorkImages/smartNationImages/switchOffline.png"
+                alt="Switch Offline"
+                className="h-16 md:h-24 mx-auto object-contain mb-3 pointer-events-none"
+              />
+            </div>
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Offline</p>
           </div>
         </div>

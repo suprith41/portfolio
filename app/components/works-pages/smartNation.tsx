@@ -237,6 +237,10 @@ const SmartNation = () => {
     { id: 'sn-07',    label: 'Packaging' },
     { id: 'sn-08',    label: 'Brochures' },
     { id: 'sn-09',    label: 'Team' },
+    { id: 'aby-01',   label: 'Landing Page' },
+    { id: 'aby-02',   label: 'Flow' },
+    { id: 'aby-03',   label: 'Interactive' },
+    { id: 'aby-04',   label: '3D Mockups' },
   ];
 
   useEffect(() => {
@@ -1157,30 +1161,6 @@ const SmartNation = () => {
             ABHIYANTRIK WEBSITE — merged below brochures
         ══════════════════════════════════════════════════════════════ */}
 
-        {/* ── Abhiyantrik · Header ────────────────────────────────────── */}
-        <div id="aby-header" className="relative overflow-visible flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-200">
-          <div className="w-10 h-10 md:w-12 md:h-12 flex items-center">
-            <Image src="/images/WorkImages/abhiyantrikImages/abhiyantrik-logo.png" alt="Abhiyantrik Logo" width={48} height={48} className="w-full h-full object-contain" />
-          </div>
-          <h1 className="text-2xl md:text-4xl font-light" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Abhiyantrik</h1>
-          <Image src="/images/common/sa26.svg" alt="SA26" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-20" />
-          <Plus h="left" /><Plus h="right" />
-        </div>
-
-        {/* ── Abhiyantrik · Meta row ──────────────────────────────────── */}
-        <div className="flex flex-col md:flex-row items-stretch border-b border-gray-200">
-          <div className="flex items-center gap-3 px-6 md:px-8 py-3 border-b md:border-b-0 md:border-r border-gray-200">
-            <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Company</span>
-            <span className="text-[11px] text-gray-700" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Abhiyantrik Solutions</span>
-          </div>
-          <div className="flex items-center gap-2 px-6 md:px-8 py-3">
-            <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0 mr-1" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Scope</span>
-            {['Web Design', 'Development', 'Creative Direction'].map(tag => (
-              <span key={tag} className="text-[9px] px-2 py-1 border border-gray-200 text-gray-500" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{tag}</span>
-            ))}
-          </div>
-        </div>
-
         {/* ── Abhiyantrik · 01 · Landing Page ────────────────────────── */}
         <div id="aby-01" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
@@ -1232,8 +1212,13 @@ const SmartNation = () => {
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Interactive Product Experience</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
+          <div className="px-6 md:px-10 py-5">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Traditional product pages tell. Interactive experiences sell. I built two core product demonstrations that let users actually feel the Smart Nation ecosystem right in their browser.
+            </p>
+          </div>
           {/* Toggle — centered on the bottom border line */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10 bg-white px-6">
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10">
             <div style={{ background: 'linear-gradient(160deg,#e8e8e8 0%,#c8c8c8 20%,#d8d8d8 40%,#b0b0b0 60%,#d0d0d0 80%,#e4e4e4 100%)', borderRadius: '999px', padding: '5px', boxShadow: '0 6px 20px rgba(0,0,0,0.35),0 2px 6px rgba(0,0,0,0.25),inset 0 1px 1px rgba(255,255,255,0.9),inset 0 -1px 1px rgba(0,0,0,0.15)', border: '1px solid rgba(90,90,90,0.35)' }}>
               <div className="relative flex items-center" style={{ background: 'linear-gradient(180deg,#787878 0%,#929292 50%,#888888 100%)', borderRadius: '999px', boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.55),inset 0 1px 3px rgba(0,0,0,0.4),inset 0 -1px 2px rgba(255,255,255,0.08)', padding: '4px' }}>
                 <div className="absolute transition-all duration-300 ease-in-out" style={{ top: '4px', bottom: '4px', width: 'calc(50% - 4px)', left: activeDemo === 'switch' ? '4px' : 'calc(50%)', borderRadius: '999px', background: 'linear-gradient(160deg,#f8f8f8 0%,#e0e0e0 30%,#f2f2f2 55%,#c8c8c8 80%,#dedede 100%)', boxShadow: '0 3px 8px rgba(0,0,0,0.45),0 1px 3px rgba(0,0,0,0.3),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,0.1)', border: '1px solid rgba(100,100,100,0.2)' }} />
@@ -1280,9 +1265,6 @@ const SmartNation = () => {
             <Plus h="left" /><Plus h="right" />
           </div>
           <div className="flex flex-col">
-            <p className="text-sm text-gray-500 leading-relaxed py-8 md:py-10 px-6 md:px-10 text-center" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Used Blender to create realistic 3D product mockups for the website.
-            </p>
             <div
               ref={sliderRef}
               className="relative w-full overflow-hidden cursor-pointer select-none touch-none border-t border-b border-gray-200 aspect-video"

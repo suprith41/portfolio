@@ -180,11 +180,11 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
 
                   {/* Speed level dots */}
                   <div className="h-full flex flex-col justify-center">
-                    <div className="space-y-1 sm:space-y-2 md:space-y-4">
+                    <div className="space-y-1 sm:space-y-1.5 md:space-y-2">
                       {[5, 4, 3, 2, 1].map((level) => (
                         <div
                           key={`level-${level}`}
-                          className={`w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 rounded-sm transition-all duration-300 ${level <= fanSpeed && switchState.fan ? 'bg-blue-700 opacity-100' : 'bg-white opacity-20'}`}
+                          className={`w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 rounded-sm transition-all duration-300 ${level <= fanSpeed && switchState.fan ? 'bg-blue-700 opacity-100' : 'bg-white opacity-20'}`}
                         />
                       ))}
                     </div>

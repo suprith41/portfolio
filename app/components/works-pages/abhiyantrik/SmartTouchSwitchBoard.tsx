@@ -38,9 +38,9 @@ const themes = [
     swatchBottom: '#5c0a0a',
     outerBody: 'linear-gradient(175deg, #e8c0c0 0%, #c89090 8%, #6a2020 18%, #3a0808 30%, #4a1010 45%, #300808 55%, #4a1818 68%, #702020 80%, #c08080 92%, #e8b0b0 100%)',
     innerPanel: 'linear-gradient(180deg, #2a0808 0%, #1a0404 40%, #150303 60%, #200606 100%)',
-    activeBorder: '#b91c1c',
-    activeFanIcon: '#ef4444',
-    activeDot: '#b91c1c',
+    activeBorder: '#1d4ed8',
+    activeFanIcon: '#3b82f6',
+    activeDot: '#1d4ed8',
   },
   {
     id: 'navy',

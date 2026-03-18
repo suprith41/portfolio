@@ -505,9 +505,9 @@ const SmartNation = () => {
           <PlusAt x="33.33%" desktop />
           <PlusAt x="66.66%" desktop />
           {[
-            { stat: '40+',  label: 'Installed across homes, offices & commercial spaces', hoverImg: '/images/WorkImages/smartNationImages/home-asset.png',   dir: 'top',    size: 80  },
-            { stat: '280+', label: 'Smart switches live, every tile, state and icon designed', hoverImg: '/images/WorkImages/smartNationImages/swb-asset.png',    dir: 'right',  size: 100 },
-            { stat: '3 mo', label: 'First sketch to live product',                             hoverImg: '/images/WorkImages/smartNationImages/rocket-asset.png', dir: 'bottom', size: 48  },
+            { stat: '40+',  label: 'Installed across homes, offices & commercial spaces',    hoverImg: '/images/WorkImages/smartNationImages/cottage.svg',      dir: 'top',    size: 80  },
+            { stat: '280+', label: 'Smart switches live, every tile, state and icon designed', hoverImg: '/images/WorkImages/smartNationImages/mode_off_on.svg',   dir: 'right',  size: 100 },
+            { stat: '3 mo', label: 'First sketch to live product',                             hoverImg: '/images/WorkImages/smartNationImages/rocket_launch.svg', dir: 'bottom', size: 48  },
           ].map((item) => {
             const hovered = hoveredStat === item.stat;
 

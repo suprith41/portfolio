@@ -183,13 +183,10 @@ const SmartNation = () => {
   };
   useEffect(() => { setMounted(true); }, []);
   const [activeSection, setActiveSection] = useState('sn-brief');
-  const clickSound    = useRef<HTMLAudioElement | null>(null);
-  const deepawaliSound = useRef<HTMLAudioElement | null>(null);
+  const clickSound = useRef<HTMLAudioElement | null>(null);
   useEffect(() => {
-    clickSound.current = new Audio('/images/WorkImages/smartNationImages/radio-slow.mp3');
-    clickSound.current.volume = 0.6;
-    deepawaliSound.current = new Audio('/images/WorkImages/smartNationImages/wow-wow.mp3');
-    deepawaliSound.current.volume = 0.7;
+    clickSound.current = new Audio('/images/WorkImages/abhiyantrikImages/AppMedia/touch-click.mp3');
+    clickSound.current.volume = 0.7;
   }, []);
 
   const processSessions = [
@@ -924,8 +921,7 @@ const SmartNation = () => {
                     )}
                     <button
                       onClick={() => {
-                        const sound = icon.name === 'Deepawali' ? deepawaliSound.current : clickSound.current;
-                        if (sound) { sound.currentTime = 0; sound.play(); }
+                        if (clickSound.current) { clickSound.current.currentTime = 0; clickSound.current.play().catch(() => {}); }
                         setSelectedIcon(icon);
                       }}
                       title={icon.name}

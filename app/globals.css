@@ -273,27 +273,21 @@ body::-webkit-scrollbar {
   transform-origin: center center;
 }
 
-/* Switchboard ripple hint — expands only ~10px outward, not full scale */
+/* Switchboard ripple hint — thin border lines expanding outward */
 @keyframes ping-ring {
   0% {
-    box-shadow: 0 0 0 0px rgba(96, 165, 250, 0.9);
-  }
-  70% {
-    box-shadow: 0 0 0 14px rgba(96, 165, 250, 0);
+    box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.8), 0 0 0 2px rgba(96, 165, 250, 0.3);
   }
   100% {
-    box-shadow: 0 0 0 0px rgba(96, 165, 250, 0);
+    box-shadow: 0 0 0 14px rgba(96, 165, 250, 0), 0 0 0 16px rgba(96, 165, 250, 0);
   }
 }
 @keyframes ping-ring-2 {
   0% {
-    box-shadow: 0 0 0 0px rgba(147, 197, 253, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 24px rgba(147, 197, 253, 0);
+    box-shadow: 0 0 0 1px rgba(147, 197, 253, 0.6), 0 0 0 2px rgba(147, 197, 253, 0.2);
   }
   100% {
-    box-shadow: 0 0 0 0px rgba(147, 197, 253, 0);
+    box-shadow: 0 0 0 22px rgba(147, 197, 253, 0), 0 0 0 24px rgba(147, 197, 253, 0);
   }
 }
 .animate-ring-1 {
@@ -345,11 +339,3 @@ html {
   scrollbar-color: #9ca3af #f3f4f6;
 }
 
-
-@keyframes sn-shake {
-  0%, 100% { transform: translateX(0); }
-  20%       { transform: translateX(-5px); }
-  40%       { transform: translateX(5px); }
-  60%       { transform: translateX(-4px); }
-  80%       { transform: translateX(4px); }
-}

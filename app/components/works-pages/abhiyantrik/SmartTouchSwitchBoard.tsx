@@ -251,7 +251,7 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
       </div>
 
       {/* Color theme swatches */}
-      <div className="flex items-center justify-center gap-4 mt-5">
+      <div className="flex items-center justify-center gap-4 mt-10">
         {themes.map((t) => (
           <button
             key={t.id}

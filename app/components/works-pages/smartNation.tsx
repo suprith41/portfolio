@@ -140,8 +140,8 @@ const SmartNation = () => {
   const [showProcess, setShowProcess]   = useState(false);
   const [processSlide, setProcessSlide] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const [hoveredStat, setHoveredStat] = useState<string | null>(null);
   const [copied, setCopied] = useState<'email' | 'phone' | null>(null);
+  const [hoveredStat, setHoveredStat] = useState<string | null>(null);
 
   // ── Abhiyantrik interactive demo state ─────────────────────────
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -505,41 +505,48 @@ const SmartNation = () => {
           <PlusAt x="33.33%" desktop />
           <PlusAt x="66.66%" desktop />
           {[
-            { stat: '40+',  label: 'Installed across homes, offices & commercial spaces',    hoverImg: '/images/WorkImages/smartNationImages/cottage.svg',      dir: 'top',    size: 80  },
-            { stat: '280+', label: 'Smart switches live, every tile, state and icon designed', hoverImg: '/images/WorkImages/smartNationImages/mode_off_on.svg',   dir: 'right',  size: 100 },
-            { stat: '3 mo', label: 'First sketch to live product',                             hoverImg: '/images/WorkImages/smartNationImages/rocket_launch.svg', dir: 'bottom', size: 48  },
+            { stat: '40+',  label: 'Installed across homes, offices & commercial spaces',    icon: '/images/WorkImages/smartNationImages/cottage.svg' },
+            { stat: '280+', label: 'Smart switches live, every tile, state and icon designed', icon: '/images/WorkImages/smartNationImages/mode_off_on.svg' },
+            { stat: '3 mo', label: 'First sketch to live product',                             icon: '/images/WorkImages/smartNationImages/rocket_launch.svg' },
           ].map((item) => {
-            const hovered = hoveredStat === item.stat;
-
-            const imgStyle: React.CSSProperties = {
-              position: 'absolute',
-              pointerEvents: 'none',
-              zIndex: 20,
-              width: `${item.size}px`,
-              opacity: hovered ? 1 : 0,
-              transition: 'opacity 0.28s ease, top 0.28s ease, right 0.28s ease, bottom 0.28s ease',
-              ...(item.dir === 'top'    && { top:    hovered ? '12px'  : '-40px', right:  '12px' }),
-              ...(item.dir === 'right'  && { top: '12px', right: hovered ? '12px' : '-50px' }),
-              ...(item.dir === 'bottom' && { bottom: hovered ? '0px' : '-60px', right: '12px' }),
-            };
-
+            const isHovered = hoveredStat === item.stat;
             return (
               <div
                 key={item.stat}
-                className="relative px-8 py-8 md:px-10 border-b border-gray-200 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 overflow-hidden"
+                className="relative px-8 py-8 md:px-10 border-b border-gray-200 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 overflow-hidden cursor-pointer"
                 onMouseEnter={() => setHoveredStat(item.stat)}
                 onMouseLeave={() => setHoveredStat(null)}
               >
-                <p className="text-5xl font-light text-black mb-3" style={{ fontFamily: 'Garamond, Georgia, serif' }}>{item.stat}</p>
+                {/* Gradient bg overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(150% 60% at 50% 100%, rgba(85,131,254,0.22) 0%, transparent 100%)',
+                    opacity: isHovered ? 1 : 0,
+                    transition: isHovered ? 'opacity 0.3s ease-in' : 'opacity 0.15s ease-out',
+                  }}
+                />
+                <p
+                  className="text-5xl font-light mb-3"
+                  style={{
+                    fontFamily: 'Garamond, Georgia, serif',
+                    color: isHovered ? '#5583fe' : '#000000',
+                    transition: 'color 0.3s ease',
+                  }}
+                >{item.stat}</p>
                 <p className="text-sm text-gray-400 leading-snug max-w-[260px]" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{item.label}</p>
-                <div style={imgStyle}>
-                  <Image
-                    src={item.hoverImg}
-                    alt={item.stat}
-                    width={item.size}
-                    height={item.size}
-                    className="w-full h-auto object-contain drop-shadow-md"
-                  />
+                {/* Icon */}
+                <div
+                  className="absolute pointer-events-none"
+                  style={{
+                    bottom: '-25%', right: '-10%',
+                    opacity: isHovered ? 0.1 : 0,
+                    transition: isHovered ? 'opacity 0.3s ease-in' : 'opacity 0.15s ease-out',
+                    maskImage: 'linear-gradient(to right, transparent, #5583fe)',
+                    WebkitMaskImage: 'linear-gradient(to right, transparent, #5583fe)',
+                  }}
+                >
+                  <Image src={item.icon} alt="" width={160} height={160} className="object-contain" />
                 </div>
               </div>
             );

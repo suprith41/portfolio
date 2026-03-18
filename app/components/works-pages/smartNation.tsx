@@ -82,7 +82,7 @@ const SwitchStatesSection = () => {
             onClick={handleOfflineClick}
             style={{ animation: offlineClicked ? 'sn-shake 0.5s ease' : 'none' }}
           >
-            <div className="rounded-2xl transition-all duration-150" style={{ boxShadow: offlineClicked ? '0 0 0 6px rgba(239,68,68,0.35)' : 'none' }}>
+            <div className="rounded-2xl transition-all duration-150" style={{ boxShadow: offlineClicked ? '0 0 12px 2px rgba(239,68,68,0.2)' : 'none' }}>
               <img
                 src="/images/WorkImages/smartNationImages/switchOffline.png"
                 alt="Switch Offline"

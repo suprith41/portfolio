@@ -3,6 +3,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image'
+import SmartTouchSwitchBoard, { SwitchState } from './abhiyantrik/SmartTouchSwitchBoard'
+import SmartMCB, { MCBState } from './abhiyantrik/SmartMCB'
+import PhoneShell from './abhiyantrik/PhoneShell'
 
 const Plus = ({ h, v = 'bottom' }: { h: 'left' | 'right'; v?: 'top' | 'bottom' }) => (
   <span
@@ -139,6 +142,40 @@ const SmartNation = () => {
   const [mounted, setMounted] = useState(false);
   const [hoveredStat, setHoveredStat] = useState<string | null>(null);
   const [copied, setCopied] = useState<'email' | 'phone' | null>(null);
+
+  // ── Abhiyantrik interactive demo state ─────────────────────────
+  const [sliderPosition, setSliderPosition] = useState(50);
+  const [isDragging, setIsDragging] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const handleSliderMove = (clientX: number) => {
+    if (!sliderRef.current) return;
+    const rect = sliderRef.current.getBoundingClientRect();
+    setSliderPosition(Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)));
+  };
+  const [switchState, setSwitchState] = useState<SwitchState>({
+    light1: false, light2: false, light3: false, light4: false,
+    fan: false, tv: false, router: false,
+  });
+  const [fanSpeed, setFanSpeed] = useState(0);
+  const [activeDemo, setActiveDemo] = useState<'switch' | 'mcb'>('switch');
+  const [mcbState, setMCBState] = useState<MCBState>({ mcb: false });
+  const toggleMCB = () => setMCBState(prev => ({ mcb: !prev.mcb }));
+  const toggleSwitch = (switchName: keyof SwitchState) => {
+    setSwitchState(prev => ({ ...prev, [switchName]: !prev[switchName] }));
+  };
+  const handleFanSpeedChange = (newSpeed: number) => {
+    setFanSpeed(newSpeed);
+    setSwitchState(prev => ({ ...prev, fan: newSpeed > 0 }));
+  };
+  const toggleAllDevices = (state: boolean) => {
+    setSwitchState({ light1: state, light2: state, light3: state, light4: state, fan: state, tv: state, router: state });
+    if (!state) setFanSpeed(0);
+  };
+  const mobileDevices = {
+    fan: switchState.fan, tv: switchState.tv, router: switchState.router,
+    light1: switchState.light1, light2: switchState.light2, light3: switchState.light3, light4: switchState.light4,
+  };
+
   const handleCopy = (type: 'email' | 'phone', value: string) => {
     navigator.clipboard.writeText(value);
     setCopied(type);
@@ -1114,6 +1151,169 @@ const SmartNation = () => {
           </div>
           <Plus h="left" />
           <Plus h="right" />
+        </div>
+
+        {/* ══════════════════════════════════════════════════════════════
+            ABHIYANTRIK WEBSITE — merged below brochures
+        ══════════════════════════════════════════════════════════════ */}
+
+        {/* ── Abhiyantrik · Header ────────────────────────────────────── */}
+        <div id="aby-header" className="relative overflow-visible flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-200">
+          <div className="w-10 h-10 md:w-12 md:h-12 flex items-center">
+            <Image src="/images/WorkImages/abhiyantrikImages/abhiyantrik-logo.png" alt="Abhiyantrik Logo" width={48} height={48} className="w-full h-full object-contain" />
+          </div>
+          <h1 className="text-2xl md:text-4xl font-light" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Abhiyantrik</h1>
+          <Image src="/images/common/sa26.svg" alt="SA26" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-20" />
+          <Plus h="left" /><Plus h="right" />
+        </div>
+
+        {/* ── Abhiyantrik · Meta row ──────────────────────────────────── */}
+        <div className="flex flex-col md:flex-row items-stretch border-b border-gray-200">
+          <div className="flex items-center gap-3 px-6 md:px-8 py-3 border-b md:border-b-0 md:border-r border-gray-200">
+            <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Company</span>
+            <span className="text-[11px] text-gray-700" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Abhiyantrik Solutions</span>
+          </div>
+          <div className="flex items-center gap-2 px-6 md:px-8 py-3">
+            <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0 mr-1" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Scope</span>
+            {['Web Design', 'Development', 'Creative Direction'].map(tag => (
+              <span key={tag} className="text-[9px] px-2 py-1 border border-gray-200 text-gray-500" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{tag}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Abhiyantrik · Hero image ────────────────────────────────── */}
+        <div className="w-full border-b border-gray-200">
+          <Image src="/images/WorkImages/abhiyantrikImages/Abhiyantrik-tumb-1.png" alt="Abhiyantrik Website Mockup" width={1200} height={800} className="w-full h-auto" />
+        </div>
+
+        {/* ── Abhiyantrik · 01 · Landing Page ────────────────────────── */}
+        <div id="aby-01" className="relative overflow-visible border-b border-gray-200">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>01</span>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Landing Page</h2>
+            <Plus h="left" /><Plus h="right" />
+          </div>
+          <div className="relative overflow-visible px-6 md:px-10 py-8 flex flex-col gap-6">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              I designed and developed Abhiyantrik Solutions&apos; complete website experience, from initial sketches to a fully interactive platform. The site showcases Smart Nation&apos;s innovative home automation products through immersive product demonstrations, allowing visitors to experience the technology before they buy.
+            </p>
+            <a href="https://www.abhiyantriksolutions.in/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs text-black border border-gray-200 w-fit hover:bg-gray-50 transition-colors" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              <span className="px-4 py-2 border-r border-gray-200">Visit website ↗</span>
+              <span className="px-4 py-2 text-gray-400">abhiyantriksolutions.in</span>
+            </a>
+            <Plus h="left" /><Plus h="right" />
+          </div>
+        </div>
+
+        {/* ── Abhiyantrik · 02 · Flow ─────────────────────────────────── */}
+        <div id="aby-02" className="relative overflow-visible border-b border-gray-200">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>02</span>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Flow</h2>
+            <Plus h="left" /><Plus h="right" />
+          </div>
+          <div className="px-6 md:px-10 py-8 md:py-12">
+            <div className="flex items-center justify-center mb-8">
+              <Image src="/images/WorkImages/abhiyantrikImages/flow.png" alt="Development Flow" width={1400} height={600} className="w-full md:w-2/3 max-w-2xl h-auto mx-auto" />
+            </div>
+            <h3 className="text-xl md:text-2xl font-light mb-4" style={{ fontFamily: 'Garamond, Georgia, serif' }}>From Concept to Deployment</h3>
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Started with the idea of bringing an interactive product experience into the website itself, so users could feel the product before they buy. Concept got confirmed, then moved into full Figma design for the entire site. Created all 3D assets and visuals in Blender and Photoshop. Moved into development using Claude AI to vibe-code and complete the build, then deployed live.
+            </p>
+          </div>
+          <Plus h="left" /><Plus h="right" />
+        </div>
+
+        {/* ── Abhiyantrik · 03 · Interactive Product Experience ──────── */}
+        <div id="aby-03" className="relative overflow-visible border-b border-gray-200">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>03</span>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Interactive Product Experience</h2>
+            <Plus h="left" /><Plus h="right" />
+          </div>
+          <div className="px-6 md:px-10 py-8 flex flex-col gap-6">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Traditional product pages tell. Interactive experiences sell. I built two core product demonstrations that let users actually feel the Smart Nation ecosystem right in their browser.
+            </p>
+            {/* Toggle */}
+            <div className="flex justify-center">
+              <div style={{ background: 'linear-gradient(160deg,#e8e8e8 0%,#c8c8c8 20%,#d8d8d8 40%,#b0b0b0 60%,#d0d0d0 80%,#e4e4e4 100%)', borderRadius: '999px', padding: '5px', boxShadow: '0 6px 20px rgba(0,0,0,0.35),0 2px 6px rgba(0,0,0,0.25),inset 0 1px 1px rgba(255,255,255,0.9),inset 0 -1px 1px rgba(0,0,0,0.15)', border: '1px solid rgba(90,90,90,0.35)' }}>
+                <div className="relative flex items-center" style={{ background: 'linear-gradient(180deg,#787878 0%,#929292 50%,#888888 100%)', borderRadius: '999px', boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.55),inset 0 1px 3px rgba(0,0,0,0.4),inset 0 -1px 2px rgba(255,255,255,0.08)', padding: '4px' }}>
+                  <div className="absolute transition-all duration-300 ease-in-out" style={{ top: '4px', bottom: '4px', width: 'calc(50% - 4px)', left: activeDemo === 'switch' ? '4px' : 'calc(50%)', borderRadius: '999px', background: 'linear-gradient(160deg,#f8f8f8 0%,#e0e0e0 30%,#f2f2f2 55%,#c8c8c8 80%,#dedede 100%)', boxShadow: '0 3px 8px rgba(0,0,0,0.45),0 1px 3px rgba(0,0,0,0.3),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,0.1)', border: '1px solid rgba(100,100,100,0.2)' }} />
+                  <button onClick={() => setActiveDemo('switch')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'switch' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'switch' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'switch' ? '600' : '500' }}>Smart Switch</button>
+                  <button onClick={() => setActiveDemo('mcb')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'mcb' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'mcb' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'mcb' ? '600' : '500' }}>Smart MCB</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Abhiyantrik · Interactive Demo (full-width within box) ── */}
+        <div className="border-b border-gray-200">
+          <div className="flex justify-center py-12 px-6">
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 w-full">
+              <div className="flex-1 w-full order-1 md:order-1 flex flex-col gap-3">
+                {activeDemo === 'switch' ? (
+                  <>
+                    <p className="text-center text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Click any switch to toggle</p>
+                    <SmartTouchSwitchBoard switchState={switchState} onSwitchToggle={toggleSwitch} fanSpeed={fanSpeed} onFanSpeedChange={handleFanSpeedChange} />
+                  </>
+                ) : (
+                  <>
+                    <p className="text-center text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Click the MCB to toggle power</p>
+                    <SmartMCB mcbState={mcbState} onMCBToggle={toggleMCB} />
+                  </>
+                )}
+              </div>
+              <div className="shrink-0 order-2 md:order-2 flex flex-col gap-3 items-center">
+                <p className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
+                  Synced mobile app
+                </p>
+                <PhoneShell activeScreen={activeDemo} onNavigateTo={(screen) => setActiveDemo(screen)} devices={mobileDevices} toggleDevice={(id) => toggleSwitch(id as keyof SwitchState)} fanSpeed={fanSpeed} toggleAllDevices={toggleAllDevices} mcbState={mcbState.mcb} toggleMCB={toggleMCB} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Abhiyantrik · 04 · 3D Product Mockups ──────────────────── */}
+        <div id="aby-04" className="relative overflow-visible border-b border-gray-200">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>04</span>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>3D Product Mockups</h2>
+            <Plus h="left" /><Plus h="right" />
+          </div>
+          <div className="flex flex-col">
+            <p className="text-sm text-gray-500 leading-relaxed py-8 md:py-10 px-6 md:px-10 text-center" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Used Blender to create realistic 3D product mockups for the website.
+            </p>
+            <div
+              ref={sliderRef}
+              className="relative w-full overflow-hidden cursor-pointer select-none touch-none border-t border-b border-gray-200 aspect-video"
+              onMouseDown={() => setIsDragging(true)} onMouseUp={() => setIsDragging(false)}
+              onMouseMove={(e) => { if (isDragging) handleSliderMove(e.clientX); }}
+              onMouseLeave={() => setIsDragging(false)}
+              onClick={(e) => handleSliderMove(e.clientX)}
+              onTouchStart={(e) => { setIsDragging(true); e.preventDefault(); }}
+              onTouchEnd={() => setIsDragging(false)}
+              onTouchMove={(e) => { if (isDragging && e.touches.length > 0) { handleSliderMove(e.touches[0].clientX); e.preventDefault(); } }}
+            >
+              <div className="absolute inset-0">
+                <Image src="/images/WorkImages/abhiyantrikImages/product-raw.png" alt="Product Raw" width={1000} height={600} className="w-full h-full object-cover" />
+              </div>
+              <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
+                <Image src="/images/WorkImages/abhiyantrikImages/product-render.png" alt="Product Rendered" width={1000} height={600} className="w-full h-full object-cover" />
+              </div>
+              <div className="absolute top-0 bottom-0 w-px bg-white shadow-lg cursor-ew-resize" style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-7 h-7 bg-white border border-gray-200 rounded-full shadow flex items-center justify-center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2"><path d="M9 18l-6-6 6-6M15 6l6 6-6 6"/></svg>
+                </div>
+              </div>
+              <span className="absolute bottom-3 left-4 text-[9px] uppercase tracking-widest text-white border border-white px-2 py-0.5" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Rendered</span>
+              <span className="absolute bottom-3 right-4 text-[9px] uppercase tracking-widest text-white border border-white px-2 py-0.5" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Raw</span>
+            </div>
+          </div>
+          <Plus h="left" /><Plus h="right" />
         </div>
 
         {/* ── 09 · From the Team ─────────────────────────────────────── */}

@@ -18,15 +18,6 @@ const works = [
     year: '2025',
     available: true,
   },
-  {
-    num: '02',
-    title: 'Abhiyantrik Website',
-    description: 'Redesigned and built the company website end-to-end, along with a product experience deck that communicates the hardware offering clearly.',
-    image: '/images/HomeImages/Abhiyanyrik-tumbnail-home.png',
-    href: '/works/abhiyantrikWebsite',
-    year: '2025',
-    available: true,
-  },
 ]
 
 // Corner plus marker

@@ -232,7 +232,6 @@ const SmartNation = () => {
     { id: 'sn-05',    label: 'Design System' },
     { id: 'sn-07',    label: 'Packaging' },
     { id: 'sn-08',    label: 'Brochures' },
-    { id: 'sn-09',    label: 'Team' },
     { id: 'aby-01',   label: 'Landing Page' },
     { id: 'aby-02',   label: 'Flow' },
     { id: 'aby-03',   label: 'Interactive' },

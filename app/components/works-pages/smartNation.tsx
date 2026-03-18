@@ -451,7 +451,7 @@ const SmartNation = () => {
               )}
 
               {/* Toggle button — bottom right always */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+              <div className="absolute bottom-4 left-6 right-6 md:left-10 md:right-10 flex items-center justify-between">
                 {showProcess ? (
                   <div className="flex gap-1.5 items-center">
                     {processSessions.map((_, i) => (

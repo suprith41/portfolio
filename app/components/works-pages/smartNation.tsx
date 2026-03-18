@@ -59,46 +59,34 @@ const SwitchStatesSection = () => {
         </div>
         <div className="flex gap-8 md:gap-12 shrink-0">
           {/* On button */}
-          <div className="text-center">
-            <button onClick={() => setLightOn(true)} className="block cursor-pointer focus:outline-none">
-              <Image
-                src={lightOn ? '/images/WorkImages/smartNationImages/switchOn.png' : '/images/WorkImages/smartNationImages/switchOff.png'}
-                alt="Switch On"
-                width={128}
-                height={128}
-                className="h-16 md:h-24 mx-auto object-contain mb-3 transition-all duration-300"
-              />
-            </button>
+          <div className="text-center cursor-pointer select-none" onClick={() => setLightOn(true)}>
+            <img
+              src={lightOn ? '/images/WorkImages/smartNationImages/switchOn.png' : '/images/WorkImages/smartNationImages/switchOff.png'}
+              alt="Switch On"
+              className="h-16 md:h-24 mx-auto object-contain mb-3 transition-all duration-300 pointer-events-none"
+            />
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{lightOn ? 'On' : 'Off'}</p>
           </div>
           {/* Off button */}
-          <div className="text-center">
-            <button onClick={() => setLightOn(false)} className="block cursor-pointer focus:outline-none">
-              <Image
-                src={lightOn ? '/images/WorkImages/smartNationImages/switchOff.png' : '/images/WorkImages/smartNationImages/switchOn.png'}
-                alt="Switch Off"
-                width={128}
-                height={128}
-                className="h-16 md:h-24 mx-auto object-contain mb-3 transition-all duration-300"
-              />
-            </button>
+          <div className="text-center cursor-pointer select-none" onClick={() => setLightOn(false)}>
+            <img
+              src={lightOn ? '/images/WorkImages/smartNationImages/switchOff.png' : '/images/WorkImages/smartNationImages/switchOn.png'}
+              alt="Switch Off"
+              className="h-16 md:h-24 mx-auto object-contain mb-3 transition-all duration-300 pointer-events-none"
+            />
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{lightOn ? 'Off' : 'On'}</p>
           </div>
           {/* Offline button */}
-          <div className="text-center">
-            <button
-              onClick={handleOfflineClick}
-              className="block focus:outline-none"
-              style={{ animation: offlineShaking ? 'sn-shake 0.4s ease' : 'none' }}
-            >
-              <Image
-                src="/images/WorkImages/smartNationImages/switchOffline.png"
-                alt="Switch Offline"
-                width={128}
-                height={128}
-                className="h-16 md:h-24 mx-auto object-contain mb-3"
-              />
-            </button>
+          <div
+            className="text-center cursor-pointer select-none"
+            onClick={handleOfflineClick}
+            style={{ animation: offlineShaking ? 'sn-shake 0.4s ease' : 'none' }}
+          >
+            <img
+              src="/images/WorkImages/smartNationImages/switchOffline.png"
+              alt="Switch Offline"
+              className="h-16 md:h-24 mx-auto object-contain mb-3 pointer-events-none"
+            />
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Offline</p>
           </div>
         </div>

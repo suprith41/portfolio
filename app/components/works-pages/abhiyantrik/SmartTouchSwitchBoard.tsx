@@ -256,11 +256,13 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
           <button
             key={t.id}
             onClick={() => setThemeId(t.id)}
-            className="relative rounded-full overflow-hidden cursor-pointer transition-transform duration-200 hover:scale-110 focus:outline-none"
+            className="relative rounded-full overflow-hidden cursor-pointer focus:outline-none"
             style={{
               width: '28px',
               height: '28px',
-              boxShadow: themeId === t.id ? '0 0 0 2px white, 0 0 0 3.5px #555' : '0 1px 4px rgba(0,0,0,0.3)',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.3)',
+              transform: themeId === t.id ? 'rotate(90deg) scale(1.12)' : 'rotate(0deg) scale(1)',
+              transition: 'transform 0.3s ease',
             }}
           >
             <div style={{ height: '50%', background: t.swatchTop }} />

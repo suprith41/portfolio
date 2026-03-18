@@ -149,7 +149,7 @@ const SmartTouchSwitchBoard: React.FC<SmartTouchSwitchBoardProps> = ({
                 </div>
 
                 {/* Fan control */}
-                <div className="w-1/3 aspect-square flex items-center justify-between border-r border-gray-800 relative gap-3 sm:gap-5 md:gap-7 px-2 sm:px-3 md:px-5">
+                <div className="w-1/3 aspect-square flex items-center justify-between border-r border-gray-800 relative gap-1 sm:gap-2 md:gap-3 px-2 sm:px-4 md:px-6">
                   {/* Fan icon */}
                   <div className="cursor-pointer" onClick={() => { playClick(); onSwitchToggle('fan'); }}>
                     <svg

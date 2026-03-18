@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Satish Hebbal - Portfolio",
   description: "Personal portfolio website",
   icons: {
-    icon: '/images/common/sa26-filled.svg',
+    icon: '/images/common/sa26-white.svg',
   },
 }
 

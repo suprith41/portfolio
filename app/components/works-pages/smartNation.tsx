@@ -39,36 +39,13 @@ const PlusAt = ({ x, v = 'bottom', desktop = false }: { x: string; v?: 'top' | '
 
 const SwitchStatesSection = () => {
   const [lightOn, setLightOn] = useState(true);
-  const [showOfflineTooltip, setShowOfflineTooltip] = useState(false);
+  const [offlineShaking, setOfflineShaking] = useState(false);
 
   const handleOfflineClick = () => {
-    setShowOfflineTooltip(true);
-    setTimeout(() => setShowOfflineTooltip(false), 2500);
+    if (offlineShaking) return;
+    setOfflineShaking(true);
+    setTimeout(() => setOfflineShaking(false), 500);
   };
-
-  const switches = [
-    {
-      id: 'on',
-      src: '/images/WorkImages/smartNationImages/switchOn.png',
-      label: lightOn ? 'On' : 'Off',
-      active: lightOn,
-      onClick: () => setLightOn(true),
-    },
-    {
-      id: 'off',
-      src: '/images/WorkImages/smartNationImages/switchOff.png',
-      label: lightOn ? 'On' : 'Off',
-      active: !lightOn,
-      onClick: () => setLightOn(false),
-    },
-    {
-      id: 'offline',
-      src: '/images/WorkImages/smartNationImages/switchOffline.png',
-      label: 'Offline',
-      active: false,
-      onClick: handleOfflineClick,
-    },
-  ];
 
   return (
     <div className="relative overflow-visible px-6 md:px-10 py-8 border-t border-gray-200 bg-white">
@@ -108,8 +85,12 @@ const SwitchStatesSection = () => {
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{lightOn ? 'Off' : 'On'}</p>
           </div>
           {/* Offline button */}
-          <div className="text-center relative">
-            <button onClick={handleOfflineClick} className="block cursor-pointer focus:outline-none">
+          <div className="text-center">
+            <button
+              onClick={handleOfflineClick}
+              className="block focus:outline-none"
+              style={{ animation: offlineShaking ? 'sn-shake 0.4s ease' : 'none' }}
+            >
               <Image
                 src="/images/WorkImages/smartNationImages/switchOffline.png"
                 alt="Switch Offline"
@@ -119,15 +100,6 @@ const SwitchStatesSection = () => {
               />
             </button>
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Offline</p>
-            {showOfflineTooltip && (
-              <div
-                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-44 bg-gray-900 text-white text-[11px] rounded-lg px-3 py-2 shadow-lg leading-snug pointer-events-none z-10"
-                style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
-              >
-                Can&apos;t operate offline. Check your internet connection.
-                <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
-              </div>
-            )}
           </div>
         </div>
       </div>

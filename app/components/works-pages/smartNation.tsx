@@ -63,7 +63,7 @@ const SwitchStatesSection = () => {
             <img
               src={lightOn ? '/images/WorkImages/smartNationImages/switchOn.png' : '/images/WorkImages/smartNationImages/switchOff.png'}
               alt="Switch On"
-              className="h-16 md:h-24 mx-auto object-contain mb-3 transition-all duration-300 pointer-events-none"
+              className="h-14 md:h-20 mx-auto object-contain mb-3 transition-all duration-300 pointer-events-none"
             />
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{lightOn ? 'On' : 'Off'}</p>
           </div>
@@ -72,7 +72,7 @@ const SwitchStatesSection = () => {
             <img
               src={lightOn ? '/images/WorkImages/smartNationImages/switchOff.png' : '/images/WorkImages/smartNationImages/switchOn.png'}
               alt="Switch Off"
-              className="h-16 md:h-24 mx-auto object-contain mb-3 transition-all duration-300 pointer-events-none"
+              className="h-14 md:h-20 mx-auto object-contain mb-3 transition-all duration-300 pointer-events-none"
             />
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{lightOn ? 'Off' : 'On'}</p>
           </div>
@@ -82,11 +82,11 @@ const SwitchStatesSection = () => {
             onClick={handleOfflineClick}
             style={{ animation: offlineClicked ? 'sn-shake 0.5s ease' : 'none' }}
           >
-            <div className={`rounded-2xl transition-all duration-150 ${offlineClicked ? 'ring-2 ring-red-500' : 'ring-0'}`}>
+            <div className="rounded-2xl transition-all duration-150" style={{ boxShadow: offlineClicked ? '0 0 0 6px rgba(239,68,68,0.35)' : 'none' }}>
               <img
                 src="/images/WorkImages/smartNationImages/switchOffline.png"
                 alt="Switch Offline"
-                className="h-16 md:h-24 mx-auto object-contain mb-3 pointer-events-none"
+                className="h-14 md:h-20 mx-auto object-contain mb-3 pointer-events-none"
               />
             </div>
             <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Offline</p>

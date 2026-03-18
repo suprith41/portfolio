@@ -1181,11 +1181,6 @@ const SmartNation = () => {
           </div>
         </div>
 
-        {/* ── Abhiyantrik · Hero image ────────────────────────────────── */}
-        <div className="w-full border-b border-gray-200">
-          <Image src="/images/WorkImages/abhiyantrikImages/Abhiyantrik-tumb-1.png" alt="Abhiyantrik Website Mockup" width={1200} height={800} className="w-full h-auto" />
-        </div>
-
         {/* ── Abhiyantrik · 01 · Landing Page ────────────────────────── */}
         <div id="aby-01" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
@@ -1193,6 +1188,12 @@ const SmartNation = () => {
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Landing Page</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
+
+          {/* ── Hero image ────────────────────────────────── */}
+          <div className="w-full border-b border-gray-200">
+            <Image src="/images/WorkImages/abhiyantrikImages/Abhiyantrik-tumb-1.png" alt="Abhiyantrik Website Mockup" width={1200} height={800} className="w-full h-auto" />
+          </div>
+
           <div className="relative overflow-visible px-6 md:px-10 py-8 flex flex-col gap-6">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               I designed and developed Abhiyantrik Solutions&apos; complete website experience, from initial sketches to a fully interactive platform. The site showcases Smart Nation&apos;s innovative home automation products through immersive product demonstrations, allowing visitors to experience the technology before they buy.
@@ -1231,18 +1232,13 @@ const SmartNation = () => {
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Interactive Product Experience</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
-          <div className="px-6 md:px-10 py-8 flex flex-col gap-6">
-            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Traditional product pages tell. Interactive experiences sell. I built two core product demonstrations that let users actually feel the Smart Nation ecosystem right in their browser.
-            </p>
-            {/* Toggle */}
-            <div className="flex justify-center">
-              <div style={{ background: 'linear-gradient(160deg,#e8e8e8 0%,#c8c8c8 20%,#d8d8d8 40%,#b0b0b0 60%,#d0d0d0 80%,#e4e4e4 100%)', borderRadius: '999px', padding: '5px', boxShadow: '0 6px 20px rgba(0,0,0,0.35),0 2px 6px rgba(0,0,0,0.25),inset 0 1px 1px rgba(255,255,255,0.9),inset 0 -1px 1px rgba(0,0,0,0.15)', border: '1px solid rgba(90,90,90,0.35)' }}>
-                <div className="relative flex items-center" style={{ background: 'linear-gradient(180deg,#787878 0%,#929292 50%,#888888 100%)', borderRadius: '999px', boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.55),inset 0 1px 3px rgba(0,0,0,0.4),inset 0 -1px 2px rgba(255,255,255,0.08)', padding: '4px' }}>
-                  <div className="absolute transition-all duration-300 ease-in-out" style={{ top: '4px', bottom: '4px', width: 'calc(50% - 4px)', left: activeDemo === 'switch' ? '4px' : 'calc(50%)', borderRadius: '999px', background: 'linear-gradient(160deg,#f8f8f8 0%,#e0e0e0 30%,#f2f2f2 55%,#c8c8c8 80%,#dedede 100%)', boxShadow: '0 3px 8px rgba(0,0,0,0.45),0 1px 3px rgba(0,0,0,0.3),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,0.1)', border: '1px solid rgba(100,100,100,0.2)' }} />
-                  <button onClick={() => setActiveDemo('switch')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'switch' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'switch' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'switch' ? '600' : '500' }}>Smart Switch</button>
-                  <button onClick={() => setActiveDemo('mcb')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'mcb' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'mcb' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'mcb' ? '600' : '500' }}>Smart MCB</button>
-                </div>
+          {/* Toggle — centered on the bottom border line */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10 bg-white px-6">
+            <div style={{ background: 'linear-gradient(160deg,#e8e8e8 0%,#c8c8c8 20%,#d8d8d8 40%,#b0b0b0 60%,#d0d0d0 80%,#e4e4e4 100%)', borderRadius: '999px', padding: '5px', boxShadow: '0 6px 20px rgba(0,0,0,0.35),0 2px 6px rgba(0,0,0,0.25),inset 0 1px 1px rgba(255,255,255,0.9),inset 0 -1px 1px rgba(0,0,0,0.15)', border: '1px solid rgba(90,90,90,0.35)' }}>
+              <div className="relative flex items-center" style={{ background: 'linear-gradient(180deg,#787878 0%,#929292 50%,#888888 100%)', borderRadius: '999px', boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.55),inset 0 1px 3px rgba(0,0,0,0.4),inset 0 -1px 2px rgba(255,255,255,0.08)', padding: '4px' }}>
+                <div className="absolute transition-all duration-300 ease-in-out" style={{ top: '4px', bottom: '4px', width: 'calc(50% - 4px)', left: activeDemo === 'switch' ? '4px' : 'calc(50%)', borderRadius: '999px', background: 'linear-gradient(160deg,#f8f8f8 0%,#e0e0e0 30%,#f2f2f2 55%,#c8c8c8 80%,#dedede 100%)', boxShadow: '0 3px 8px rgba(0,0,0,0.45),0 1px 3px rgba(0,0,0,0.3),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,0.1)', border: '1px solid rgba(100,100,100,0.2)' }} />
+                <button onClick={() => setActiveDemo('switch')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'switch' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'switch' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'switch' ? '600' : '500' }}>Smart Switch</button>
+                <button onClick={() => setActiveDemo('mcb')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'mcb' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'mcb' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'mcb' ? '600' : '500' }}>Smart MCB</button>
               </div>
             </div>
           </div>
@@ -1363,19 +1359,6 @@ const SmartNation = () => {
           </div>
         </div>
 
-        {/* ── Closing note ───────────────────────────────────────────── */}
-        <div className="relative overflow-visible border-b border-gray-200 px-6 md:px-10 py-12 md:py-16 bg-white">
-          <Plus h="left" />
-          <Plus h="right" />
-          <PlusAt x="50%" />
-          <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Outcome</p>
-          <p className="text-sm text-gray-500 leading-relaxed w-2/3" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-            Three months. One designer. A brand built from nothing, a product anyone can pick up on day one, and 280+ switches running live in homes and offices.
-          </p>
-          <p className="text-sm text-gray-500 leading-relaxed w-2/3 mt-3 ml-auto text-right" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-            None of it would have happened at this pace without the team. Everyone moved like a high-performance unit: sharp, focused, and completely bought in. That's the only reason we launched when we did. ❤️
-          </p>
-        </div>
 
 
       </div>

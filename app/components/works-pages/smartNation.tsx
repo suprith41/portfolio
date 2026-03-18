@@ -1212,7 +1212,7 @@ const SmartNation = () => {
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Interactive Product Experience</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
-          <div className="px-6 md:px-10 py-5">
+          <div className="px-6 md:px-10 py-5 pb-10 md:pb-5">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               Traditional product pages tell. Interactive experiences sell. I built two core product demonstrations that let users actually feel the Smart Nation ecosystem right in their browser.
             </p>

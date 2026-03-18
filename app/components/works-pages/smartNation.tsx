@@ -37,6 +37,106 @@ const PlusAt = ({ x, v = 'bottom', desktop = false }: { x: string; v?: 'top' | '
   >+</span>
 )
 
+const SwitchStatesSection = () => {
+  const [lightOn, setLightOn] = useState(true);
+  const [showOfflineTooltip, setShowOfflineTooltip] = useState(false);
+
+  const handleOfflineClick = () => {
+    setShowOfflineTooltip(true);
+    setTimeout(() => setShowOfflineTooltip(false), 2500);
+  };
+
+  const switches = [
+    {
+      id: 'on',
+      src: '/images/WorkImages/smartNationImages/switchOn.png',
+      label: lightOn ? 'On' : 'Off',
+      active: lightOn,
+      onClick: () => setLightOn(true),
+    },
+    {
+      id: 'off',
+      src: '/images/WorkImages/smartNationImages/switchOff.png',
+      label: lightOn ? 'On' : 'Off',
+      active: !lightOn,
+      onClick: () => setLightOn(false),
+    },
+    {
+      id: 'offline',
+      src: '/images/WorkImages/smartNationImages/switchOffline.png',
+      label: 'Offline',
+      active: false,
+      onClick: handleOfflineClick,
+    },
+  ];
+
+  return (
+    <div className="relative overflow-visible px-6 md:px-10 py-8 border-t border-gray-200 bg-white">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
+        <div>
+          <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Switch States</p>
+          <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+            <strong className="text-gray-700 font-medium">On</strong> glows and asserts. <strong className="text-gray-700 font-medium">Off</strong> steps back. <strong className="text-gray-700 font-medium">Offline</strong> warns before you try, so you never tap a device that isn&apos;t listening.
+          </p>
+          <p className="text-[10px] text-gray-400 mt-3 italic" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Try tapping the switches →</p>
+        </div>
+        <div className="flex gap-8 md:gap-12 shrink-0">
+          {/* On button */}
+          <div className="text-center">
+            <button onClick={() => setLightOn(true)} className="block cursor-pointer focus:outline-none">
+              <Image
+                src={lightOn ? '/images/WorkImages/smartNationImages/switchOn.png' : '/images/WorkImages/smartNationImages/switchOff.png'}
+                alt="Switch On"
+                width={128}
+                height={128}
+                className="h-16 md:h-24 mx-auto object-contain mb-3 transition-all duration-300"
+              />
+            </button>
+            <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{lightOn ? 'On' : 'Off'}</p>
+          </div>
+          {/* Off button */}
+          <div className="text-center">
+            <button onClick={() => setLightOn(false)} className="block cursor-pointer focus:outline-none">
+              <Image
+                src={lightOn ? '/images/WorkImages/smartNationImages/switchOff.png' : '/images/WorkImages/smartNationImages/switchOn.png'}
+                alt="Switch Off"
+                width={128}
+                height={128}
+                className="h-16 md:h-24 mx-auto object-contain mb-3 transition-all duration-300"
+              />
+            </button>
+            <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{lightOn ? 'Off' : 'On'}</p>
+          </div>
+          {/* Offline button */}
+          <div className="text-center relative">
+            <button onClick={handleOfflineClick} className="block cursor-pointer focus:outline-none">
+              <Image
+                src="/images/WorkImages/smartNationImages/switchOffline.png"
+                alt="Switch Offline"
+                width={128}
+                height={128}
+                className="h-16 md:h-24 mx-auto object-contain mb-3"
+              />
+            </button>
+            <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Offline</p>
+            {showOfflineTooltip && (
+              <div
+                className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-44 bg-gray-900 text-white text-[11px] rounded-lg px-3 py-2 shadow-lg leading-snug pointer-events-none z-10"
+                style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
+              >
+                Can&apos;t operate offline. Check your internet connection.
+                <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      <Plus h="left" v="top" />
+      <Plus h="right" v="top" />
+    </div>
+  );
+};
+
 const SmartNation = () => {
   const appIcons = [
     { name: 'Beta',             src: '/images/WorkImages/smartNationImages/app-occations/beta.png',          mockup: '/images/WorkImages/smartNationImages/mobileMockUP/beta-mockup.png' },
@@ -464,31 +564,8 @@ const SmartNation = () => {
             <Image src="/images/HomeImages/SN-tumb-2.png" alt="Smart Nation App — 3-screen mockup" width={1200} height={800} className="w-full h-auto" />
           </div>
 
-          {/* Switch states */}
-          <div className="relative overflow-visible px-6 md:px-10 py-8 border-t border-gray-200 bg-white">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Switch States</p>
-                <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                  <strong className="text-gray-700 font-medium">On</strong> glows and asserts. <strong className="text-gray-700 font-medium">Off</strong> steps back. <strong className="text-gray-700 font-medium">Offline</strong> warns before you try, so you never tap a device that isn&apos;t listening.
-                </p>
-              </div>
-              <div className="flex gap-8 md:gap-12 shrink-0">
-                {[
-                  { src: '/images/WorkImages/smartNationImages/switchOn.png',      label: 'On' },
-                  { src: '/images/WorkImages/smartNationImages/switchOff.png',     label: 'Off' },
-                  { src: '/images/WorkImages/smartNationImages/switchOffline.png', label: 'Offline' },
-                ].map((s) => (
-                  <div key={s.label} className="text-center">
-                    <Image src={s.src} alt={`Switch ${s.label}`} width={128} height={128} className="h-16 md:h-24 mx-auto object-contain mb-3" />
-                    <p className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{s.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <Plus h="left" v="top" />
-            <Plus h="right" v="top" />
-          </div>
+          {/* Switch states — interactive */}
+          <SwitchStatesSection />
           <Plus h="left" />
           <Plus h="right" />
         </div>

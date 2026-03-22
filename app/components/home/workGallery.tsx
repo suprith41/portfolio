@@ -12,11 +12,56 @@ const works = [
   {
     num: '01',
     title: 'Smart Nation',
-    description: 'Built the brand from scratch — logo, design system, app UI, and motion graphics for a smart home IoT startup going from zero to launch.',
+    description: 'Built the brand from scratch: logo, design system, app UI, and motion graphics for a smart home IoT startup going from zero to launch.',
     image: '/images/HomeImages/smartnation-tumbnail-home.png',
     href: '/works/smartNation',
     year: '2025',
     available: true,
+  },
+  {
+    num: '02',
+    title: 'Blume Health',
+    description: 'End-to-end product design for a SaaS platform that lets independent US doctors manage their entire online presence across 40+ patient platforms, from one profile.',
+    image: '/images/WorkImages/blumeHealthImages/BM-thumnail.png',
+    href: '/works/blumeHealth',
+    year: '2025',
+    available: true,
+  },
+  {
+    num: '03',
+    title: 'Project Title Three',
+    description: 'Short description of the project goes here. A few lines about the scope, deliverables, and what made it interesting.',
+    image: '',
+    href: null,
+    year: '2024',
+    available: false,
+  },
+  {
+    num: '04',
+    title: 'Project Title Four',
+    description: 'Short description of the project goes here. A few lines about the scope, deliverables, and what made it interesting.',
+    image: '',
+    href: null,
+    year: '2024',
+    available: false,
+  },
+  {
+    num: '05',
+    title: 'Project Title Five',
+    description: 'Short description of the project goes here. A few lines about the scope, deliverables, and what made it interesting.',
+    image: '',
+    href: null,
+    year: '2024',
+    available: false,
+  },
+  {
+    num: '06',
+    title: 'Project Title Six',
+    description: 'Short description of the project goes here. A few lines about the scope, deliverables, and what made it interesting.',
+    image: '',
+    href: null,
+    year: '2023',
+    available: false,
   },
 ]
 
@@ -180,18 +225,20 @@ export default function WorkGallery() {
             </div>
 
             {/* Image — right on desktop, above info on mobile */}
-            <Link href={work.href ?? '#'} className="relative overflow-hidden order-1 md:order-2 aspect-square block">
-              <Image
-                src={work.image}
-                alt={work.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className={`object-cover${work.available ? '' : ' blur-sm brightness-75'}`}
-              />
+            <Link href={work.href ?? '#'} className="relative overflow-hidden order-1 md:order-2 aspect-square block bg-gray-100">
+              {work.image && (
+                <Image
+                  src={work.image}
+                  alt={work.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className={`object-cover${work.available ? '' : ' blur-sm brightness-75'}`}
+                />
+              )}
               {!work.available && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span
-                    className="text-white/70 text-xs tracking-widest uppercase"
+                    className="text-gray-400 text-xs tracking-widest uppercase"
                     style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                   >
                     Posting soon

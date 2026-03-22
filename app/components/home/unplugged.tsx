@@ -41,8 +41,8 @@ export default function Unplugged() {
             className="text-sm text-gray-500 leading-relaxed mb-6"
             style={{ fontFamily: 'Poppins, sans-serif' }}
           >
-            Creative explorations in craftsmanship and personal expression —
-            the work that happens away from pixels.
+            Creative explorations in craftsmanship and personal expression.
+            The work that happens away from pixels.
           </p>
           <Link
             href="/unplugged/table"

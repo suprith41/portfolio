@@ -121,8 +121,8 @@ export default function HeroGrid() {
             className="text-sm text-gray-500 leading-relaxed mb-8"
             style={{ fontFamily: 'Poppins, sans-serif' }}
           >
-            I partner with zero-to-one teams to build products that feel right from day one —
-            brand identity, app UI, design systems, and everything in between.
+            I partner with zero-to-one teams to build products that feel right from day one.
+            Brand identity, app UI, design systems, and everything in between.
             From first sketch to a live product in users&apos; hands.
           </p>
           <div className="flex flex-col gap-3">

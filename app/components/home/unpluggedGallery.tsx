@@ -12,7 +12,7 @@ const items = [
   {
     num: '01',
     title: 'Corner Table',
-    description: 'Built a corner table from scratch — cut, assembled, painted, and finished. A hands-on experiment in furniture making with zero prior woodworking experience.',
+    description: 'Built a corner table from scratch: cut, assembled, painted, and finished. A hands-on experiment in furniture making with zero prior woodworking experience.',
     image: '/images/Unplugged/table/thumbnail.png',
     href: '/unplugged/table',
     year: '2024',

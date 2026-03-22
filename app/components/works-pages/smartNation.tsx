@@ -137,7 +137,9 @@ const SmartNation = () => {
   const [addAppSlide, setAddAppSlide] = useState(0);
   const [desktopAddAppSlide, setDesktopAddAppSlide] = useState(0);
   const [selectedIcon, setSelectedIcon] = useState(appIcons[0]);
-  const [showProcess, setShowProcess]   = useState(false);
+  const swipeTouchStartX = useRef<number | null>(null);
+  const setupSlideDir   = useRef<1 | -1>(1);
+  const addAppSlideDir  = useRef<1 | -1>(1);
   const [processSlide, setProcessSlide] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [copied, setCopied] = useState<'email' | 'phone' | null>(null);
@@ -192,24 +194,18 @@ const SmartNation = () => {
   const processSessions = [
     {
       label: 'Session 01',
-      headline: 'Names on the wall, none of them stuck yet.',
       body: 'We started with a shortlist of names. Half a dozen candidates, each tested with a rough mark. These sheets are the work of narrowing: trying each name on a shape, seeing which combination had weight and felt like it could live on a product.',
-      desktop: '/images/WorkImages/smartNationImages/logo-brainstrome-session-1-desktop.png',
-      mobile:  '/images/WorkImages/smartNationImages/logo-brainstrome-session-1-mobile.png',
+      src: '/images/WorkImages/smartNationImages/logo-exp-0.png',
     },
     {
       label: 'Session 02',
-      headline: 'Smart Nation. The name clicked.',
       body: 'The name was finalized and the brief sharpened immediately. From here it was clear: build a mark that felt both local and modern. We explored, debated, circled one direction, and committed to it.',
-      desktop: '/images/WorkImages/smartNationImages/logo-brainstrome-session-2-desktop.png',
-      mobile:  '/images/WorkImages/smartNationImages/logo-brainstrome-session-2-mobile.png',
+      src: '/images/WorkImages/smartNationImages/logo-exp-1.png',
     },
     {
       label: 'Session 03',
-      headline: 'Refining the mark, then making it move.',
       body: 'The chosen direction went through iterations of proportion, stroke weight, and the custom power-button O. Once the static mark was locked, the last step was motion: how does the brand come alive on screen for the first time.',
-      desktop: '/images/WorkImages/smartNationImages/logo-brainstrome-session-3-desktop.png',
-      mobile:  '/images/WorkImages/smartNationImages/logo-brainstrome-session-3-mobile.png',
+      src: '/images/WorkImages/smartNationImages/logo-exp-2.png',
     },
   ];
 
@@ -394,7 +390,7 @@ const SmartNation = () => {
             <PlusAt x="50%" desktop />
 
             {/* Brief — always visible, never changes */}
-            <div className="px-6 md:px-10 py-6 md:py-10 md:border-r border-gray-200 flex flex-col justify-start">
+            <div className="px-6 md:px-10 py-6 md:py-10 flex flex-col justify-start">
               <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>The Brief</p>
               <h2 className="text-3xl md:text-4xl font-light leading-tight text-black mb-6" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
                 Your entire home, automated. Every switch controlled from one app.
@@ -406,92 +402,12 @@ const SmartNation = () => {
               </p>
             </div>
 
-            {/* Right panel — animation or process carousel */}
+            {/* Right panel — animation */}
             <div className="relative overflow-hidden px-6 md:px-10 py-10 md:py-16" style={{ minHeight: '420px' }}>
-              {/* Video always rendered — anchors the panel height */}
-              <div className={`flex items-center justify-center transition-opacity duration-300 ${showProcess ? 'invisible' : ''}`} style={{ marginTop: '40px' }}>
+              <div className="flex items-center justify-center" style={{ marginTop: '40px' }}>
                 <video className="w-full h-auto max-w-xs md:max-w-sm rounded-lg" autoPlay loop muted playsInline>
                   <source src="/images/WorkImages/smartNationImages/smart-nation-animation.mp4" type="video/mp4" />
                 </video>
-              </div>
-
-              {/* Process overlay — absolutely fills panel, never changes its height */}
-              {showProcess && (
-                <div className="absolute inset-0 px-6 md:px-10 pt-6 pb-16 flex flex-col gap-3 overflow-hidden">
-                  <p className="text-[10px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                    {processSessions[processSlide].label}
-                  </p>
-                  <p className="text-xs text-gray-500 leading-relaxed shrink-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                    {processSessions[processSlide].body}
-                  </p>
-                  {/* Image fills remaining space */}
-                  <div className="min-h-0 overflow-hidden" style={{ flex: 1, minHeight: '220px' }}>
-                    {/* Session 3 desktop: use desktop image on md+ */}
-                    {processSlide === 2 && (
-                      <Image
-                        src={processSessions[2].desktop}
-                        alt={processSessions[2].label}
-                        width={1200}
-                        height={800}
-                        className="hidden md:block w-full h-full object-cover"
-                        style={{ transform: 'scale(1.12)', transformOrigin: 'center center' }}
-                      />
-                    )}
-                    {/* Mobile image for all sessions on mobile; also session 1 & 2 on desktop */}
-                    <Image
-                      src={processSessions[processSlide].mobile}
-                      alt={processSessions[processSlide].label}
-                      width={600}
-                      height={800}
-                      className={`w-full h-full object-cover${processSlide === 2 ? ' md:hidden' : ''}`}
-                      style={processSlide === 2 ? { transform: 'scale(1.12)', transformOrigin: 'center center' } : {}}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Toggle button — bottom right always */}
-              <div className="absolute bottom-4 left-6 right-6 md:left-10 md:right-10 flex items-center justify-between">
-                {showProcess ? (
-                  <div className="flex gap-1.5 items-center">
-                    {processSessions.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setProcessSlide(i)}
-                        className="w-1.5 h-1.5 rounded-full transition-colors"
-                        style={{ background: i === processSlide ? '#374151' : '#d1d5db' }}
-                      />
-                    ))}
-                  </div>
-                ) : <span />}
-                <div className="flex gap-2 items-center">
-                {showProcess && (
-                  <>
-                    <button
-                      onClick={() => setProcessSlide(s => Math.max(0, s - 1))}
-                      disabled={processSlide === 0}
-                      className="w-7 h-7 border border-gray-300 bg-white text-gray-500 text-xs flex items-center justify-center disabled:opacity-30 hover:bg-gray-50 transition-colors"
-                    >←</button>
-                    <button
-                      onClick={() => setProcessSlide(s => Math.min(processSessions.length - 1, s + 1))}
-                      disabled={processSlide === processSessions.length - 1}
-                      className="w-7 h-7 border border-gray-300 bg-white text-gray-500 text-xs flex items-center justify-center disabled:opacity-30 hover:bg-gray-50 transition-colors"
-                    >→</button>
-                  </>
-                )}
-                <button
-                  onClick={() => { setShowProcess(p => !p); setProcessSlide(0); }}
-                  className="text-[10px] uppercase tracking-widest px-4 py-2 border border-gray-300 text-black bg-white hover:bg-gray-50 transition-colors"
-                  style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
-                >
-                  {showProcess ? '✕ Close' : (
-                    <span className="flex flex-row items-center gap-2">
-                      <Image src="/images/WorkImages/smartNationImages/draw-icon.svg" alt="" width={16} height={16} className="w-4 h-4" style={{ filter: 'brightness(0)' }} />
-                      Logo Making Process
-                    </span>
-                  )}
-                </button>
-                </div>
               </div>
             </div>
           </div>
@@ -593,29 +509,65 @@ const SmartNation = () => {
               IoT setup is where trust breaks. Most users assume the product is broken the moment it takes more than five seconds. I redesigned provisioning into a linear flow: detect, connect, name, assign, confirm. Every step tells you exactly what's happening. The screen stays calm so the user does too.
             </p>
           </div>
-          {/* ── Mobile: 1 image per slide, 4 slides ── */}
-          <div className="md:hidden relative overflow-hidden">
+          {/* ── Mobile: 1 image at a time ── */}
+          <div className="md:hidden">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${setupSlide * 100}%)` }}
+              className="relative overflow-visible"
+              onTouchStart={e => { swipeTouchStartX.current = e.touches[0].clientX; }}
+              onTouchEnd={e => {
+                if (swipeTouchStartX.current === null) return;
+                const delta = swipeTouchStartX.current - e.changedTouches[0].clientX;
+                if (delta > 40) { setupSlideDir.current = 1; setSetupSlide(s => Math.min(3, s + 1)); }
+                else if (delta < -40) { setupSlideDir.current = -1; setSetupSlide(s => Math.max(0, s - 1)); }
+                swipeTouchStartX.current = null;
+              }}
             >
-              {['setup-slide-1', 'setup-slide-2', 'setup-slide-3', 'setup-slide-4'].map((slide) => (
-                <div key={slide} className="w-full shrink-0">
-                  <Image src={`/images/WorkImages/smartNationImages/${slide}.png`} alt={slide} width={800} height={1200} className="w-full h-auto block" />
+              <div className="overflow-hidden">
+                <div
+                  key={setupSlide}
+                  style={{ animation: `${setupSlideDir.current === 1 ? 'slide-in-right' : 'slide-in-left'} 0.35s ease-out` }}
+                >
+                  <Image
+                    src={`/images/WorkImages/smartNationImages/setup-slide-${setupSlide + 1}.png`}
+                    alt={`Setup step ${setupSlide + 1}`}
+                    width={800}
+                    height={1200}
+                    className="w-full h-auto block"
+                  />
                 </div>
-              ))}
+              </div>
+              {/* Left button — on section border */}
+              <button
+                onClick={() => { setupSlideDir.current = -1; setSetupSlide(s => Math.max(0, s - 1)); }}
+                disabled={setupSlide === 0}
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                style={{
+                  left: 0,
+                  borderRadius: '0 4px 4px 0',
+                  background: setupSlide === 0 ? 'white' : '#5583fe',
+                  color: setupSlide === 0 ? '#d1d5db' : 'white',
+                  border: `1.5px solid ${setupSlide === 0 ? '#d1d5db' : '#5583fe'}`,
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              {/* Right button — on section border */}
+              <button
+                onClick={() => { setupSlideDir.current = 1; setSetupSlide(s => Math.min(3, s + 1)); }}
+                disabled={setupSlide === 3}
+                className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                style={{
+                  right: 0,
+                  borderRadius: '4px 0 0 4px',
+                  background: setupSlide === 3 ? 'white' : '#5583fe',
+                  color: setupSlide === 3 ? '#d1d5db' : 'white',
+                  border: `1.5px solid ${setupSlide === 3 ? '#d1d5db' : '#5583fe'}`,
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
             </div>
-            {setupSlide > 0 && (
-              <button onClick={() => setSetupSlide(s => s - 1)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
-            )}
-            {setupSlide < 3 && (
-              <button onClick={() => setSetupSlide(s => s + 1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-            )}
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+            <div className="flex justify-center gap-2 py-3">
               {[0, 1, 2, 3].map(i => (
                 <button key={i} onClick={() => setSetupSlide(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === setupSlide ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
               ))}
@@ -680,26 +632,65 @@ const SmartNation = () => {
               Once the hardware is in the wall, the homeowner should own it completely, no dependency on the installer after day one. I designed this flow to be fully self-serve: pick the board, pick the module, give it a name. Four taps and any family member can map a new switch themselves.
             </p>
           </div>
-          {/* ── Mobile: 1 image per slide, 4 slides ── */}
-          <div className="md:hidden relative overflow-hidden">
-            <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${addAppSlide * 100}%)` }}>
-              {['add-app-slide-1', 'add-app-slide-2', 'add-app-slide-3', 'add-app-slide-4'].map((slide) => (
-                <div key={slide} className="w-full shrink-0">
-                  <Image src={`/images/WorkImages/smartNationImages/${slide}.png`} alt={slide} width={800} height={1200} className="w-full h-auto block" />
+          {/* ── Mobile: 1 image at a time ── */}
+          <div className="md:hidden">
+            <div
+              className="relative overflow-visible"
+              onTouchStart={e => { swipeTouchStartX.current = e.touches[0].clientX; }}
+              onTouchEnd={e => {
+                if (swipeTouchStartX.current === null) return;
+                const delta = swipeTouchStartX.current - e.changedTouches[0].clientX;
+                if (delta > 40) { addAppSlideDir.current = 1; setAddAppSlide(s => Math.min(3, s + 1)); }
+                else if (delta < -40) { addAppSlideDir.current = -1; setAddAppSlide(s => Math.max(0, s - 1)); }
+                swipeTouchStartX.current = null;
+              }}
+            >
+              <div className="overflow-hidden">
+                <div
+                  key={addAppSlide}
+                  style={{ animation: `${addAppSlideDir.current === 1 ? 'slide-in-right' : 'slide-in-left'} 0.35s ease-out` }}
+                >
+                  <Image
+                    src={`/images/WorkImages/smartNationImages/add-app-slide-${addAppSlide + 1}.png`}
+                    alt={`Add appliance step ${addAppSlide + 1}`}
+                    width={800}
+                    height={1200}
+                    className="w-full h-auto block"
+                  />
                 </div>
-              ))}
+              </div>
+              {/* Left button — on section border */}
+              <button
+                onClick={() => { addAppSlideDir.current = -1; setAddAppSlide(s => Math.max(0, s - 1)); }}
+                disabled={addAppSlide === 0}
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                style={{
+                  left: 0,
+                  borderRadius: '0 4px 4px 0',
+                  background: addAppSlide === 0 ? 'white' : '#5583fe',
+                  color: addAppSlide === 0 ? '#d1d5db' : 'white',
+                  border: `1.5px solid ${addAppSlide === 0 ? '#d1d5db' : '#5583fe'}`,
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              {/* Right button — on section border */}
+              <button
+                onClick={() => { addAppSlideDir.current = 1; setAddAppSlide(s => Math.min(3, s + 1)); }}
+                disabled={addAppSlide === 3}
+                className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                style={{
+                  right: 0,
+                  borderRadius: '4px 0 0 4px',
+                  background: addAppSlide === 3 ? 'white' : '#5583fe',
+                  color: addAppSlide === 3 ? '#d1d5db' : 'white',
+                  border: `1.5px solid ${addAppSlide === 3 ? '#d1d5db' : '#5583fe'}`,
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
             </div>
-            {addAppSlide > 0 && (
-              <button onClick={() => setAddAppSlide(s => s - 1)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
-            )}
-            {addAppSlide < 3 && (
-              <button onClick={() => setAddAppSlide(s => s + 1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-            )}
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+            <div className="flex justify-center gap-2 py-3">
               {[0, 1, 2, 3].map(i => (
                 <button key={i} onClick={() => setAddAppSlide(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === addAppSlide ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
               ))}
@@ -789,11 +780,11 @@ const SmartNation = () => {
 
           {/* Typography */}
           <div className="relative overflow-visible px-6 md:px-10 py-10 border-b border-gray-200">
-            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-6" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Typography: Poppins</p>
+            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-6" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Typography</p>
             <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
               {/* Specimen */}
               <div className="shrink-0">
-                <p className="text-6xl md:text-8xl font-light leading-none text-black" style={{ fontFamily: 'Poppins, sans-serif' }}>Aa</p>
+                <p className="text-6xl md:text-8xl font-light leading-none text-black" style={{ fontFamily: 'Poppins, sans-serif' }}>Poppins</p>
                 <p className="text-xs text-gray-400 mt-3 leading-relaxed" style={{ fontFamily: 'Poppins, sans-serif' }}>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</p>
                 <p className="text-xs text-gray-400 leading-relaxed" style={{ fontFamily: 'Poppins, sans-serif' }}>a b c d e f g h i j k l m n o p q r s t u v w x y z</p>
                 <p className="text-xs text-gray-400" style={{ fontFamily: 'Poppins, sans-serif' }}>0 1 2 3 4 5 6 7 8 9</p>
@@ -866,6 +857,100 @@ const SmartNation = () => {
 
             <Plus h="left" />
             <Plus h="right" />
+          </div>
+
+          {/* Logo Making Process */}
+          <div className="relative overflow-visible border-b border-gray-200">
+            {/* Top strip — label + slide indicator */}
+            <div className="px-6 md:px-10 py-4 border-b border-gray-200 flex items-center justify-between">
+              <p className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Logo Making Process</p>
+              <div className="flex gap-1.5 items-center">
+                {processSessions.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setProcessSlide(i)}
+                    className="w-1.5 h-1.5 rounded-full transition-colors"
+                    style={{ background: i === processSlide ? '#374151' : '#d1d5db' }}
+                  />
+                ))}
+              </div>
+            </div>
+            {/* Image with overlaid side arrows */}
+            <div className="relative overflow-visible">
+              <Image
+                src={processSessions[processSlide].src}
+                alt={processSessions[processSlide].label}
+                width={1200}
+                height={800}
+                className="w-full h-auto block"
+              />
+              {/* Desktop-only overlaid arrows */}
+              <button
+                onClick={() => setProcessSlide(s => Math.max(0, s - 1))}
+                disabled={processSlide === 0}
+                className="hidden md:flex absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 items-center justify-center z-10 transition-all duration-200 rounded-[4px]"
+                style={{
+                  left: 0,
+                  background: processSlide === 0 ? 'white' : '#5583fe',
+                  color: processSlide === 0 ? '#d1d5db' : 'white',
+                  border: `1.5px solid ${processSlide === 0 ? '#d1d5db' : '#5583fe'}`,
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button
+                onClick={() => setProcessSlide(s => Math.min(processSessions.length - 1, s + 1))}
+                disabled={processSlide === processSessions.length - 1}
+                className="hidden md:flex absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 items-center justify-center z-10 transition-all duration-200 rounded-[4px]"
+                style={{
+                  right: 0,
+                  background: processSlide === processSessions.length - 1 ? 'white' : '#5583fe',
+                  color: processSlide === processSessions.length - 1 ? '#d1d5db' : 'white',
+                  border: `1.5px solid ${processSlide === processSessions.length - 1 ? '#d1d5db' : '#5583fe'}`,
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+            {/* Bottom strip — slide label + description with border-edge nav buttons */}
+            <div className="relative overflow-visible px-6 md:px-10 py-5 border-t border-gray-200">
+              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-2" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+                {processSessions[processSlide].label}
+              </p>
+              <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+                {processSessions[processSlide].body}
+              </p>
+              {/* Left button — on section border */}
+              <button
+                onClick={() => setProcessSlide(s => Math.max(0, s - 1))}
+                disabled={processSlide === 0}
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                style={{
+                  left: 0,
+                  borderRadius: '0 4px 4px 0',
+                  background: processSlide === 0 ? 'white' : '#5583fe',
+                  color: processSlide === 0 ? '#d1d5db' : 'white',
+                  border: `1.5px solid ${processSlide === 0 ? '#d1d5db' : '#5583fe'}`,
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              {/* Right button — on section border */}
+              <button
+                onClick={() => setProcessSlide(s => Math.min(processSessions.length - 1, s + 1))}
+                disabled={processSlide === processSessions.length - 1}
+                className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                style={{
+                  right: 0,
+                  borderRadius: '4px 0 0 4px',
+                  background: processSlide === processSessions.length - 1 ? 'white' : '#5583fe',
+                  color: processSlide === processSessions.length - 1 ? '#d1d5db' : 'white',
+                  border: `1.5px solid ${processSlide === processSessions.length - 1 ? '#d1d5db' : '#5583fe'}`,
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
           </div>
 
           {/* App Icons */}

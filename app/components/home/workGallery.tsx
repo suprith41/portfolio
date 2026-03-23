@@ -29,12 +29,12 @@ const works = [
   },
   {
     num: '03',
-    title: 'Project Title Three',
-    description: 'Short description of the project goes here. A few lines about the scope, deliverables, and what made it interesting.',
+    title: 'SkinSage',
+    description: 'Designed the end-to-end product experience for a personalised skincare app: skin assessment, AI-powered routine builder, product recommendations, and landing page.',
     image: '',
-    href: null,
-    year: '2024',
-    available: false,
+    href: '/works/skinSage',
+    year: '2025',
+    available: true,
   },
   {
     num: '04',

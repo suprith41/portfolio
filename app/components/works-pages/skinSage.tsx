@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 
-const ACCENT = '#8B7355'; // warm earthy tone — update once brand color confirmed
+const ACCENT = '#3098FF';
 
 const Plus = ({ h, v = 'bottom' }: { h: 'left' | 'right'; v?: 'top' | 'bottom' }) => (
   <span
@@ -34,17 +34,6 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
   </h2>
 );
 
-// Placeholder for images not yet provided
-const ImgSlot = ({ label, aspect = 'aspect-video' }: { label: string; aspect?: string }) => (
-  <div
-    className={`w-full ${aspect} flex items-center justify-center`}
-    style={{ background: '#F5F4F2', border: '1.5px dashed #D1CFC9' }}
-  >
-    <span className="text-xs tracking-widest uppercase text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-      {label}
-    </span>
-  </div>
-);
 
 export default function SkinSage() {
   const [mounted, setMounted] = useState(false);
@@ -52,12 +41,15 @@ export default function SkinSage() {
   const [hoveredStat, setHoveredStat] = useState<string | null>(null);
 
   const sections = [
-    { id: 'ss-brief',    label: 'Overview' },
-    { id: 'ss-02',       label: 'Skin Assessment' },
-    { id: 'ss-03',       label: 'Recommendations' },
-    { id: 'ss-04',       label: 'Routine Builder' },
-    { id: 'ss-05',       label: 'Landing Page' },
-    { id: 'ss-ds',       label: 'Design System' },
+    { id: 'ss-brief',       label: 'Overview' },
+    { id: 'ss-02',          label: 'Assessment' },
+    { id: 'ss-search',      label: 'Search' },
+    { id: 'ss-booking',     label: 'Booking' },
+    { id: 'ss-checkout',    label: 'Checkout' },
+    { id: 'ss-appointment', label: 'Appointment' },
+    { id: 'ss-doctor',      label: 'Doctor View' },
+    { id: 'ss-landing',     label: 'Landing' },
+    { id: 'ss-ds',          label: 'Design System' },
   ];
 
   useEffect(() => { setMounted(true); }, []);
@@ -170,9 +162,15 @@ export default function SkinSage() {
           {/* App icon placeholder — replace with actual SkinSage logo when ready */}
           <div
             className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center overflow-hidden"
-            style={{ background: ACCENT, borderRadius: '10px' }}
+            style={{ background: 'white', borderRadius: '10px', boxShadow: 'inset 0 0 24px 8px rgba(48,152,255,0.35)' }}
           >
-            <span className="text-white text-xs font-semibold" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>SS</span>
+            <Image
+              src="/images/WorkImages/skinSageImages/SS-logo-s.svg"
+              alt="SkinSage logo"
+              width={40}
+              height={40}
+              className="w-7 h-7 md:w-8 md:h-8 object-contain"
+            />
           </div>
           <h1 className="text-2xl md:text-4xl font-light tracking-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
             SkinSage
@@ -191,10 +189,11 @@ export default function SkinSage() {
               { label: 'Company',     value: 'SkinSage' },
               { label: 'Role',        value: 'Product Designer' },
               { label: 'Deliverable', value: 'Zero to V1' },
+              { label: 'Scope',       value: 'UI/UX · Mobile · Responsive · Product Features' },
             ].map((item, i) => (
               <div
                 key={item.label}
-                className={`flex items-center gap-2 px-6 md:px-8 py-3 ${i === 1 ? 'border-l border-gray-200' : ''} ${i === 2 ? 'w-full md:w-auto border-t md:border-t-0 md:border-l border-gray-200' : ''}`}
+                className={`flex items-center gap-2 px-6 md:px-8 py-3 ${i > 0 ? 'border-l border-gray-200' : ''} ${i === 2 || i === 3 ? 'w-full md:w-auto border-t md:border-t-0' : ''}`}
               >
                 <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{item.label}</span>
                 <span className="text-[11px] text-gray-700" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{item.value}</span>
@@ -202,21 +201,27 @@ export default function SkinSage() {
             ))}
           </div>
 
-          {/* Brief content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 border-b border-gray-200">
-            <div className="px-6 md:px-10 py-8 md:py-12">
-              <SectionLabel>The Brief</SectionLabel>
-              <SectionHeading>Your skin, understood. Your routine, built for you.</SectionHeading>
-              <p className="text-sm text-gray-500 leading-relaxed mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                Most skincare advice is generic. SkinSage set out to change that by asking the right questions upfront and building a fully personalised routine from the answers. The brief was to design an experience that felt expert, not clinical, and personal, not overwhelming.
-              </p>
-              <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                Scope covered the onboarding assessment, personalised product recommendations, routine tracker, and the public-facing landing page. The focus was on clarity and trust at every step.
-              </p>
-            </div>
-            <div className="relative border-t md:border-t-0 md:border-l border-gray-200">
-              <ImgSlot label="Hero / Cover Image" aspect="aspect-square" />
-            </div>
+          {/* SS-01 — full-width cover image */}
+          <div className="w-full border-b border-gray-200">
+            <Image
+              src="/images/WorkImages/skinSageImages/SS-01B.png"
+              alt="SkinSage cover"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
+          </div>
+
+          {/* Brief content — full width */}
+          <div className="border-b border-gray-200 px-6 md:px-10 py-8 md:py-12">
+            <SectionLabel>The Brief</SectionLabel>
+            <SectionHeading>Your skin, understood. Your routine, built for you.</SectionHeading>
+            <p className="text-sm text-gray-500 leading-relaxed mb-4 max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Most skincare advice is generic. SkinSage set out to change that by asking the right questions upfront and building a fully personalised routine from the answers. The brief was to design an experience that felt expert, not clinical, and personal, not overwhelming.
+            </p>
+            <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Scope covered the onboarding assessment, personalised product recommendations, routine tracker, and the public-facing landing page. The focus was on clarity and trust at every step.
+            </p>
           </div>
 
           {/* KPI strip */}
@@ -261,105 +266,135 @@ export default function SkinSage() {
             <SectionLabel>Skin Assessment</SectionLabel>
             <SectionHeading>Know your skin before building your routine.</SectionHeading>
             <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              The assessment guides users through a short series of questions covering skin type, concerns, lifestyle, and goals. Each step is designed to feel conversational, not clinical. The answers power everything downstream.
+              The assessment guides users through a short series of questions about their skin, lifestyle, and concerns. Based on the responses, SkinSage generates a skin health diagnosis. If an issue is detected, the app creates a case and surfaces the best-matched doctors on the platform for that specific condition.
             </p>
           </div>
 
-          {/* Full-width image */}
-          <div className="mx-6 md:mx-10 mb-8">
-            <ImgSlot label="Onboarding / Assessment Screens" aspect="aspect-video" />
+          {/* SS-02 */}
+          <div className="w-full border-t border-gray-200">
+            <Image
+              src="/images/WorkImages/skinSageImages/SS-02.png"
+              alt="Skin assessment screens"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
           </div>
 
-          {/* Two-up detail images */}
-          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-gray-200">
-            <div className="border-b md:border-b-0 md:border-r border-gray-200 p-6 md:p-10">
-              <p className="text-xs uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Question flow</p>
-              <ImgSlot label="Step-by-step question UI" aspect="aspect-[4/3]" />
-            </div>
-            <div className="p-6 md:p-10">
-              <p className="text-xs uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Progress & completion</p>
-              <ImgSlot label="Assessment completion screen" aspect="aspect-[4/3]" />
-            </div>
-          </div>
-        </div>
-
-        {/* ── Personalised Recommendations ───────────────────────────── */}
-        <div id="ss-03" className="relative border-b border-gray-200">
-          <Plus h="left" v="top" />
-          <Plus h="right" v="top" />
-
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="px-6 md:px-10 pt-10 pb-6 md:border-r border-gray-200">
-              <SectionLabel>Recommendations</SectionLabel>
-              <SectionHeading>Products matched to your skin, not a category.</SectionHeading>
-              <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                Based on the assessment output, SkinSage surfaces a curated product list with clear reasoning for each pick. Users see not just what, but why. Trust is built through transparency, not just a recommendation.
-              </p>
-            </div>
-            <div className="border-t md:border-t-0 md:border-l border-gray-200">
-              <ImgSlot label="Recommendations Screen" aspect="aspect-square" />
-            </div>
+          {/* SS-03 */}
+          <div className="w-full border-t border-gray-200">
+            <Image
+              src="/images/WorkImages/skinSageImages/SS-03.png"
+              alt="SkinSage screen 03"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
           </div>
 
-          <div className="border-t border-gray-200 mx-6 md:mx-10 py-8">
-            <ImgSlot label="Product Detail Card" aspect="aspect-[16/6]" />
-          </div>
-        </div>
-
-        {/* ── Routine Builder ─────────────────────────────────────────── */}
-        <div id="ss-04" className="relative border-b border-gray-200">
-          <Plus h="left" v="top" />
-          <Plus h="right" v="top" />
-
-          <div className="px-6 md:px-10 pt-10 pb-6">
-            <SectionLabel>Routine Builder</SectionLabel>
-            <SectionHeading>Morning and night. Every step in the right order.</SectionHeading>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Once products are selected, SkinSage arranges them into an AM and PM routine automatically. Users can swap products, mark steps as done, and track their streak over time.
+          {/* SS-04 */}
+          <div id="ss-search" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Search across 100+ dermatologist-verified doctors. Filter by specialty, price per session, and availability to find the right fit.
             </p>
           </div>
-
-          {/* Full-width image */}
-          <div className="mx-6 md:mx-10 mb-6">
-            <ImgSlot label="Routine Overview Screen" aspect="aspect-video" />
+          <div className="w-full">
+            <Image
+              src="/images/WorkImages/skinSageImages/SS-04.png"
+              alt="SkinSage doctor search"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 border-t border-gray-200">
-            {['AM Routine', 'PM Routine', 'Streak Tracker'].map((label, i) => (
-              <div key={label} className={`p-6 md:p-8 ${i > 0 ? 'border-t md:border-t-0 md:border-l border-gray-200' : ''}`}>
-                <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{label}</p>
-                <ImgSlot label={`${label} UI`} aspect="aspect-[3/4]" />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── Landing Page ────────────────────────────────────────────── */}
-        <div id="ss-05" className="relative border-b border-gray-200">
-          <Plus h="left" v="top" />
-          <Plus h="right" v="top" />
-
-          <div className="px-6 md:px-10 pt-10 pb-6">
-            <SectionLabel>Landing Page</SectionLabel>
-            <SectionHeading>Where the first impression earns the first tap.</SectionHeading>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              The marketing site leads with the product promise and converts visitors through clarity. Every section is built to reduce doubt and move the reader toward downloading the app.
+          {/* SS-05 */}
+          <div id="ss-booking" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              View a doctor's full profile, then book a session by selecting a date and time that works.
             </p>
           </div>
-
-          <div className="mx-0 md:mx-0 border-t border-gray-200">
-            <ImgSlot label="Landing Page Full View" aspect="aspect-[4/5]" />
+          <div className="w-full">
+            <Image
+              src="/images/WorkImages/skinSageImages/SS-05.png"
+              alt="SkinSage doctor profile and booking"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-gray-200">
-            <div className="p-6 md:p-10 md:border-r border-gray-200">
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Above the fold</p>
-              <ImgSlot label="Hero Section" aspect="aspect-[4/3]" />
-            </div>
-            <div className="border-t md:border-t-0 p-6 md:p-10">
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Social proof</p>
-              <ImgSlot label="Testimonials / Trust Section" aspect="aspect-[4/3]" />
-            </div>
+          {/* SS-06 */}
+          <div id="ss-checkout" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Checkout screen and terms confirmation before the session is confirmed.
+            </p>
+          </div>
+          <div className="w-full">
+            <Image
+              src="/images/WorkImages/skinSageImages/SS-06.png"
+              alt="SkinSage checkout and T&C"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
+          </div>
+
+          {/* SS-07 */}
+          <div id="ss-appointment" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Your upcoming appointment, with a pre-consultation summary generated by AI to help the doctor prepare.
+            </p>
+          </div>
+          <div className="w-full">
+            <Image
+              src="/images/WorkImages/skinSageImages/SS-07.png"
+              alt="SkinSage appointment pre-consultation"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
+          </div>
+
+          {/* SS-08 */}
+          <div id="ss-doctor" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              The doctor's side: view patient appointments, record session outcomes, and track earnings.
+            </p>
+          </div>
+          <div className="w-full">
+            <Image
+              src="/images/WorkImages/skinSageImages/SS-08.png"
+              alt="SkinSage doctor dashboard"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
+          </div>
+
+          {/* SSL-1 & SSL-2 — Landing page */}
+          <div id="ss-landing" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Landing page designed to communicate the product promise and convert visitors.
+            </p>
+          </div>
+          <div className="w-full">
+            <Image
+              src="/images/WorkImages/skinSageImages/SSL-1.png"
+              alt="SkinSage landing page 1"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
+          </div>
+          <div className="w-full border-t border-gray-200">
+            <Image
+              src="/images/WorkImages/skinSageImages/SSL-2.png"
+              alt="SkinSage landing page 2"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
           </div>
         </div>
 
@@ -377,11 +412,15 @@ export default function SkinSage() {
             <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-5" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Color</p>
             <div className="flex flex-wrap gap-3">
               {[
-                { name: 'Warm Brown',   hex: '#8B7355' },
-                { name: 'Blush',        hex: '#E8D5C4' },
-                { name: 'Cream',        hex: '#F7F3EF' },
-                { name: 'Slate',        hex: '#4A4A4A' },
-                { name: 'Stone',        hex: '#9CA3A0' },
+                { hex: '#3A7D7D' },
+                { hex: '#5FA8A8' },
+                { hex: '#A8D5CF' },
+                { hex: '#D6EDE9' },
+                { hex: '#152D3D' },
+                { hex: '#4490D5' },
+                { hex: '#82BBE8' },
+                { hex: '#C0DCF3' },
+                { hex: '#E3E3E3' },
               ].map((c) => (
                 <div
                   key={c.hex}
@@ -397,33 +436,40 @@ export default function SkinSage() {
 
           {/* Typography */}
           <div className="px-6 md:px-10 pb-10 border-t border-gray-200 pt-8">
-            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-5" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Type</p>
-            <div
-              className="px-6 py-5"
-              style={{ background: '#F9F9F7', border: '1px solid #E5E7EB', borderRadius: '8px' }}
-            >
-              <p className="text-xs text-gray-400 mb-2" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Primary Typeface</p>
-              <p className="text-2xl md:text-3xl font-light text-gray-700 mb-3" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                FunnelDisplay
-              </p>
-              <p className="text-sm text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif', letterSpacing: '0.12em' }}>
-                ABCDEFGHIJKLMNOPQRSTUVWXYZ &nbsp;&nbsp; abcdefghijklmnopqrstuvwxyz &nbsp;&nbsp; 0123456789
-              </p>
+            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-8" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Typography &mdash; Montserrat</p>
+            <div className="flex flex-col divide-y divide-gray-100">
+              {[
+                { size: '2.5rem',  weight: 300, sample: 'Your skin, understood.',      label: 'Display',    usage: 'Landing page hero' },
+                { size: '1.75rem', weight: 400, sample: 'Build your routine.',          label: 'Heading 1',  usage: 'Screen titles' },
+                { size: '1.25rem', weight: 500, sample: 'Skin Assessment',              label: 'Heading 2',  usage: 'Section & card headers' },
+                { size: '1rem',    weight: 400, sample: 'Answer a few quick questions.', label: 'Body',       usage: 'Descriptions, onboarding copy' },
+                { size: '0.875rem',weight: 500, sample: 'View Doctor Profile',          label: 'Button',     usage: 'CTAs, action labels' },
+                { size: '0.75rem', weight: 400, sample: 'Available today · 3 slots',    label: 'Caption',    usage: 'Meta info, availability tags' },
+                { size: '0.625rem',weight: 600, sample: 'DERMATOLOGIST',                label: 'Label',      usage: 'Badges, specialty chips', upper: true },
+              ].map((t) => (
+                <div key={t.label} className="flex items-baseline justify-between gap-4 py-4 flex-wrap md:flex-nowrap">
+                  <p
+                    className="text-gray-800 flex-1 min-w-0"
+                    style={{
+                      fontFamily: 'Montserrat, sans-serif',
+                      fontSize: t.size,
+                      fontWeight: t.weight,
+                      textTransform: t.upper ? 'uppercase' : undefined,
+                      letterSpacing: t.upper ? '0.12em' : undefined,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {t.sample}
+                  </p>
+                  <div className="flex items-center gap-4 shrink-0 mt-1 md:mt-0">
+                    <span className="text-[10px] uppercase tracking-widest text-gray-400 w-20 text-right hidden md:block" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{t.label}</span>
+                    <span className="text-[11px] text-gray-400 w-44 text-right" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{t.usage}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Design system full image slot */}
-          <div className="border-t border-gray-200">
-            <ImgSlot label="Design System Overview" aspect="aspect-video" />
-          </div>
-        </div>
-
-        {/* ── Footer ──────────────────────────────────────────────────── */}
-        <div className="relative px-6 md:px-10 py-8 flex items-center justify-between">
-          <Plus h="left" v="top" />
-          <Plus h="right" v="top" />
-          <span className="text-xs text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>SkinSage — 2025</span>
-          <Image src="/images/common/sa26.svg" alt="SA" width={32} height={32} className="object-contain opacity-10" />
         </div>
 
       </div>

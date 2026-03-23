@@ -31,7 +31,7 @@ const works = [
     num: '03',
     title: 'SkinSage',
     description: 'Designed the end-to-end product experience for a personalised skincare app: skin assessment, AI-powered routine builder, product recommendations, and landing page.',
-    image: '',
+    image: '/images/WorkImages/skinSageImages/SS-thumnail-1.png',
     href: '/works/skinSage',
     year: '2025',
     available: true,

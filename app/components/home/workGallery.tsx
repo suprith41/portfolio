@@ -38,12 +38,12 @@ const works = [
   },
   {
     num: '04',
-    title: 'Project Title Four',
-    description: 'Short description of the project goes here. A few lines about the scope, deliverables, and what made it interesting.',
-    image: '',
-    href: null,
-    year: '2024',
-    available: false,
+    title: 'SkillRadius',
+    description: 'A modern LMS built for the job-seeking generation. Structured courses, video lessons, notes, and quizzes end-to-end.',
+    image: '/images/WorkImages/skillradius/SR-thumnail.png',
+    href: '/works/skillRadius',
+    year: '2025',
+    available: true,
   },
   {
     num: '05',

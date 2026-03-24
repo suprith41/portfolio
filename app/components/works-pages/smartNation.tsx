@@ -340,7 +340,7 @@ const SmartNation = () => {
         {/* ── Project Header ─────────────────────────────────────────── */}
         <div className="relative overflow-visible flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-200 bg-white">
           <Image src="/images/WorkImages/smartNationImages/sn-header-logo.png" alt="Smart Nation" width={48} height={48} className="w-10 h-10 md:w-12 md:h-12 object-contain" />
-          <h1 className="text-2xl md:text-4xl font-light tracking-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h1 className="text-2xl md:text-4xl font-light tracking-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Smart Nation
           </h1>
           <Image src="/images/common/sa26.svg" alt="SA" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-20" />
@@ -392,7 +392,7 @@ const SmartNation = () => {
             {/* Brief — always visible, never changes */}
             <div className="px-6 md:px-10 py-6 md:py-10 flex flex-col justify-start">
               <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>The Brief</p>
-              <h2 className="text-3xl md:text-4xl font-light leading-tight text-black mb-6" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+              <h2 className="text-3xl md:text-4xl font-light leading-tight text-black mb-6" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                 Your entire home, automated. Every switch controlled from one app.
               </h2>
               <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
@@ -445,7 +445,7 @@ const SmartNation = () => {
                 <p
                   className="text-5xl font-light mb-3"
                   style={{
-                    fontFamily: 'Garamond, Georgia, serif',
+                    fontFamily: 'SatishSans, sans-serif',
                     color: isHovered ? '#5583fe' : '#000000',
                     transition: 'color 0.3s ease',
                   }}
@@ -475,7 +475,7 @@ const SmartNation = () => {
         <div id="sn-01" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>01</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Control, Simplified</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Control, Simplified</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
@@ -500,7 +500,7 @@ const SmartNation = () => {
         <div id="sn-02" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>02</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Hardware in Hand, Online in Minutes</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Hardware in Hand, Online in Minutes</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
@@ -623,7 +623,7 @@ const SmartNation = () => {
         <div id="sn-03" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>03</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Switchboard to Dashboard in Four Taps</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Switchboard to Dashboard in Four Taps</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
@@ -733,7 +733,7 @@ const SmartNation = () => {
         <div id="sn-04" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>04</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Set It Once, Live Freely</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Set It Once, Live Freely</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
@@ -753,7 +753,7 @@ const SmartNation = () => {
         <div id="sn-05" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>05</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Design System</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Design System</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
@@ -1091,7 +1091,7 @@ const SmartNation = () => {
         <div id="sn-07" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>07</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Packaging Design</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Packaging Design</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
@@ -1117,7 +1117,7 @@ const SmartNation = () => {
         <div id="sn-08" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>08</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Brochures & User Guides</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Brochures & User Guides</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
@@ -1248,7 +1248,7 @@ const SmartNation = () => {
         <div id="aby-01" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>01</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Landing Page</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Landing Page</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
 
@@ -1273,14 +1273,14 @@ const SmartNation = () => {
         <div id="aby-02" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>02</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Flow</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Flow</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
           <div className="px-6 md:px-10 py-8 md:py-12">
             <div className="flex items-center justify-center mb-8">
               <Image src="/images/WorkImages/abhiyantrikImages/flow.png" alt="Development Flow" width={1400} height={600} className="w-full md:w-2/3 max-w-2xl h-auto mx-auto" />
             </div>
-            <h3 className="text-xl md:text-2xl font-light mb-4" style={{ fontFamily: 'Garamond, Georgia, serif' }}>From Concept to Deployment</h3>
+            <h3 className="text-xl md:text-2xl font-light mb-4" style={{ fontFamily: 'SatishSans, sans-serif' }}>From Concept to Deployment</h3>
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               Started with the idea of bringing an interactive product experience into the website itself, so users could feel the product before they buy. Concept got confirmed, then moved into full Figma design for the entire site. Created all 3D assets and visuals in Blender and Photoshop. Moved into development using Claude AI to vibe-code and complete the build, then deployed live.
             </p>
@@ -1292,7 +1292,7 @@ const SmartNation = () => {
         <div id="aby-03" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>03</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Interactive Product Experience</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Interactive Product Experience</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
           <div className="px-6 md:px-10 py-5 pb-10 md:pb-5">
@@ -1344,7 +1344,7 @@ const SmartNation = () => {
         <div id="aby-04" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>04</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>3D Product Mockups</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>3D Product Mockups</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
           <div className="flex flex-col">
@@ -1381,7 +1381,7 @@ const SmartNation = () => {
         <div id="sn-09" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>09</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>From the Team</h2>
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>From the Team</h2>
             <Plus h="left" />
             <Plus h="right" />
             <PlusAt x="50%" desktop />
@@ -1409,7 +1409,7 @@ const SmartNation = () => {
               },
             ].map((t, i) => (
               <div key={i} className="px-6 md:px-10 py-10 md:border-r border-gray-200 last:border-r-0 border-b md:border-b-0 border-gray-200 flex flex-col justify-between gap-6">
-                <p className="text-base md:text-lg font-light leading-relaxed text-gray-700" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+                <p className="text-base md:text-lg font-light leading-relaxed text-gray-700" style={{ fontFamily: 'SatishSans, sans-serif' }}>
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <div>
@@ -1437,7 +1437,7 @@ const SmartNation = () => {
         <div>
           <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-3" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Let's Work Together</p>
           <Image src="/images/common/sa26.svg" alt="Satish" width={56} height={56} className="w-12 h-12 mb-4" />
-          <h3 className="text-3xl md:text-4xl font-light text-gray-900 leading-snug" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h3 className="text-3xl md:text-4xl font-light text-gray-900 leading-snug" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Great products happen<br />when the right people meet.
           </h3>
           <p className="text-sm text-gray-400 mt-3 max-w-md" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>

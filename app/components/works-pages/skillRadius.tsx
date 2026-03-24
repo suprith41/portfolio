@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 
-const ACCENT = '#3098FF';
+const ACCENT = '#4E6CFF';
 
 const Plus = ({ h, v = 'bottom' }: { h: 'left' | 'right'; v?: 'top' | 'bottom' }) => (
   <span
@@ -34,22 +34,20 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
   </h2>
 );
 
-
-export default function SkinSage() {
+export default function SkillRadius() {
   const [mounted, setMounted] = useState(false);
-  const [activeSection, setActiveSection] = useState('ss-brief');
-  const [hoveredStat, setHoveredStat] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState('sr-brief');
 
   const sections = [
-    { id: 'ss-brief',       label: 'Overview' },
-    { id: 'ss-02',          label: 'Assessment' },
-    { id: 'ss-search',      label: 'Search' },
-    { id: 'ss-booking',     label: 'Booking' },
-    { id: 'ss-checkout',    label: 'Checkout' },
-    { id: 'ss-appointment', label: 'Appointment' },
-    { id: 'ss-doctor',      label: 'Doctor View' },
-    { id: 'ss-landing',     label: 'Landing' },
-    { id: 'ss-ds',          label: 'Design System' },
+    { id: 'sr-brief',     label: 'Overview' },
+    { id: 'sr-course',    label: 'Course' },
+    { id: 'sr-lessons',   label: 'Lessons' },
+    { id: 'sr-notes',     label: 'Notes' },
+    { id: 'sr-quiz',      label: 'Quiz' },
+    { id: 'sr-dashboard', label: 'Dashboard' },
+    { id: 'sr-auth',      label: 'Auth' },
+    { id: 'sr-logo',      label: 'Logo' },
+    { id: 'sr-ds',        label: 'Design System' },
   ];
 
   useEffect(() => { setMounted(true); }, []);
@@ -80,12 +78,6 @@ export default function SkinSage() {
       document.body.style.background = '';
     };
   }, []);
-
-  const stats = [
-    { value: '2 Weeks', label: 'Turnaround', sub: 'From kickoff to V1 live' },
-    { value: '4.8',     label: 'Rating',     sub: 'Average user rating on launch' },
-    { value: '73%',     label: 'Retention',  sub: 'Users returned after day 7' },
-  ];
 
   return (
     <div className="bg-white min-h-screen mt-16 px-4 md:px-0">
@@ -159,21 +151,17 @@ export default function SkinSage() {
 
         {/* ── Project Header ──────────────────────────────────────────── */}
         <div className="relative overflow-visible flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-200 bg-white">
-          {/* App icon placeholder — replace with actual SkinSage logo when ready */}
-          <div
-            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center overflow-hidden"
-            style={{ background: 'white', borderRadius: '10px', boxShadow: 'inset 0 0 24px 8px rgba(48,152,255,0.35)' }}
-          >
+          <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center overflow-hidden">
             <Image
-              src="/images/WorkImages/skinSageImages/SS-logo-s.svg"
-              alt="SkinSage logo"
-              width={40}
-              height={40}
-              className="w-7 h-7 md:w-8 md:h-8 object-contain"
+              src="/images/WorkImages/skillradius/SR-logo.svg"
+              alt="SkillRadius logo"
+              width={48}
+              height={48}
+              className="w-full h-full object-contain"
             />
           </div>
           <h1 className="text-2xl md:text-4xl font-light tracking-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
-            SkinSage
+            SkillRadius
           </h1>
           <Image src="/images/common/sa26.svg" alt="SA" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-20" />
           <Plus h="left" />
@@ -181,207 +169,173 @@ export default function SkinSage() {
         </div>
 
         {/* ── Brief ───────────────────────────────────────────────────── */}
-        <div id="ss-brief" className="relative overflow-visible border-b border-gray-200">
+        <div id="sr-brief" className="relative overflow-visible border-b border-gray-200">
 
           {/* Meta strip */}
           <div className="relative flex flex-wrap md:flex-nowrap items-stretch border-b border-gray-200">
             {[
-              { label: 'Company',     value: 'SkinSage' },
+              { label: 'Company',     value: 'SkillRadius' },
               { label: 'Role',        value: 'Product Designer' },
               { label: 'Deliverable', value: 'Zero to V1' },
-              { label: 'Scope',       value: 'UI/UX · Mobile · Responsive · Product Features' },
+              { label: 'Scope',       value: 'UI/UX Design · Visual Design · Logo Designing' },
             ].map((item, i) => (
               <div
                 key={item.label}
-                className={`flex items-center gap-2 px-6 md:px-8 py-3 ${i > 0 ? 'border-l border-gray-200' : ''} ${i === 2 || i === 3 ? 'w-full md:w-auto border-t md:border-t-0' : ''}`}
+                className={`flex flex-row md:flex-col items-center md:items-start gap-2 md:gap-1 px-6 md:px-8 py-3 w-full md:w-auto ${i > 0 ? 'border-t border-gray-200 md:border-t-0 md:border-l' : ''}`}
               >
                 <span className="text-[9px] uppercase tracking-widest text-gray-400 shrink-0" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{item.label}</span>
                 <span className="text-[11px] text-gray-700" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{item.value}</span>
               </div>
             ))}
+            {/* Ongoing indicator */}
+            <div className="flex items-center justify-center px-6 md:px-8 py-3 w-full md:w-auto border-t border-gray-200 md:border-l">
+<span className="flex items-center gap-2">
+                <span className="relative flex items-center justify-center w-2 h-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#22c55e' }} />
+                  <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: '#22c55e' }} />
+                </span>
+                <span className="text-[11px] text-gray-700" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Ongoing Project</span>
+              </span>
+            </div>
           </div>
 
-          {/* SS-01 — full-width cover image */}
+          {/* SR-01 — full-width cover */}
           <div className="w-full border-b border-gray-200">
             <Image
-              src="/images/WorkImages/skinSageImages/SS-01B.png"
-              alt="SkinSage cover"
+              src="/images/WorkImages/skillradius/SR-01.png"
+              alt="SkillRadius cover"
               width={1600}
               height={900}
               className="w-full h-auto block"
             />
           </div>
 
-          {/* Brief content — full width */}
-          <div className="border-b border-gray-200 px-6 md:px-10 py-8 md:py-12">
+          {/* Brief content */}
+          <div className="px-6 md:px-10 py-8 md:py-12">
             <SectionLabel>The Brief</SectionLabel>
-            <SectionHeading>Your skin, understood. Your routine, built for you.</SectionHeading>
-            <p className="text-sm text-gray-500 leading-relaxed mb-4 max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Most skincare advice is generic. SkinSage set out to change that by asking the right questions upfront and building a fully personalised routine from the answers. The brief was to design an experience that felt expert, not clinical, and personal, not overwhelming.
+            <SectionHeading>An LMS where the structure of every lesson is the guarantee that you will actually master the skill.</SectionHeading>
+            <p className="text-sm text-gray-500 leading-relaxed mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Most learning platforms are built around content volume. SkillRadius is built around outcomes. The platform targets college students and early-career job seekers who need to learn a real, in-demand skill end-to-end, not just watch a few videos and hope for the best.
             </p>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Scope covered the onboarding assessment, personalised product recommendations, routine tracker, and the public-facing landing page. The focus was on clarity and trust at every step.
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              The brief covered the full student experience: course discovery, structured lesson modules (video, notes, and quiz), progress tracking, and a public landing page. Certifications and a proctored exam platform are in progress and not included in this case study.
             </p>
-          </div>
-
-          {/* KPI strip */}
-          <div className="flex flex-wrap md:flex-nowrap border-b border-gray-200">
-            {stats.map((s, i) => (
-              <div
-                key={s.label}
-                onMouseEnter={() => setHoveredStat(s.label)}
-                onMouseLeave={() => setHoveredStat(null)}
-                className={`flex-1 min-w-[33%] px-6 md:px-8 py-5 flex flex-col gap-1 transition-colors duration-200 ${i > 0 ? 'border-l border-gray-200' : ''}`}
-                style={{ background: hoveredStat === s.label ? ACCENT : 'transparent' }}
-              >
-                <span
-                  className="text-xl md:text-2xl font-light transition-colors duration-200"
-                  style={{ fontFamily: 'SatishSans, sans-serif', color: hoveredStat === s.label ? 'white' : 'black' }}
-                >
-                  {s.value}
-                </span>
-                <span
-                  className="text-[10px] uppercase tracking-widest transition-colors duration-200"
-                  style={{ fontFamily: 'FunnelDisplay, sans-serif', color: hoveredStat === s.label ? 'rgba(255,255,255,0.85)' : '#9ca3af' }}
-                >
-                  {s.label}
-                </span>
-                <span
-                  className="text-[10px] transition-colors duration-200"
-                  style={{ fontFamily: 'FunnelDisplay, sans-serif', color: hoveredStat === s.label ? 'rgba(255,255,255,0.7)' : '#c4c4c4' }}
-                >
-                  {s.sub}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
 
-        {/* ── Skin Assessment / Onboarding ────────────────────────────── */}
-        <div id="ss-02" className="relative border-b border-gray-200">
+        {/* ── Course Details & Enrolment (SR-02) ──────────────────────── */}
+        <div id="sr-course" className="relative border-b border-gray-200">
           <Plus h="left" v="top" />
           <Plus h="right" v="top" />
-
-          <div className="px-6 md:px-10 pt-10 pb-6">
-            <SectionLabel>Skin Assessment</SectionLabel>
-            <SectionHeading>Know your skin before building your routine.</SectionHeading>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              The assessment guides users through a short series of questions about their skin, lifestyle, and concerns. Based on the responses, SkinSage generates a skin health diagnosis. If an issue is detected, the app creates a case and surfaces the best-matched doctors on the platform for that specific condition.
-            </p>
-          </div>
-
-          {/* SS-02 */}
-          <div className="w-full border-t border-gray-200">
-            <Image
-              src="/images/WorkImages/skinSageImages/SS-02.png"
-              alt="Skin assessment screens"
-              width={1600}
-              height={900}
-              className="w-full h-auto block"
-            />
-          </div>
-
-          {/* SS-03 */}
-          <div className="w-full border-t border-gray-200">
-            <Image
-              src="/images/WorkImages/skinSageImages/SS-03.png"
-              alt="SkinSage screen 03"
-              width={1600}
-              height={900}
-              className="w-full h-auto block"
-            />
-          </div>
-
-          {/* SS-04 */}
-          <div id="ss-search" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+          <div className="px-6 md:px-10 pt-8 pb-4">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Search across 100+ dermatologist-verified doctors. Filter by specialty, price per session, and availability to find the right fit.
+              The course detail page reflects what you will learn, resources available in the course, certification details, all module and subunit breakdowns, and instructor info. Enrolment is integrated with Razorpay.
             </p>
           </div>
           <div className="w-full">
             <Image
-              src="/images/WorkImages/skinSageImages/SS-04.png"
-              alt="SkinSage doctor search"
+              src="/images/WorkImages/skillradius/SR-02.png"
+              alt="SkillRadius course details and enrolment"
               width={1600}
               height={900}
               className="w-full h-auto block"
             />
           </div>
+        </div>
 
-          {/* SS-05 */}
-          <div id="ss-booking" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+        {/* ── Video Lessons (SR-03) ────────────────────────────────────── */}
+        <div id="sr-lessons" className="relative border-b border-gray-200">
+          <Plus h="left" v="top" />
+          <Plus h="right" v="top" />
+          <div className="px-6 md:px-10 pt-8 pb-4">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              View a doctor's full profile, then book a session by selecting a date and time that works.
+              Each module is a complete unit combining video lessons, notes, resources, and a quiz. The quiz at the end of every module validates what the learner just covered, so they master one module fully before moving to the next. No skipping ahead, no gaps.
             </p>
           </div>
           <div className="w-full">
             <Image
-              src="/images/WorkImages/skinSageImages/SS-05.png"
-              alt="SkinSage doctor profile and booking"
+              src="/images/WorkImages/skillradius/SR-03.png"
+              alt="SkillRadius video lessons structure"
               width={1600}
               height={900}
               className="w-full h-auto block"
             />
           </div>
+        </div>
 
-          {/* SS-06 */}
-          <div id="ss-checkout" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+        {/* ── Notes (SR-04) ────────────────────────────────────────────── */}
+        <div id="sr-notes" className="relative border-b border-gray-200">
+          <Plus h="left" v="top" />
+          <Plus h="right" v="top" />
+          <div className="px-6 md:px-10 pt-8 pb-4">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Checkout screen and terms confirmation before the session is confirmed.
+              Notes lesson view. Written content alongside the video so students can read, reference, and revisit key concepts without rewatching.
             </p>
           </div>
           <div className="w-full">
             <Image
-              src="/images/WorkImages/skinSageImages/SS-06.png"
-              alt="SkinSage checkout and T&C"
+              src="/images/WorkImages/skillradius/SR-04.png"
+              alt="SkillRadius notes lesson"
               width={1600}
               height={900}
               className="w-full h-auto block"
             />
           </div>
+        </div>
 
-          {/* SS-07 */}
-          <div id="ss-appointment" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+        {/* ── Quiz (SR-05) ─────────────────────────────────────────────── */}
+        <div id="sr-quiz" className="relative border-b border-gray-200">
+          <Plus h="left" v="top" />
+          <Plus h="right" v="top" />
+          <div className="px-6 md:px-10 pt-8 pb-4">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Your upcoming appointment, with a pre-consultation summary generated by AI to help the doctor prepare.
+              End-of-module quiz to reinforce and validate what was just learned. Immediate feedback keeps students engaged rather than guessing.
             </p>
           </div>
           <div className="w-full">
             <Image
-              src="/images/WorkImages/skinSageImages/SS-07.png"
-              alt="SkinSage appointment pre-consultation"
+              src="/images/WorkImages/skillradius/SR-05.png"
+              alt="SkillRadius quiz"
               width={1600}
               height={900}
               className="w-full h-auto block"
             />
           </div>
+        </div>
 
-          {/* SS-08 */}
-          <div id="ss-doctor" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+        {/* ── Dashboard (SR-06) ────────────────────────────────────────── */}
+        <div id="sr-dashboard" className="relative border-b border-gray-200">
+          <Plus h="left" v="top" />
+          <Plus h="right" v="top" />
+          <div className="px-6 md:px-10 pt-8 pb-4">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              The doctor's side: view patient appointments, record session outcomes, and track earnings.
+              Student dashboard showing enrolled courses, completion progress, and upcoming modules. A clear view of how far you have come and what is left.
             </p>
           </div>
           <div className="w-full">
             <Image
-              src="/images/WorkImages/skinSageImages/SS-08.png"
-              alt="SkinSage doctor dashboard"
+              src="/images/WorkImages/skillradius/SR-06.png"
+              alt="SkillRadius student dashboard"
               width={1600}
               height={900}
               className="w-full h-auto block"
             />
           </div>
+        </div>
 
-          {/* SSL-1 & SSL-2 — Landing page */}
-          <div id="ss-landing" className="border-t border-gray-200 px-6 md:px-10 pt-6 pb-4">
+        {/* ── Auth artwork (SR-07 + SR-08) ─────────────────────────────── */}
+        <div id="sr-auth" className="relative border-b border-gray-200">
+          <Plus h="left" v="top" />
+          <Plus h="right" v="top" />
+          <div className="px-6 md:px-10 pt-8 pb-4">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Landing page designed to communicate the product promise and convert visitors.
+              Auth screens with custom artwork. Sign up and login designed to feel welcoming rather than transactional.
             </p>
           </div>
           <div className="w-full">
             <Image
-              src="/images/WorkImages/skinSageImages/SSL-1.png"
-              alt="SkinSage landing page 1"
+              src="/images/WorkImages/skillradius/SR-07.png"
+              alt="SkillRadius auth artwork"
               width={1600}
               height={900}
               className="w-full h-auto block"
@@ -389,8 +343,29 @@ export default function SkinSage() {
           </div>
           <div className="w-full border-t border-gray-200">
             <Image
-              src="/images/WorkImages/skinSageImages/SSL-2.png"
-              alt="SkinSage landing page 2"
+              src="/images/WorkImages/skillradius/SR-08.png"
+              alt="SkillRadius auth screens"
+              width={1600}
+              height={900}
+              className="w-full h-auto block"
+            />
+          </div>
+        </div>
+
+        {/* ── Logo (SR-09) ─────────────────────────────────────────────── */}
+        <div id="sr-logo" className="relative border-b border-gray-200">
+          <Plus h="left" v="top" />
+          <Plus h="right" v="top" />
+          <div className="px-6 md:px-10 pt-8 pb-4">
+            <SectionLabel>Logo Design</SectionLabel>
+            <p className="text-sm text-gray-500 leading-relaxed mt-2" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              The mark is built on a circle, the geometric form of a radius, anchoring the brand name in shape. Within it, the negative space traces an R, but the stem breaks into an upward arrow, a trajectory rather than a letter. The circle is never closed at the top: a deliberate opening that reads as potential, not completion. Together the form says the same thing the platform does: you are somewhere on the radius of your skill, and the direction is up.
+            </p>
+          </div>
+          <div className="w-full">
+            <Image
+              src="/images/WorkImages/skillradius/SR-09.png"
+              alt="SkillRadius logo design"
               width={1600}
               height={900}
               className="w-full h-auto block"
@@ -399,7 +374,7 @@ export default function SkinSage() {
         </div>
 
         {/* ── Design System ───────────────────────────────────────────── */}
-        <div id="ss-ds" className="relative border-b border-gray-200">
+        <div id="sr-ds" className="relative border-b border-gray-200">
           <Plus h="left" v="top" />
           <Plus h="right" v="top" />
 
@@ -410,17 +385,14 @@ export default function SkinSage() {
           {/* Color */}
           <div className="px-6 md:px-10 pb-8">
             <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-5" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Color</p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 justify-center">
               {[
-                { hex: '#3A7D7D' },
-                { hex: '#5FA8A8' },
-                { hex: '#A8D5CF' },
-                { hex: '#D6EDE9' },
-                { hex: '#152D3D' },
-                { hex: '#4490D5' },
-                { hex: '#82BBE8' },
-                { hex: '#C0DCF3' },
-                { hex: '#E3E3E3' },
+                { hex: '#3C5AC7' },
+                { hex: '#6D83D9' },
+                { hex: '#9FAEEA' },
+                { hex: '#D1D8F4' },
+                { hex: '#FFFFFF' },
+                { hex: '#000000' },
               ].map((c) => (
                 <div
                   key={c.hex}
@@ -436,34 +408,34 @@ export default function SkinSage() {
 
           {/* Typography */}
           <div className="px-6 md:px-10 pb-10 border-t border-gray-200 pt-8">
-            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-8" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Typography &mdash; Montserrat</p>
+            <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-8" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Typography &mdash; Instrument Sans</p>
             <div className="flex flex-col divide-y divide-gray-100">
               {[
-                { size: '2.5rem',  weight: 300, sample: 'Your skin, understood.',      label: 'Display',    usage: 'Landing page hero' },
-                { size: '1.75rem', weight: 400, sample: 'Build your routine.',          label: 'Heading 1',  usage: 'Screen titles' },
-                { size: '1.25rem', weight: 500, sample: 'Skin Assessment',              label: 'Heading 2',  usage: 'Section & card headers' },
-                { size: '1rem',    weight: 400, sample: 'Answer a few quick questions.', label: 'Body',       usage: 'Descriptions, onboarding copy' },
-                { size: '0.875rem',weight: 500, sample: 'View Doctor Profile',          label: 'Button',     usage: 'CTAs, action labels' },
-                { size: '0.75rem', weight: 400, sample: 'Available today · 3 slots',    label: 'Caption',    usage: 'Meta info, availability tags' },
-                { size: '0.625rem',weight: 600, sample: 'DERMATOLOGIST',                label: 'Label',      usage: 'Badges, specialty chips', upper: true },
+                { size: '2.5rem',   mobileSize: '1.5rem',   weight: 600, sample: 'Learn the skill. Get the job.',      label: 'Display',   usage: 'Landing page hero' },
+                { size: '1.75rem',  mobileSize: '1.25rem',  weight: 500, sample: 'Your Courses',                       label: 'Heading 1', usage: 'Screen & page titles' },
+                { size: '1.25rem',  mobileSize: '1.1rem',   weight: 500, sample: 'Module 3: Advanced Hooks',           label: 'Heading 2', usage: 'Section & card headers' },
+                { size: '1rem',     mobileSize: '0.9rem',   weight: 400, sample: 'Pick up where you left off.',        label: 'Body',      usage: 'Descriptions, lesson copy' },
+                { size: '0.875rem', mobileSize: '0.875rem', weight: 500, sample: 'Enroll Now',                         label: 'Button',    usage: 'CTAs and action labels' },
+                { size: '0.75rem',  mobileSize: '0.75rem',  weight: 400, sample: '12 lessons · 4.5 hrs · Beginner',   label: 'Caption',   usage: 'Course meta and tags' },
+                { size: '0.625rem', mobileSize: '0.625rem', weight: 600, sample: 'CERTIFICATION IN PROGRESS',         label: 'Label',     usage: 'Badges, status chips', upper: true },
               ].map((t) => (
                 <div key={t.label} className="flex items-baseline justify-between gap-4 py-4 flex-wrap md:flex-nowrap">
                   <p
                     className="text-gray-800 flex-1 min-w-0"
                     style={{
-                      fontFamily: 'Montserrat, sans-serif',
-                      fontSize: t.size,
+                      fontFamily: 'InstrumentSans, sans-serif',
+                      fontSize: `clamp(${t.mobileSize}, 3vw, ${t.size})`,
                       fontWeight: t.weight,
                       textTransform: t.upper ? 'uppercase' : undefined,
                       letterSpacing: t.upper ? '0.12em' : undefined,
-                      lineHeight: 1.2,
+                      lineHeight: 1.3,
                     }}
                   >
                     {t.sample}
                   </p>
                   <div className="flex items-center gap-4 shrink-0 mt-1 md:mt-0">
                     <span className="text-[10px] uppercase tracking-widest text-gray-400 w-20 text-right hidden md:block" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{t.label}</span>
-                    <span className="text-[11px] text-gray-400 w-44 text-right" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{t.usage}</span>
+                    <span className="text-[11px] text-gray-400 md:w-44 text-right" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{t.usage}</span>
                   </div>
                 </div>
               ))}

@@ -31,7 +31,7 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 );
 
 const SectionHeading = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="text-2xl md:text-3xl font-light leading-snug text-black mb-4" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+  <h2 className="text-2xl md:text-3xl font-light leading-snug text-black mb-4" style={{ fontFamily: 'SatishSans, sans-serif' }}>
     {children}
   </h2>
 );
@@ -177,7 +177,7 @@ export default function BlumeHealth() {
           >
             <Image src="/images/WorkImages/blumeHealthImages/BH-logo-vector.svg" alt="Blume Health" width={28} height={28} className="w-6 h-6 md:w-7 md:h-7 object-contain" style={{ filter: 'brightness(0) invert(1)' }} />
           </div>
-          <h1 className="text-2xl md:text-4xl font-light tracking-tight" style={{ fontFamily: 'Garamond, Georgia, serif' }}>
+          <h1 className="text-2xl md:text-4xl font-light tracking-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Blume Health
           </h1>
           <Image src="/images/common/sa26.svg" alt="SA" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-20" />
@@ -278,7 +278,7 @@ export default function BlumeHealth() {
                   <div className="relative px-6 md:px-8 py-4 md:py-5">
                     <p
                       className="text-2xl md:text-3xl font-light mb-0.5 transition-colors duration-200"
-                      style={{ fontFamily: 'Garamond, Georgia, serif', color: hovered ? ACCENT : '#111' }}
+                      style={{ fontFamily: 'SatishSans, sans-serif', color: hovered ? ACCENT : '#111' }}
                     >
                       {s.value}
                     </p>

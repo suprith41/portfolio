@@ -385,30 +385,28 @@ const SmartNation = () => {
             />
           </div>
 
-          {/* Brief + Right panel */}
+          {/* Brief heading — full width */}
+          <div className="px-6 md:px-10 pt-8 md:pt-10 pb-4">
+            <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>The Brief</p>
+            <h2 className="text-3xl md:text-4xl font-light leading-tight text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>
+              Your entire home, automated. Every switch controlled from one app.
+            </h2>
+          </div>
+          {/* Desc + Animation side by side */}
           <div className="relative overflow-visible grid grid-cols-1 md:grid-cols-2 gap-0">
             <PlusAt x="50%" desktop />
-
-            {/* Brief — always visible, never changes */}
-            <div className="px-6 md:px-10 py-6 md:py-10 flex flex-col justify-start">
-              <p className="text-[11px] uppercase tracking-widest text-gray-400 mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>The Brief</p>
-              <h2 className="text-3xl md:text-4xl font-light leading-tight text-black mb-6" style={{ fontFamily: 'SatishSans, sans-serif' }}>
-                Your entire home, automated. Every switch controlled from one app.
-              </h2>
+            <div className="px-6 md:px-10 pb-8 md:pb-10 pt-2 flex flex-col justify-start">
               <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                 In a typical Indian home there are 20–30 switches controlling lights, fans, and appliances. Instead of replacing every device, the idea was to make the switchboard smart.
                 <br /><br />
                 Smart Nation&apos;s hardware fits into existing switchboards, enabling control of any connected device through one app, no rewiring, no replacing appliances. The goal was to create a simple experience with full control, reliable automations, and technology that works effortlessly in everyday life.
               </p>
             </div>
-
             {/* Right panel — animation */}
-            <div className="relative overflow-hidden px-6 md:px-10 py-10 md:py-16" style={{ minHeight: '420px' }}>
-              <div className="flex items-center justify-center" style={{ marginTop: '40px' }}>
-                <video className="w-full h-auto max-w-xs md:max-w-sm rounded-lg" autoPlay loop muted playsInline>
-                  <source src="/images/WorkImages/smartNationImages/smart-nation-animation.mp4" type="video/mp4" />
-                </video>
-              </div>
+            <div className="relative overflow-hidden flex items-center justify-center px-6 md:px-10 py-8 md:py-12">
+              <video className="w-full h-auto max-w-xs md:max-w-sm rounded-lg" autoPlay loop muted playsInline>
+                <source src="/images/WorkImages/smartNationImages/smart-nation-animation.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
           <PlusAt x="50%" />
@@ -473,7 +471,7 @@ const SmartNation = () => {
 
         {/* ── 01 · App Experience ────────────────────────────────────── */}
         <div id="sn-01" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>01</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Control, Simplified</h2>
             <Plus h="left" />
@@ -498,7 +496,7 @@ const SmartNation = () => {
 
         {/* ── 02 · Device Provisioning ───────────────────────────────── */}
         <div id="sn-02" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>02</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Hardware in Hand, Online in Minutes</h2>
             <Plus h="left" />
@@ -621,7 +619,7 @@ const SmartNation = () => {
 
         {/* ── 03 · Adding an Appliance ───────────────────────────────── */}
         <div id="sn-03" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>03</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Switchboard to Dashboard in Four Taps</h2>
             <Plus h="left" />
@@ -731,7 +729,7 @@ const SmartNation = () => {
 
         {/* ── 04 · Automation ────────────────────────────────────────── */}
         <div id="sn-04" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>04</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Set It Once, Live Freely</h2>
             <Plus h="left" />
@@ -751,7 +749,7 @@ const SmartNation = () => {
 
         {/* ── 05 · Design System ─────────────────────────────────────── */}
         <div id="sn-05" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>05</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Design System</h2>
             <Plus h="left" />
@@ -761,15 +759,18 @@ const SmartNation = () => {
           {/* Colour palette */}
           <div className="relative overflow-visible px-6 md:px-10 py-10 border-b border-gray-200">
             <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-6" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Brand Colours</p>
-            <div className="grid grid-cols-3 md:grid-cols-5">
+            <div className="flex flex-wrap gap-3">
               {brandColors.map((c) => (
-                <div key={c.name}>
-                  <div
-                    className={`w-full mb-2${c.hex === '#FFFFFF' ? ' border border-gray-200' : ''}`}
-                    style={{ background: c.hex, aspectRatio: '5 / 2' }}
-                  />
-                  <p className="text-[10px] text-gray-500 leading-snug" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{c.name}</p>
-                  <p className="text-[10px] text-gray-400" style={{ fontFamily: 'monospace' }}>{c.hex}</p>
+                <div
+                  key={c.name}
+                  className="flex items-center gap-3 px-3 py-2"
+                  style={{ background: '#F9F9F7', border: '1px solid #E5E7EB', borderRadius: '999px' }}
+                >
+                  <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: c.hex, display: 'block', flexShrink: 0, border: c.hex === '#FFFFFF' ? '1px solid #E5E7EB' : 'none' }} />
+                  <div>
+                    <p className="text-[10px] text-gray-500 leading-tight" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{c.name}</p>
+                    <p className="text-[10px] text-gray-400" style={{ fontFamily: 'monospace' }}>{c.hex}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -920,11 +921,11 @@ const SmartNation = () => {
               <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                 {processSessions[processSlide].body}
               </p>
-              {/* Left button — on section border */}
+              {/* Left button — mobile only, on section border */}
               <button
                 onClick={() => setProcessSlide(s => Math.max(0, s - 1))}
                 disabled={processSlide === 0}
-                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                className="md:hidden absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
                 style={{
                   left: 0,
                   borderRadius: '0 4px 4px 0',
@@ -935,11 +936,11 @@ const SmartNation = () => {
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
               </button>
-              {/* Right button — on section border */}
+              {/* Right button — mobile only, on section border */}
               <button
                 onClick={() => setProcessSlide(s => Math.min(processSessions.length - 1, s + 1))}
                 disabled={processSlide === processSessions.length - 1}
-                className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                className="md:hidden absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
                 style={{
                   right: 0,
                   borderRadius: '4px 0 0 4px',
@@ -1089,7 +1090,7 @@ const SmartNation = () => {
 
         {/* ── 07 · Packaging ─────────────────────────────────────────── */}
         <div id="sn-07" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>07</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Packaging Design</h2>
             <Plus h="left" />
@@ -1115,7 +1116,7 @@ const SmartNation = () => {
 
         {/* ── 08 · Brochures ─────────────────────────────────────────── */}
         <div id="sn-08" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>08</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Brochures & User Guides</h2>
             <Plus h="left" />
@@ -1246,7 +1247,7 @@ const SmartNation = () => {
 
         {/* ── Abhiyantrik · 01 · Landing Page ────────────────────────── */}
         <div id="aby-01" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>01</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Landing Page</h2>
             <Plus h="left" /><Plus h="right" />
@@ -1261,9 +1262,9 @@ const SmartNation = () => {
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               I designed and developed Abhiyantrik Solutions&apos; complete website experience, from initial sketches to a fully interactive platform. The site showcases Smart Nation&apos;s innovative home automation products through immersive product demonstrations, allowing visitors to experience the technology before they buy.
             </p>
-            <a href="https://www.abhiyantriksolutions.in/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs text-black border border-gray-200 w-fit hover:bg-gray-50 transition-colors" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+            <a href="https://www.smartnation.online/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-xs text-black border border-gray-200 w-fit hover:bg-gray-50 transition-colors" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               <span className="px-4 py-2 border-r border-gray-200">Visit website ↗</span>
-              <span className="px-4 py-2 text-gray-400">abhiyantriksolutions.in</span>
+              <span className="px-4 py-2 text-gray-400">smartnation.online</span>
             </a>
             <Plus h="left" /><Plus h="right" />
           </div>
@@ -1271,7 +1272,7 @@ const SmartNation = () => {
 
         {/* ── Abhiyantrik · 02 · Flow ─────────────────────────────────── */}
         <div id="aby-02" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>02</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Flow</h2>
             <Plus h="left" /><Plus h="right" />
@@ -1290,7 +1291,7 @@ const SmartNation = () => {
 
         {/* ── Abhiyantrik · 03 · Interactive Product Experience ──────── */}
         <div id="aby-03" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>03</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Interactive Product Experience</h2>
             <Plus h="left" /><Plus h="right" />
@@ -1342,7 +1343,7 @@ const SmartNation = () => {
 
         {/* ── Abhiyantrik · 04 · 3D Product Mockups ──────────────────── */}
         <div id="aby-04" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>04</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>3D Product Mockups</h2>
             <Plus h="left" /><Plus h="right" />
@@ -1379,7 +1380,7 @@ const SmartNation = () => {
 
         {/* ── 09 · From the Team ─────────────────────────────────────── */}
         <div id="sn-09" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
             <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>09</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>From the Team</h2>
             <Plus h="left" />

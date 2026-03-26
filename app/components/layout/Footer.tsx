@@ -5,10 +5,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const links = [
-  { label: 'LinkedIn',  href: 'https://linkedin.com/in/satishhebbal' },
-  { label: 'Dribbble',  href: 'https://dribbble.com/satishhebbal' },
-  { label: 'Instagram', href: 'https://instagram.com/satishhebbal' },
-  { label: 'GitHub',    href: 'https://github.com/satishhebbal' },
+  { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/satish-hebbal/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/sat_dez' },
+  { label: 'GitHub',    href: 'https://github.com/satish-hebbal' },
 ]
 
 const navLinks = [
@@ -22,11 +21,11 @@ export default function Footer() {
   const isUnpluggedPage = pathname?.startsWith('/unplugged/')
 
   return (
-    <footer className={`mt-16 border-t border-gray-100${isUnpluggedPage ? ' md:hidden' : ''}`}>
+    <footer className={`mt-16${isUnpluggedPage ? ' md:hidden' : ''}`}>
       <div className="max-w-5xl mx-auto px-6 md:px-10">
 
         {/* Big name */}
-        <div className="py-10 md:py-14 text-center">
+        <div className="pt-4 pb-8 text-center">
           <h2
             className="text-[clamp(3rem,12vw,9rem)] leading-none tracking-tight text-black select-none"
             aria-hidden="true"

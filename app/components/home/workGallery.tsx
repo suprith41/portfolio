@@ -45,24 +45,6 @@ const works = [
     year: '2025',
     available: true,
   },
-  {
-    num: '05',
-    title: 'Project Title Five',
-    description: 'Short description of the project goes here. A few lines about the scope, deliverables, and what made it interesting.',
-    image: '',
-    href: null,
-    year: '2024',
-    available: false,
-  },
-  {
-    num: '06',
-    title: 'Project Title Six',
-    description: 'Short description of the project goes here. A few lines about the scope, deliverables, and what made it interesting.',
-    image: '',
-    href: null,
-    year: '2023',
-    available: false,
-  },
 ]
 
 // Corner plus marker

@@ -95,9 +95,9 @@ export default function BlumeHealth() {
   }, []);
 
   const stats = [
-    { value: '$1,000+', label: 'MRR', sub: 'Within weeks of launch' },
+    { value: '$350+', label: 'MRR', sub: 'Within weeks of launch' },
     { value: '1 Week',  label: 'Turnaround', sub: 'From first session to V1 live' },
-    { value: '96%',     label: 'Completion', sub: 'Doctors who finished onboarding' },
+    { value: '96%',     label: 'Onboarding Completion Rate', sub: '' },
   ];
 
   return (

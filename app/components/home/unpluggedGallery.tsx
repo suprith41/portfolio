@@ -15,7 +15,7 @@ const items = [
     description: 'Built a corner table from scratch: cut, assembled, painted, and finished. A hands-on experiment in furniture making with zero prior woodworking experience.',
     image: '/images/Unplugged/table/thumbnail.png',
     href: '/unplugged/table',
-    year: '2024',
+    year: '2025',
     available: true,
   },
 ]
@@ -153,7 +153,7 @@ export default function UnpluggedGallery() {
             </div>
 
             {/* Image */}
-            <div className="relative overflow-hidden order-1 md:order-2">
+            <div className="relative overflow-hidden order-1 md:order-2 cursor-pointer">
               <Image
                 src={item.image}
                 alt={item.title}

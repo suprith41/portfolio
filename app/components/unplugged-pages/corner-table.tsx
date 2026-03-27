@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 const CornerTable = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const isDragging = useRef(false);
+  const fillRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -19,6 +22,61 @@ const CornerTable = () => {
     };
   }, []);
 
+
+  useEffect(() => {
+    if (isMobile) return;
+
+    const el = document.querySelector('.cutting-mat-page') as HTMLDivElement | null;
+    if (!el) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    };
+
+    const handleScroll = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      const p = max > 0 ? el.scrollLeft / max : 0;
+      if (fillRef.current) fillRef.current.style.width = `${p * 100}%`;
+      if (dotRef.current) dotRef.current.style.left = `calc(${p * 100}% - 5px)`;
+    };
+
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    el.addEventListener('scroll', handleScroll);
+    return () => {
+      el.removeEventListener('wheel', handleWheel);
+      el.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMobile]);
+
+  const handleScrubberMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    const track = e.currentTarget;
+    const el = document.querySelector('.cutting-mat-page') as HTMLDivElement | null;
+    if (!el) return;
+
+    isDragging.current = true;
+
+    const updateScroll = (clientX: number) => {
+      const rect = track.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      el.scrollLeft = ratio * (el.scrollWidth - el.clientWidth);
+    };
+
+    updateScroll(e.clientX);
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current) return;
+      updateScroll(e.clientX);
+    };
+    const onMouseUp = () => {
+      isDragging.current = false;
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  };
 
   useEffect(() => {
     if (!isMobile) {
@@ -109,7 +167,7 @@ const CornerTable = () => {
             The Corner table
           </h1>
           <Image 
-            src="/images/Unplugged/table/sa-white.svg" 
+            src="/images/common/sa26-white.svg" 
             alt="SA Logo" 
             width={32}
             height={32}
@@ -684,19 +742,34 @@ const CornerTable = () => {
             {/* Desktop Table Contents */}
             <>
               {/* Fixed Corner table heading at top left */}
-              <h1 className="fixed top-4 left-16 text-4xl font-light text-white leading-tight m-0 z-[1000]" style={{ fontFamily: 'SatishSans, sans-serif' }}>
-                The Corner table
-              </h1>
-              
-              {/* Fixed SA Logo at top right */}
-              <div className="fixed top-6 right-16 m-0 z-[1000]">
-                <Image 
-                  src="/images/Unplugged/table/sa-white.svg" 
-                  alt="SA Logo" 
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-contain text-white"
-                />
+              <div className="fixed top-5 left-16 flex items-center py-4 z-[1000]">
+                <h1 className="text-2xl font-light text-white leading-tight m-0" style={{ fontFamily: 'SatishSans, sans-serif' }}>
+                  The Corner table
+                </h1>
+              </div>
+
+              {/* Scroll progress scrubber */}
+              <div className="fixed top-8 right-16 flex items-center py-4 z-[99999]">
+                <div
+                  className="relative flex items-center cursor-pointer"
+                  style={{ width: '180px', height: '24px' }}
+                  onMouseDown={handleScrubberMouseDown}
+                >
+                  {/* Track */}
+                  <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-white/30" />
+                  {/* Filled portion */}
+                  <div
+                    ref={fillRef}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 h-px bg-white/80"
+                    style={{ width: '0%' }}
+                  />
+                  {/* Draggable square */}
+                  <div
+                    ref={dotRef}
+                    className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white cursor-grab active:cursor-grabbing"
+                    style={{ left: '-5px' }}
+                  />
+                </div>
               </div>
 
               <div className="flex w-max h-screen items-center px-12 py-12 gap-32">

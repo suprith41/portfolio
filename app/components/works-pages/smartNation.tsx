@@ -142,17 +142,20 @@ const SmartNation = () => {
   const addAppSlideDir  = useRef<1 | -1>(1);
   const [processSlide, setProcessSlide] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const [copied, setCopied] = useState<'email' | 'phone' | null>(null);
+  const [copied, setCopied] = useState<'email' | null>(null);
   const [hoveredStat, setHoveredStat] = useState<string | null>(null);
 
   // ── Abhiyantrik interactive demo state ─────────────────────────
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const renderedLayerRef = useRef<HTMLDivElement>(null);
+  const handleLineRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
   const handleSliderMove = (clientX: number) => {
-    if (!sliderRef.current) return;
+    if (!sliderRef.current || !renderedLayerRef.current || !handleLineRef.current) return;
     const rect = sliderRef.current.getBoundingClientRect();
-    setSliderPosition(Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)));
+    const pos = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+    renderedLayerRef.current.style.clipPath = `inset(0 ${100 - pos}% 0 0)`;
+    handleLineRef.current.style.left = `${pos}%`;
   };
   const [switchState, setSwitchState] = useState<SwitchState>({
     light1: false, light2: false, light3: false, light4: false,
@@ -296,7 +299,7 @@ const SmartNation = () => {
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
                   style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
-                  className="flex items-center gap-3 py-[6px] text-left group relative"
+                  className="cursor-pointer flex items-center gap-3 py-[6px] text-left group relative"
                 >
                   {/* Marker: + for inactive, filled square for active */}
                   <span
@@ -377,7 +380,7 @@ const SmartNation = () => {
           {/* Hero Image */}
           <div className="relative overflow-visible border-b border-gray-200">
             <Image
-              src="/images/HomeImages/SN-tumb-1.png"
+              src="/images/WorkImages/smartNationImages/SNN.png"
               alt="Smart Nation switchboard"
               width={2000}
               height={900}
@@ -395,7 +398,7 @@ const SmartNation = () => {
           {/* Desc + Animation side by side */}
           <div className="relative overflow-visible grid grid-cols-1 md:grid-cols-2 gap-0">
             <PlusAt x="50%" desktop />
-            <div className="px-6 md:px-10 pb-8 md:pb-10 pt-2 flex flex-col justify-start">
+            <div className="px-6 md:px-10 py-8 md:py-10 flex flex-col justify-center">
               <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
                 In a typical Indian home there are 20–30 switches controlling lights, fans, and appliances. Instead of replacing every device, the idea was to make the switchboard smart.
                 <br /><br />
@@ -403,7 +406,7 @@ const SmartNation = () => {
               </p>
             </div>
             {/* Right panel — animation */}
-            <div className="relative overflow-hidden flex items-center justify-center px-6 md:px-10 py-8 md:py-12">
+            <div className="relative overflow-hidden flex items-start justify-center px-6 md:px-10 pt-4 pb-8 md:pt-6 md:pb-12">
               <video className="w-full h-auto max-w-xs md:max-w-sm rounded-lg" autoPlay loop muted playsInline>
                 <source src="/images/WorkImages/smartNationImages/smart-nation-animation.mp4" type="video/mp4" />
               </video>
@@ -472,13 +475,12 @@ const SmartNation = () => {
         {/* ── 01 · App Experience ────────────────────────────────────── */}
         <div id="sn-01" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>01</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Control, Simplified</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
 
-          <div className="px-6 md:px-10 pt-6 pb-3">
+          <div className="px-6 md:px-10 pt-2 pb-3">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               A home has rooms, rooms have devices, devices have states. Most smart home apps bury this under layers of menus. I designed around how people actually think: room first, device second. One screen shows everything that matters. Tap once to control. A 10-year-old and a 70-year-old should both get it without anyone explaining anything.
             </p>
@@ -497,48 +499,52 @@ const SmartNation = () => {
         {/* ── 02 · Device Provisioning ───────────────────────────────── */}
         <div id="sn-02" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>02</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Hardware in Hand, Online in Minutes</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
-          <div className="px-6 md:px-10 pt-6 pb-3">
+          <div className="px-6 md:px-10 pt-2 pb-3">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               IoT setup is where trust breaks. Most users assume the product is broken the moment it takes more than five seconds. I redesigned provisioning into a linear flow: detect, connect, name, assign, confirm. Every step tells you exactly what's happening. The screen stays calm so the user does too.
             </p>
           </div>
           {/* ── Mobile: 1 image at a time ── */}
           <div className="md:hidden">
+            {/* overflow-visible so edge buttons can bleed outside */}
             <div
               className="relative overflow-visible"
               onTouchStart={e => { swipeTouchStartX.current = e.touches[0].clientX; }}
               onTouchEnd={e => {
                 if (swipeTouchStartX.current === null) return;
                 const delta = swipeTouchStartX.current - e.changedTouches[0].clientX;
-                if (delta > 40) { setupSlideDir.current = 1; setSetupSlide(s => Math.min(3, s + 1)); }
-                else if (delta < -40) { setupSlideDir.current = -1; setSetupSlide(s => Math.max(0, s - 1)); }
+                if (delta > 40) { setSetupSlide(s => Math.min(3, s + 1)); }
+                else if (delta < -40) { setSetupSlide(s => Math.max(0, s - 1)); }
                 swipeTouchStartX.current = null;
               }}
             >
-              <div className="overflow-hidden">
-                <div
-                  key={setupSlide}
-                  style={{ animation: `${setupSlideDir.current === 1 ? 'slide-in-right' : 'slide-in-left'} 0.35s ease-out` }}
-                >
-                  <Image
-                    src={`/images/WorkImages/smartNationImages/setup-slide-${setupSlide + 1}.png`}
-                    alt={`Setup step ${setupSlide + 1}`}
-                    width={800}
-                    height={1200}
-                    className="w-full h-auto block"
-                  />
-                </div>
+              {/* Inner clip — height driven by aspect ratio, not by tallest sibling */}
+              <div className="relative w-full overflow-hidden" style={{ aspectRatio: '1 / 1' }}>
+                {[1, 2, 3, 4].map(i => (
+                  <div
+                    key={i}
+                    className="absolute inset-0 transition-transform duration-500 ease-in-out"
+                    style={{ transform: `translateX(${(i - 1 - setupSlide) * 100}%)` }}
+                  >
+                    <Image
+                      src={`/images/WorkImages/smartNationImages/setup-slide-${i}.png`}
+                      alt={`Setup step ${i}`}
+                      width={2954}
+                      height={2954}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
               </div>
-              {/* Left button — on section border */}
+              {/* Left button */}
               <button
-                onClick={() => { setupSlideDir.current = -1; setSetupSlide(s => Math.max(0, s - 1)); }}
+                onClick={() => { setSetupSlide(s => Math.max(0, s - 1)); }}
                 disabled={setupSlide === 0}
-                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 cursor-pointer"
                 style={{
                   left: 0,
                   borderRadius: '0 4px 4px 0',
@@ -549,11 +555,11 @@ const SmartNation = () => {
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
               </button>
-              {/* Right button — on section border */}
+              {/* Right button */}
               <button
-                onClick={() => { setupSlideDir.current = 1; setSetupSlide(s => Math.min(3, s + 1)); }}
+                onClick={() => { setSetupSlide(s => Math.min(3, s + 1)); }}
                 disabled={setupSlide === 3}
-                className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 cursor-pointer"
                 style={{
                   right: 0,
                   borderRadius: '4px 0 0 4px',
@@ -597,16 +603,30 @@ const SmartNation = () => {
                 </div>
               </div>
             </div>
-            {desktopSetupSlide > 0 && (
-              <button onClick={() => setDesktopSetupSlide(0)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
-            )}
-            {desktopSetupSlide < 1 && (
-              <button onClick={() => setDesktopSetupSlide(1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-            )}
+            <button
+              onClick={() => setDesktopSetupSlide(0)}
+              disabled={desktopSetupSlide === 0}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 rounded-[4px] cursor-pointer"
+              style={{
+                background: desktopSetupSlide === 0 ? 'white' : '#5583fe',
+                color: desktopSetupSlide === 0 ? '#d1d5db' : 'white',
+                border: `1.5px solid ${desktopSetupSlide === 0 ? '#d1d5db' : '#5583fe'}`,
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button
+              onClick={() => setDesktopSetupSlide(1)}
+              disabled={desktopSetupSlide === 1}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 rounded-[4px] cursor-pointer"
+              style={{
+                background: desktopSetupSlide === 1 ? 'white' : '#5583fe',
+                color: desktopSetupSlide === 1 ? '#d1d5db' : 'white',
+                border: `1.5px solid ${desktopSetupSlide === 1 ? '#d1d5db' : '#5583fe'}`,
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
               {[0, 1].map(i => (
                 <button key={i} onClick={() => setDesktopSetupSlide(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === desktopSetupSlide ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
@@ -620,12 +640,11 @@ const SmartNation = () => {
         {/* ── 03 · Adding an Appliance ───────────────────────────────── */}
         <div id="sn-03" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>03</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Switchboard to Dashboard in Four Taps</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
-          <div className="px-6 md:px-10 pt-6 pb-3">
+          <div className="px-6 md:px-10 pt-2 pb-3">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               Once the hardware is in the wall, the homeowner should own it completely, no dependency on the installer after day one. I designed this flow to be fully self-serve: pick the board, pick the module, give it a name. Four taps and any family member can map a new switch themselves.
             </p>
@@ -638,30 +657,33 @@ const SmartNation = () => {
               onTouchEnd={e => {
                 if (swipeTouchStartX.current === null) return;
                 const delta = swipeTouchStartX.current - e.changedTouches[0].clientX;
-                if (delta > 40) { addAppSlideDir.current = 1; setAddAppSlide(s => Math.min(3, s + 1)); }
-                else if (delta < -40) { addAppSlideDir.current = -1; setAddAppSlide(s => Math.max(0, s - 1)); }
+                if (delta > 40) { setAddAppSlide(s => Math.min(3, s + 1)); }
+                else if (delta < -40) { setAddAppSlide(s => Math.max(0, s - 1)); }
                 swipeTouchStartX.current = null;
               }}
             >
-              <div className="overflow-hidden">
-                <div
-                  key={addAppSlide}
-                  style={{ animation: `${addAppSlideDir.current === 1 ? 'slide-in-right' : 'slide-in-left'} 0.35s ease-out` }}
-                >
-                  <Image
-                    src={`/images/WorkImages/smartNationImages/add-app-slide-${addAppSlide + 1}.png`}
-                    alt={`Add appliance step ${addAppSlide + 1}`}
-                    width={800}
-                    height={1200}
-                    className="w-full h-auto block"
-                  />
-                </div>
+              <div className="relative w-full overflow-hidden" style={{ aspectRatio: '1 / 1' }}>
+                {[1, 2, 3, 4].map(i => (
+                  <div
+                    key={i}
+                    className="absolute inset-0 transition-transform duration-500 ease-in-out"
+                    style={{ transform: `translateX(${(i - 1 - addAppSlide) * 100}%)` }}
+                  >
+                    <Image
+                      src={`/images/WorkImages/smartNationImages/add-app-slide-${i}.png`}
+                      alt={`Add appliance step ${i}`}
+                      width={2954}
+                      height={2954}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
               </div>
-              {/* Left button — on section border */}
+              {/* Left button */}
               <button
-                onClick={() => { addAppSlideDir.current = -1; setAddAppSlide(s => Math.max(0, s - 1)); }}
+                onClick={() => { setAddAppSlide(s => Math.max(0, s - 1)); }}
                 disabled={addAppSlide === 0}
-                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 cursor-pointer"
                 style={{
                   left: 0,
                   borderRadius: '0 4px 4px 0',
@@ -672,11 +694,11 @@ const SmartNation = () => {
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
               </button>
-              {/* Right button — on section border */}
+              {/* Right button */}
               <button
-                onClick={() => { addAppSlideDir.current = 1; setAddAppSlide(s => Math.min(3, s + 1)); }}
+                onClick={() => { setAddAppSlide(s => Math.min(3, s + 1)); }}
                 disabled={addAppSlide === 3}
-                className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 cursor-pointer"
                 style={{
                   right: 0,
                   borderRadius: '4px 0 0 4px',
@@ -707,16 +729,30 @@ const SmartNation = () => {
                 <div className="w-1/2"><Image src="/images/WorkImages/smartNationImages/add-app-slide-4.png" alt="Add app step 4" width={800} height={1200} className="w-full h-auto block" /></div>
               </div>
             </div>
-            {desktopAddAppSlide > 0 && (
-              <button onClick={() => setDesktopAddAppSlide(0)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
-            )}
-            {desktopAddAppSlide < 1 && (
-              <button onClick={() => setDesktopAddAppSlide(1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-gray-200 shadow flex items-center justify-center z-10">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-            )}
+            <button
+              onClick={() => setDesktopAddAppSlide(0)}
+              disabled={desktopAddAppSlide === 0}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 rounded-[4px] cursor-pointer"
+              style={{
+                background: desktopAddAppSlide === 0 ? 'white' : '#5583fe',
+                color: desktopAddAppSlide === 0 ? '#d1d5db' : 'white',
+                border: `1.5px solid ${desktopAddAppSlide === 0 ? '#d1d5db' : '#5583fe'}`,
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button
+              onClick={() => setDesktopAddAppSlide(1)}
+              disabled={desktopAddAppSlide === 1}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 rounded-[4px] cursor-pointer"
+              style={{
+                background: desktopAddAppSlide === 1 ? 'white' : '#5583fe',
+                color: desktopAddAppSlide === 1 ? '#d1d5db' : 'white',
+                border: `1.5px solid ${desktopAddAppSlide === 1 ? '#d1d5db' : '#5583fe'}`,
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
               {[0, 1].map(i => (
                 <button key={i} onClick={() => setDesktopAddAppSlide(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === desktopAddAppSlide ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
@@ -730,12 +766,11 @@ const SmartNation = () => {
         {/* ── 04 · Automation ────────────────────────────────────────── */}
         <div id="sn-04" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>04</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Set It Once, Live Freely</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
-          <div className="px-6 md:px-10 pt-6 pb-3">
+          <div className="px-6 md:px-10 pt-2 pb-3">
             <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               Two modes, not one, because the use cases are fundamentally different. <strong className="text-gray-700 font-medium">Routine</strong> handles fixed daily habits: lights on at 6am, geyser at 6:30, fans off at bedtime. <strong className="text-gray-700 font-medium">Timer</strong> handles spontaneous needs: run the AC for 90 minutes, then off. Merging them would have confused both. Kept visually separate, each with its own logic.
             </p>
@@ -750,7 +785,6 @@ const SmartNation = () => {
         {/* ── 05 · Design System ─────────────────────────────────────── */}
         <div id="sn-05" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>05</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Design System</h2>
             <Plus h="left" />
             <Plus h="right" />
@@ -881,15 +915,15 @@ const SmartNation = () => {
               <Image
                 src={processSessions[processSlide].src}
                 alt={processSessions[processSlide].label}
-                width={1200}
-                height={800}
+                width={3346}
+                height={890}
                 className="w-full h-auto block"
               />
               {/* Desktop-only overlaid arrows */}
               <button
                 onClick={() => setProcessSlide(s => Math.max(0, s - 1))}
                 disabled={processSlide === 0}
-                className="hidden md:flex absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 items-center justify-center z-10 transition-all duration-200 rounded-[4px]"
+                className="hidden md:flex absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 items-center justify-center z-10 transition-all duration-200 rounded-[4px] cursor-pointer"
                 style={{
                   left: 0,
                   background: processSlide === 0 ? 'white' : '#5583fe',
@@ -902,7 +936,7 @@ const SmartNation = () => {
               <button
                 onClick={() => setProcessSlide(s => Math.min(processSessions.length - 1, s + 1))}
                 disabled={processSlide === processSessions.length - 1}
-                className="hidden md:flex absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 items-center justify-center z-10 transition-all duration-200 rounded-[4px]"
+                className="hidden md:flex absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 items-center justify-center z-10 transition-all duration-200 rounded-[4px] cursor-pointer"
                 style={{
                   right: 0,
                   background: processSlide === processSessions.length - 1 ? 'white' : '#5583fe',
@@ -915,17 +949,33 @@ const SmartNation = () => {
             </div>
             {/* Bottom strip — slide label + description with border-edge nav buttons */}
             <div className="relative overflow-visible px-6 md:px-10 py-5 border-t border-gray-200">
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-2" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                {processSessions[processSlide].label}
-              </p>
-              <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                {processSessions[processSlide].body}
-              </p>
+              {/* Grid-stack trick: all slides occupy the same cell so the tallest one
+                  always defines the height — no layout shift on slide change */}
+              <div style={{ display: 'grid', width: '100%' }}>
+                {processSessions.map((session, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      gridArea: '1 / 1',
+                      opacity: i === processSlide ? 1 : 0,
+                      transition: 'opacity 0.3s ease',
+                      pointerEvents: i === processSlide ? 'auto' : 'none',
+                    }}
+                  >
+                    <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-2" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+                      {session.label}
+                    </p>
+                    <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+                      {session.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
               {/* Left button — mobile only, on section border */}
               <button
                 onClick={() => setProcessSlide(s => Math.max(0, s - 1))}
                 disabled={processSlide === 0}
-                className="md:hidden absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                className="md:hidden absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 cursor-pointer"
                 style={{
                   left: 0,
                   borderRadius: '0 4px 4px 0',
@@ -940,7 +990,7 @@ const SmartNation = () => {
               <button
                 onClick={() => setProcessSlide(s => Math.min(processSessions.length - 1, s + 1))}
                 disabled={processSlide === processSessions.length - 1}
-                className="md:hidden absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200"
+                className="md:hidden absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-9 h-9 flex items-center justify-center z-10 transition-all duration-200 cursor-pointer"
                 style={{
                   right: 0,
                   borderRadius: '4px 0 0 4px',
@@ -1088,159 +1138,6 @@ const SmartNation = () => {
           <Plus h="right" />
         </div>
 
-        {/* ── 07 · Packaging ─────────────────────────────────────────── */}
-        <div id="sn-07" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>07</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Packaging Design</h2>
-            <Plus h="left" />
-            <Plus h="right" />
-          </div>
-          <div className="px-6 md:px-10 pt-6 pb-3">
-            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              Simple and minimal. The packaging stays out of its own way: clean surfaces, restrained typography, and just enough brand presence to feel intentional without being loud.
-            </p>
-          </div>
-          <div className="overflow-hidden">
-            <Image
-              src="/images/WorkImages/smartNationImages/smartnation-box-package-design.png"
-              alt="Smart Nation packaging design"
-              width={1600}
-              height={900}
-              className="w-full h-auto block animate-slow-zoom"
-            />
-          </div>
-          <Plus h="left" />
-          <Plus h="right" />
-        </div>
-
-        {/* ── 08 · Brochures ─────────────────────────────────────────── */}
-        <div id="sn-08" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>08</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Brochures & User Guides</h2>
-            <Plus h="left" />
-            <Plus h="right" />
-          </div>
-          {/* SWB brochure */}
-          <div className="border-t border-gray-200">
-            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>SWB</p>
-            {/* Mobile: live-drag pan */}
-            <div
-              className="md:hidden relative overflow-hidden w-full"
-              onTouchStart={(e) => {
-                swbTouchX.current = e.touches[0].clientX;
-                if (swbWrapperRef.current) swbWrapperRef.current.style.transition = 'none';
-              }}
-              onTouchMove={(e) => {
-                const diff = e.touches[0].clientX - swbTouchX.current;
-                const cw = e.currentTarget.offsetWidth;
-                const base = swbPan === 0 ? 0 : -cw;
-                const offset = Math.max(-cw, Math.min(0, base + diff));
-                if (swbWrapperRef.current) swbWrapperRef.current.style.transform = `translateX(${offset}px)`;
-              }}
-              onTouchEnd={(e) => {
-                const diff = e.changedTouches[0].clientX - swbTouchX.current;
-                const cw = e.currentTarget.offsetWidth;
-                if (swbWrapperRef.current) swbWrapperRef.current.style.transition = 'transform 0.5s ease-in-out';
-                if (diff < -cw * 0.25 && swbPan === 0) setSwbPan(1);
-                else if (diff > cw * 0.25 && swbPan === 1) setSwbPan(0);
-                else {
-                  if (swbWrapperRef.current) swbWrapperRef.current.style.transform = swbPan === 0 ? 'translateX(0)' : 'translateX(-50%)';
-                }
-              }}
-            >
-              <div ref={swbWrapperRef} style={{ width: '200%' }}>
-                <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure" width={1600} height={1000} className="w-full h-auto block" />
-              </div>
-              {/* Bottom controls: arrows + dots in one row */}
-              <div className="absolute bottom-3 left-0 right-0 flex items-center justify-between px-3">
-                <button
-                  onClick={() => setSwbPan(0)}
-                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${swbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
-                </button>
-                <div className="flex gap-2">
-                  {[0, 1].map(i => (
-                    <button key={i} onClick={() => setSwbPan(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === swbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
-                  ))}
-                </div>
-                <button
-                  onClick={() => setSwbPan(1)}
-                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${swbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-                </button>
-              </div>
-            </div>
-            {/* Desktop: full image */}
-            <div className="hidden md:block">
-              <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure design" width={1600} height={1000} className="w-full h-auto block" />
-            </div>
-          </div>
-
-          {/* MCB brochure */}
-          <div className="border-t border-gray-200">
-            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>MCB</p>
-            {/* Mobile: live-drag pan */}
-            <div
-              className="md:hidden relative overflow-hidden w-full"
-              onTouchStart={(e) => {
-                mcbTouchX.current = e.touches[0].clientX;
-                if (mcbWrapperRef.current) mcbWrapperRef.current.style.transition = 'none';
-              }}
-              onTouchMove={(e) => {
-                const diff = e.touches[0].clientX - mcbTouchX.current;
-                const cw = e.currentTarget.offsetWidth;
-                const base = mcbPan === 0 ? 0 : -cw;
-                const offset = Math.max(-cw, Math.min(0, base + diff));
-                if (mcbWrapperRef.current) mcbWrapperRef.current.style.transform = `translateX(${offset}px)`;
-              }}
-              onTouchEnd={(e) => {
-                const diff = e.changedTouches[0].clientX - mcbTouchX.current;
-                const cw = e.currentTarget.offsetWidth;
-                if (mcbWrapperRef.current) mcbWrapperRef.current.style.transition = 'transform 0.5s ease-in-out';
-                if (diff < -cw * 0.25 && mcbPan === 0) setMcbPan(1);
-                else if (diff > cw * 0.25 && mcbPan === 1) setMcbPan(0);
-                else {
-                  if (mcbWrapperRef.current) mcbWrapperRef.current.style.transform = mcbPan === 0 ? 'translateX(0)' : 'translateX(-50%)';
-                }
-              }}
-            >
-              <div ref={mcbWrapperRef} style={{ width: '200%' }}>
-                <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure" width={1600} height={1000} className="w-full h-auto block" />
-              </div>
-              {/* Bottom controls: arrows + dots in one row */}
-              <div className="absolute bottom-3 left-0 right-0 flex items-center justify-between px-3">
-                <button
-                  onClick={() => setMcbPan(0)}
-                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${mcbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
-                </button>
-                <div className="flex gap-2">
-                  {[0, 1].map(i => (
-                    <button key={i} onClick={() => setMcbPan(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === mcbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
-                  ))}
-                </div>
-                <button
-                  onClick={() => setMcbPan(1)}
-                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${mcbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
-                </button>
-              </div>
-            </div>
-            {/* Desktop: full image as-is */}
-            <div className="hidden md:block">
-              <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure design" width={1600} height={1000} className="w-full h-auto block" />
-            </div>
-          </div>
-          <Plus h="left" />
-          <Plus h="right" />
-        </div>
-
         {/* ══════════════════════════════════════════════════════════════
             ABHIYANTRIK WEBSITE — merged below brochures
         ══════════════════════════════════════════════════════════════ */}
@@ -1248,7 +1145,6 @@ const SmartNation = () => {
         {/* ── Abhiyantrik · 01 · Landing Page ────────────────────────── */}
         <div id="aby-01" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>01</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Landing Page</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
@@ -1273,7 +1169,6 @@ const SmartNation = () => {
         {/* ── Abhiyantrik · 02 · Flow ─────────────────────────────────── */}
         <div id="aby-02" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>02</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Flow</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
@@ -1292,7 +1187,6 @@ const SmartNation = () => {
         {/* ── Abhiyantrik · 03 · Interactive Product Experience ──────── */}
         <div id="aby-03" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>03</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Interactive Product Experience</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
@@ -1306,8 +1200,8 @@ const SmartNation = () => {
             <div style={{ background: 'linear-gradient(160deg,#e8e8e8 0%,#c8c8c8 20%,#d8d8d8 40%,#b0b0b0 60%,#d0d0d0 80%,#e4e4e4 100%)', borderRadius: '999px', padding: '5px', boxShadow: '0 6px 20px rgba(0,0,0,0.35),0 2px 6px rgba(0,0,0,0.25),inset 0 1px 1px rgba(255,255,255,0.9),inset 0 -1px 1px rgba(0,0,0,0.15)', border: '1px solid rgba(90,90,90,0.35)' }}>
               <div className="relative flex items-center" style={{ background: 'linear-gradient(180deg,#787878 0%,#929292 50%,#888888 100%)', borderRadius: '999px', boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.55),inset 0 1px 3px rgba(0,0,0,0.4),inset 0 -1px 2px rgba(255,255,255,0.08)', padding: '4px' }}>
                 <div className="absolute transition-all duration-300 ease-in-out" style={{ top: '4px', bottom: '4px', width: 'calc(50% - 4px)', left: activeDemo === 'switch' ? '4px' : 'calc(50%)', borderRadius: '999px', background: 'linear-gradient(160deg,#f8f8f8 0%,#e0e0e0 30%,#f2f2f2 55%,#c8c8c8 80%,#dedede 100%)', boxShadow: '0 3px 8px rgba(0,0,0,0.45),0 1px 3px rgba(0,0,0,0.3),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,0.1)', border: '1px solid rgba(100,100,100,0.2)' }} />
-                <button onClick={() => setActiveDemo('switch')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'switch' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'switch' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'switch' ? '600' : '500' }}>Smart Switch</button>
-                <button onClick={() => setActiveDemo('mcb')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'mcb' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'mcb' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'mcb' ? '600' : '500' }}>Smart MCB</button>
+                <button onClick={() => setActiveDemo('switch')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300 cursor-pointer" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'switch' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'switch' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'switch' ? '600' : '500' }}>Smart Switch</button>
+                <button onClick={() => setActiveDemo('mcb')} className="relative z-10 flex-1 whitespace-nowrap transition-all duration-300 cursor-pointer" style={{ fontFamily: 'FunnelDisplay, sans-serif', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '8px 20px', color: activeDemo === 'mcb' ? '#1a1a1a' : 'rgba(230,230,230,0.9)', textShadow: activeDemo === 'mcb' ? '0 1px 0 rgba(255,255,255,0.7)' : '0 1px 2px rgba(0,0,0,0.4)', fontWeight: activeDemo === 'mcb' ? '600' : '500' }}>Smart MCB</button>
               </div>
             </div>
           </div>
@@ -1344,29 +1238,29 @@ const SmartNation = () => {
         {/* ── Abhiyantrik · 04 · 3D Product Mockups ──────────────────── */}
         <div id="aby-04" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>04</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>3D Product Mockups</h2>
             <Plus h="left" /><Plus h="right" />
           </div>
           <div className="flex flex-col">
             <div
               ref={sliderRef}
-              className="relative w-full overflow-hidden cursor-pointer select-none touch-none border-t border-b border-gray-200 aspect-video"
-              onMouseDown={() => setIsDragging(true)} onMouseUp={() => setIsDragging(false)}
-              onMouseMove={(e) => { if (isDragging) handleSliderMove(e.clientX); }}
-              onMouseLeave={() => setIsDragging(false)}
+              className="relative w-full overflow-hidden cursor-ew-resize select-none touch-none border-t border-b border-gray-200 aspect-video"
+              onMouseDown={() => { isDraggingRef.current = true; }}
+              onMouseUp={() => { isDraggingRef.current = false; }}
+              onMouseMove={(e) => { if (isDraggingRef.current) handleSliderMove(e.clientX); }}
+              onMouseLeave={() => { isDraggingRef.current = false; }}
               onClick={(e) => handleSliderMove(e.clientX)}
-              onTouchStart={(e) => { setIsDragging(true); e.preventDefault(); }}
-              onTouchEnd={() => setIsDragging(false)}
-              onTouchMove={(e) => { if (isDragging && e.touches.length > 0) { handleSliderMove(e.touches[0].clientX); e.preventDefault(); } }}
+              onTouchStart={(e) => { isDraggingRef.current = true; e.preventDefault(); }}
+              onTouchEnd={() => { isDraggingRef.current = false; }}
+              onTouchMove={(e) => { if (isDraggingRef.current && e.touches.length > 0) { handleSliderMove(e.touches[0].clientX); e.preventDefault(); } }}
             >
               <div className="absolute inset-0">
                 <Image src="/images/WorkImages/abhiyantrikImages/product-raw.png" alt="Product Raw" width={1000} height={600} className="w-full h-full object-cover" />
               </div>
-              <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
+              <div ref={renderedLayerRef} className="absolute inset-0 overflow-hidden" style={{ clipPath: 'inset(0 50% 0 0)' }}>
                 <Image src="/images/WorkImages/abhiyantrikImages/product-render.png" alt="Product Rendered" width={1000} height={600} className="w-full h-full object-cover" />
               </div>
-              <div className="absolute top-0 bottom-0 w-px bg-white shadow-lg cursor-ew-resize" style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}>
+              <div ref={handleLineRef} className="absolute top-0 bottom-0 w-px bg-white shadow-lg" style={{ left: '50%', transform: 'translateX(-50%)' }}>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-7 h-7 bg-white border border-gray-200 rounded-full shadow flex items-center justify-center">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2"><path d="M9 18l-6-6 6-6M15 6l6 6-6 6"/></svg>
                 </div>
@@ -1378,53 +1272,160 @@ const SmartNation = () => {
           <Plus h="left" /><Plus h="right" />
         </div>
 
-        {/* ── 09 · From the Team ─────────────────────────────────────── */}
-        <div id="sn-09" className="relative overflow-visible border-b border-gray-200">
+        {/* ── 07 · Packaging ─────────────────────────────────────────── */}
+        <div id="sn-07" className="relative overflow-visible border-b border-gray-200">
           <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>09</span>
-            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>From the Team</h2>
-            <Plus h="left" />
-            <Plus h="right" />
-            <PlusAt x="50%" desktop />
-          </div>
-
-          <div className="relative overflow-visible grid grid-cols-1 md:grid-cols-3 border-gray-200">
-            <PlusAt x="33.33%" desktop />
-            <PlusAt x="66.66%" desktop />
-
-            {[
-              {
-                quote: "The brand came together faster than I expected, and it actually looked like what I had in my head. That's rare.",
-                name: 'Founder',
-                role: 'Abhiyantrik Solutions',
-              },
-              {
-                quote: "The early prototype gave me a clear picture of the app architecture before I wrote a single line. Combined with a complete design system, the initial development moved faster than any project I've worked on.",
-                name: 'App Developer',
-                role: 'Abhiyantrik Solutions',
-              },
-              {
-                quote: "Brainstorming with Satish in the early stages pushed the product to a different level. We mapped out features we didn't even think were possible at the start, and most of them made it in.",
-                name: 'Hardware Engineer',
-                role: 'Abhiyantrik Solutions',
-              },
-            ].map((t, i) => (
-              <div key={i} className="px-6 md:px-10 py-10 md:border-r border-gray-200 last:border-r-0 border-b md:border-b-0 border-gray-200 flex flex-col justify-between gap-6">
-                <p className="text-base md:text-lg font-light leading-relaxed text-gray-700" style={{ fontFamily: 'SatishSans, sans-serif' }}>
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div>
-                  <p className="text-xs text-gray-700" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{t.name}</p>
-                  <p className="text-[10px] text-gray-400 uppercase tracking-widest mt-0.5" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>{t.role}</p>
-                </div>
-              </div>
-            ))}
-
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Packaging Design</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
+          <div className="px-6 md:px-10 pt-2 pb-3">
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+              Simple and minimal. The packaging stays out of its own way: clean surfaces, restrained typography, and just enough brand presence to feel intentional without being loud.
+            </p>
+          </div>
+          <div className="overflow-hidden">
+            <Image
+              src="/images/WorkImages/smartNationImages/smartnation-box-package-design.png"
+              alt="Smart Nation packaging design"
+              width={1600}
+              height={900}
+              className="w-full h-auto block animate-slow-zoom"
+            />
+          </div>
+          <Plus h="left" />
+          <Plus h="right" />
         </div>
 
+        {/* ── 08 · Brochures ─────────────────────────────────────────── */}
+        <div id="sn-08" className="relative overflow-visible border-b border-gray-200">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
+            <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Brochures & User Guides</h2>
+            <Plus h="left" />
+            <Plus h="right" />
+          </div>
+          {/* SWB brochure */}
+          <div className="border-t border-gray-200">
+            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Smart Touch Switches</p>
+            {/* Mobile: native scroll snap */}
+            <div className="md:hidden relative overflow-hidden w-full">
+              <div
+                ref={swbWrapperRef}
+                style={{
+                  overflowX: 'scroll',
+                  scrollSnapType: 'x mandatory',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                  display: 'flex',
+                  WebkitOverflowScrolling: 'touch',
+                }}
+                onScroll={(e) => {
+                  const el = e.currentTarget;
+                  setSwbPan(Math.round(el.scrollLeft / el.offsetWidth));
+                }}
+              >
+                {/* Page 1 — left half of the wide image */}
+                <div style={{ minWidth: '100%', scrollSnapAlign: 'start', overflow: 'hidden', flexShrink: 0 }}>
+                  <div style={{ width: '200%' }}>
+                    <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure" width={1600} height={1000} className="w-full h-auto block" />
+                  </div>
+                </div>
+                {/* Page 2 — right half of the wide image, shifted left to continue seamlessly */}
+                <div style={{ minWidth: '100%', scrollSnapAlign: 'start', overflow: 'hidden', flexShrink: 0 }}>
+                  <div style={{ width: '200%', marginLeft: '-100%' }}>
+                    <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure" width={1600} height={1000} className="w-full h-auto block" />
+                  </div>
+                </div>
+              </div>
+              {/* Bottom controls: arrows + dots in one row */}
+              <div className="absolute bottom-3 left-0 right-0 flex items-center justify-between px-3">
+                <button
+                  onClick={() => swbWrapperRef.current?.scrollTo({ left: 0, behavior: 'smooth' })}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity cursor-pointer ${swbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div className="flex gap-2">
+                  {[0, 1].map(i => (
+                    <button key={i} onClick={() => swbWrapperRef.current?.scrollTo({ left: i * (swbWrapperRef.current?.offsetWidth ?? 0), behavior: 'smooth' })} className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === swbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+                  ))}
+                </div>
+                <button
+                  onClick={() => swbWrapperRef.current?.scrollTo({ left: swbWrapperRef.current.offsetWidth, behavior: 'smooth' })}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity cursor-pointer ${swbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+            {/* Desktop: full image */}
+            <div className="hidden md:block">
+              <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure design" width={1600} height={1000} className="w-full h-auto block" />
+            </div>
+          </div>
+
+          {/* MCB brochure */}
+          <div className="border-t border-gray-200">
+            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Smart MCB</p>
+            {/* Mobile: native scroll snap */}
+            <div className="md:hidden relative overflow-hidden w-full">
+              <div
+                ref={mcbWrapperRef}
+                style={{
+                  overflowX: 'scroll',
+                  scrollSnapType: 'x mandatory',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                  display: 'flex',
+                  WebkitOverflowScrolling: 'touch',
+                }}
+                onScroll={(e) => {
+                  const el = e.currentTarget;
+                  setMcbPan(Math.round(el.scrollLeft / el.offsetWidth));
+                }}
+              >
+                {/* Page 1 — left half of the wide image */}
+                <div style={{ minWidth: '100%', scrollSnapAlign: 'start', overflow: 'hidden', flexShrink: 0 }}>
+                  <div style={{ width: '200%' }}>
+                    <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure" width={1600} height={1000} className="w-full h-auto block" />
+                  </div>
+                </div>
+                {/* Page 2 — right half of the wide image, shifted left to continue seamlessly */}
+                <div style={{ minWidth: '100%', scrollSnapAlign: 'start', overflow: 'hidden', flexShrink: 0 }}>
+                  <div style={{ width: '200%', marginLeft: '-100%' }}>
+                    <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure" width={1600} height={1000} className="w-full h-auto block" />
+                  </div>
+                </div>
+              </div>
+              {/* Bottom controls: arrows + dots in one row */}
+              <div className="absolute bottom-3 left-0 right-0 flex items-center justify-between px-3">
+                <button
+                  onClick={() => mcbWrapperRef.current?.scrollTo({ left: 0, behavior: 'smooth' })}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity cursor-pointer ${mcbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div className="flex gap-2">
+                  {[0, 1].map(i => (
+                    <button key={i} onClick={() => mcbWrapperRef.current?.scrollTo({ left: i * (mcbWrapperRef.current?.offsetWidth ?? 0), behavior: 'smooth' })} className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === mcbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+                  ))}
+                </div>
+                <button
+                  onClick={() => mcbWrapperRef.current?.scrollTo({ left: mcbWrapperRef.current.offsetWidth, behavior: 'smooth' })}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity cursor-pointer ${mcbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+            {/* Desktop: full image as-is */}
+            <div className="hidden md:block">
+              <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure design" width={1600} height={1000} className="w-full h-auto block" />
+            </div>
+          </div>
+          <Plus h="left" />
+          <Plus h="right" />
+        </div>
 
 
       </div>
@@ -1453,14 +1454,6 @@ const SmartNation = () => {
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
             {copied === 'email' ? 'Copied!' : 'satishdezn@gmail.com'}
-          </button>
-          <button
-            onClick={() => handleCopy('phone', '+918722519704')}
-            className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200"
-            style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.44 2 2 0 0 1 3.57 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            {copied === 'phone' ? 'Copied!' : '+91 87225 19704'}
           </button>
           <a
             href="https://www.linkedin.com/in/satish-hebbal/"

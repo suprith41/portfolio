@@ -33,17 +33,17 @@ export default function Navbar() {
     const mapSvg = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1">
         <radialGradient id="lensGradient">
-          <stop offset="0%" stop-color="white" stop-opacity="0.8" />
-          <stop offset="70%" stop-color="gray" stop-opacity="0.3" />
-          <stop offset="85%" stop-color="black" stop-opacity="0.1" />
-          <stop offset="100%" stop-color="white" stop-opacity="0.9" />
+          <stop offset="0%" stop-color="white" stop-opacity="1" />
+          <stop offset="55%" stop-color="gray" stop-opacity="0.4" />
+          <stop offset="80%" stop-color="black" stop-opacity="0.6" />
+          <stop offset="100%" stop-color="white" stop-opacity="1" />
         </radialGradient>
         <rect width="1" height="1" fill="url(#lensGradient)" />
       </svg>
     `
-    
+
     const encodedMap = encodeURIComponent(mapSvg)
-    
+
     // Create and inject the filter SVG
     const filterSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
     filterSvg.style.position = "fixed"
@@ -52,8 +52,8 @@ export default function Navbar() {
       <defs>
         <filter id="liquid-lens" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
           <feImage href="data:image/svg+xml;charset=utf-8,${encodedMap}" result="displacementMap" />
-          <feDisplacementMap in="SourceGraphic" in2="displacementMap" scale="15" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-          <feGaussianBlur in="displaced" stdDeviation="0.5" result="blurred" />
+          <feDisplacementMap in="SourceGraphic" in2="displacementMap" scale="40" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+          <feGaussianBlur in="displaced" stdDeviation="3" result="blurred" />
           <feMorphology operator="dilate" radius="1" in="blurred" result="expanded" />
           <feComposite in="expanded" in2="SourceGraphic" operator="over" />
         </filter>
@@ -249,12 +249,10 @@ export default function Navbar() {
         <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-zinc-300" />
         <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-zinc-300" />
         {navItems.map((item, index) => (
-          <div key={item.name} className={`flex items-center ${
-            isMounted ? "gap-1 md:gap-6" : "gap-1"
-          }`}>
+          <div key={item.name} className={`flex items-center ${isMounted ? "gap-1 md:gap-6" : "gap-1"}`}>
             <button
               onClick={(e) => handleNavigation(item, e)}
-              className={`font-light transition-all duration-300 relative hover:text-orange-500 hover:scale-105 ${
+              className={`cursor-pointer font-light transition-all duration-300 relative hover:text-orange-500 hover:scale-105 ${
                 isMounted ? "text-xs md:text-sm" : "text-sm"
               } ${
                 (pathname === item.href) ||
@@ -264,8 +262,8 @@ export default function Navbar() {
                   : (item.name === "Unplug" && pathname.startsWith('/unplugged/'))
                     ? "text-orange-400"
                     : pathname.startsWith('/unplugged/')
-                      ? "text-gray-300"
-                      : "text-zinc-500"
+                      ? "text-white"
+                      : "text-zinc-700"
               }`}
               style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: '400' }}
             >
@@ -276,13 +274,12 @@ export default function Navbar() {
                   width={22}
                   height={22}
                   className={`transition-opacity duration-300 ${pathname === '/' ? 'opacity-100' : 'opacity-40 hover:opacity-70'}`}
+                  style={pathname.startsWith('/unplugged/') ? { filter: 'invert(1)' } : {}}
                 />
               ) : item.name}
             </button>
             {index < navItems.length - 1 && (
-              <span className={`text-zinc-300 ${
-                isMounted ? "text-[7px] md:text-[10px]" : "text-[10px]"
-              }`}>•</span>
+              <span className={`text-zinc-300 ${isMounted ? "text-[7px] md:text-[10px]" : "text-[10px]"}`}>•</span>
             )}
           </div>
         ))}

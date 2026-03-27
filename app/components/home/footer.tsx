@@ -5,9 +5,9 @@ import Image from 'next/image'
 import { Plus } from '../ui/Markers'
 
 export default function Footer() {
-  const [copied, setCopied] = useState<'email' | 'phone' | null>(null)
+  const [copied, setCopied] = useState<'email' | null>(null)
 
-  const handleCopy = (type: 'email' | 'phone', value: string) => {
+  const handleCopy = (type: 'email', value: string) => {
     navigator.clipboard.writeText(value)
     setCopied(type)
     setTimeout(() => setCopied(null), 2000)
@@ -61,16 +61,6 @@ export default function Footer() {
               <path d="m2 7 10 7 10-7"/>
             </svg>
             {copied === 'email' ? 'Copied!' : 'satishdezn@gmail.com'}
-          </button>
-          <button
-            onClick={() => handleCopy('phone', '+918722519704')}
-            className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.44 2 2 0 0 1 3.57 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-            {copied === 'phone' ? 'Copied!' : '+91 87225 19704'}
           </button>
           <a
             href="https://www.linkedin.com/in/satish-hebbal/"

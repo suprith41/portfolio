@@ -1,14 +1,18 @@
 import Image from "next/image"
+import Loader from "./components/layout/Loader"
 import WorkGallery from "./components/home/workGallery"
 import MouseColorBloom from "./components/home/MouseColorBloom"
 import ParallaxImages from "./components/home/ParallaxImages"
 import EmailCopy from "./components/home/EmailCopy"
 import UnpluggedGallery from "./components/home/unpluggedGallery"
+import VisualIdentityGallery from "./components/home/visualIdentityGallery"
 
 
 export default function Home() {
   return (
     <div className="bg-white">
+
+      <Loader />
 
       {/* ── Pillar decorations — fixed to viewport edges ─────── */}
       <Image
@@ -54,7 +58,7 @@ export default function Home() {
               className="text-sm md:text-base text-gray-400 leading-relaxed max-w-md"
               style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: '300' }}
             >
-              A product designer and vibe coder who loves building digital products and tools. Yes, &ldquo;vibe coder&rdquo; is a real job title now, we&rsquo;re all figuring this out together.
+              A product designer who partners with startups to shape their brand, product, and presence. Early stage or already in motion.
             </p>
           </div>
 
@@ -67,6 +71,11 @@ export default function Home() {
         {/* Work section */}
         <div data-section="work">
           <WorkGallery />
+        </div>
+
+        {/* Visual Identity section */}
+        <div data-section="visual-identity">
+          <VisualIdentityGallery />
         </div>
 
         {/* Unplugged section */}

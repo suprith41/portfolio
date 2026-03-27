@@ -13,7 +13,7 @@ const works = [
     num: '01',
     title: 'Smart Nation',
     description: 'Built the brand from scratch: logo, design system, app UI, and motion graphics for a smart home IoT startup going from zero to launch.',
-    image: '/images/HomeImages/smartnation-tumbnail-home.png',
+    image: '/images/WorkImages/smartNationImages/SN-thumb.png',
     href: '/works/smartNation',
     year: '2025',
     available: true,
@@ -69,6 +69,29 @@ export default function WorkGallery() {
   const selectedEl = useRef<HTMLHeadingElement>(null)
   const worksEl    = useRef<HTMLHeadingElement>(null)
   const lineEl     = useRef<HTMLDivElement>(null)
+  const branchContainerRef = useRef<HTMLDivElement>(null)
+
+  // Parallax + tilt for all branches via data attributes
+  useEffect(() => {
+    const handleScroll = () => {
+      const y = window.scrollY
+      const tilt = Math.min(y * 0.015, 8)
+      const els = branchContainerRef.current?.querySelectorAll<HTMLImageElement>('[data-branch]')
+      els?.forEach(el => {
+        const speed   = parseFloat(el.dataset.speed  ?? '0.1')
+        const baseRot = parseFloat(el.dataset.rot    ?? '-25')
+        const tiltDir = parseFloat(el.dataset.tiltdir ?? '1')
+        const flip    = el.dataset.flip === 'true'
+        const dy = -(y * speed)
+        const rot = baseRot + tiltDir * tilt
+        el.style.transform = flip
+          ? `translateY(${dy}px) scaleX(-1) rotate(${rot}deg)`
+          : `translateY(${dy}px) rotate(${rot}deg)`
+      })
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     const header   = headerRef.current
@@ -155,6 +178,42 @@ export default function WorkGallery() {
       </div>
 
       {/* ── Works list ─────────────────────────────────────── */}
+      <div className="relative" ref={branchContainerRef}>
+
+        {/* Left branches */}
+        <img data-branch data-speed="0.18" data-rot="-25" data-tiltdir="-1" data-flip="true"
+          src="/images/HomeImages/branch.svg" aria-hidden="true"
+          className="hidden md:block absolute pointer-events-none select-none"
+          style={{ width: 'auto', height: '460px', top: '5%',  left: 'calc(50% - 50vw - 35px)', transform: 'translateY(0px) scaleX(-1) rotate(-25deg)', filter: 'brightness(0) opacity(0.13)' }}
+        />
+        <img data-branch data-speed="0.13" data-rot="-20" data-tiltdir="-1" data-flip="true"
+          src="/images/HomeImages/branch.svg" aria-hidden="true"
+          className="hidden md:block absolute pointer-events-none select-none"
+          style={{ width: 'auto', height: '420px', top: '38%', left: 'calc(50% - 50vw - 45px)', transform: 'translateY(0px) scaleX(-1) rotate(-20deg)', filter: 'brightness(0) opacity(0.11)' }}
+        />
+        <img data-branch data-speed="0.20" data-rot="-28" data-tiltdir="-1" data-flip="true"
+          src="/images/HomeImages/branch.svg" aria-hidden="true"
+          className="hidden md:block absolute pointer-events-none select-none"
+          style={{ width: 'auto', height: '400px', top: '72%', left: 'calc(50% - 50vw - 30px)', transform: 'translateY(0px) scaleX(-1) rotate(-28deg)', filter: 'brightness(0) opacity(0.10)' }}
+        />
+
+        {/* Right branches */}
+        <img data-branch data-speed="0.09" data-rot="-25" data-tiltdir="1" data-flip="false"
+          src="/images/HomeImages/branch.svg" aria-hidden="true"
+          className="hidden md:block absolute pointer-events-none select-none"
+          style={{ width: 'auto', height: '430px', top: '20%', right: 'calc(50% - 50vw - 30px)', transform: 'translateY(0px) rotate(-25deg)', filter: 'brightness(0) opacity(0.11)' }}
+        />
+        <img data-branch data-speed="0.15" data-rot="-22" data-tiltdir="1" data-flip="false"
+          src="/images/HomeImages/branch.svg" aria-hidden="true"
+          className="hidden md:block absolute pointer-events-none select-none"
+          style={{ width: 'auto', height: '450px', top: '55%', right: 'calc(50% - 50vw - 40px)', transform: 'translateY(0px) rotate(-22deg)', filter: 'brightness(0) opacity(0.12)' }}
+        />
+        <img data-branch data-speed="0.11" data-rot="-18" data-tiltdir="1" data-flip="false"
+          src="/images/HomeImages/branch.svg" aria-hidden="true"
+          className="hidden md:block absolute pointer-events-none select-none"
+          style={{ width: 'auto', height: '390px', top: '85%', right: 'calc(50% - 50vw - 25px)', transform: 'translateY(0px) rotate(-18deg)', filter: 'brightness(0) opacity(0.10)' }}
+        />
+
       <div className="flex flex-col gap-20 md:gap-28">
         {works.map((work) => (
           <div
@@ -231,6 +290,8 @@ export default function WorkGallery() {
           </div>
         ))}
       </div>
+
+      </div>{/* end relative wrapper */}
 
     </div>
   )

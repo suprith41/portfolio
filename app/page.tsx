@@ -3,16 +3,18 @@ import Loader from "./components/layout/Loader"
 import WorkGallery from "./components/home/workGallery"
 import MouseColorBloom from "./components/home/MouseColorBloom"
 import ParallaxImages from "./components/home/ParallaxImages"
-import EmailCopy from "./components/home/EmailCopy"
+import EmailSection from "./components/home/EmailSection"
 import UnpluggedGallery from "./components/home/unpluggedGallery"
 import VisualIdentityGallery from "./components/home/visualIdentityGallery"
+import PageBranches from "./components/home/PageBranches"
 
 
 export default function Home() {
   return (
-    <div className="bg-white">
+    <div className="bg-white relative">
 
       <Loader />
+      <PageBranches />
 
       {/* ── Pillar decorations — fixed to viewport edges ─────── */}
       <Image
@@ -63,8 +65,8 @@ export default function Home() {
           </div>
 
           {/* Email box — absolutely anchored to bottom of first fold, not part of centered group */}
-          <div className="absolute bottom-28 md:bottom-20 left-0 right-0 flex justify-center" style={{ zIndex: 5 }}>
-            <EmailCopy />
+          <div className="absolute bottom-28 md:bottom-20 left-0 right-0 flex justify-center items-center" style={{ zIndex: 5 }}>
+            <EmailSection />
           </div>
         </div>
 
@@ -84,6 +86,8 @@ export default function Home() {
         </div>
 
       </div>
+
+
     </div>
   )
 }

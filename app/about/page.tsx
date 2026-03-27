@@ -414,13 +414,13 @@ export default function About() {
               </svg>
             </a>
             <div
-              className="flex items-center px-5 border border-l-0 border-gray-200 text-sm text-gray-400 select-all"
+              className="flex items-center px-5 border border-l-0 border-gray-200 text-sm text-gray-400 select-all cursor-pointer"
               style={{ fontFamily: "FunnelDisplay, sans-serif", letterSpacing: "0.03em" }}
             >
               satishdezn@gmail.com
               <button
                 onClick={handleCopy}
-                className="ml-2 text-gray-300 hover:text-gray-600 transition-colors duration-200 flex-shrink-0"
+                className="ml-2 text-gray-300 hover:text-gray-600 transition-colors duration-200 flex-shrink-0 cursor-pointer"
                 title="Copy email"
               >
                 {copied ? (

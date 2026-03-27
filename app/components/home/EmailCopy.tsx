@@ -20,14 +20,9 @@ const Plus = ({ h, v }: { h: 'left' | 'right'; v: 'top' | 'bottom' }) => (
   <span
     className="absolute select-none pointer-events-none"
     style={{
-      [h]: 0,
-      [v]: 0,
+      [h]: 0, [v]: 0,
       transform: `translate(${h === 'left' ? '-50%' : '50%'}, ${v === 'top' ? 'calc(-50% - 1px)' : '50%'})`,
-      fontFamily: 'monospace',
-      fontSize: '13px',
-      lineHeight: 1,
-      color: '#9ca3af',
-      zIndex: 10,
+      fontFamily: 'monospace', fontSize: '13px', lineHeight: 1, color: '#9ca3af', zIndex: 10,
     }}
   >+</span>
 )
@@ -35,44 +30,49 @@ const Plus = ({ h, v }: { h: 'left' | 'right'; v: 'top' | 'bottom' }) => (
 export default function EmailCopy() {
   const [copied, setCopied] = useState(false)
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(EMAIL)
+  const handleClick = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+    } catch {
+      // Fallback for mobile / non-HTTPS
+      const el = document.createElement('textarea')
+      el.value = EMAIL
+      el.style.cssText = 'position:fixed;opacity:0;pointer-events:none;'
+      document.body.appendChild(el)
+      el.focus()
+      el.select()
+      document.execCommand('copy')
+      document.body.removeChild(el)
+    }
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
   return (
     <div
-      className="relative border transition-colors duration-300"
+      className="relative border cursor-pointer transition-colors duration-300"
       style={{
         fontFamily: 'FunnelDisplay, sans-serif',
         background: copied ? '#111' : 'white',
         borderColor: copied ? '#111' : '#e5e7eb',
+        overflow: 'visible',
+        WebkitTapHighlightColor: 'transparent',
       }}
+      onClick={handleClick}
     >
       <Plus h="left"  v="top" />
       <Plus h="right" v="top" />
       <Plus h="left"  v="bottom" />
       <Plus h="right" v="bottom" />
 
-      {/* Always rendered — drives the width */}
       <div className={`flex items-center transition-opacity duration-200 ${copied ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-        <span className="pl-4 pr-2 py-2 text-xs text-gray-500 select-all">
-          {EMAIL}
-        </span>
-        <button
-          onClick={handleCopy}
-          aria-label="Copy email"
-          className="pl-2 pr-4 py-2 shrink-0 flex items-center justify-center"
-        >
+        <span className="pl-4 pr-2 py-2 text-xs text-gray-500 select-none">{EMAIL}</span>
+        <button aria-label="Copy email" className="pl-2 pr-4 py-2 shrink-0 flex items-center justify-center outline-none">
           <CopyIcon />
         </button>
       </div>
 
-      {/* Copied overlay — same dimensions, absolutely positioned */}
-      <div
-        className={`absolute inset-0 flex items-center justify-center gap-2 text-white text-xs transition-opacity duration-200 ${copied ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-      >
+      <div className={`absolute inset-0 flex items-center justify-center gap-2 text-white text-xs transition-opacity duration-200 ${copied ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <TickIcon /> copieeeeeeed!!!
       </div>
     </div>

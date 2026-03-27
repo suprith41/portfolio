@@ -21,11 +21,27 @@ export default function Footer() {
   const isUnpluggedPage = pathname?.startsWith('/unplugged/')
 
   return (
-    <footer className={`mt-16${isUnpluggedPage ? ' md:hidden' : ''}`}>
-      <div className="max-w-5xl mx-auto px-6 md:px-10">
+    <footer className={`mt-16 relative overflow-visible${isUnpluggedPage ? ' md:hidden' : ''}`}>
+
+<div className="max-w-5xl mx-auto px-6 md:px-10">
 
         {/* Big name */}
-        <div className="pt-4 pb-8 text-center">
+        <div className="pt-4 pb-8 text-center relative flex items-center justify-center gap-0">
+
+          {/* Left branch */}
+          <img
+            src="/images/HomeImages/branch.svg"
+            aria-hidden="true"
+            className="hidden md:block shrink-0 pointer-events-none select-none"
+            style={{
+              height: '160px', width: 'auto',
+              transform: 'rotate(90deg)',
+              filter: 'brightness(0) opacity(0.18)',
+              marginRight: '-30px',
+            }}
+          />
+
+          <div className="flex flex-col items-center">
           <h2
             className="text-[clamp(3rem,12vw,9rem)] leading-none tracking-tight text-black select-none"
             aria-hidden="true"
@@ -39,6 +55,21 @@ export default function Footer() {
           >
             Product Designer &amp; Developer
           </p>
+          </div>
+
+          {/* Right branch — mirrored */}
+          <img
+            src="/images/HomeImages/branch.svg"
+            aria-hidden="true"
+            className="hidden md:block shrink-0 pointer-events-none select-none"
+            style={{
+              height: '160px', width: 'auto',
+              transform: 'rotate(90deg) scaleX(-1)',
+              filter: 'brightness(0) opacity(0.18)',
+              marginLeft: '-30px',
+            }}
+          />
+
         </div>
 
         <div className="border-t border-gray-100" />

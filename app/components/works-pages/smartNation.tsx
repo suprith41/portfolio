@@ -142,7 +142,7 @@ const SmartNation = () => {
   const addAppSlideDir  = useRef<1 | -1>(1);
   const [processSlide, setProcessSlide] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const [copied, setCopied] = useState<'email' | null>(null);
+  const [copied, setCopied] = useState<'email' | 'phone' | null>(null);
   const [hoveredStat, setHoveredStat] = useState<string | null>(null);
 
   // ── Abhiyantrik interactive demo state ─────────────────────────

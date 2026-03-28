@@ -32,7 +32,7 @@ const AbhiyantrikWebsite = () => {
 
   // ── Copy state ─────────────────────────────────────────
   const [copied, setCopied] = useState<'email' | 'phone' | null>(null);
-  const handleCopy = (type: 'email' | 'phone', value: string) => {
+  const handleCopy = (type: 'email', value: string) => {
     navigator.clipboard.writeText(value).catch(() => {});
     setCopied(type);
     setTimeout(() => setCopied(null), 2000);
@@ -137,7 +137,7 @@ const AbhiyantrikWebsite = () => {
                       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
                     style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
-                    className="flex items-center gap-3 py-[6px] text-left group relative"
+                    className="cursor-pointer flex items-center gap-3 py-[6px] text-left group relative"
                   >
                     <span
                       className="shrink-0 flex items-center justify-center transition-all duration-300 relative z-10 bg-white"
@@ -204,7 +204,6 @@ const AbhiyantrikWebsite = () => {
           {/* ── 01 · Landing Page ────────────────────────── */}
           <div id="aby-01" className="relative overflow-visible border-b border-gray-200">
             <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>01</span>
               <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Landing Page</h2>
               <Plus h="left" /><Plus h="right" />
             </div>
@@ -223,7 +222,6 @@ const AbhiyantrikWebsite = () => {
           {/* ── 02 · Flow ────────────────────────────────── */}
           <div id="aby-02" className="relative overflow-visible border-b border-gray-200">
             <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>02</span>
               <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Flow</h2>
               <Plus h="left" /><Plus h="right" />
             </div>
@@ -242,7 +240,6 @@ const AbhiyantrikWebsite = () => {
           {/* ── 03 · Interactive Product Experience — header + intro + toggle ── */}
           <div id="aby-03" className="relative overflow-visible">
             <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>03</span>
               <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>Interactive Product Experience</h2>
               <Plus h="left" /><Plus h="right" />
             </div>
@@ -386,7 +383,6 @@ const AbhiyantrikWebsite = () => {
           {/* ── 04 · 3D Product Mockup ─────────────────────── */}
           <div id="aby-04" className="relative overflow-visible border-b border-gray-200">
             <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
-              <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>04</span>
               <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'Garamond, Georgia, serif' }}>3D Product Mockups</h2>
               <Plus h="left" /><Plus h="right" />
             </div>
@@ -445,10 +441,6 @@ const AbhiyantrikWebsite = () => {
             <button onClick={() => handleCopy('email', 'satishdezn@gmail.com')} className="w-full flex items-center gap-3 px-5 py-3 border border-gray-900 text-gray-900 text-xs tracking-wide hover:bg-gray-900 hover:text-white transition-colors duration-200" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
               {copied === 'email' ? 'Copied!' : 'satishdezn@gmail.com'}
-            </button>
-            <button onClick={() => handleCopy('phone', '+918722519704')} className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.44 2 2 0 0 1 3.57 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              {copied === 'phone' ? 'Copied!' : '+91 87225 19704'}
             </button>
             <a href="https://www.linkedin.com/in/satish-hebbal/" target="_blank" rel="noopener noreferrer" className="w-full flex items-center gap-3 px-5 py-3 border border-gray-200 text-gray-500 text-xs tracking-wide hover:border-gray-400 hover:text-gray-700 transition-colors duration-200" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>

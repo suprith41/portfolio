@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Plus } from '../ui/Markers'
 
 export default function Footer() {
-  const [copied, setCopied] = useState<'email' | null>(null)
+  const [copied, setCopied] = useState<'email' | 'phone' | null>(null)
 
   const handleCopy = (type: 'email', value: string) => {
     navigator.clipboard.writeText(value)

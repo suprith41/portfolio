@@ -1,28 +1,27 @@
 "use client"
 
 import Image from 'next/image'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Each item: image path (empty = placeholder), alt text
-// Desktop placement: gridColumn / gridRow (4-col, 6-row grid, row height 200px)
+const fuellstackImages = [
+  '/images/Visuals/fuellstack-V/FS-1.png',
+  '/images/Visuals/fuellstack-V/FS-2.png',
+  '/images/Visuals/fuellstack-V/FS-3.png',
+  '/images/Visuals/fuellstack-V/FS-4.png',
+]
+
+// 4-box layout matching reference:
+// [ large square (cycling) ] [ wide rectangle ]
+// [ large square (cycling) ] [ sq ] [ sq     ]
 const items = [
-  { image: '', alt: 'Visual 01',  col: '1 / 3', row: '1 / 3' },
-  { image: '', alt: 'Visual 02',  col: '3 / 4', row: '1 / 2' },
-  { image: '', alt: 'Visual 03',  col: '4 / 5', row: '1 / 3' },
-  { image: '', alt: 'Visual 04',  col: '3 / 4', row: '2 / 3' },
-  { image: '', alt: 'Visual 05',  col: '1 / 2', row: '3 / 5' },
-  { image: '', alt: 'Visual 06',  col: '2 / 4', row: '3 / 4', comingSoon: true },
-  { image: '', alt: 'Visual 07',  col: '4 / 5', row: '3 / 4' },
-  { image: '', alt: 'Visual 08',  col: '2 / 4', row: '4 / 5' },
-  { image: '', alt: 'Visual 09',  col: '4 / 5', row: '4 / 5' },
-  { image: '', alt: 'Visual 10',  col: '1 / 2', row: '5 / 6' },
-  { image: '', alt: 'Visual 11',  col: '2 / 4', row: '5 / 7' },
-  { image: '', alt: 'Visual 12',  col: '4 / 5', row: '5 / 7' },
-  { image: '', alt: 'Visual 13',  col: '1 / 2', row: '6 / 7' },
+  { image: 'cycling', alt: 'Fuellstack Visual Identity', col: '1 / 3', row: '1 / 3' },
+  { image: '',        alt: 'Visual 02',                  col: '3 / 5', row: '1 / 2' },
+  { image: '',        alt: 'Visual 03',                  col: '3 / 4', row: '2 / 3' },
+  { image: '',        alt: 'Visual 04',                  col: '4 / 5', row: '2 / 3' },
 ]
 
 export default function VisualIdentityGallery() {
@@ -30,6 +29,14 @@ export default function VisualIdentityGallery() {
   const visualEl   = useRef<HTMLHeadingElement>(null)
   const identityEl = useRef<HTMLHeadingElement>(null)
   const lineEl     = useRef<HTMLDivElement>(null)
+  const [cycleIndex, setCycleIndex] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCycleIndex(i => (i + 1) % fuellstackImages.length)
+    }, 500)
+    return () => clearInterval(id)
+  }, [])
 
   useEffect(() => {
     const header   = headerRef.current
@@ -105,82 +112,80 @@ export default function VisualIdentityGallery() {
       </div>
 
       {/* ── Desktop collage (md+) ─────────────────────────────── */}
-      <div
-        className="hidden md:grid gap-2"
-        style={{
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gridAutoRows: '200px',
-        }}
-      >
-        {items.map((item, i) => (
-          <div
-            key={i}
-            className="relative overflow-hidden bg-gray-50"
-            style={{ gridColumn: item.col, gridRow: item.row }}
-          >
-            {item.image ? (
-              <Image src={item.image} alt={item.alt} fill sizes="(max-width: 1280px) 33vw, 25vw" className="object-cover" />
-            ) : (
-              <div className="absolute inset-0 border border-dashed border-gray-200" />
-            )}
+      <div className="hidden md:flex gap-2">
 
-            {/* SA26 watermark */}
-            <img
-              src="/images/common/sa26.svg"
-              aria-hidden="true"
-              className="absolute inset-0 m-auto pointer-events-none select-none"
-              style={{ width: '36px', height: '36px', opacity: 0.08 }}
+        {/* Left: cycling square — aspect-ratio makes it truly 1:1 */}
+        <div
+          className="relative overflow-hidden bg-gray-50 shrink-0"
+          style={{ flexBasis: 'calc(50% - 4px)', aspectRatio: '1 / 1' }}
+        >
+          {fuellstackImages.map((src, idx) => (
+            <Image
+              key={src}
+              src={src}
+              alt="Fuellstack Visual Identity"
+              fill
+              sizes="50vw"
+              className="object-cover"
+              style={{
+                opacity: cycleIndex === idx ? 1 : 0,
+                transition: 'opacity 0.15s ease-in-out',
+                position: 'absolute',
+              }}
             />
+          ))}
+        </div>
 
-            {/* Coming soon label */}
-            {'comingSoon' in item && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-xs text-gray-400 tracking-widest uppercase" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                  Coming soon
-                </span>
-              </div>
-            )}
+        {/* Right column: landscape top + 2 squares bottom */}
+        <div className="flex flex-col gap-2 flex-1">
+          <div className="relative overflow-hidden bg-gray-50 flex-1">
+            <Image src="/images/Visuals/fuellstack-V/FS-bl0.png" alt="Fuellstack Visual" fill sizes="50vw" className="object-cover" />
           </div>
-        ))}
+          <div className="flex gap-2">
+            <div className="relative overflow-hidden bg-gray-50 flex-1" style={{ aspectRatio: '1 / 1' }}>
+              <Image src="/images/Visuals/fuellstack-V/FS-m0.png" alt="Fuellstack Visual" fill sizes="25vw" className="object-cover" />
+            </div>
+            <div className="relative overflow-hidden bg-gray-50 flex-1" style={{ aspectRatio: '1 / 1' }}>
+              <Image src="/images/Visuals/fuellstack-V/FS-ma1.png" alt="Fuellstack Visual" fill sizes="25vw" className="object-cover" />
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      {/* ── Mobile collage (2-col, natural flow) ─────────────── */}
-      <div
-        className="grid md:hidden gap-1.5 px-6"
-        style={{
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gridAutoRows: '140px',
-        }}
-      >
-        {items.map((item, i) => (
-          <div
-            key={i}
-            className="relative overflow-hidden bg-gray-50"
-            style={i % 5 === 0 ? { gridColumn: '1 / 3' } : undefined}
-          >
-            {item.image ? (
-              <Image src={item.image} alt={item.alt} fill sizes="50vw" className="object-cover" />
-            ) : (
-              <div className="absolute inset-0 border border-dashed border-gray-200" />
-            )}
-
-            {/* SA26 watermark */}
-            <img
-              src="/images/common/sa26.svg"
-              aria-hidden="true"
-              className="absolute inset-0 m-auto pointer-events-none select-none"
-              style={{ width: '32px', height: '32px', opacity: 0.08 }}
+      {/* ── Mobile collage ────────────────────────────────────── */}
+      <div className="grid md:hidden gap-1.5">
+        {/* Cycling box: full width, 1:1 */}
+        <div className="relative overflow-hidden bg-gray-50" style={{ aspectRatio: '1/1' }}>
+          {fuellstackImages.map((src, idx) => (
+            <Image
+              key={src}
+              src={src}
+              alt="Fuellstack Visual Identity"
+              fill
+              sizes="100vw"
+              className="object-cover"
+              style={{
+                opacity: cycleIndex === idx ? 1 : 0,
+                transition: 'opacity 0.15s ease-in-out',
+                position: 'absolute',
+              }}
             />
-
-            {'comingSoon' in item && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-xs text-gray-400 tracking-widest uppercase" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
-                  Coming soon
-                </span>
-              </div>
-            )}
+          ))}
+        </div>
+        {/* Wide rectangle */}
+        <div className="relative overflow-hidden bg-gray-50" style={{ aspectRatio: '2/1' }}>
+          <Image src="/images/Visuals/fuellstack-V/FS-bl0.png" alt="Fuellstack Visual" fill sizes="100vw" className="object-cover" />
+        </div>
+        {/* Two small squares */}
+        <div className="grid grid-cols-2 gap-1.5">
+          <div className="relative overflow-hidden bg-gray-50" style={{ aspectRatio: '1/1' }}>
+            <Image src="/images/Visuals/fuellstack-V/FS-m0.png" alt="Fuellstack Visual" fill sizes="50vw" className="object-cover" />
           </div>
-        ))}
+          <div className="relative overflow-hidden bg-gray-50" style={{ aspectRatio: '1/1' }}>
+            <Image src="/images/Visuals/fuellstack-V/FS-ma1.png" alt="Fuellstack Visual" fill sizes="50vw" className="object-cover" />
+          </div>
+        </div>
       </div>
 
     </div>

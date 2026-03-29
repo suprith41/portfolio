@@ -1299,60 +1299,59 @@ const SmartNation = () => {
 
         {/* ── 08 · Brochures ─────────────────────────────────────────── */}
         <div id="sn-08" className="relative overflow-visible border-b border-gray-200">
-          <div className="relative overflow-visible px-6 md:px-10 py-6 flex items-baseline gap-4">
+          <div className="relative overflow-visible px-6 md:px-10 py-6 border-b border-gray-200 flex items-baseline gap-4">
+            <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>08</span>
             <h2 className="text-2xl md:text-3xl font-light text-black" style={{ fontFamily: 'SatishSans, sans-serif' }}>Brochures & User Guides</h2>
             <Plus h="left" />
             <Plus h="right" />
           </div>
           {/* SWB brochure */}
           <div className="border-t border-gray-200">
-            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Smart Touch Switches</p>
-            {/* Mobile: native scroll snap */}
-            <div className="md:hidden relative overflow-hidden w-full">
-              <div
-                ref={swbWrapperRef}
-                style={{
-                  overflowX: 'scroll',
-                  scrollSnapType: 'x mandatory',
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                  display: 'flex',
-                  WebkitOverflowScrolling: 'touch',
-                }}
-                onScroll={(e) => {
-                  const el = e.currentTarget;
-                  setSwbPan(Math.round(el.scrollLeft / el.offsetWidth));
-                }}
-              >
-                {/* Page 1 — left half of the wide image */}
-                <div style={{ minWidth: '100%', scrollSnapAlign: 'start', overflow: 'hidden', flexShrink: 0 }}>
-                  <div style={{ width: '200%' }}>
-                    <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure" width={1600} height={1000} className="w-full h-auto block" />
-                  </div>
-                </div>
-                {/* Page 2 — right half of the wide image, shifted left to continue seamlessly */}
-                <div style={{ minWidth: '100%', scrollSnapAlign: 'start', overflow: 'hidden', flexShrink: 0 }}>
-                  <div style={{ width: '200%', marginLeft: '-100%' }}>
-                    <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure" width={1600} height={1000} className="w-full h-auto block" />
-                  </div>
-                </div>
+            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>SWB</p>
+            {/* Mobile: live-drag pan */}
+            <div
+              className="md:hidden relative overflow-hidden w-full"
+              onTouchStart={(e) => {
+                swbTouchX.current = e.touches[0].clientX;
+                if (swbWrapperRef.current) swbWrapperRef.current.style.transition = 'none';
+              }}
+              onTouchMove={(e) => {
+                const diff = e.touches[0].clientX - swbTouchX.current;
+                const cw = e.currentTarget.offsetWidth;
+                const base = swbPan === 0 ? 0 : -cw;
+                const offset = Math.max(-cw, Math.min(0, base + diff));
+                if (swbWrapperRef.current) swbWrapperRef.current.style.transform = `translateX(${offset}px)`;
+              }}
+              onTouchEnd={(e) => {
+                const diff = e.changedTouches[0].clientX - swbTouchX.current;
+                const cw = e.currentTarget.offsetWidth;
+                if (swbWrapperRef.current) swbWrapperRef.current.style.transition = 'transform 0.5s ease-in-out';
+                if (diff < -cw * 0.25 && swbPan === 0) setSwbPan(1);
+                else if (diff > cw * 0.25 && swbPan === 1) setSwbPan(0);
+                else {
+                  if (swbWrapperRef.current) swbWrapperRef.current.style.transform = swbPan === 0 ? 'translateX(0)' : 'translateX(-50%)';
+                }
+              }}
+            >
+              <div ref={swbWrapperRef} style={{ width: '200%' }}>
+                <Image src="/images/WorkImages/smartNationImages/SWB-brousher.png" alt="SWB brochure" width={1600} height={1000} className="w-full h-auto block" />
               </div>
               {/* Bottom controls: arrows + dots in one row */}
               <div className="absolute bottom-3 left-0 right-0 flex items-center justify-between px-3">
                 <button
-                  onClick={() => swbWrapperRef.current?.scrollTo({ left: 0, behavior: 'smooth' })}
-                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity cursor-pointer ${swbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  onClick={() => setSwbPan(0)}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${swbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
                 <div className="flex gap-2">
                   {[0, 1].map(i => (
-                    <button key={i} onClick={() => swbWrapperRef.current?.scrollTo({ left: i * (swbWrapperRef.current?.offsetWidth ?? 0), behavior: 'smooth' })} className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === swbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+                    <button key={i} onClick={() => setSwbPan(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === swbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
                   ))}
                 </div>
                 <button
-                  onClick={() => swbWrapperRef.current?.scrollTo({ left: swbWrapperRef.current.offsetWidth, behavior: 'smooth' })}
-                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity cursor-pointer ${swbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  onClick={() => setSwbPan(1)}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${swbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
                 </button>
@@ -1366,53 +1365,51 @@ const SmartNation = () => {
 
           {/* MCB brochure */}
           <div className="border-t border-gray-200">
-            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>Smart MCB</p>
-            {/* Mobile: native scroll snap */}
-            <div className="md:hidden relative overflow-hidden w-full">
-              <div
-                ref={mcbWrapperRef}
-                style={{
-                  overflowX: 'scroll',
-                  scrollSnapType: 'x mandatory',
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                  display: 'flex',
-                  WebkitOverflowScrolling: 'touch',
-                }}
-                onScroll={(e) => {
-                  const el = e.currentTarget;
-                  setMcbPan(Math.round(el.scrollLeft / el.offsetWidth));
-                }}
-              >
-                {/* Page 1 — left half of the wide image */}
-                <div style={{ minWidth: '100%', scrollSnapAlign: 'start', overflow: 'hidden', flexShrink: 0 }}>
-                  <div style={{ width: '200%' }}>
-                    <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure" width={1600} height={1000} className="w-full h-auto block" />
-                  </div>
-                </div>
-                {/* Page 2 — right half of the wide image, shifted left to continue seamlessly */}
-                <div style={{ minWidth: '100%', scrollSnapAlign: 'start', overflow: 'hidden', flexShrink: 0 }}>
-                  <div style={{ width: '200%', marginLeft: '-100%' }}>
-                    <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure" width={1600} height={1000} className="w-full h-auto block" />
-                  </div>
-                </div>
+            <p className="px-6 md:px-10 py-4 text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>MCB</p>
+            {/* Mobile: live-drag pan */}
+            <div
+              className="md:hidden relative overflow-hidden w-full"
+              onTouchStart={(e) => {
+                mcbTouchX.current = e.touches[0].clientX;
+                if (mcbWrapperRef.current) mcbWrapperRef.current.style.transition = 'none';
+              }}
+              onTouchMove={(e) => {
+                const diff = e.touches[0].clientX - mcbTouchX.current;
+                const cw = e.currentTarget.offsetWidth;
+                const base = mcbPan === 0 ? 0 : -cw;
+                const offset = Math.max(-cw, Math.min(0, base + diff));
+                if (mcbWrapperRef.current) mcbWrapperRef.current.style.transform = `translateX(${offset}px)`;
+              }}
+              onTouchEnd={(e) => {
+                const diff = e.changedTouches[0].clientX - mcbTouchX.current;
+                const cw = e.currentTarget.offsetWidth;
+                if (mcbWrapperRef.current) mcbWrapperRef.current.style.transition = 'transform 0.5s ease-in-out';
+                if (diff < -cw * 0.25 && mcbPan === 0) setMcbPan(1);
+                else if (diff > cw * 0.25 && mcbPan === 1) setMcbPan(0);
+                else {
+                  if (mcbWrapperRef.current) mcbWrapperRef.current.style.transform = mcbPan === 0 ? 'translateX(0)' : 'translateX(-50%)';
+                }
+              }}
+            >
+              <div ref={mcbWrapperRef} style={{ width: '200%' }}>
+                <Image src="/images/WorkImages/smartNationImages/MCB-brousher.png" alt="MCB brochure" width={1600} height={1000} className="w-full h-auto block" />
               </div>
               {/* Bottom controls: arrows + dots in one row */}
               <div className="absolute bottom-3 left-0 right-0 flex items-center justify-between px-3">
                 <button
-                  onClick={() => mcbWrapperRef.current?.scrollTo({ left: 0, behavior: 'smooth' })}
-                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity cursor-pointer ${mcbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  onClick={() => setMcbPan(0)}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${mcbPan === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
                 <div className="flex gap-2">
                   {[0, 1].map(i => (
-                    <button key={i} onClick={() => mcbWrapperRef.current?.scrollTo({ left: i * (mcbWrapperRef.current?.offsetWidth ?? 0), behavior: 'smooth' })} className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === mcbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
+                    <button key={i} onClick={() => setMcbPan(i)} className={`h-1.5 rounded-full transition-all duration-300 ${i === mcbPan ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'}`} />
                   ))}
                 </div>
                 <button
-                  onClick={() => mcbWrapperRef.current?.scrollTo({ left: mcbWrapperRef.current.offsetWidth, behavior: 'smooth' })}
-                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity cursor-pointer ${mcbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                  onClick={() => setMcbPan(1)}
+                  className={`w-9 h-9 bg-white border border-gray-200 shadow flex items-center justify-center transition-opacity ${mcbPan === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
                 </button>

@@ -60,7 +60,7 @@ export default function Home() {
               className="text-sm md:text-base text-gray-400 leading-relaxed max-w-md"
               style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: '300' }}
             >
-              A product designer who partners with startups to shape their brand, product, and presence. Early stage or already in motion.
+              I design what early-stage startups need to exist. Brand, product, and system. From first brief to live product.
             </p>
           </div>
 

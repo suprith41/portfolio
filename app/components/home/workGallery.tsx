@@ -12,7 +12,7 @@ const works = [
   {
     num: '01',
     title: 'Smart Nation',
-    description: 'Built the brand from scratch: logo, design system, app UI, and motion graphics for a smart home IoT startup going from zero to launch.',
+    description: 'Brand, product, and motion design for a smart home IoT startup. 280+ units installed across 40+ spaces. Shipped in 3 months.',
     image: '/images/WorkImages/smartNationImages/SN-thumb.png',
     href: '/works/smartNation',
     year: '2025',
@@ -21,7 +21,7 @@ const works = [
   {
     num: '02',
     title: 'Blume Health',
-    description: 'End-to-end product design for a SaaS platform that lets independent US doctors manage their entire online presence across 40+ patient platforms, from one profile.',
+    description: 'Designed V1 of a SaaS that puts solo physicians on 40+ patient platforms from one profile. $350+ MRR within weeks of launch. Shipped in 3 weeks.',
     image: '/images/WorkImages/blumeHealthImages/BM-thumnail.png',
     href: '/works/blumeHealth',
     year: '2025',
@@ -30,7 +30,7 @@ const works = [
   {
     num: '03',
     title: 'SkinSage',
-    description: 'Designed the end-to-end product experience for a personalised skincare app: skin assessment, AI-powered routine builder, product recommendations, and landing page.',
+    description: 'Designed the full product for a personalised skincare app: skin assessment, dermatologist consultation, and AI routine builder. 73% day-7 retention.',
     image: '/images/WorkImages/skinSageImages/SS-thumnail-1.png',
     href: '/works/skinSage',
     year: '2025',
@@ -39,7 +39,7 @@ const works = [
   {
     num: '04',
     title: 'SkillRadius',
-    description: 'A modern LMS built for the job-seeking generation. Structured courses, video lessons, notes, and quizzes end-to-end.',
+    description: 'Designed the full product for a job-skill learning platform: courses, video lessons, notes, quizzes, and dashboard. Zero to V1, end to end.',
     image: '/images/WorkImages/skillradius/SR-thumnail.png',
     href: '/works/skillRadius',
     year: '2025',
@@ -214,7 +214,7 @@ export default function WorkGallery() {
           style={{ width: 'auto', height: '390px', top: '85%', right: 'calc(50% - 50vw - 25px)', transform: 'translateY(0px) rotate(-18deg)', filter: 'brightness(0) opacity(0.10)' }}
         />
 
-      <div className="flex flex-col gap-20 md:gap-28">
+      <div className="flex flex-col gap-10 md:gap-16">
         {works.map((work) => (
           <div
             key={work.num}

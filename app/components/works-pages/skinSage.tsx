@@ -83,7 +83,7 @@ export default function SkinSage() {
 
   const stats = [
     { value: '2 Weeks', label: 'Turnaround', sub: 'From kickoff to V1 live' },
-    { value: '4.8',     label: 'Rating',     sub: 'Average user rating on launch' },
+    { value: '73%',     label: 'Day-7 Retention',     sub: 'Users returned after day 7' },
     { value: '73%',     label: 'Retention',  sub: 'Users returned after day 7' },
   ];
 
@@ -121,7 +121,7 @@ export default function SkinSage() {
                       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
                     style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
-                    className="flex items-center gap-3 py-[6px] text-left group relative"
+                    className="cursor-pointer flex items-center gap-3 py-[6px] text-left group relative"
                   >
                     <span
                       className="shrink-0 flex items-center justify-center transition-all duration-300 relative z-10 bg-white"
@@ -216,10 +216,10 @@ export default function SkinSage() {
           <div className="border-b border-gray-200 px-6 md:px-10 py-8 md:py-12">
             <SectionLabel>The Brief</SectionLabel>
             <SectionHeading>Your skin, understood. Your routine, built for you.</SectionHeading>
-            <p className="text-sm text-gray-500 leading-relaxed mb-4 max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+            <p className="text-sm text-gray-500 leading-relaxed mb-4" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               Most skincare advice is generic. SkinSage set out to change that by asking the right questions upfront and building a fully personalised routine from the answers. The brief was to design an experience that felt expert, not clinical, and personal, not overwhelming.
             </p>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               Scope covered the onboarding assessment, personalised product recommendations, routine tracker, and the public-facing landing page. The focus was on clarity and trust at every step.
             </p>
           </div>
@@ -265,7 +265,7 @@ export default function SkinSage() {
           <div className="px-6 md:px-10 pt-10 pb-6">
             <SectionLabel>Skin Assessment</SectionLabel>
             <SectionHeading>Know your skin before building your routine.</SectionHeading>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-2xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+            <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               The assessment guides users through a short series of questions about their skin, lifestyle, and concerns. Based on the responses, SkinSage generates a skin health diagnosis. If an issue is detected, the app creates a case and surfaces the best-matched doctors on the platform for that specific condition.
             </p>
           </div>

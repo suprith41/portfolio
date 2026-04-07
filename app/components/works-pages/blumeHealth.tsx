@@ -96,7 +96,7 @@ export default function BlumeHealth() {
 
   const stats = [
     { value: '$350+', label: 'MRR', sub: 'Within weeks of launch' },
-    { value: '1 Week',  label: 'Turnaround', sub: 'From first session to V1 live' },
+    { value: '3 Weeks',  label: 'Turnaround', sub: 'From first session to V1 live' },
     { value: '96%',     label: 'Onboarding Completion Rate', sub: '' },
   ];
 
@@ -133,7 +133,7 @@ export default function BlumeHealth() {
                       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
                     style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
-                    className="flex items-center gap-3 py-[6px] text-left group relative"
+                    className="cursor-pointer flex items-center gap-3 py-[6px] text-left group relative"
                   >
                     <span
                       className="shrink-0 flex items-center justify-center transition-all duration-300 relative z-10 bg-white"
@@ -229,7 +229,7 @@ export default function BlumeHealth() {
               <br /><br />
               The co-founder came in with a clear problem and a one-line brief: let a doctor fill out one form, and handle everything else on their behalf. Every listing, every update, every patient inquiry forwarded to their inbox.
               <br /><br />
-              I was brought in to design the entire product from scratch. In one week I delivered the full onboarding flow, credential verification, a channel distribution marketplace, and subscription and pricing UI. The scope covered what the doctor interacts with directly: building their profile, selecting their channels, and managing their plan. Inbox and patient inquiry tracking are out of scope for V1. All incoming messages are forwarded straight to the doctor&apos;s email, so no in-app messaging surface was needed. End-to-end product design, logo mark, and visual identity. Shipped as V1.
+              I was brought in to design the entire product from scratch. In three weeks I delivered the full onboarding flow, credential verification, a channel distribution marketplace, and subscription and pricing UI. The scope covered what the doctor interacts with directly: building their profile, selecting their channels, and managing their plan. Inbox and patient inquiry tracking are out of scope for V1. All incoming messages are forwarded straight to the doctor&apos;s email, so no in-app messaging surface was needed. End-to-end product design, logo mark, and visual identity. Shipped as V1.
             </p>
             <a
               href="http://blumehealthco.com/"
@@ -309,7 +309,7 @@ export default function BlumeHealth() {
             />
           </div>
           <div className="border-t border-gray-200 px-6 md:px-10 py-4 md:py-5">
-            <p className="text-xs text-gray-400 leading-relaxed max-w-xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+            <p className="text-xs text-gray-400 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               Doctors fill in their license details, insurance types, and specialty step by step. Each section is simple and focused, so nothing feels overwhelming.
             </p>
           </div>
@@ -372,7 +372,7 @@ export default function BlumeHealth() {
           <Plus h="left"  v="top" />
           <Plus h="right" v="top" />
           <div className="px-6 md:px-10 py-4 md:py-5">
-            <p className="text-xs text-gray-400 leading-relaxed max-w-xl" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
+            <p className="text-xs text-gray-400 leading-relaxed" style={{ fontFamily: 'FunnelDisplay, sans-serif' }}>
               Once all sections are done, the doctor reviews everything in one place before submitting. After submission, the Blume team verifies the profile within 48 hours.
             </p>
           </div>

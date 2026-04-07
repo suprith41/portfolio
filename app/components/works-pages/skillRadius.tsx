@@ -113,7 +113,7 @@ export default function SkillRadius() {
                       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
                     style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
-                    className="flex items-center gap-3 py-[6px] text-left group relative"
+                    className="cursor-pointer flex items-center gap-3 py-[6px] text-left group relative"
                   >
                     <span
                       className="shrink-0 flex items-center justify-center transition-all duration-300 relative z-10 bg-white"

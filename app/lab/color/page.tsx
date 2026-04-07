@@ -624,9 +624,6 @@ export default function ColorGame() {
             </div>
           </div>
 
-          <Link href="/lab" style={{ marginTop: '28px', fontSize: '11px', color: '#bbb', textDecoration: 'none' }}>
-            Back to lab
-          </Link>
         </>
       )}
 
@@ -694,9 +691,6 @@ export default function ColorGame() {
 
         </div>
         </div>
-        <Link href="/lab" style={{ marginTop: '20px', fontSize: '11px', color: '#bbb', textDecoration: 'none' }}>
-          Back to lab
-        </Link>
         </>
       )}
 
@@ -720,15 +714,11 @@ export default function ColorGame() {
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {Array.from({ length: 10 }).map((_, i) => {
                   const entry = leaderboard[i]
-                  // opacity fades from 1 down to 0.08 across empty rows
-                  const opacity = entry ? 1 : Math.max(0.06, 0.5 - (i - leaderboard.length) * 0.08)
                   return (
                     <div key={i} style={{
                       display: 'flex', alignItems: 'center', gap: '12px',
                       padding: '11px 14px',
                       borderBottom: '1px solid #f3f4f6',
-                      opacity,
-                      transition: 'opacity 0.2s',
                     }}>
                       <div style={{ width: '22px', fontSize: '12px', color: i === 0 && entry ? '#111' : '#9ca3af', fontWeight: i === 0 && entry ? 700 : 400, flexShrink: 0, textAlign: 'center' }}>{i + 1}</div>
                       {entry?.country ? <img src={`https://flagsapi.com/${entry.country.toUpperCase()}/flat/24.png`} alt={entry.country} style={{ width: '24px', height: '16px', objectFit: 'cover', borderRadius: '2px', flexShrink: 0 }} /> : <span style={{ width: '24px', display: 'inline-block' }} />}

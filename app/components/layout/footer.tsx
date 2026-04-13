@@ -19,6 +19,9 @@ const navLinks = [
 export default function Footer() {
   const pathname = usePathname()
   const isUnpluggedPage = pathname?.startsWith('/unplugged/')
+  const isProposalPage = pathname?.startsWith('/proposals')
+
+  if (isProposalPage) return null
 
   return (
     <footer className={`mt-16 relative overflow-visible${isUnpluggedPage ? ' md:hidden' : ''}`}>

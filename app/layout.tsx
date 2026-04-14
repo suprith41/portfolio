@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import NavbarClient from "./components/layout/NavbarClient"
 import SmoothScroll from "./components/layout/SmoothScroll"
+import ScrollReset from "./components/layout/ScrollReset"
 import Footer from "./components/layout/footer"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning>
         <SmoothScroll />
+        <ScrollReset />
         <NavbarClient />
         <main>
           {children}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, useInView } from 'framer-motion';
 
 const TEAL = '#1D9E75';
@@ -35,9 +36,34 @@ function ProposalNav() {
           justifyContent: 'space-between',
         }}
       >
-        <span className="xpay-nav-label">
-          Product Designer / Application
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <a
+            href="/"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 28,
+              height: 28,
+              border: '1px solid #ddd',
+              borderRadius: 6,
+              color: '#111',
+              textDecoration: 'none',
+              transition: 'border-color 0.15s',
+              flexShrink: 0,
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#111'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#ddd'; }}
+            aria-label="Back"
+          >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+          <span className="xpay-nav-label">
+            Product Designer / Application
+          </span>
+        </div>
         <a
           href="/"
           style={{
@@ -87,8 +113,11 @@ function ScrollProgressBar() {
       }
     };
     window.addEventListener('scroll', handler, { passive: true });
-    update();
-    return () => window.removeEventListener('scroll', handler);
+    // Double rAF + timeout: rAF catches fast paints, timeout catches slow ones
+    // (images, fonts) that inflate scrollHeight after the initial render.
+    requestAnimationFrame(() => requestAnimationFrame(update));
+    const t = setTimeout(update, 300);
+    return () => { window.removeEventListener('scroll', handler); clearTimeout(t); };
   }, []);
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 3, zIndex: 9999, background: 'transparent' }}>
@@ -453,29 +482,34 @@ function AfterPhone() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: -4 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', background: TEAL_LIGHT, borderRadius: 10, border: `1px solid ${TEAL}30` }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: TEAL, flexShrink: 0 }} />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={TEAL} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                    <path d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                  </svg>
                   <span style={{ ...body, fontSize: 11, fontWeight: 600, color: TEAL_DARK }}>Charged today</span>
                 </div>
                 <span style={{ ...body, fontSize: 13, fontWeight: 700, color: TEAL_DARK }}>₹2,000</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', background: '#fafafa', borderRadius: 10, border: '1px solid #e5e7eb' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#d1d5db', flexShrink: 0 }} />
-                  <span style={{ ...body, fontSize: 11, color: '#6b7280' }}>Auth hold (released after EMI 1)</span>
+              {/* Auth hold card with embedded explanation */}
+              <div style={{ borderRadius: 10, border: '1px solid #e5e7eb', overflow: 'hidden' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 12px', background: '#fafafa' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <span style={{ ...body, fontSize: 11, color: '#6b7280' }}>Auth hold (released after EMI 1)</span>
+                  </div>
+                  <span style={{ ...body, fontSize: 13, fontWeight: 600, color: '#374151' }}>₹10,000</span>
                 </div>
-                <span style={{ ...body, fontSize: 13, fontWeight: 600, color: '#374151' }}>₹10,000</span>
+                <div style={{ background: TEAL_LIGHT, padding: '8px 12px', display: 'flex', gap: 7, alignItems: 'flex-start' }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
+                    <circle cx="12" cy="12" r="10" stroke={TEAL} strokeWidth="2" />
+                    <path d="M12 8v4M12 16h.01" stroke={TEAL} strokeWidth="2.2" strokeLinecap="round" />
+                  </svg>
+                  <p style={{ ...body, fontSize: 10, color: TEAL_DARK, lineHeight: 1.5, margin: 0 }}>
+                    This hold is a security check, not a charge. It releases automatically after your first EMI settles.
+                  </p>
+                </div>
               </div>
-            </div>
-
-            {/* Info banner */}
-            <div style={{ background: TEAL_LIGHT, borderRadius: 10, padding: '10px 12px', border: `1px solid ${TEAL}25`, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
-                <circle cx="12" cy="12" r="10" stroke={TEAL} strokeWidth="2" />
-                <path d="M12 8v4M12 16h.01" stroke={TEAL} strokeWidth="2.2" strokeLinecap="round" />
-              </svg>
-              <p style={{ ...body, fontSize: 10, color: TEAL_DARK, lineHeight: 1.5, margin: 0 }}>
-                This hold is a security check, not a charge. It releases automatically after your first EMI settles.
-              </p>
             </div>
 
             {/* CTA */}
@@ -532,8 +566,6 @@ export default function XPayProposal() {
     };
   }, []);
 
-  if (!mounted) return null;
-
   return (
     <div className="bg-white min-h-screen">
       <style>{`
@@ -549,14 +581,17 @@ export default function XPayProposal() {
           .xpay-byline { flex-wrap: wrap; gap: 8px; }
           .xpay-byline-meta { gap: 2px 4px; }
           .xpay-contact-row { flex-direction: column; gap: 10px; }
-          .xpay-nav-label { font-size: 10px; letter-spacing: 0.04em; }
+          .xpay-nav-label { display: none; }
         }
       `}</style>
-      <ProposalNav />
-      <ScrollProgressBar />
-
-      {/* ── Content column — 740px, centered, Medium-spec ── */}
-      <div
+      {mounted && createPortal(
+        <>
+          <ProposalNav />
+          <ScrollProgressBar />
+        </>,
+        document.body
+      )}
+      {mounted && <div
         style={{
           maxWidth: 740,
           margin: '0 auto',
@@ -654,7 +689,7 @@ export default function XPayProposal() {
             </SectionHeading>
 
             <p style={{ ...bodyText, marginBottom: 28 }}>
-              xPay's own documentation lists "I see a large pending charge on my card" as a recurring customer complaint.
+              xPay's own documentation lists "<a href="https://docs.xpaycheckout.com/faqs/x-pay-card-installments" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline', textDecorationColor: '#1D9E75' }}>I see a large pending charge on my card</a>" as a recurring customer complaint.
             </p>
             <p style={{ ...bodyText, marginBottom: 28 }}>
               When a customer picks Card Installments, xPay places an authorization hold on the full remaining balance while only charging the first installment. The customer sees a large mysterious hold on their bank app, panics, and either calls their bank or raises a dispute.
@@ -854,7 +889,8 @@ export default function XPayProposal() {
           </FadeIn>
         </section>
 
-      </div>
+      </div>}
     </div>
   );
 }
+

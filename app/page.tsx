@@ -6,6 +6,7 @@ import ParallaxImages from "./components/home/ParallaxImages"
 import EmailSection from "./components/home/EmailSection"
 import UnpluggedGallery from "./components/home/unpluggedGallery"
 import VisualIdentityGallery from "./components/home/visualIdentityGallery"
+import ProposalsGallery from "./components/home/proposalsGallery"
 import PageBranches from "./components/home/PageBranches"
 
 
@@ -78,6 +79,11 @@ export default function Home() {
         {/* Visual Identity section */}
         <div data-section="visual-identity">
           <VisualIdentityGallery />
+        </div>
+
+        {/* Design Proposals section */}
+        <div data-section="proposals">
+          <ProposalsGallery />
         </div>
 
         {/* Unplugged section */}

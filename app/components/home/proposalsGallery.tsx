@@ -11,23 +11,25 @@ gsap.registerPlugin(ScrollTrigger)
 const proposals = [
   {
     num: '01',
-    title: 'xPay',
+    title: 'xPay Card Installments',
     description: "Identified a real support cost in xPay's Card Installments flow. Designed the fix.",
     logoColor: '/images/proposals/Xpay/Xpay-logo.png',
     href: '/proposals/xpay',
     year: '2025',
     tag: 'UX Redesign',
     external: false,
+    bigLogo: false,
   },
   {
     num: '02',
     title: 'xPay Lander Redesign',
     description: "A fresh take on the xPay marketing website. Cleaner hierarchy, sharper conversion focus.",
-    logoColor: '/images/proposals/Xpay/Xpay-logo.png',
+    logoColor: '/images/proposals/Xpay/hero-asset-1.png',
     href: 'https://xpay-lander-proposal.satishhebbal.design/',
     year: '2025',
     tag: 'Web Redesign',
     external: true,
+    bigLogo: true,
   },
 ]
 
@@ -137,52 +139,99 @@ export default function ProposalsGallery() {
               <Plus h="left" v="bottom" />
               <Plus h="right" v="bottom" />
 
-              <div className="flex flex-row items-center">
-
-                {/* Logo */}
-                <div
-                  className="relative overflow-hidden shrink-0 flex items-center justify-center"
-                  style={{ width: 120, height: 80 }}
-                >
-                  <Image
-                    src={item.logoColor}
-                    alt={item.title}
-                    fill
-                    sizes="120px"
-                    className="object-contain p-4"
-                  />
-                </div>
-
-                {/* Meta */}
-                <div className="flex flex-1 items-center justify-between px-5 md:px-7 gap-4">
-                  <div className="flex flex-col gap-1 min-w-0">
-                    <h3
-                      className="text-base md:text-lg font-light text-black leading-tight"
-                      style={{ fontFamily: 'SatishSans, sans-serif' }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p
-                      className="text-xs text-gray-400 leading-snug line-clamp-2"
-                      style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
-                    >
-                      {item.description}
-                    </p>
-                  </div>
-                  <span
-                    className="text-xs text-black shrink-0 group-hover:translate-x-1 transition-transform duration-200 inline-flex items-center gap-1"
-                    style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
+              {item.bigLogo ? (
+                /* Big image anchored to bottom-left, overflowing the card top */
+                <>
+                  <div
+                    className="absolute left-0"
+                    style={{ bottom: -25, width: 90, height: 140, pointerEvents: 'none' }}
                   >
-                    View
-                    <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </div>
+                    <Image
+                      src={item.logoColor}
+                      alt={item.title}
+                      fill
+                      sizes="110px"
+                      className="object-contain object-left-bottom"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center" style={{ paddingLeft: 110, minHeight: 80 }}>
+                    <div className="flex flex-1 items-center justify-between px-5 md:px-7 gap-4">
+                      <div className="flex flex-col gap-1 min-w-0">
+                        <h3
+                          className="text-base md:text-lg font-light text-black leading-tight"
+                          style={{ fontFamily: 'SatishSans, sans-serif' }}
+                        >
+                          {item.title}
+                        </h3>
+                        <p
+                          className="text-xs text-gray-400 leading-snug line-clamp-2"
+                          style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
+                        >
+                          {item.description}
+                        </p>
+                      </div>
+                      <span
+                        className="text-xs text-black shrink-0 group-hover:translate-x-1 transition-transform duration-200 inline-flex items-center gap-1"
+                        style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
+                      >
+                        View
+                        <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-row items-center">
 
-              </div>
+                  {/* Logo */}
+                  <div
+                    className="relative overflow-hidden shrink-0 flex items-center justify-center"
+                    style={{ width: 120, height: 80 }}
+                  >
+                    <Image
+                      src={item.logoColor}
+                      alt={item.title}
+                      fill
+                      sizes="120px"
+                      className="object-contain p-4"
+                    />
+                  </div>
+
+                  {/* Meta */}
+                  <div className="flex flex-1 items-center justify-between px-5 md:px-7 gap-4">
+                    <div className="flex flex-col gap-1 min-w-0">
+                      <h3
+                        className="text-base md:text-lg font-light text-black leading-tight"
+                        style={{ fontFamily: 'SatishSans, sans-serif' }}
+                      >
+                        {item.title}
+                      </h3>
+                      <p
+                        className="text-xs text-gray-400 leading-snug line-clamp-2"
+                        style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
+                      >
+                        {item.description}
+                      </p>
+                    </div>
+                    <span
+                      className="text-xs text-black shrink-0 group-hover:translate-x-1 transition-transform duration-200 inline-flex items-center gap-1"
+                      style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
+                    >
+                      View
+                      <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </div>
+
+                </div>
+              )}
             </>
           )
+
+          const cardClass = `group block relative border border-gray-200 bg-white hover:border-gray-400 transition-colors duration-300${item.bigLogo ? ' overflow-hidden' : ''}`
 
           return item.external ? (
             <a
@@ -190,7 +239,7 @@ export default function ProposalsGallery() {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block relative border border-gray-200 bg-white hover:border-gray-400 transition-colors duration-300"
+              className={cardClass}
             >
               {inner}
             </a>
@@ -198,7 +247,7 @@ export default function ProposalsGallery() {
             <Link
               key={item.num}
               href={item.href}
-              className="group block relative border border-gray-200 bg-white hover:border-gray-400 transition-colors duration-300"
+              className={cardClass}
             >
               {inner}
             </Link>

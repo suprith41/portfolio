@@ -194,15 +194,12 @@ export default function ProposalsGallery() {
                 <div className="flex flex-row items-center">
 
                   {/* Logo */}
-                  <div
-                    className="relative overflow-hidden shrink-0 flex items-center justify-center"
-                    style={{ width: 80, height: 72 }}
-                  >
+                  <div className="relative overflow-hidden shrink-0 flex items-center justify-center w-20 md:w-[110px] h-[72px]">
                     <Image
                       src={item.logoColor}
                       alt={item.title}
                       fill
-                      sizes="80px"
+                      sizes="110px"
                       className="object-contain p-3 md:p-4"
                     />
                   </div>
@@ -239,7 +236,7 @@ export default function ProposalsGallery() {
             </>
           )
 
-          const cardClass = `group block relative border border-gray-200 bg-white hover:border-gray-400 transition-colors duration-300${item.bigLogo ? ' overflow-hidden' : ''}`
+          const cardClass = `group block relative border border-gray-200 bg-white hover:border-gray-400 transition-colors duration-300`
 
           return item.external ? (
             <a

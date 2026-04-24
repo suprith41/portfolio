@@ -17,6 +17,17 @@ const proposals = [
     href: '/proposals/xpay',
     year: '2025',
     tag: 'UX Redesign',
+    external: false,
+  },
+  {
+    num: '02',
+    title: 'xPay Lander Redesign',
+    description: "A fresh take on the xPay marketing website. Cleaner hierarchy, sharper conversion focus.",
+    logoColor: '/images/proposals/Xpay/Xpay-logo.png',
+    href: 'https://xpay-lander-proposal.satishhebbal.design/',
+    year: '2025',
+    tag: 'Web Redesign',
+    external: true,
   },
 ]
 
@@ -118,64 +129,81 @@ export default function ProposalsGallery() {
 
       {/* Cards */}
       <div className="flex flex-col gap-3">
-        {proposals.map((item) => (
-          <Link
-            key={item.num}
-            href={item.href}
-            className="group block relative border border-gray-200 bg-white hover:border-gray-400 transition-colors duration-300"
-          >
-            <Plus h="left" v="top" />
-            <Plus h="right" v="top" />
-            <Plus h="left" v="bottom" />
-            <Plus h="right" v="bottom" />
+        {proposals.map((item) => {
+          const inner = (
+            <>
+              <Plus h="left" v="top" />
+              <Plus h="right" v="top" />
+              <Plus h="left" v="bottom" />
+              <Plus h="right" v="bottom" />
 
-            <div className="flex flex-row items-center">
+              <div className="flex flex-row items-center">
 
-              {/* Logo */}
-              <div
-                className="relative overflow-hidden shrink-0 flex items-center justify-center"
-                style={{ width: 120, height: 80 }}
-              >
-                <Image
-                  src={item.logoColor}
-                  alt={item.title}
-                  fill
-                  sizes="120px"
-                  className="object-contain p-4"
-                />
-              </div>
-
-              {/* Meta */}
-              <div className="flex flex-1 items-center justify-between px-5 md:px-7 gap-4">
-                <div className="flex flex-col gap-1 min-w-0">
-                  <h3
-                    className="text-base md:text-lg font-light text-black leading-tight"
-                    style={{ fontFamily: 'SatishSans, sans-serif' }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className="text-xs text-gray-400 leading-snug line-clamp-2"
-                    style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
-                  >
-                    {item.description}
-                  </p>
-                </div>
-                <span
-                  className="text-xs text-black shrink-0 group-hover:translate-x-1 transition-transform duration-200 inline-flex items-center gap-1"
-                  style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
+                {/* Logo */}
+                <div
+                  className="relative overflow-hidden shrink-0 flex items-center justify-center"
+                  style={{ width: 120, height: 80 }}
                 >
-                  View
-                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
+                  <Image
+                    src={item.logoColor}
+                    alt={item.title}
+                    fill
+                    sizes="120px"
+                    className="object-contain p-4"
+                  />
+                </div>
+
+                {/* Meta */}
+                <div className="flex flex-1 items-center justify-between px-5 md:px-7 gap-4">
+                  <div className="flex flex-col gap-1 min-w-0">
+                    <h3
+                      className="text-base md:text-lg font-light text-black leading-tight"
+                      style={{ fontFamily: 'SatishSans, sans-serif' }}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className="text-xs text-gray-400 leading-snug line-clamp-2"
+                      style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                  <span
+                    className="text-xs text-black shrink-0 group-hover:translate-x-1 transition-transform duration-200 inline-flex items-center gap-1"
+                    style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
+                  >
+                    View
+                    <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+
               </div>
+            </>
+          )
 
-            </div>
-
-          </Link>
-        ))}
+          return item.external ? (
+            <a
+              key={item.num}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block relative border border-gray-200 bg-white hover:border-gray-400 transition-colors duration-300"
+            >
+              {inner}
+            </a>
+          ) : (
+            <Link
+              key={item.num}
+              href={item.href}
+              className="group block relative border border-gray-200 bg-white hover:border-gray-400 transition-colors duration-300"
+            >
+              {inner}
+            </Link>
+          )
+        })}
       </div>
 
     </div>

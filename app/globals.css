@@ -2,7 +2,6 @@
 
 /* 404 page overrides */
 body.page-404 { background: black; }
-body.page-404 footer { display: none; }
 
 /* Glitch effect for 404 page */
 .glitch {

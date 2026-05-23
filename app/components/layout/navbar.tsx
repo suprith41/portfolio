@@ -11,9 +11,7 @@ gsap.registerPlugin(ScrollToPlugin)
 
 const navItems = [
   { name: "Work", href: "/work" },
-  { name: "Unplug", href: "/unplugged" },
   { name: "Home", href: "/" },
-  { name: "Lab", href: "/lab" },
   { name: "About", href: "/about" },
 ]
 

@@ -1,10 +1,8 @@
 import Image from "next/image"
-import Loader from "./components/layout/Loader"
 import WorkGallery from "./components/home/workGallery"
-import MouseColorBloom from "./components/home/MouseColorBloom"
+import PillarEditor from "./components/home/PillarEditor"
 import ParallaxImages from "./components/home/ParallaxImages"
 import EmailSection from "./components/home/EmailSection"
-import UnpluggedGallery from "./components/home/unpluggedGallery"
 import VisualIdentityGallery from "./components/home/visualIdentityGallery"
 import ProposalsGallery from "./components/home/proposalsGallery"
 import PageBranches from "./components/home/PageBranches"
@@ -17,32 +15,13 @@ const playfairDisplay = Playfair_Display({ subsets: ["latin"], display: "swap" }
 export default function Home() {
   return (
     <div className="bg-white relative">
+      <PillarEditor />
 
-      <Loader />
       <PageBranches />
 
-      {/* ── Pillar decorations — fixed to viewport edges ─────── */}
-      <Image
-        src="/images/HomeImages/piller-v.svg"
-        alt=""
-        width={120}
-        height={800}
-        className="fixed top-0 h-screen w-auto object-contain object-top pointer-events-none select-none hidden md:block"
-        style={{ zIndex: 0, opacity: 0.18, left: '-70px' }}
-      />
-      <Image
-        src="/images/HomeImages/piller-2-v.svg"
-        alt=""
-        width={120}
-        height={800}
-        className="fixed top-0 h-screen w-auto object-contain object-top pointer-events-none select-none hidden md:block"
-        style={{ zIndex: 0, opacity: 0.18, right: '-40px' }}
-      />
-
-      <div className="max-w-5xl mx-auto px-6 md:px-10">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-10">
 
         {/* First fold — name + description, full viewport height */}
-        <MouseColorBloom />
         <div className="relative min-h-[calc(100vh-120px)] flex flex-col justify-center items-center text-center gap-6 overflow-hidden md:overflow-visible">
 
           <ParallaxImages />
@@ -67,7 +46,7 @@ export default function Home() {
               className="text-sm md:text-base text-gray-400 leading-relaxed max-w-md"
               style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: '300' }}
             >
-              I design what early-stage startups need to exist. Brand, product, and system. From first brief to live product.
+              I build compulsively, not performatively and I'm looking for a small team where the work is serious, the stakes are real, and I'm trusted with more than just a title.
             </p>
           </div>
 
@@ -92,10 +71,7 @@ export default function Home() {
           <ProposalsGallery />
         </div>
 
-        {/* Unplugged section */}
-        <div data-section="unplugged">
-          <UnpluggedGallery />
-        </div>
+        {/* Unplugged section removed */}
 
       </div>
 

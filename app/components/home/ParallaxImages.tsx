@@ -27,6 +27,28 @@ const DEFAULT = {
   }
 }
 
+// Decorative pillars that sit behind the parallax images
+const PILLARS = {
+  LEFT: {
+    width: 140,
+    height: '86vh',
+    left: '-22%',
+    top: '6%',
+    background: 'linear-gradient(180deg, rgba(96,165,250,0.12), rgba(14,165,233,0.04))',
+    borderRadius: '28px',
+    blur: 14,
+  },
+  RIGHT: {
+    width: 140,
+    height: '86vh',
+    right: '-22%',
+    top: '26%',
+    background: 'linear-gradient(180deg, rgba(96,165,250,0.12), rgba(96,165,250,0.02))',
+    borderRadius: '28px',
+    blur: 14,
+  }
+}
+
 const STORAGE_KEY = 'parallax-config-v1'
 
 export default function ParallaxImages() {
@@ -88,6 +110,34 @@ export default function ParallaxImages() {
 
   return (
     <>
+      {/* ── Decorative pillars (behind images) ───────────────────────── */}
+      <div
+        className="absolute hidden md:block pointer-events-none"
+        style={{
+          width: `${PILLARS.LEFT.width}px`,
+          height: PILLARS.LEFT.height,
+          left: PILLARS.LEFT.left,
+          top: PILLARS.LEFT.top,
+          background: PILLARS.LEFT.background,
+          borderRadius: PILLARS.LEFT.borderRadius,
+          filter: `blur(${PILLARS.LEFT.blur}px)`,
+          zIndex: 5,
+        }}
+      />
+      <div
+        className="absolute hidden md:block pointer-events-none"
+        style={{
+          width: `${PILLARS.RIGHT.width}px`,
+          height: PILLARS.RIGHT.height,
+          right: PILLARS.RIGHT.right,
+          top: PILLARS.RIGHT.top,
+          background: PILLARS.RIGHT.background,
+          borderRadius: PILLARS.RIGHT.borderRadius,
+          filter: `blur(${PILLARS.RIGHT.blur}px)`,
+          zIndex: 5,
+        }}
+      />
+
       {/* ── Desktop ──────────────────────────────────────────── */}
       <div
         ref={abhayDesktop}

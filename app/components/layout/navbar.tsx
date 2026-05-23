@@ -258,9 +258,9 @@ export default function Navbar() {
                 (pathname === item.href) ||
                 (item.name === "Work" && pathname.startsWith('/works/')) ||
                 (item.name === "Home" && pathname === '/')
-                  ? "text-orange-500"
+                  ? "text-sky-300"
                   : (item.name === "Unplug" && pathname.startsWith('/unplugged/'))
-                    ? "text-orange-400"
+                    ? "text-sky-300"
                     : pathname.startsWith('/unplugged/')
                       ? "text-white"
                       : "text-zinc-700"

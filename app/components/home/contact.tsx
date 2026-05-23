@@ -48,7 +48,7 @@ const Contact = () => {
                         <polyline points="22,6 12,13 2,6"/>
                       </svg>
                       <p className="text-black text-base md:text-lg font-medium" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '500' }}>
-                        satishdezn@gmail.com
+                        suprithraoj@gmail.com
                       </p>
                     </div>
                     <div className="flex items-center justify-center md:justify-start gap-3">

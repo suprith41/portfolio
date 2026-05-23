@@ -3,6 +3,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { Great_Vibes, Playfair_Display } from 'next/font/google'
+
+const greatVibes = Great_Vibes({ subsets: ['latin'], weight: '400', display: 'swap' })
+const playfairDisplay = Playfair_Display({ subsets: ['latin'], display: 'swap' })
 
 const links = [
   { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/satish-hebbal/' },
@@ -49,8 +53,8 @@ export default function Footer() {
             className="text-[clamp(3rem,12vw,9rem)] leading-none tracking-tight text-black select-none"
             aria-hidden="true"
           >
-            <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.4em' }}>S</span>
-            <span style={{ fontFamily: 'SatishSans, sans-serif', marginLeft: '6px' }}>atish</span>
+            <span className={greatVibes.className} style={{ fontSize: '1.4em' }}>S</span>
+            <span className={playfairDisplay.className} style={{ marginLeft: '6px' }}>uprith</span>
           </h2>
           <p
             className="mt-4 text-sm text-gray-400"
@@ -93,7 +97,7 @@ export default function Footer() {
               className="text-xs text-gray-400"
               style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
             >
-              © 2026 Satish Hebbal
+              © 2026 Suprith Rao
             </span>
           </div>
 

@@ -8,6 +8,10 @@ import UnpluggedGallery from "./components/home/unpluggedGallery"
 import VisualIdentityGallery from "./components/home/visualIdentityGallery"
 import ProposalsGallery from "./components/home/proposalsGallery"
 import PageBranches from "./components/home/PageBranches"
+import { Great_Vibes, Playfair_Display } from "next/font/google"
+
+const greatVibes = Great_Vibes({ subsets: ["latin"], weight: "400", display: "swap" })
+const playfairDisplay = Playfair_Display({ subsets: ["latin"], display: "swap" })
 
 
 export default function Home() {
@@ -54,8 +58,10 @@ export default function Home() {
               style={{ marginBottom: '70px' }}
             />
             <h1 className="text-4xl md:text-5xl tracking-tight text-black">
-              <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>S</span><span style={{ fontFamily: 'SatishSans, sans-serif', marginLeft: '4px' }}>atish </span>
-              <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>H</span><span style={{ fontFamily: 'SatishSans, sans-serif', marginLeft: '4px' }}>ebbal</span>
+              <span className={greatVibes.className} style={{ fontSize: '1.55em' }}>S</span>
+              <span className={playfairDisplay.className} style={{ marginLeft: '4px' }}>uprith </span>
+              <span className={greatVibes.className} style={{ fontSize: '1.55em' }}>R</span>
+              <span className={playfairDisplay.className} style={{ marginLeft: '4px' }}>ao</span>
             </h1>
             <p
               className="text-sm md:text-base text-gray-400 leading-relaxed max-w-md"

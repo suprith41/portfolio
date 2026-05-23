@@ -252,7 +252,7 @@ export default function Navbar() {
           <div key={item.name} className={`flex items-center ${isMounted ? "gap-1 md:gap-6" : "gap-1"}`}>
             <button
               onClick={(e) => handleNavigation(item, e)}
-              className={`cursor-pointer font-light transition-all duration-300 relative hover:text-orange-500 hover:scale-105 ${
+              className={`cursor-pointer font-light transition-all duration-300 relative hover:text-sky-300 hover:scale-105 ${
                 isMounted ? "text-xs md:text-sm" : "text-sm"
               } ${
                 (pathname === item.href) ||

@@ -14,29 +14,29 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Satish Hebbal - Portfolio",
+  title: "Suprith Rao - Portfolio",
   description: "Product designer crafting thoughtful digital experiences. Specialising in interface design, interaction, and design systems.",
   icons: {
     icon: '/images/common/sa26-white.svg',
   },
   openGraph: {
-    title: "Satish Hebbal - Portfolio",
+    title: "Suprith Rao - Portfolio",
     description: "Product designer crafting thoughtful digital experiences. Specialising in interface design, interaction, and design systems.",
     url: siteUrl,
-    siteName: "Satish Hebbal",
+    siteName: "Suprith Rao",
     images: [
       {
         url: '/images/og.png',
         width: 1200,
         height: 630,
-        alt: "Satish Hebbal - Portfolio",
+        alt: "Suprith Rao - Portfolio",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Satish Hebbal - Portfolio",
+    title: "Suprith Rao - Portfolio",
     description: "Product designer crafting thoughtful digital experiences. Specialising in interface design, interaction, and design systems.",
     images: ['/images/og.png'],
   },

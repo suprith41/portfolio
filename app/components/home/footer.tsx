@@ -31,7 +31,7 @@ export default function Footer() {
           </p>
           <Image
             src="/images/common/sa26.svg"
-            alt="Satish"
+            alt="Suprith"
             width={56}
             height={56}
             className="w-12 h-12 mb-4 opacity-80"
@@ -52,7 +52,7 @@ export default function Footer() {
 
         <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
           <button
-            onClick={() => handleCopy('email', 'satishdezn@gmail.com')}
+            onClick={() => handleCopy('email', 'suprithraoj@gmail.com')}
             className="w-full flex items-center gap-3 px-5 py-3 border border-gray-900 text-gray-900 text-xs tracking-wide hover:bg-gray-900 hover:text-white transition-colors duration-200"
             style={{ fontFamily: 'Poppins, sans-serif' }}
           >
@@ -60,7 +60,7 @@ export default function Footer() {
               <rect x="2" y="4" width="20" height="16" rx="2"/>
               <path d="m2 7 10 7 10-7"/>
             </svg>
-            {copied === 'email' ? 'Copied!' : 'satishdezn@gmail.com'}
+            {copied === 'email' ? 'Copied!' : 'suprithraoj@gmail.com'}
           </button>
           <a
             href="https://www.linkedin.com/in/satish-hebbal/"
@@ -86,7 +86,7 @@ export default function Footer() {
             className="text-gray-300 text-xs"
             style={{ fontFamily: 'Poppins, sans-serif' }}
           >
-            &copy; {new Date().getFullYear()} Satish Hebbal. All rights reserved.
+            &copy; {new Date().getFullYear()} Suprith Rao. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             {[

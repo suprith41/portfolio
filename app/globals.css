@@ -336,10 +336,10 @@ body::-webkit-scrollbar {
 }
 
 ::selection {
-  background-color: #caf182;
+  background-color: orange;
 }
 ::-moz-selection {
-  background-color: #caf182;
+  background-color: orange;
 }
 
 /* Advanced Gradient Blur Effect */

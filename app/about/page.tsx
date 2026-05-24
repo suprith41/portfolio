@@ -61,7 +61,7 @@ export default function About() {
           <div className="flex-1 order-2 md:order-1">
             <p
               className="text-2xl md:text-3xl leading-snug text-gray-800 mb-6"
-              style={{ fontFamily: "SatishSans, serif", fontWeight: 400 }}
+              style={{ fontFamily: "SuprithSans, serif", fontWeight: 400 }}
             >
               I work with early-stage teams and see things through from the problem to the decisions to what actually ships.
             </p>
@@ -115,32 +115,32 @@ export default function About() {
             {/* Floating images — each near its related chip */}
             {[
               {
-                src: "/images/satish-image-hover-images/pen-tool.png",
+                src: "/images/suprith-image-hover-images/pen-tool.png",
                 size: 34, top: "16px", left: "-36px", rotate: -14, delay: 0.04, duration: "0.6s",
                 animation: "pen-sway 1.6s ease-in-out infinite", cls: "himg-pen",
               },
               {
-                src: "/images/satish-image-hover-images/enter-button.png",
+                src: "/images/suprith-image-hover-images/enter-button.png",
                 size: 32, top: "16px", right: "-36px", rotate: 8, delay: 0.03, duration: "0.42s",
                 animation: "key-click 2.2s ease-in-out infinite", cls: "himg-enter",
               },
               {
-                src: "/images/satish-image-hover-images/TAB-button.png",
+                src: "/images/suprith-image-hover-images/TAB-button.png",
                 size: 30, top: "40px", right: "-38px", rotate: -6, delay: 0.06, duration: "0.5s",
                 animation: "key-click 2.2s ease-in-out 1.1s infinite", cls: "himg-tab",
               },
               {
-                src: "/images/satish-image-hover-images/football.png",
+                src: "/images/suprith-image-hover-images/football.png",
                 size: 38, top: "44%", left: "-44px", rotate: 0, delay: 0.09, duration: "0.55s",
                 animation: "football-spin 3s linear infinite", cls: "himg-ball",
               },
               {
-                src: "/images/satish-image-hover-images/wood-saw.png",
+                src: "/images/suprith-image-hover-images/wood-saw.png",
                 size: 36, top: "68%", right: "-42px", rotate: 0, delay: 0.07, duration: "0.58s",
                 animation: "saw-motion 0.38s ease-in-out infinite", cls: "himg-saw",
               },
               {
-                src: "/images/satish-image-hover-images/burshes.png",
+                src: "/images/suprith-image-hover-images/burshes.png",
                 size: 36, bottom: "-28px", left: "-24px", rotate: 0, delay: 0.11, duration: "0.52s",
                 animation: "brush-tilt 1.1s ease-in-out infinite", cls: "himg-brush",
               },
@@ -180,7 +180,7 @@ export default function About() {
         <div className="mb-20">
           <p
             className="text-xl md:text-2xl text-gray-700 leading-snug mb-2"
-            style={{ fontFamily: "SatishSans, serif", fontWeight: 400 }}
+            style={{ fontFamily: "SuprithSans, serif", fontWeight: 400 }}
           >
             My Toolkit
           </p>
@@ -264,7 +264,7 @@ export default function About() {
             <div>
               <p
                 className="text-xl md:text-2xl text-gray-700 leading-snug mb-2"
-                style={{ fontFamily: "SatishSans, serif", fontWeight: 400 }}
+                style={{ fontFamily: "SuprithSans, serif", fontWeight: 400 }}
               >
                 GitHub Contributions
               </p>
@@ -273,7 +273,7 @@ export default function About() {
               href="https://github.com/suprith41"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:inline-flex text-xs text-gray-400 hover:text-gray-700 transition-colors duration-200"
+              className="hidden md:inline-flex text-xs text-gray-400 hover:text-orange-500 transition-colors duration-200"
               style={{ fontFamily: "FunnelDisplay, sans-serif", letterSpacing: "0.08em" }}
             >
               View profile
@@ -300,14 +300,14 @@ export default function About() {
         <div className="text-center">
           <p
             className="text-2xl md:text-3xl text-gray-700 leading-snug mb-8"
-            style={{ fontFamily: "SatishSans, serif", fontWeight: 400 }}
+            style={{ fontFamily: "SuprithSans, serif", fontWeight: 400 }}
           >
             If you're building something real with a team where everyone in the room matters - I'm the engineer who just needs a problem worth solving.
           </p>
           <div className="inline-flex items-stretch gap-0">
             <a
               href="mailto:suprithraoj@gmail.com"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-gray-200 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-800 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-gray-200 text-sm text-gray-500 hover:border-gray-400 hover:text-orange-500 transition-all duration-200"
               style={{ fontFamily: "FunnelDisplay, sans-serif", letterSpacing: "0.05em" }}
             >
               say hey!

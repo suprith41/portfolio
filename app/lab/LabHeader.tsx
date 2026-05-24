@@ -42,10 +42,10 @@ export default function LabHeader() {
       <span ref={leftLineRef} style={{ flex: 1, height: '1px', background: '#d1d5db', display: 'block' }} />
       <h1
         className="text-2xl md:text-3xl font-light text-black"
-        style={{ fontFamily: 'SatishSans, sans-serif', flexShrink: 0 }}
+        style={{ fontFamily: 'SuprithSans, sans-serif', flexShrink: 0 }}
       >
-        <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>T</span><span style={{ marginLeft: '4px' }}>he</span>{' '}
-        <span style={{ fontFamily: 'SatishSans, sans-serif' }}>Lab</span>
+        <span style={{ fontFamily: 'SuprithCapsSans, sans-serif', fontSize: '1.5em' }}>T</span><span style={{ marginLeft: '4px' }}>he</span>{' '}
+        <span style={{ fontFamily: 'SuprithSans, sans-serif' }}>Lab</span>
       </h1>
       <span ref={rightLineRef} style={{ flex: 1, height: '1px', background: '#d1d5db', display: 'block' }} />
       <img ref={rightIconRef} src="/images/HomeImages/HandC.svg" alt="" style={{ height: '28px', objectFit: 'contain', flexShrink: 0 }} />

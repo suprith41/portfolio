@@ -28,7 +28,7 @@ export default function Lab() {
         >
           <div
             className="text-2xl font-light tracking-tight mb-3 text-black"
-            style={{ fontFamily: 'SatishSans, sans-serif', letterSpacing: '-0.01em' }}
+            style={{ fontFamily: 'SuprithSans, sans-serif', letterSpacing: '-0.01em' }}
           >
             Color
           </div>

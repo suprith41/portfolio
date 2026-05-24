@@ -37,7 +37,7 @@ export default function NotFound() {
     <style>{`body { background: black !important; } footer { background: black !important; color: white !important; } footer a, footer span, footer p, footer h2 { color: white !important; } footer .border-t { border-color: #333 !important; } footer img { filter: invert(1) !important; } nav a, nav button, nav span { color: white !important; } nav img { filter: invert(1) !important; }`}</style>
     <div className="h-screen bg-black overflow-hidden relative">
       <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ zIndex: 1 }}>
-        <div className="flex flex-col items-center" style={{ fontFamily: 'SatishSans, sans-serif', fontSize: '8vw', lineHeight: '0.8' }}>
+        <div className="flex flex-col items-center" style={{ fontFamily: 'SuprithSans, sans-serif', fontSize: '8vw', lineHeight: '0.8' }}>
           <span className="glitch" data-text="4">4</span>
           <span className="glitch" data-text="0">0</span>
           <span className="glitch" data-text="4">4</span>

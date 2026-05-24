@@ -2,7 +2,6 @@ import WorkGallery from "./components/home/workGallery"
 import PillarEditor from "./components/home/PillarEditor"
 import ParallaxImages from "./components/home/ParallaxImages"
 import EmailSection from "./components/home/EmailSection"
-import PageBranches from "./components/home/PageBranches"
 import { Great_Vibes, Playfair_Display } from "next/font/google"
 
 const greatVibes = Great_Vibes({ subsets: ["latin"], weight: "400", display: "swap" })
@@ -13,8 +12,6 @@ export default function Home() {
   return (
     <div className="bg-transparent relative">
       <PillarEditor />
-
-      <PageBranches />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-10">
 

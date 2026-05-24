@@ -37,28 +37,6 @@ export default function WorkGallery() {
   const headerRef  = useRef<HTMLDivElement>(null)
   const branchContainerRef = useRef<HTMLDivElement>(null)
 
-  // Parallax + tilt for all branches via data attributes
-  useEffect(() => {
-    const handleScroll = () => {
-      const y = window.scrollY
-      const tilt = Math.min(y * 0.015, 8)
-      const els = branchContainerRef.current?.querySelectorAll<HTMLImageElement>('[data-branch]')
-      els?.forEach(el => {
-        const speed   = parseFloat(el.dataset.speed  ?? '0.1')
-        const baseRot = parseFloat(el.dataset.rot    ?? '-25')
-        const tiltDir = parseFloat(el.dataset.tiltdir ?? '1')
-        const flip    = el.dataset.flip === 'true'
-        const dy = -(y * speed)
-        const rot = baseRot + tiltDir * tilt
-        el.style.transform = flip
-          ? `translateY(${dy}px) scaleX(-1) rotate(${rot}deg)`
-          : `translateY(${dy}px) rotate(${rot}deg)`
-      })
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   useEffect(() => {
     const container = branchContainerRef.current
     if (!container) return
@@ -66,8 +44,6 @@ export default function WorkGallery() {
     const header = headerRef.current
     const cards = gsap.utils.toArray<HTMLElement>('[data-project-card]', container)
     const images = gsap.utils.toArray<HTMLElement>('[data-project-image]', container)
-    const leftBranches = gsap.utils.toArray<HTMLElement>('[data-branch][data-side="left"]', container)
-    const rightBranches = gsap.utils.toArray<HTMLElement>('[data-branch][data-side="right"]', container)
     const lineLeft = header?.querySelector<HTMLElement>('[data-project-line-left]')
     const lineRight = header?.querySelector<HTMLElement>('[data-project-line-right]')
     const projectTitle = header?.querySelector<HTMLElement>('[data-project-title]')
@@ -128,7 +104,7 @@ export default function WorkGallery() {
       localTriggers.push(st)
     })
 
-    // 4) Directional draw-in for section line and branch motifs.
+    // 4) Directional draw-in for section line.
     if (projectTitle) {
       gsap.set(projectTitle, { opacity: 0, y: 22, scale: 0.96 })
 
@@ -165,63 +141,23 @@ export default function WorkGallery() {
       if (lineTween.scrollTrigger) localTriggers.push(lineTween.scrollTrigger)
     }
 
-    if (leftBranches.length) {
-      const leftTween = gsap.fromTo(
-        leftBranches,
-        { opacity: 0, clipPath: 'inset(0 100% 0 0)' },
-        {
-          opacity: 1,
-          clipPath: 'inset(0 0% 0 0)',
-          duration: 1.1,
-          ease: 'power2.out',
-          stagger: 0.08,
-          scrollTrigger: {
-            trigger: header,
-            start: 'top 84%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      )
-      if (leftTween.scrollTrigger) localTriggers.push(leftTween.scrollTrigger)
-    }
-
-    if (rightBranches.length) {
-      const rightTween = gsap.fromTo(
-        rightBranches,
-        { opacity: 0, clipPath: 'inset(0 0 0 100%)' },
-        {
-          opacity: 1,
-          clipPath: 'inset(0 0 0 0%)',
-          duration: 1.1,
-          ease: 'power2.out',
-          stagger: 0.08,
-          scrollTrigger: {
-            trigger: header,
-            start: 'top 84%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      )
-      if (rightTween.scrollTrigger) localTriggers.push(rightTween.scrollTrigger)
-    }
-
     return () => {
       localTriggers.forEach((t) => t.kill())
     }
   }, [])
 
   return (
-    <div>
+    <div className="pb-28 md:pb-36">
 
       {/* ── Section header ──────────────────────────────────────── */}
       <div
         ref={headerRef}
-        className="px-6 md:px-10 pt-24 md:pt-32 pb-8 md:pb-12 overflow-hidden"
+        className="px-6 md:px-10 pt-28 md:pt-40 pb-14 md:pb-20 overflow-hidden"
       >
         <div className="relative flex items-center justify-center gap-6">
           <div data-project-line-left className="h-0 border-t border-gray-300 flex-1" />
           <h2 data-project-title className="relative bg-transparent px-3 text-2xl md:text-3xl font-light text-black shrink-0 whitespace-nowrap" style={{ marginTop: '6px' }}>
-            <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>P</span><span style={{ fontFamily: 'SatishSans, sans-serif' }}>rojects</span>
+            <span style={{ fontFamily: 'SuprithCapsSans, sans-serif', fontSize: '1.5em' }}>P</span><span style={{ fontFamily: 'SuprithSans, sans-serif' }}>rojects</span>
           </h2>
           <div data-project-line-right className="h-0 border-t border-gray-300 flex-1" />
         </div>
@@ -229,42 +165,11 @@ export default function WorkGallery() {
 
       {/* ── Works list ─────────────────────────────────────── */}
       <div className="relative" ref={branchContainerRef}>
-
-        {/* Left branches */}
-        <img data-branch data-side="left" data-speed="0.18" data-rot="-25" data-tiltdir="-1" data-flip="true"
-          src="/images/HomeImages/branch.svg" aria-hidden="true"
-          className="hidden md:block absolute pointer-events-none select-none"
-          style={{ width: 'auto', height: '460px', top: '5%',  left: 'calc(50% - 50vw - 35px)', transform: 'translateY(0px) scaleX(-1) rotate(-25deg)', filter: 'brightness(0) opacity(0.13)' }}
-        />
-        <img data-branch data-side="left" data-speed="0.13" data-rot="-20" data-tiltdir="-1" data-flip="true"
-          src="/images/HomeImages/branch.svg" aria-hidden="true"
-          className="hidden md:block absolute pointer-events-none select-none"
-          style={{ width: 'auto', height: '420px', top: '38%', left: 'calc(50% - 50vw - 45px)', transform: 'translateY(0px) scaleX(-1) rotate(-20deg)', filter: 'brightness(0) opacity(0.11)' }}
-        />
-        <img data-branch data-side="left" data-speed="0.20" data-rot="-28" data-tiltdir="-1" data-flip="true"
-          src="/images/HomeImages/branch.svg" aria-hidden="true"
-          className="hidden md:block absolute pointer-events-none select-none"
-          style={{ width: 'auto', height: '400px', top: '72%', left: 'calc(50% - 50vw - 30px)', transform: 'translateY(0px) scaleX(-1) rotate(-28deg)', filter: 'brightness(0) opacity(0.10)' }}
-        />
-
-        {/* Right branches */}
-        <img data-branch data-side="right" data-speed="0.09" data-rot="-25" data-tiltdir="1" data-flip="false"
-          src="/images/HomeImages/branch.svg" aria-hidden="true"
-          className="hidden md:block absolute pointer-events-none select-none"
-          style={{ width: 'auto', height: '430px', top: '20%', right: 'calc(50% - 50vw - 30px)', transform: 'translateY(0px) rotate(-25deg)', filter: 'brightness(0) opacity(0.11)' }}
-        />
-        <img data-branch data-side="right" data-speed="0.15" data-rot="-22" data-tiltdir="1" data-flip="false"
-          src="/images/HomeImages/branch.svg" aria-hidden="true"
-          className="hidden md:block absolute pointer-events-none select-none"
-          style={{ width: 'auto', height: '450px', top: '55%', right: 'calc(50% - 50vw - 40px)', transform: 'translateY(0px) rotate(-22deg)', filter: 'brightness(0) opacity(0.12)' }}
-        />
-        <img data-branch data-side="right" data-speed="0.11" data-rot="-18" data-tiltdir="1" data-flip="false"
-          src="/images/HomeImages/branch.svg" aria-hidden="true"
-          className="hidden md:block absolute pointer-events-none select-none"
-          style={{ width: 'auto', height: '390px', top: '85%', right: 'calc(50% - 50vw - 25px)', transform: 'translateY(0px) rotate(-18deg)', filter: 'brightness(0) opacity(0.10)' }}
-        />
-
-      <div className="flex flex-col gap-8 md:gap-10">
+      <div
+        className="project-section-grid"
+        aria-hidden="true"
+      />
+      <div className="relative z-10 flex flex-col gap-8 md:gap-10">
         {works.map((work) => (
           <div
             key={work.num}
@@ -290,7 +195,7 @@ export default function WorkGallery() {
                 </div>
                 <h3
                   className="mb-4 text-3xl md:text-4xl font-light text-black"
-                  style={{ fontFamily: 'SatishSans, sans-serif' }}
+                  style={{ fontFamily: 'SuprithSans, sans-serif' }}
                 >
                   {work.title}
                 </h3>

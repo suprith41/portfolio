@@ -130,7 +130,7 @@ function CountdownDigit({ value, urgent }: { value: number; urgent: boolean }) {
         key={value}
         style={{
           display: 'block',
-          fontFamily: 'SatishSans, sans-serif',
+          fontFamily: 'SuprithSans, sans-serif',
           fontSize: '96px',
           fontWeight: 700,
           lineHeight: 1,
@@ -489,7 +489,7 @@ export default function ColorGame() {
                 style={{ position: 'absolute', bottom: '-50px', right: '-50px', width: '200px', height: '200px', objectFit: 'contain', pointerEvents: 'none' }}
               />
               <div>
-                <h1 style={{ fontFamily: 'SatishSans, sans-serif', fontSize: '40px', fontWeight: 700, lineHeight: 1, letterSpacing: '-1px', marginBottom: '16px' }}>Color</h1>
+                <h1 style={{ fontFamily: 'SuprithSans, sans-serif', fontSize: '40px', fontWeight: 700, lineHeight: 1, letterSpacing: '-1px', marginBottom: '16px' }}>Color</h1>
                 <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: '8px' }}>
                   Humans can&rsquo;t reliably recall colors. This is a simple game to see how good (or bad) you are at it.
                 </p>
@@ -546,7 +546,7 @@ export default function ColorGame() {
                       <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)' }}>{round + 1}/{TOTAL_ROUNDS}</span>
                       <div style={{ textAlign: 'right' }}>
                         <div style={{
-                          fontFamily: 'SatishSans, sans-serif', fontSize: '96px', fontWeight: 700, lineHeight: 1,
+                          fontFamily: 'SuprithSans, sans-serif', fontSize: '96px', fontWeight: 700, lineHeight: 1,
                           color: `rgba(255,255,255,${timer > 2 ? 0.88 : 0.5})`,
                           transition: 'color 0.4s',
                         }}>
@@ -577,7 +577,7 @@ export default function ColorGame() {
                     {/* Right: guess + score */}
                     <div style={{ flex: 1, backgroundColor: hsvToCss(lastRound.guess.h, lastRound.guess.s, lastRound.guess.v), padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
                       <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontFamily: 'SatishSans, sans-serif', fontSize: '64px', fontWeight: 700, lineHeight: 1, color: 'white' }}>
+                        <div style={{ fontFamily: 'SuprithSans, sans-serif', fontSize: '64px', fontWeight: 700, lineHeight: 1, color: 'white' }}>
                           {displayScore.toFixed(2)}
                         </div>
                         <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', marginTop: '4px' }}>{scoreMessage(lastRound.score)}</div>
@@ -635,7 +635,7 @@ export default function ColorGame() {
         <div style={{ ...cardInner(), background: 'black', padding: '28px', color: 'white', overflowY: 'auto', maxHeight: '80vh' }}>
 
           <div style={{ fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: '8px' }}>Final Score</div>
-              <div style={{ fontFamily: 'SatishSans, sans-serif', fontSize: '72px', fontWeight: 700, lineHeight: 1, marginBottom: '4px' }}>{avgScore.toFixed(2)}</div>
+              <div style={{ fontFamily: 'SuprithSans, sans-serif', fontSize: '72px', fontWeight: 700, lineHeight: 1, marginBottom: '4px' }}>{avgScore.toFixed(2)}</div>
               <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', marginBottom: '24px' }}>{scoreMessage(avgScore)}</div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
@@ -702,7 +702,7 @@ export default function ColorGame() {
 
             {/* Header */}
             <div style={{ marginBottom: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontFamily: 'SatishSans, sans-serif', fontSize: '24px', fontWeight: 300, color: '#111' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontFamily: 'SuprithSans, sans-serif', fontSize: '24px', fontWeight: 300, color: '#111' }}>
                 <span style={{ whiteSpace: 'nowrap' }}>Top 10</span>
                 <span style={{ flex: 1, height: '1px', background: '#111' }} />
                 <span style={{ whiteSpace: 'nowrap' }}>Scores</span>

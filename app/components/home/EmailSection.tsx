@@ -1,94 +1,37 @@
 "use client"
 
-import { useState, useEffect, useRef } from 'react'
 import EmailCopy from './EmailCopy'
 
 export default function EmailSection() {
-  const [hovered, setHovered] = useState(false)
-  const hoveredRef = useRef(false)
-  const leftRef  = useRef<HTMLDivElement>(null)
-  const rightRef = useRef<HTMLDivElement>(null)
-
-  // Keep ref in sync with state so scroll handler sees latest hover
-  useEffect(() => { hoveredRef.current = hovered }, [hovered])
-
-  useEffect(() => {
-    const update = () => {
-      const deg = Math.min(window.scrollY / 60, 8)
-      const isHovered = hoveredRef.current
-      if (leftRef.current)
-        leftRef.current.style.transform = `translateX(${isHovered ? -10 : 0}px) rotate(-${deg}deg)`
-      if (rightRef.current)
-        rightRef.current.style.transform = `translateX(${isHovered ? 10 : 0}px) rotate(-${deg}deg)`
-    }
-    window.addEventListener('scroll', update, { passive: true })
-    return () => window.removeEventListener('scroll', update)
-  }, [])
-
-  // Re-apply transform when hover changes (scroll handler won't re-fire)
-  useEffect(() => {
-    const deg = Math.min(window.scrollY / 60, 8)
-    if (leftRef.current)
-      leftRef.current.style.transform = `translateX(${hovered ? -10 : 0}px) rotate(-${deg}deg)`
-    if (rightRef.current)
-      rightRef.current.style.transform = `translateX(${hovered ? 10 : 0}px) rotate(-${deg}deg)`
-  }, [hovered])
-
   return (
     <div
-      className="flex justify-center items-center"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className="relative flex justify-center items-center px-4 py-8 overflow-visible"
+      style={{
+        minWidth: 'min(100vw, 560px)',
+      }}
     >
-      {/* Left branch */}
       <div
-        ref={leftRef}
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 pointer-events-none"
         style={{
-          width: '120px', height: '60px', position: 'relative', flexShrink: 0,
-          marginRight: '-55px', zIndex: 1,
-          transition: 'transform 0.6s ease',
+          width: 'min(92vw, 520px)',
+          height: '128px',
+          transform: 'translate(-50%, -50%)',
+          backgroundImage: [
+            'linear-gradient(rgba(17, 24, 39, 0.09) 1px, transparent 1px)',
+            'linear-gradient(90deg, rgba(17, 24, 39, 0.09) 1px, transparent 1px)',
+            'linear-gradient(rgba(17, 24, 39, 0.05) 1px, transparent 1px)',
+            'linear-gradient(90deg, rgba(17, 24, 39, 0.05) 1px, transparent 1px)',
+            'radial-gradient(ellipse at center, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 74%)',
+          ].join(', '),
+          backgroundPosition: 'center',
+          backgroundSize: '48px 48px, 48px 48px, 12px 12px, 12px 12px, cover',
+          maskImage: 'radial-gradient(ellipse at center, black 42%, transparent 78%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 42%, transparent 78%)',
         }}
-      >
-        <img
-          src="/images/HomeImages/branch.svg"
-          aria-hidden="true"
-          style={{
-            position: 'absolute', top: '50%', left: '50%',
-            height: '120px', width: 'auto',
-            transform: 'translate(-50%, -50%) rotate(90deg)',
-            filter: 'brightness(0) opacity(0.75)',
-          }}
-        />
-      </div>
-
-      {/* Email button */}
-      <div style={{
-        position: 'relative', zIndex: 2, flexShrink: 0,
-        boxShadow: hovered ? '0 2px 14px 0px rgba(30, 120, 60, 0.22)' : '0 2px 14px 0px rgba(30, 120, 60, 0)',
-        transition: 'box-shadow 0.5s ease',
-      }}>
+      />
+      <div className="relative">
         <EmailCopy />
-      </div>
-
-      {/* Right branch — mirrored */}
-      <div
-        ref={rightRef}
-        style={{
-          width: '120px', height: '60px', position: 'relative', flexShrink: 0,
-          marginLeft: '-55px', zIndex: 1,
-          transition: 'transform 0.6s ease',
-        }}
-      >
-        <img
-          src="/images/HomeImages/branch.svg"
-          aria-hidden="true"
-          style={{
-            position: 'absolute', top: '50%', left: '50%',
-            height: '120px', width: 'auto',
-            transform: 'translate(-50%, -50%) rotate(90deg) scaleX(-1)',
-            filter: 'brightness(0) opacity(0.75)',
-          }}
-        />
       </div>
     </div>
   )

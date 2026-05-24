@@ -34,7 +34,7 @@ const PILLARS = {
     height: '86vh',
     left: '-22%',
     top: '6%',
-    background: 'linear-gradient(180deg, rgba(96,165,250,0.12), rgba(14,165,233,0.04))',
+    background: 'linear-gradient(180deg, rgba(0,0,0,0.07), rgba(0,0,0,0.02))',
     borderRadius: '28px',
     blur: 14,
   },
@@ -43,7 +43,7 @@ const PILLARS = {
     height: '86vh',
     right: '-22%',
     top: '26%',
-    background: 'linear-gradient(180deg, rgba(96,165,250,0.12), rgba(96,165,250,0.02))',
+    background: 'linear-gradient(180deg, rgba(0,0,0,0.07), rgba(0,0,0,0.02))',
     borderRadius: '28px',
     blur: 14,
   }

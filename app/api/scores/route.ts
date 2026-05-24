@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '../../../lib/supabase'
+import { getSupabase } from '../../../lib/supabase'
 
 export async function GET() {
+  const supabase = getSupabase()
+  if (!supabase) {
+    return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 })
+  }
+
   const { data, error } = await supabase
     .from('leaderboard')
     .select('name, avg_score, country')
@@ -13,6 +18,11 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const supabase = getSupabase()
+  if (!supabase) {
+    return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 })
+  }
+
   const body = await req.json()
   const { name, avg_score, country } = body
 

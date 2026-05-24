@@ -85,12 +85,9 @@ export default function BlumeHealth() {
   }, []);
 
   useEffect(() => {
-    const prev = document.documentElement.style.background;
-    document.documentElement.style.background = 'white';
-    document.body.style.background = 'white';
+    // Preserve existing document/background — avoid forcing white so global texture shows
     return () => {
-      document.documentElement.style.background = prev;
-      document.body.style.background = '';
+      // no-op
     };
   }, []);
 
@@ -180,7 +177,7 @@ export default function BlumeHealth() {
           <h1 className="text-2xl md:text-4xl font-light tracking-tight" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             Blume Health
           </h1>
-          <Image src="/images/common/sa26.svg" alt="SA" width={40} height={40} className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-20" />
+          <div aria-hidden="true" className="w-8 h-8 md:w-10 md:h-10 border border-gray-300 opacity-40" />
           <Plus h="left" />
           <Plus h="right" />
         </div>

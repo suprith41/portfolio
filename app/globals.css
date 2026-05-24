@@ -280,15 +280,121 @@ body.page-404 { background: black; }
 
 
 html {
-  background: #ffffff;
+  /* Slightly off-white base so texture contrast is visible */
+  background-color: #f7f7f7;
+  /* Tile the provided texture so the crumples are visible */
+  background-image: url('/images/HomeImages/white-crumpled-paper-texture-background-vector.jpg');
+  background-position: center center;
+  background-repeat: repeat;
+  background-size: 800px 800px;
+  background-attachment: fixed;
+  /* Multiply blend helps the texture show against white elements */
+  background-blend-mode: multiply;
   color: #171717;
   font-family: 'Garamond', Georgia, serif;
   overflow-x: clip;
   cursor: auto;
 }
 
+/* Keep body simple so components render as normal */
 body {
-  background: #ffffff;
+  background: transparent;
+}
+
+/* Global typography system */
+body {
+  font-family: var(--font-merriweather), serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), serif;
+}
+
+h1::first-letter,
+h2::first-letter,
+h3::first-letter,
+h4::first-letter,
+h5::first-letter,
+h6::first-letter {
+  font-family: var(--font-great-vibes), cursive;
+}
+
+/* Enforce requested fonts even when components use inline font styles */
+body,
+p,
+li,
+a,
+button,
+input,
+textarea,
+label,
+small,
+figcaption,
+blockquote,
+td,
+th {
+  font-family: var(--font-merriweather), serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-playfair), serif !important;
+}
+
+/* For headings split into spans, force first span to script and rest to Playfair */
+h1 > span:first-child,
+h2 > span:first-child,
+h3 > span:first-child,
+h4 > span:first-child,
+h5 > span:first-child,
+h6 > span:first-child {
+  font-family: var(--font-great-vibes), cursive !important;
+}
+
+h1 > span:not(:first-child),
+h2 > span:not(:first-child),
+h3 > span:not(:first-child),
+h4 > span:not(:first-child),
+h5 > span:not(:first-child),
+h6 > span:not(:first-child) {
+  font-family: var(--font-playfair), serif !important;
+}
+
+/* If a heading is split into words with spans, style second word initial too */
+h1 > span:nth-child(2)::first-letter,
+h2 > span:nth-child(2)::first-letter,
+h3 > span:nth-child(2)::first-letter,
+h4 > span:nth-child(2)::first-letter,
+h5 > span:nth-child(2)::first-letter,
+h6 > span:nth-child(2)::first-letter {
+  font-family: var(--font-great-vibes), cursive !important;
+}
+
+/* Preserve intended monospace markers */
+[style*="monospace"] {
+  font-family: monospace !important;
+}
+
+/* Utility override for initials that must stay in Great Vibes */
+.gv-initial {
+  font-family: var(--font-great-vibes), cursive !important;
+}
+
+h1 > span.gv-initial,
+h2 > span.gv-initial,
+h3 > span.gv-initial,
+h4 > span.gv-initial,
+h5 > span.gv-initial,
+h6 > span.gv-initial {
+  font-family: var(--font-great-vibes), cursive !important;
+}
+
+body {
+  background: transparent;
   overflow-x: hidden;
 }
 
@@ -568,5 +674,36 @@ body::-webkit-scrollbar {
 html {
   scrollbar-width: thin;
   scrollbar-color: #9ca3af #f3f4f6;
+}
+
+/* Make utility bg-white slightly translucent so the paper texture shows through */
+.bg-white {
+  background-color: rgba(255,255,255,0.92) !important;
+}
+
+/* If an element intentionally needs to be fully opaque, use .bg-opaque */
+.bg-opaque {
+  background-color: #ffffff !important;
+}
+
+/* Make large page wrappers transparent so global texture is visible */
+.min-h-screen {
+  background-color: transparent !important;
+}
+
+/* Target common inline white backgrounds and tone them down so the paper shows through.
+   This matches style attributes containing common white hex values. If an element
+   must remain fully opaque, add the `bg-opaque` class. */
+*[style*="#fff"] {
+  background-color: rgba(255,255,255,0.92) !important;
+}
+*[style*="#ffffff"] {
+  background-color: rgba(255,255,255,0.92) !important;
+}
+*[style*="background: 'white'"] {
+  background-color: rgba(255,255,255,0.92) !important;
+}
+*[style*='background: white'] {
+  background-color: rgba(255,255,255,0.92) !important;
 }
 

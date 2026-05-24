@@ -29,13 +29,7 @@ export default function Footer() {
           >
             Let&apos;s Work Together
           </p>
-          <Image
-            src="/images/common/sa26.svg"
-            alt="Suprith"
-            width={56}
-            height={56}
-            className="w-12 h-12 mb-4 opacity-80"
-          />
+          <div aria-hidden="true" className="w-12 h-12 mb-4 border border-gray-300" />
           <h3
             className="text-3xl md:text-4xl font-light text-gray-900 leading-snug"
             style={{ fontFamily: 'Garamond, Georgia, serif' }}

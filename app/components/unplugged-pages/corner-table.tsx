@@ -166,13 +166,7 @@ const CornerTable = () => {
           <h1 className="text-2xl font-light text-white" style={{ fontFamily: 'SatishSans, sans-serif' }}>
             The Corner table
           </h1>
-          <Image 
-            src="/images/common/sa26-white.svg" 
-            alt="SA Logo" 
-            width={32}
-            height={32}
-            className="w-8 h-8"
-          />
+          <div aria-hidden="true" className="w-8 h-8 border border-white/60" />
         </div>
       </div>
 

@@ -1,8 +1,7 @@
 "use client"
 
 import { usePathname, useRouter } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
-import Image from "next/image"
+import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 
@@ -10,7 +9,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 gsap.registerPlugin(ScrollToPlugin)
 
 const navItems = [
-  { name: "Work", href: "/work" },
+  { name: "Projects", href: "/work" },
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
 ]
@@ -19,59 +18,14 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const navRef = useRef<HTMLElement>(null)
-  const [isMounted, setIsMounted] = useState(false)
-  
-  // Prevent hydration mismatch by waiting for client mount
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
 
   useEffect(() => {
-    // Create the SVG displacement map for liquid glass effect
-    const mapSvg = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1">
-        <radialGradient id="lensGradient">
-          <stop offset="0%" stop-color="white" stop-opacity="1" />
-          <stop offset="55%" stop-color="gray" stop-opacity="0.4" />
-          <stop offset="80%" stop-color="black" stop-opacity="0.6" />
-          <stop offset="100%" stop-color="white" stop-opacity="1" />
-        </radialGradient>
-        <rect width="1" height="1" fill="url(#lensGradient)" />
-      </svg>
-    `
-
-    const encodedMap = encodeURIComponent(mapSvg)
-
-    // Create and inject the filter SVG
-    const filterSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-    filterSvg.style.position = "fixed"
-    filterSvg.style.top = "-10000px"
-    filterSvg.innerHTML = `
-      <defs>
-        <filter id="liquid-lens" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-          <feImage href="data:image/svg+xml;charset=utf-8,${encodedMap}" result="displacementMap" />
-          <feDisplacementMap in="SourceGraphic" in2="displacementMap" scale="40" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-          <feGaussianBlur in="displaced" stdDeviation="3" result="blurred" />
-          <feMorphology operator="dilate" radius="1" in="blurred" result="expanded" />
-          <feComposite in="expanded" in2="SourceGraphic" operator="over" />
-        </filter>
-      </defs>
-    `
-    
-    document.body.appendChild(filterSvg)
-    
-    // Animate navbar entrance
+    // Subtle entrance animation for a minimalist nav reveal.
     if (navRef.current) {
       gsap.fromTo(navRef.current,
-        { y: -100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "back.out(1.7)", delay: 0.2 }
+        { y: -20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.1 }
       )
-    }
-    
-    return () => {
-      if (filterSvg && filterSvg.parentNode) {
-        filterSvg.parentNode.removeChild(filterSvg)
-      }
     }
   }, [])
 
@@ -89,7 +43,7 @@ export default function Navbar() {
       })
     }
 
-    if (item.name === "Work") {
+    if (item.name === "Projects") {
       // Check if we're on a work page
       if (pathname.startsWith('/works/')) {
         // Navigate to home and scroll to work section
@@ -106,18 +60,6 @@ export default function Navbar() {
         navigateWithTransition('/', () => {
           setTimeout(() => {
             scrollToWorkSection()
-          }, 500)
-        })
-      }
-    } else if (item.name === "Unplug") {
-      if (pathname === '/') {
-        // Already on home, scroll to unplugged
-        scrollToUnplugSection()
-      } else {
-        // Navigate to home and scroll to unplugged
-        navigateWithTransition('/', () => {
-          setTimeout(() => {
-            scrollToUnplugSection()
           }, 500)
         })
       }
@@ -183,27 +125,6 @@ export default function Navbar() {
     }
   }
 
-  const scrollToUnplugSection = () => {
-    // Find unplugged section
-    const unpluggedSection = document.querySelector('[data-section="unplugged"]') ||
-                            // Try to find by text content containing "Unplug"
-                            Array.from(document.querySelectorAll('h2, h3')).find(el => 
-                              el.textContent?.toLowerCase().includes('unplugged')
-                            )?.closest('div')
-
-    if (unpluggedSection) {
-      gsap.to(window, {
-        duration: 1.2,
-        scrollTo: {
-          y: unpluggedSection,
-          offsetY: 100
-        },
-        ease: "power2.inOut"
-      })
-    }
-  }
-
-
   // Page transition in effect
   useEffect(() => {
     gsap.fromTo("main", 
@@ -222,62 +143,32 @@ export default function Navbar() {
   }, [pathname])
   
   return (
-    <div className="fixed top-0 left-0 right-0 flex justify-center px-3 py-4 pointer-events-none" style={{ zIndex: 10005 }}>
+    <div className="fixed top-0 left-0 right-0 flex justify-center px-4 py-4 pointer-events-none" style={{ zIndex: 10005 }}>
       <nav
         ref={navRef}
-        className={`flex items-center rounded-none py-1 relative transition-all duration-300 hover:shadow-lg pointer-events-auto w-full max-w-full md:w-auto justify-between md:justify-start ${
-          isMounted
-            ? "gap-1 md:gap-6 px-3 md:px-6"
-            : "gap-1 px-3"
-        }`}
+        className="pointer-events-auto w-full max-w-fit flex items-center justify-center gap-1 rounded-full border border-white/20 bg-white/12 px-1.5 py-1 shadow-[0_4px_18px_rgba(0,0,0,0.04)] backdrop-blur-md"
         style={{
-          background: 'rgba(255, 255, 255, 0.08)',
-          backdropFilter: 'url(#liquid-lens) blur(2px)',
-          border: '2px solid rgb(212, 212, 216)',
-          boxShadow: `
-            inset 0 1px 0 rgba(255, 255, 255, 0.2),
-            inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-            0 8px 24px rgba(0, 0, 0, 0.1)
-          `
+          WebkitBackdropFilter: 'blur(10px) saturate(115%)',
+          backdropFilter: 'blur(10px) saturate(115%)'
         }}
       >
-        {/* Corner squares - half outside */}
-        <div className="absolute -top-1 -left-1 w-2 h-2 bg-zinc-300" />
-        <div className="absolute -top-1 -right-1 w-2 h-2 bg-zinc-300" />
-        <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-zinc-300" />
-        <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-zinc-300" />
         {navItems.map((item, index) => (
-          <div key={item.name} className={`flex items-center ${isMounted ? "gap-1 md:gap-6" : "gap-1"}`}>
+          <div key={item.name} className="flex items-center gap-1">
             <button
               onClick={(e) => handleNavigation(item, e)}
-              className={`cursor-pointer font-light transition-all duration-300 relative hover:text-sky-300 hover:scale-105 ${
-                isMounted ? "text-xs md:text-sm" : "text-sm"
-              } ${
+              className={`cursor-pointer rounded-full px-3 py-1 text-xs md:text-sm transition-all duration-200 ${
                 (pathname === item.href) ||
-                (item.name === "Work" && pathname.startsWith('/works/')) ||
+                (item.name === "Projects" && pathname.startsWith('/works/')) ||
                 (item.name === "Home" && pathname === '/')
-                  ? "text-sky-300"
-                  : (item.name === "Unplug" && pathname.startsWith('/unplugged/'))
-                    ? "text-sky-300"
-                    : pathname.startsWith('/unplugged/')
-                      ? "text-white"
-                      : "text-zinc-700"
+                  ? "bg-black/8 text-black"
+                  : "text-zinc-500 hover:text-black hover:bg-white/10"
               }`}
-              style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: '400' }}
+              style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
             >
-              {item.name === "Home" ? (
-                <Image
-                  src="/images/common/sa26-filled.svg"
-                  alt="Home"
-                  width={22}
-                  height={22}
-                  className={`transition-opacity duration-300 ${pathname === '/' ? 'opacity-100' : 'opacity-40 hover:opacity-70'}`}
-                  style={pathname.startsWith('/unplugged/') ? { filter: 'invert(1)' } : {}}
-                />
-              ) : item.name}
+              {item.name}
             </button>
             {index < navItems.length - 1 && (
-              <span className={`text-zinc-300 ${isMounted ? "text-[7px] md:text-[10px]" : "text-[10px]"}`}>•</span>
+              <span className="text-zinc-300/70 text-[10px]">•</span>
             )}
           </div>
         ))}

@@ -84,7 +84,6 @@ function ProposalNav() {
           onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#111'; }}
           onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#ddd'; }}
         >
-          <img src="/images/common/sa26-filled.svg" alt="" style={{ width: 14, height: 14, display: 'block', flexShrink: 0 }} />
           View my portfolio
         </a>
       </div>
@@ -554,15 +553,9 @@ export default function XPayProposal() {
 
   useEffect(() => {
     setMounted(true);
-
-    const prevDoc = document.documentElement.style.background;
-    const prevBody = document.body.style.background;
-    document.documentElement.style.background = 'white';
-    document.body.style.background = 'white';
-
+    // Do not override document/body background so the global paper texture remains visible
     return () => {
-      document.documentElement.style.background = prevDoc;
-      document.body.style.background = prevBody;
+      // no-op cleanup
     };
   }, []);
 

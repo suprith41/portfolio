@@ -23,7 +23,6 @@ const companies: {
 export default function About() {
   const [hovered, setHovered] = useState<number | null>(null);
   const [imageHovered, setImageHovered] = useState(false);
-  const [logoHovered, setLogoHovered] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -73,37 +72,7 @@ export default function About() {
     `}</style>
       <div className="max-w-3xl mx-auto px-6 md:px-10">
 
-        {/* ── Logo ─────────────────────────────────────────────── */}
-        <div className="mb-6 mt-2 flex justify-center md:hidden">
-        <div style={{ position: "relative", display: "inline-block" }}>
-          <Image
-            src="/images/HomeImages/Satish-logo-kannada.svg"
-            alt="Suprith in Kannada"
-            width={70}
-            height={26}
-            style={{
-              opacity: logoHovered ? 0 : 1,
-              transition: "opacity 0.15s ease",
-              position: "relative",
-              filter: "brightness(0) opacity(0.5)",
-            }}
-          />
-          <Image
-            src="/images/HomeImages/satish-logo-english.svg"
-            alt="Suprith"
-            width={70}
-            height={26}
-            style={{
-              opacity: logoHovered ? 1 : 0,
-              transition: "opacity 0.15s ease",
-              position: "absolute",
-              top: 0,
-              left: 0,
-              filter: "brightness(0) opacity(0.5)",
-            }}
-          />
-        </div>
-        </div>
+        {/* ── Logo removed by request ───────────────────────────── */}
 
         {/* ── Section 1: intro + photo ─────────────────────────── */}
         <div className="flex flex-col md:flex-row md:items-end gap-10 md:gap-16 mb-10">
@@ -124,7 +93,6 @@ export default function About() {
             style={{ position: "relative" }}
             onMouseEnter={() => setImageHovered(true)}
             onMouseLeave={() => setImageHovered(false)}
-            onClick={() => setLogoHovered(prev => !prev)}
           >
             {/* Text chips */}
             {[
@@ -216,7 +184,7 @@ export default function About() {
             ))}
 
             <Image
-              src="/images/HomeImages/Satish-about.png"
+              src="/images/HomeImages/WhatsApp%20Image%202026-05-07%20at%2015.12.34%202.jpeg"
               alt="Suprith"
               width={260}
               height={320}

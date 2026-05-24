@@ -93,12 +93,9 @@ const Contact = () => {
 
                 {/* Right Column - Logo */}
                 <div className="flex items-center justify-center order-0 md:order-none">
-                  <Image
-                    src="/images/HomeImages/sa-flower-logo.png"
-                    alt="SA Flower Logo"
-                    width={250}
-                    height={250}
-                    className="w-60 h-60 md:w-80 md:h-80 object-contain"
+                  <div
+                    aria-hidden="true"
+                    className="w-60 h-60 md:w-80 md:h-80 border border-gray-300"
                   />
                 </div>
               </div>

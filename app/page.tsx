@@ -3,8 +3,6 @@ import WorkGallery from "./components/home/workGallery"
 import PillarEditor from "./components/home/PillarEditor"
 import ParallaxImages from "./components/home/ParallaxImages"
 import EmailSection from "./components/home/EmailSection"
-import VisualIdentityGallery from "./components/home/visualIdentityGallery"
-import ProposalsGallery from "./components/home/proposalsGallery"
 import PageBranches from "./components/home/PageBranches"
 import { Great_Vibes, Playfair_Display } from "next/font/google"
 
@@ -14,7 +12,7 @@ const playfairDisplay = Playfair_Display({ subsets: ["latin"], display: "swap" }
 
 export default function Home() {
   return (
-    <div className="bg-white relative">
+    <div className="bg-transparent relative">
       <PillarEditor />
 
       <PageBranches />
@@ -27,19 +25,11 @@ export default function Home() {
           <ParallaxImages />
 
           {/* Text isolated above the bloom layer so color blend doesn't affect it */}
-          <div className="relative flex flex-col items-center gap-6 md:bg-white md:px-6 md:py-4" style={{ zIndex: 5 }}>
-            <Image
-              src="/images/common/sa26.svg"
-              alt="SA26"
-              width={48}
-              height={48}
-              className="opacity-50"
-              style={{ marginBottom: '70px' }}
-            />
+          <div className="relative flex flex-col items-center gap-6 md:bg-transparent md:px-6 md:py-4" style={{ zIndex: 5 }}>
             <h1 className="text-4xl md:text-5xl tracking-tight text-black">
               <span className={greatVibes.className} style={{ fontSize: '1.55em' }}>S</span>
               <span className={playfairDisplay.className} style={{ marginLeft: '4px' }}>uprith </span>
-              <span className={greatVibes.className} style={{ fontSize: '1.55em' }}>R</span>
+              <span className={`${greatVibes.className} gv-initial`} style={{ fontSize: '1.55em' }}>R</span>
               <span className={playfairDisplay.className} style={{ marginLeft: '4px' }}>ao</span>
             </h1>
             <p
@@ -49,7 +39,6 @@ export default function Home() {
               I build compulsively, not performatively and I'm looking for a small team where the work is serious, the stakes are real, and I'm trusted with more than just a title.
             </p>
           </div>
-
           {/* Email box — absolutely anchored to bottom of first fold, not part of centered group */}
           <div className="absolute bottom-28 md:bottom-20 left-0 right-0 flex justify-center items-center" style={{ zIndex: 5 }}>
             <EmailSection />
@@ -59,16 +48,6 @@ export default function Home() {
         {/* Work section */}
         <div data-section="work">
           <WorkGallery />
-        </div>
-
-        {/* Visual Identity section */}
-        <div data-section="visual-identity">
-          <VisualIdentityGallery />
-        </div>
-
-        {/* Design Proposals section */}
-        <div data-section="proposals">
-          <ProposalsGallery />
         </div>
 
         {/* Unplugged section removed */}

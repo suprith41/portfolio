@@ -9,14 +9,13 @@ const greatVibes = Great_Vibes({ subsets: ['latin'], weight: '400', display: 'sw
 const playfairDisplay = Playfair_Display({ subsets: ['latin'], display: 'swap' })
 
 const links = [
-  { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/satish-hebbal/' },
-  { label: 'Instagram', href: 'https://www.instagram.com/sat_dez' },
-  { label: 'GitHub',    href: 'https://github.com/satish-hebbal' },
+  { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/suprith-rao-a2ba45326/' },
+  { label: 'Peerlist',  href: 'https://peerlist.io/fredyeeyee' },
+  { label: 'GitHub',    href: 'https://github.com/suprith41' },
 ]
 
 const navLinks = [
-  { label: 'Works',     href: '/#work' },
-  { label: 'Unplugged', href: '/#unplugged' },
+  { label: 'Projects',  href: '/#work' },
   { label: 'About',     href: '/about' },
 ]
 
@@ -86,13 +85,7 @@ export default function Footer() {
 
           {/* Logo + year */}
           <div className="flex items-center gap-3">
-            <Image
-              src="/images/common/sa26.svg"
-              alt="SA26"
-              width={28}
-              height={28}
-              className="opacity-40"
-            />
+            <div aria-hidden="true" className="w-7 h-7 border border-gray-300 opacity-60" />
             <span
               className="text-xs text-gray-400"
               style={{ fontFamily: 'FunnelDisplay, sans-serif' }}

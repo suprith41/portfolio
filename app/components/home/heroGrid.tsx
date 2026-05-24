@@ -20,13 +20,7 @@ export default function HeroGrid() {
     <>
       {/* ── Header ─────────────────────────────────────────── */}
       <div className="relative overflow-visible flex items-center justify-between px-6 md:px-10 py-4 border-b border-gray-200 bg-white rounded-t-lg">
-        <Image
-          src="/images/common/sa26.svg"
-          alt="SA"
-          width={40}
-          height={40}
-          className="w-8 h-8 md:w-10 md:h-10 object-contain opacity-80"
-        />
+        <div aria-hidden="true" className="w-8 h-8 md:w-10 md:h-10 border border-gray-300 opacity-80" />
         <h1
           className="text-2xl md:text-4xl font-light tracking-tight"
           style={{ fontFamily: 'Garamond, Georgia, serif' }}

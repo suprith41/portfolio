@@ -70,14 +70,14 @@ export default function ParallaxImages() {
 
       // Desktop: drift down + slide outward
       gsap.to(abhayDesktop.current, {
-        y: () =>  window.innerHeight * 0.35,
-        x: () => -window.innerWidth  * 0.25,
+        y: 0,
+        x: () =>  window.innerWidth  * 0.1,
         ease: 'none',
         scrollTrigger: st,
       })
       gsap.to(tejasDesktop.current, {
-        y: () =>  window.innerHeight * 0.35,
-        x: () =>  window.innerWidth  * 0.25,
+        y: 0,
+        x: () => -window.innerWidth  * 0.1,
         ease: 'none',
         scrollTrigger: st,
       })
@@ -90,13 +90,13 @@ export default function ParallaxImages() {
         scrub:   true,
       }
       gsap.to(abhayMobile.current, {
-        x:       () => -window.innerWidth * 0.6,
+        x:       () => window.innerWidth * 0.14,
         opacity:  0,
         ease:    'none',
         scrollTrigger: mobileScrollST,
       })
       gsap.to(tejasMobile.current, {
-        x:       () => window.innerWidth * 0.6,
+        x:       () => -window.innerWidth * 0.14,
         opacity:  0,
         ease:    'none',
         scrollTrigger: mobileScrollST,

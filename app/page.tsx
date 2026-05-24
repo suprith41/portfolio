@@ -1,4 +1,3 @@
-import Image from "next/image"
 import WorkGallery from "./components/home/workGallery"
 import PillarEditor from "./components/home/PillarEditor"
 import ParallaxImages from "./components/home/ParallaxImages"

@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname, useRouter } from "next/navigation"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 
@@ -9,7 +9,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 gsap.registerPlugin(ScrollToPlugin)
 
 const navItems = [
-  { name: "Projects", href: "/work" },
+  { name: "Projects", href: "/" },
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
 ]
@@ -18,6 +18,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const navRef = useRef<HTMLElement>(null)
+  const [activeItem, setActiveItem] = useState("Home")
 
   useEffect(() => {
     // Subtle entrance animation for a minimalist nav reveal.
@@ -28,6 +29,38 @@ export default function Navbar() {
       )
     }
   }, [])
+
+  useEffect(() => {
+    if (pathname === "/about") {
+      setActiveItem("About")
+      return
+    }
+
+    if (pathname !== "/") {
+      setActiveItem("")
+      return
+    }
+
+    const updateActiveItem = () => {
+      const workSection = document.querySelector('[data-section="work"]')
+      if (!workSection) {
+        setActiveItem("Home")
+        return
+      }
+
+      const rect = workSection.getBoundingClientRect()
+      setActiveItem(rect.top <= 140 ? "Projects" : "Home")
+    }
+
+    updateActiveItem()
+    window.addEventListener("scroll", updateActiveItem, { passive: true })
+    window.addEventListener("resize", updateActiveItem)
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveItem)
+      window.removeEventListener("resize", updateActiveItem)
+    }
+  }, [pathname])
 
   const handleNavigation = (item: typeof navItems[0], e: React.MouseEvent) => {
     e.preventDefault()
@@ -44,19 +77,10 @@ export default function Navbar() {
     }
 
     if (item.name === "Projects") {
-      // Check if we're on a work page
-      if (pathname.startsWith('/works/')) {
-        // Navigate to home and scroll to work section
-        navigateWithTransition('/', () => {
-          setTimeout(() => {
-            scrollToWorkSection()
-          }, 500)
-        })
-      } else if (pathname === '/') {
-        // Already on home, just scroll to work section
+      setActiveItem("Projects")
+      if (pathname === '/') {
         scrollToWorkSection()
       } else {
-        // Navigate to home and scroll to work
         navigateWithTransition('/', () => {
           setTimeout(() => {
             scrollToWorkSection()
@@ -64,8 +88,10 @@ export default function Navbar() {
         })
       }
     } else if (item.name === "About") {
+      setActiveItem("About")
       navigateWithTransition('/about')
     } else if (item.name === "Home") {
+      setActiveItem("Home")
       if (pathname !== '/') {
         navigateWithTransition('/')
       } else {
@@ -106,12 +132,7 @@ export default function Navbar() {
   }
 
   const scrollToWorkSection = () => {
-    // Find work section and scroll to it
-    const workSection = document.querySelector('[data-section="work"]') ||
-                       document.querySelector('.gallery-wrapper') ||
-                       Array.from(document.querySelectorAll('h2')).find(el =>
-                         el.textContent?.toLowerCase().includes('work')
-                       )?.parentElement
+    const workSection = document.querySelector('[data-section="work"]')
 
     if (workSection) {
       gsap.to(window, {
@@ -157,9 +178,7 @@ export default function Navbar() {
             <button
               onClick={(e) => handleNavigation(item, e)}
               className={`cursor-pointer rounded-full px-3 py-1 text-xs md:text-sm transition-all duration-200 ${
-                (pathname === item.href) ||
-                (item.name === "Projects" && pathname.startsWith('/works/')) ||
-                (item.name === "Home" && pathname === '/')
+                activeItem === item.name
                   ? "bg-black/8 text-black"
                   : "text-zinc-500 hover:text-black hover:bg-white/10"
               }`}

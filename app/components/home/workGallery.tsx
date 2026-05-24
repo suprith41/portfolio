@@ -33,23 +33,6 @@ const works = [
   },
 ]
 
-// Corner plus marker
-const Plus = ({ h, v = 'bottom' }: { h: 'left' | 'right'; v?: 'top' | 'bottom' }) => (
-  <span
-    className="absolute select-none pointer-events-none"
-    style={{
-      [h]: 0,
-      [v]: 0,
-      transform: `translate(${h === 'left' ? '-50%' : '50%'}, ${v === 'top' ? '-50%' : '50%'})`,
-      fontFamily: 'monospace',
-      fontSize: '13px',
-      lineHeight: 1,
-      color: '#9ca3af',
-      zIndex: 10,
-    }}
-  >+</span>
-)
-
 export default function WorkGallery() {
   const headerRef  = useRef<HTMLDivElement>(null)
   const branchContainerRef = useRef<HTMLDivElement>(null)
@@ -262,57 +245,66 @@ export default function WorkGallery() {
           style={{ width: 'auto', height: '390px', top: '85%', right: 'calc(50% - 50vw - 25px)', transform: 'translateY(0px) rotate(-18deg)', filter: 'brightness(0) opacity(0.10)' }}
         />
 
-      <div className="flex flex-col gap-10 md:gap-16">
+      <div className="flex flex-col gap-8 md:gap-10">
         {works.map((work) => (
           <div
             key={work.num}
             data-project-card
-            className="relative border border-gray-200 grid grid-cols-1 md:grid-cols-2"
+            className="grid grid-cols-1 gap-0 overflow-hidden rounded-[28px] border border-black/8 bg-white/70 shadow-[0_18px_45px_rgba(0,0,0,0.04)] backdrop-blur-sm md:min-h-[32rem] md:grid-cols-[1.2fr_0.8fr]"
           >
-            {/* Corner plus markers */}
-            <Plus h="left"  v="top" />
-            <Plus h="right" v="top" />
-            <Plus h="left"  v="bottom" />
-            <Plus h="right" v="bottom" />
-
             {/* Info — left on desktop, below image on mobile */}
-            <div className="p-6 md:p-10 flex flex-col justify-between order-2 md:order-1">
+            <div className="order-2 flex flex-col justify-between p-7 md:order-1 md:p-10">
               <div>
+                <div className="mb-5 flex items-center justify-between gap-4">
+                  <span
+                    className="text-[11px] uppercase tracking-[0.24em] text-gray-300"
+                    style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
+                  >
+                    {work.num}
+                  </span>
+                  <span
+                    className="rounded-full border border-black/8 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-gray-400"
+                    style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
+                  >
+                    Placeholder
+                  </span>
+                </div>
                 <h3
-                  className="text-2xl md:text-3xl font-light text-black mb-4"
+                  className="mb-4 text-3xl md:text-4xl font-light text-black"
                   style={{ fontFamily: 'SatishSans, sans-serif' }}
                 >
                   {work.title}
                 </h3>
                 <p
-                  className="text-sm text-gray-400 leading-relaxed max-w-sm"
+                  className="max-w-md text-sm leading-relaxed text-gray-400 md:text-[15px]"
                   style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                 >
                   {work.description}
                 </p>
               </div>
 
-              <div className="mt-8 flex items-end justify-between">
+              <div className="mt-10 flex items-center justify-between border-t border-black/6 pt-5">
                 <span
-                  className="text-xs text-gray-400"
-                  style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
-                >
-                  {work.num}
-                </span>
-                <span
-                  className="text-xs text-gray-300 uppercase tracking-[0.24em]"
+                  className="text-xs text-gray-300"
                   style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                 >
                   Coming later
+                </span>
+                <span
+                  className="text-xs uppercase tracking-[0.2em] text-gray-300"
+                  style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
+                >
+                  Portfolio
                 </span>
               </div>
             </div>
 
             {/* Placeholder visual — right on desktop, above info on mobile */}
-            <div className="relative overflow-hidden order-1 md:order-2 aspect-square flex items-center justify-center bg-[#f7f5f0]">
+            <div className="relative order-1 flex aspect-[5/4] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_top,#ffffff_0%,#f7f3ea_58%,#f1ece3_100%)] md:order-2 md:aspect-auto">
+              <div className="absolute inset-6 rounded-[24px] border border-white/70 bg-white/25" />
               <div
                 data-project-image
-                className="flex h-full w-full items-center justify-center text-[4.5rem] md:text-[6rem]"
+                className="relative flex h-full w-full items-center justify-center text-[4.75rem] md:text-[6.5rem]"
                 aria-hidden="true"
               >
                 {work.emoji}

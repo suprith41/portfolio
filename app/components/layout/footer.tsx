@@ -1,8 +1,6 @@
 "use client"
 
-import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { Great_Vibes, Playfair_Display } from 'next/font/google'
 
 const greatVibes = Great_Vibes({ subsets: ['latin'], weight: '400', display: 'swap' })
@@ -20,14 +18,8 @@ const navLinks = [
 ]
 
 export default function Footer() {
-  const pathname = usePathname()
-  const isUnpluggedPage = pathname?.startsWith('/unplugged/')
-  const isProposalPage = pathname?.startsWith('/proposals')
-
-  if (isProposalPage) return null
-
   return (
-    <footer className={`mt-16 relative overflow-visible${isUnpluggedPage ? ' md:hidden' : ''}`}>
+    <footer className="mt-16 relative overflow-visible">
 
 <div className="max-w-5xl mx-auto px-6 md:px-10">
 
@@ -85,7 +77,6 @@ export default function Footer() {
 
           {/* Logo + year */}
           <div className="flex items-center gap-3">
-            <div aria-hidden="true" className="w-7 h-7 border border-gray-300 opacity-60" />
             <span
               className="text-xs text-gray-400"
               style={{ fontFamily: 'FunnelDisplay, sans-serif' }}

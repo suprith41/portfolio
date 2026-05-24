@@ -70,7 +70,7 @@ export default function About() {
         .himg-brush  { bottom: 10px !important; left: 10px !important; right: auto !important; }
       }
     `}</style>
-      <div className="max-w-3xl mx-auto px-6 md:px-10">
+      <div className="max-w-5xl mx-auto px-6 md:px-10">
 
         {/* ── Logo removed by request ───────────────────────────── */}
 
@@ -362,13 +362,51 @@ export default function About() {
           </div>
         </div>
 
+        {/* ── GitHub contributions ────────────────────────────── */}
+        <div className="mb-20">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <p
+                className="text-xl md:text-2xl text-gray-700 leading-snug mb-2"
+                style={{ fontFamily: "SatishSans, serif", fontWeight: 400 }}
+              >
+                GitHub Contributions
+              </p>
+            </div>
+            <a
+              href="https://github.com/suprith41"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex text-xs text-gray-400 hover:text-gray-700 transition-colors duration-200"
+              style={{ fontFamily: "FunnelDisplay, sans-serif", letterSpacing: "0.08em" }}
+            >
+              View profile
+            </a>
+          </div>
+
+          <a
+            href="https://github.com/suprith41"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block transition-transform duration-200 hover:-translate-y-0.5"
+          >
+            <div className="w-full rounded-[28px] bg-transparent py-2">
+              <img
+                src="https://www.dailygreen.xyz/suprith41"
+                alt="GitHub contribution chart for suprith41"
+                className="h-auto w-full rounded-[20px]"
+              />
+            </div>
+          </a>
+        </div>
+
         {/* ── Closing CTA ──────────────────────────────────────── */}
         <div className="text-center">
           <p
             className="text-2xl md:text-3xl text-gray-700 leading-snug mb-8"
             style={{ fontFamily: "SatishSans, serif", fontWeight: 400 }}
           >
-            If you're building something and need a designer who takes ownership end to end, let's talk.
+            If you're building something real with a team where everyone in the room matters - I'm the engineer who just needs a problem worth solving.
           </p>
           <div className="inline-flex items-stretch gap-0">
             <a
@@ -376,7 +414,7 @@ export default function About() {
               className="inline-flex items-center gap-2 px-6 py-3 border border-gray-200 text-sm text-gray-500 hover:border-gray-400 hover:text-gray-800 transition-all duration-200"
               style={{ fontFamily: "FunnelDisplay, sans-serif", letterSpacing: "0.05em" }}
             >
-              say hello
+              say hey!
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

@@ -10,9 +10,21 @@ const CopyIcon = () => (
   </svg>
 )
 
-const TickIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="white">
-    <path d="M382.81-258.69 175.08-466.42l40.04-40.04 167.69 167.88 362.27-362.27 39.84 40.04-402.11 402.12Z"/>
+const ThumbIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M7.75 20.25h-3a1.5 1.5 0 0 1-1.5-1.5v-7.5a1.5 1.5 0 0 1 1.5-1.5h3v10.5Z"
+      stroke="white"
+      strokeWidth="1.6"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M7.75 10.25 11.9 4.5c.38-.53.98-.84 1.63-.84.96 0 1.72.81 1.66 1.76l-.27 4.08h3.33a2.5 2.5 0 0 1 2.43 3.1l-1.08 4.5a4 4 0 0 1-3.89 3.15H7.75v-10Z"
+      stroke="white"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 )
 
@@ -73,7 +85,12 @@ export default function EmailCopy() {
       </div>
 
       <div className={`absolute inset-0 flex items-center justify-center gap-2 text-white text-xs transition-opacity duration-200 ${copied ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <TickIcon /> copieeeeeeed!!!
+        <div
+          className={copied ? 'animate-[thumb-pop_650ms_cubic-bezier(0.34,1.56,0.64,1)]' : ''}
+          style={{ transformOrigin: 'center bottom' }}
+        >
+          <ThumbIcon />
+        </div>
       </div>
     </div>
   )

@@ -3,25 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const companies: {
-  src: string;
-  name: string;
-  year: string;
-  shadow: string;
-  tags: { label: string; rotate: number; x: number }[];
-}[] = [
-  { src: "/images/inAbout/Abhi.svg",       name: "Abhiyantrik",  year: "2025",           shadow: "rgba(99, 102, 241, 0.22)",  tags: [{ label: "IoT", rotate: -9, x: -26 }, { label: "Smart Home", rotate: 6, x: 28 }] },
-  { src: "/images/inAbout/blumeH.svg",     name: "BlumeHealth", year: "2025",           shadow: "rgba(52, 211, 153, 0.28)",  tags: [{ label: "SaaS", rotate: -7, x: -26 }, { label: "Health", rotate: 5, x: 30 }] },
-  { src: "/images/inAbout/SR.svg",         name: "SkillRadius",  year: "2026",           shadow: "rgba(109, 84, 224, 0.25)",  tags: [{ label: "LMS", rotate: -8, x: -24 }, { label: "EdTech", rotate: 6, x: 30 }] },
-  { src: "/images/inAbout/SS.svg",         name: "SkinSage",     year: "2026",           shadow: "rgba(34, 197, 94, 0.28)",   tags: [{ label: "AI", rotate: -6, x: -24 }, { label: "MedTech", rotate: 8, x: 30 }] },
-  { src: "/images/inAbout/fuellstack.svg", name: "Fuellstack",   year: "2025",           shadow: "rgba(220, 88, 20, 0.25)",   tags: [{ label: "IT Agency", rotate: -7, x: 0 }] },
-  { src: "/images/inAbout/LV.svg",         name: "LogicVeda",    year: "2025",           shadow: "rgba(109, 84, 224, 0.25)",  tags: [{ label: "EdTech", rotate: 7, x: 0 }] },
-  { src: "/images/inAbout/Storuage.svg",   name: "Storuage",     year: "2025",           shadow: "rgba(245, 158, 11, 0.28)",  tags: [{ label: "IoT", rotate: -6, x: -28 }, { label: "Smart Kitchen", rotate: 5, x: 34 }] },
-  { src: "/images/inAbout/Wagwan.svg",     name: "Wagwan",       year: "2025 - Present", shadow: "rgba(239, 68, 68, 0.25)",   tags: [{ label: "Social", rotate: -7, x: -22 }, { label: "Events", rotate: 6, x: 24 }] },
-];
-
 export default function About() {
-  const [hovered, setHovered] = useState<number | null>(null);
   const [imageHovered, setImageHovered] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -81,10 +63,10 @@ export default function About() {
               className="text-2xl md:text-3xl leading-snug text-gray-800 mb-6"
               style={{ fontFamily: "SatishSans, serif", fontWeight: 400 }}
             >
-              I'm a designer who partners with startups and takes full ownership of the work.
+              I work with early-stage teams and see things through from the problem to the decisions to what actually ships.
             </p>
             <p className="text-base text-gray-500 leading-relaxed">
-              Not just the screens, but the thinking, the decisions, and the execution. I come in early, when things are undefined, and stay until they ship.
+              I&apos;m Suprith. I build things not because it looks good on a resume or makes for a great story, but because I genuinely cannot stop. There was no big moment, no defining realization. I just started one day and somewhere along the way it became the only thing I do outside of everything else I&apos;m supposed to be doing. I&apos;m not athletic. I don&apos;t have hobbies that make me sound interesting. Building is just what I keep coming back to. What I want is pretty simple to be part of an early-stage team where the work is real, the stakes actually matter, and the room is small enough that every person in it has to show up. Not a role. Not a title. The whole thing.
             </p>
           </div>
 
@@ -191,92 +173,6 @@ export default function About() {
               className="object-cover"
               style={{ maxWidth: '260px', width: '100%', position: "relative", zIndex: 1 }}
             />
-          </div>
-        </div>
-
-        {/* ── Section 2: full-width description ───────────────── */}
-        <div className="mb-20">
-          <p className="text-base text-gray-500 leading-relaxed">
-            Across IoT interfaces, AI interfaces, SaaS products, learning management systems, event management tools, and health platforms, I've worked on some of the most diverse product challenges a designer can get. That range is deliberate. It keeps the thinking sharp, the approach adaptable, and the work honest.
-          </p>
-        </div>
-
-        {/* ── Experience timeline ──────────────────────────────── */}
-        <div className="mb-20">
-          <p
-            className="text-xl md:text-2xl text-gray-700 leading-snug mb-10"
-            style={{ fontFamily: "SatishSans, serif", fontWeight: 400 }}
-          >
-            I've helped startups take their digital products from idea to launch. These are some of the companies I've partnered with.
-          </p>
-          <div className="grid grid-cols-4 justify-items-center gap-8 md:gap-12 pb-4">
-            {companies.map((co, i) => {
-              const isHovered = hovered === i;
-              return (
-                <div
-                  key={i}
-                  className="flex flex-col items-center gap-3 flex-shrink-0"
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
-                >
-                  {/* Logo + chips wrapper */}
-                  <div style={{ position: "relative", display: "flex", justifyContent: "center", width: "60px", height: "60px" }}>
-
-                    {/* Chips — behind logo, pop up on hover */}
-                    {co.tags.map((tag, ti) => (
-                      <div
-                        key={ti}
-                        style={{
-                          position: "absolute",
-                          bottom: isHovered ? "68px" : "20px",
-                          left: "50%",
-                          transform: `translateX(calc(-50% + ${tag.x}px)) rotate(${tag.rotate}deg)`,
-                          opacity: isHovered ? 1 : 0,
-                          transition: `bottom 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) ${ti * 0.06}s, opacity 0.2s ease ${ti * 0.06}s`,
-                          zIndex: 0,
-                          background: "white",
-                          border: "1px solid #e5e7eb",
-                          borderRadius: "20px",
-                          padding: "3px 8px",
-                          fontSize: "10px",
-                          fontFamily: "FunnelDisplay, sans-serif",
-                          color: "#374151",
-                          whiteSpace: "nowrap",
-                          pointerEvents: "none",
-                          boxShadow: "0 1px 4px rgba(0,0,0,0.07)",
-                        }}
-                      >
-                        {tag.label}
-                      </div>
-                    ))}
-
-                    {/* Logo box */}
-                    <div
-                      style={{
-                        position: "relative",
-                        zIndex: 1,
-                        width: "60px",
-                        height: "60px",
-                        background: "#f3f4f6",
-                        border: "1px solid #e5e7eb",
-                        borderRadius: "30%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        overflow: "hidden",
-                        boxShadow: isHovered ? `inset 0 -14px 20px 4px ${co.shadow}` : "none",
-                        transition: "box-shadow 0.3s ease",
-                      }}
-                    >
-                      <Image src={co.src} alt={co.name} width={60} height={60} className="w-full h-full object-contain" />
-                    </div>
-                  </div>
-
-                  <span className="text-[11px] text-gray-500" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>{co.name}</span>
-                  <span className="text-[10px] text-gray-300 text-center" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>{co.year}</span>
-                </div>
-              );
-            })}
           </div>
         </div>
 

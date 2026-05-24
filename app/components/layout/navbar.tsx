@@ -18,6 +18,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const navRef = useRef<HTMLElement>(null)
+  const isCompactRef = useRef(false)
   const [activeItem, setActiveItem] = useState("Home")
 
   useEffect(() => {
@@ -27,6 +28,41 @@ export default function Navbar() {
         { y: -20, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.1 }
       )
+    }
+  }, [])
+
+  useEffect(() => {
+    const nav = navRef.current
+    if (!nav) return
+
+    const animateNav = (compact: boolean) => {
+      gsap.to(nav, {
+        y: compact ? -4 : 0,
+        scale: compact ? 0.965 : 1,
+        backgroundColor: compact ? "rgba(255,255,255,0.28)" : "rgba(255,255,255,0.12)",
+        borderColor: compact ? "rgba(255,255,255,0.34)" : "rgba(255,255,255,0.20)",
+        boxShadow: compact
+          ? "0 10px 30px rgba(0,0,0,0.08)"
+          : "0 4px 18px rgba(0,0,0,0.04)",
+        duration: 0.45,
+        ease: "power2.out",
+        overwrite: "auto",
+      })
+    }
+
+    const updateNavOnScroll = () => {
+      const shouldCompact = window.scrollY > 24
+      if (shouldCompact === isCompactRef.current) return
+
+      isCompactRef.current = shouldCompact
+      animateNav(shouldCompact)
+    }
+
+    updateNavOnScroll()
+    window.addEventListener("scroll", updateNavOnScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener("scroll", updateNavOnScroll)
     }
   }, [])
 
@@ -169,6 +205,9 @@ export default function Navbar() {
         ref={navRef}
         className="pointer-events-auto w-full max-w-fit flex items-center justify-center gap-1 rounded-full border border-white/20 bg-white/12 px-1.5 py-1 shadow-[0_4px_18px_rgba(0,0,0,0.04)] backdrop-blur-md"
         style={{
+          backgroundColor: 'rgba(255,255,255,0.12)',
+          borderColor: 'rgba(255,255,255,0.20)',
+          boxShadow: '0 4px 18px rgba(0,0,0,0.04)',
           WebkitBackdropFilter: 'blur(10px) saturate(115%)',
           backdropFilter: 'blur(10px) saturate(115%)'
         }}

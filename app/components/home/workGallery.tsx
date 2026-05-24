@@ -70,6 +70,7 @@ export default function WorkGallery() {
     const rightBranches = gsap.utils.toArray<HTMLElement>('[data-branch][data-side="right"]', container)
     const lineLeft = header?.querySelector<HTMLElement>('[data-project-line-left]')
     const lineRight = header?.querySelector<HTMLElement>('[data-project-line-right]')
+    const projectTitle = header?.querySelector<HTMLElement>('[data-project-title]')
     if (!cards.length) return
 
     const localTriggers: ScrollTrigger[] = []
@@ -128,6 +129,24 @@ export default function WorkGallery() {
     })
 
     // 4) Directional draw-in for section line and branch motifs.
+    if (projectTitle) {
+      gsap.set(projectTitle, { opacity: 0, y: 22, scale: 0.96 })
+
+      const titleTween = gsap.to(projectTitle, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.95,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: header,
+          start: 'top 86%',
+          toggleActions: 'play none none reverse',
+        },
+      })
+      if (titleTween.scrollTrigger) localTriggers.push(titleTween.scrollTrigger)
+    }
+
     if (lineLeft && lineRight) {
       gsap.set(lineLeft, { opacity: 0, scaleX: 0, transformOrigin: 'right center' })
       gsap.set(lineRight, { opacity: 0, scaleX: 0, transformOrigin: 'left center' })
@@ -201,7 +220,7 @@ export default function WorkGallery() {
       >
         <div className="relative flex items-center justify-center gap-6">
           <div data-project-line-left className="h-0 border-t border-gray-300 flex-1" />
-          <h2 className="relative bg-transparent px-3 text-2xl md:text-3xl font-light text-black shrink-0 whitespace-nowrap" style={{ marginTop: '6px' }}>
+          <h2 data-project-title className="relative bg-transparent px-3 text-2xl md:text-3xl font-light text-black shrink-0 whitespace-nowrap" style={{ marginTop: '6px' }}>
             <span style={{ fontFamily: 'SatishCapsSans, sans-serif', fontSize: '1.5em' }}>P</span><span style={{ fontFamily: 'SatishSans, sans-serif' }}>rojects</span>
           </h2>
           <div data-project-line-right className="h-0 border-t border-gray-300 flex-1" />

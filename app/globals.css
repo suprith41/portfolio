@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+@keyframes thumb-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.4) rotate(-12deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.18) rotate(8deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
 /* 404 page overrides */
 body.page-404 { background: black; }
 
@@ -706,4 +721,3 @@ html {
 *[style*='background: white'] {
   background-color: rgba(255,255,255,0.92) !important;
 }
-

@@ -36,7 +36,7 @@ export default function Home() {
             </p>
           </div>
           {/* Email box — absolutely anchored to bottom of first fold, not part of centered group */}
-          <div className="absolute bottom-28 md:bottom-20 left-0 right-0 flex justify-center items-center" style={{ zIndex: 5 }}>
+          <div className="absolute bottom-28 md:bottom-20 left-0 right-0 flex justify-center items-center" style={{ zIndex: 20 }}>
             <EmailSection />
           </div>
         </div>

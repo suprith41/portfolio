@@ -7,7 +7,9 @@ export default function EmailSection() {
     <div
       className="relative flex justify-center items-center px-4 py-8 overflow-visible"
       style={{
-        minWidth: 'min(100vw, 560px)',
+        width: 'min(92vw, 560px)',
+        maxWidth: '100%',
+        zIndex: 20,
       }}
     >
       <div

@@ -76,7 +76,7 @@ export default function EmailCopy() {
         fontFamily: 'FunnelDisplay, sans-serif',
         background: '#f97316',
         borderColor: '#f97316',
-        color: '#ffffff',
+        color: 'rgb(255, 255, 255)',
         boxShadow: copied
           ? '0 8px 24px rgba(249, 115, 22, 0.22)'
           : '0 8px 24px rgba(249, 115, 22, 0.22)',
@@ -85,22 +85,21 @@ export default function EmailCopy() {
       }}
       onClick={handleClick}
     >
-      <span className="text-sm tracking-normal select-none">{EMAIL}</span>
-      <span className="flex items-center justify-center shrink-0" style={{ color: '#ffffff' }}>
-        {copied ? (
-          <span className="flex items-center gap-1.5">
-            <span
-              className="inline-flex items-center justify-center"
-              style={{ animation: 'thumb-pop 650ms cubic-bezier(0.34, 1.56, 0.64, 1)' }}
-            >
-              <ThumbIcon />
-            </span>
-            <CheckIcon />
+      {copied ? (
+        <span
+          className="inline-flex items-center justify-center shrink-0"
+          style={{ animation: 'thumb-pop 650ms cubic-bezier(0.34, 1.56, 0.64, 1)', color: 'rgb(255, 255, 255)' }}
+        >
+          <ThumbIcon />
+        </span>
+      ) : (
+        <>
+          <span className="text-sm tracking-normal select-none">{EMAIL}</span>
+          <span className="flex items-center justify-center shrink-0" style={{ color: 'rgb(255, 255, 255)' }}>
+            <CopyIcon />
           </span>
-        ) : (
-          <CopyIcon />
-        )}
-      </span>
+        </>
+      )}
     </button>
   )
 }

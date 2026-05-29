@@ -1,4 +1,3 @@
-import WorkGallery from "./components/home/workGallery"
 import PillarEditor from "./components/home/PillarEditor"
 import ParallaxImages from "./components/home/ParallaxImages"
 import EmailSection from "./components/home/EmailSection"
@@ -42,9 +41,7 @@ export default function Home() {
         </div>
 
         {/* Work section */}
-        <div data-section="work">
-          <WorkGallery />
-        </div>
+        <div data-section="work" />
 
         {/* Unplugged section removed */}
 

@@ -40,8 +40,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Work section — wider layout */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
+      {/* Work section — slightly wider layout */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10">
         <div data-section="work" />
         <ProjectsList />
       </div>

@@ -37,19 +37,19 @@ const navLinks = [
 
 export default function Footer() {
   return (
-    <footer className="mt-20 md:mt-24 relative overflow-visible">
+    <footer className="mt-6 md:mt-8 relative overflow-visible">
       <div className="max-w-5xl mx-auto px-6 md:px-10">
         <div className="footer-signature-glow pt-2 pb-6 text-center relative flex items-center justify-center gap-0">
           <div className="relative z-10 flex flex-col items-center">
             <h2
-              className="text-[clamp(4.5rem,14vw,10.5rem)] leading-none tracking-tight text-black select-none"
+              className="text-[clamp(3rem,10vw,7.5rem)] leading-none tracking-tight text-black select-none"
               aria-hidden="true"
             >
               <span className={greatVibes.className} style={{ fontSize: '1.4em' }}>S</span>
               <span className={playfairDisplay.className} style={{ marginLeft: '6px' }}>uprith</span>
             </h2>
             <p
-              className="mt-6 text-base text-gray-400"
+              className="mt-3 text-sm text-gray-400"
               style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
             >
               AI Engineer

@@ -98,7 +98,7 @@ export default function ProjectsList() {
   const lineOpacity = useTransform(scrollYProgress, [0.2, 0.7], [0, 1])
 
   return (
-    <section className="relative w-full pt-8 pb-20 md:pt-12 md:pb-32">
+    <section className="relative w-full pt-8 pb-0 md:pt-12 md:pb-0">
 
       {/* ── Heading with Curated [Line] Projects layout and scroll‑in animation ── */}
       <div

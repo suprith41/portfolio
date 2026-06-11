@@ -267,7 +267,7 @@ function ProjectCard({ project, reversed }: CardProps) {
         reversed ? "md:border-r" : "md:border-l"
       }`}
       animate={{
-        borderColor: hovered ? `${project.accent}66` : "rgba(229, 231, 235, 0.8)",
+        borderColor: hovered ? "rgba(0, 0, 0, 0.16)" : "rgba(229, 231, 235, 0.8)",
       }}
       transition={{ duration: 0.3 }}
     >
@@ -313,20 +313,20 @@ function ProjectCard({ project, reversed }: CardProps) {
 
   return (
     <motion.div
-      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default"
+      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default md:h-[440px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       animate={{
-        borderColor: hovered ? project.accent : "rgba(229, 231, 235, 0.8)",
+        borderColor: hovered ? "rgba(0, 0, 0, 0.16)" : "rgba(229, 231, 235, 0.8)",
         boxShadow: hovered
-          ? `0 30px 60px -20px rgba(0, 0, 0, 0.04), 0 0 0 1px ${project.accent}26, 0 10px 30px -10px ${project.accent}1f`
+          ? "0 30px 60px -20px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.015)"
           : "0 4px 20px -10px rgba(0, 0, 0, 0.02)",
       }}
       transition={{ duration: 0.4 }}
     >
       {/* Two-column grid — alternates on each row */}
       <div
-        className={`grid grid-cols-1 md:grid-cols-2 items-stretch gap-0 ${
+        className={`grid grid-cols-1 md:grid-cols-2 items-stretch gap-0 h-full ${
           reversed ? "md:[direction:rtl]" : ""
         }`}
       >

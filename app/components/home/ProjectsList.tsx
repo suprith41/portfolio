@@ -166,7 +166,7 @@ export default function ProjectsList() {
 
 
       {/* ── Project cards (alternating layout) ───────────────── */}
-      <div className="flex flex-col gap-12 md:gap-16">
+      <div className="flex flex-col gap-12 md:gap-16 max-w-6xl mx-auto">
         {PROJECTS.map((project, i) => (
           <ProjectCard
             key={project.id}
@@ -268,24 +268,16 @@ function ProjectCard({ project, reversed }: CardProps) {
   )
 
   const imageBlock = (
-    <motion.div
-      className={`w-full h-full min-h-[300px] md:min-h-full relative overflow-hidden bg-gray-50 flex items-stretch border-t md:border-t-0 ${
+    <div
+      className={`w-full h-full min-h-[300px] md:min-h-full relative overflow-hidden bg-gray-50 flex items-stretch border-t md:border-t-0 border-gray-200/80 ${
         reversed ? "md:border-r" : "md:border-l"
       }`}
-      animate={{
-        borderColor: hovered ? "rgba(0, 0, 0, 0.16)" : "rgba(229, 231, 235, 0.8)",
-      }}
-      transition={{ duration: 0.3 }}
     >
-      <motion.div
+      <div
         className="w-full h-full relative flex flex-col items-center justify-center min-h-[300px] md:min-h-full"
         style={{
           background: project.placeholderBg,
         }}
-        animate={{
-          scale: hovered ? 1.025 : 1,
-        }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
         {project.image ? (
           <Image
@@ -299,23 +291,15 @@ function ProjectCard({ project, reversed }: CardProps) {
         ) : (
           /* Placeholder content */
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 select-none">
-            <motion.span
-              animate={{
-                scale: hovered ? 1.15 : 1,
-                rotate: hovered ? [0, -6, 6, 0] : 0,
-                y: hovered ? -4 : 0,
-              }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              style={{ fontSize: 72, lineHeight: 1, display: "inline-block" }}
-            >
+            <span style={{ fontSize: 72, lineHeight: 1, display: "inline-block" }}>
               {project.emoji}
-            </motion.span>
-            <motion.span
+            </span>
+            <span
               className="text-xs uppercase tracking-[0.2em] text-white/50"
               style={{ fontFamily: "FunnelDisplay, sans-serif" }}
             >
               Image coming soon
-            </motion.span>
+            </span>
           </div>
         )}
 
@@ -324,13 +308,13 @@ function ProjectCard({ project, reversed }: CardProps) {
           className="absolute inset-0"
           style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}
         />
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   )
 
   return (
     <motion.div
-      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default md:h-[380px]"
+      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default md:h-[430px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       animate={{

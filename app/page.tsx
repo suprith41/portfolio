@@ -29,7 +29,7 @@ export default function Home() {
               <span className={playfairDisplay.className} style={{ marginLeft: '4px' }}>ao</span>
             </h1>
             <p
-              className="text-sm md:text-base text-gray-400 leading-relaxed max-w-md"
+              className="text-sm md:text-base text-gray-600 leading-relaxed max-w-md"
               style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: '300' }}
             >
               I build compulsively, not performatively and I'm looking for a small team where the work is serious, the stakes are real, and I'm trusted with more than just a title.

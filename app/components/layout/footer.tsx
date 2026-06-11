@@ -37,19 +37,19 @@ const navLinks = [
 
 export default function Footer() {
   return (
-    <footer className="mt-24 md:mt-32 relative overflow-visible">
+    <footer className="mt-32 md:mt-48 py-12 md:py-16 relative overflow-visible">
       <div className="max-w-5xl mx-auto px-6 md:px-10">
-        <div className="footer-signature-glow pt-4 pb-8 text-center relative flex items-center justify-center gap-0">
+        <div className="footer-signature-glow pt-8 pb-12 text-center relative flex items-center justify-center gap-0">
           <div className="relative z-10 flex flex-col items-center">
             <h2
-              className="text-[clamp(3rem,12vw,9rem)] leading-none tracking-tight text-black select-none"
+              className="text-[clamp(4.5rem,14vw,10.5rem)] leading-none tracking-tight text-black select-none"
               aria-hidden="true"
             >
               <span className={greatVibes.className} style={{ fontSize: '1.4em' }}>S</span>
               <span className={playfairDisplay.className} style={{ marginLeft: '6px' }}>uprith</span>
             </h2>
             <p
-              className="mt-4 text-sm text-gray-400"
+              className="mt-6 text-base text-gray-400"
               style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
             >
               AI Engineer
@@ -59,22 +59,22 @@ export default function Footer() {
 
         <div className="border-t border-gray-100" />
 
-        <div className="py-5 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="py-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <span
-              className="text-xs text-gray-400"
+              className="text-sm text-gray-400"
               style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
             >
               © 2026 Suprith Rao
             </span>
           </div>
 
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-8">
             {navLinks.map((l) => (
               <Link
                 key={l.label}
                 href={l.href}
-                className="text-xs text-gray-400 hover:text-orange-500 transition-colors duration-200"
+                className="text-sm text-gray-400 hover:text-orange-500 transition-colors duration-200"
                 style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
               >
                 {l.label}
@@ -91,10 +91,10 @@ export default function Footer() {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-orange-500 transition-colors duration-200"
+                  className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-orange-500 transition-colors duration-200"
                   style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                 >
-                  <Icon size={13} className="flex-shrink-0" />
+                  <Icon size={15} className="flex-shrink-0" />
                   <span>{l.label}</span>
                 </a>
               )

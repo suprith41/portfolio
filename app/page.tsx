@@ -15,7 +15,7 @@ export default function Home() {
 
       {/* First fold — name + description, full viewport height */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-10">
-        <div className="relative min-h-[calc(100vh-120px)] flex flex-col justify-center items-center text-center gap-6 overflow-hidden md:overflow-visible">
+        <div className="relative min-h-[calc(100vh-120px)] flex flex-col justify-center items-center text-center gap-6 overflow-visible">
           <ParallaxImages />
 
           {/* Text isolated above the bloom layer so color blend doesn't affect it */}

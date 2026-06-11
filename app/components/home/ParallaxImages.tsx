@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Default config (used if no saved config exists)
+// Default config
 const DEFAULT = {
   ABHAY: {
     src: "/images/HomeImages/greek2.svg",
@@ -27,7 +27,6 @@ const DEFAULT = {
   }
 }
 
-// Decorative pillars that sit behind the parallax images
 const PILLARS = {
   LEFT: {
     width: 140,
@@ -49,68 +48,81 @@ const PILLARS = {
   }
 }
 
-const STORAGE_KEY = 'parallax-config-v1'
-
 export default function ParallaxImages() {
   const abhayDesktop = useRef<HTMLDivElement>(null)
   const tejasDesktop = useRef<HTMLDivElement>(null)
   const abhayMobile  = useRef<HTMLDivElement>(null)
   const tejasMobile  = useRef<HTMLDivElement>(null)
-  // Initialize with DEFAULT on both server and client to avoid hydration mismatch.
-  const [config, setConfig] = useState(DEFAULT)
+  const sectionRef   = useRef<HTMLDivElement>(null)
+  const [config] = useState(DEFAULT)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const st = {
-        trigger: document.body,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
-      }
+    // Small delay to let the page paint and Lenis initialize
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        // Use the section container as the trigger, not document.body
+        // This avoids stale ScrollTrigger instances after page transitions
+        const sharedST = {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.8,
+        }
 
-      // Desktop: drift down + slide outward
-      gsap.to(abhayDesktop.current, {
-        y: 0,
-        x: () =>  window.innerWidth  * 0.1,
-        ease: 'none',
-        scrollTrigger: st,
-      })
-      gsap.to(tejasDesktop.current, {
-        y: 0,
-        x: () => -window.innerWidth  * 0.1,
-        ease: 'none',
-        scrollTrigger: st,
-      })
+        // Desktop: drift outward on scroll
+        if (abhayDesktop.current) {
+          gsap.to(abhayDesktop.current, {
+            x: () => window.innerWidth * 0.1,
+            ease: 'none',
+            scrollTrigger: sharedST,
+          })
+        }
+        if (tejasDesktop.current) {
+          gsap.to(tejasDesktop.current, {
+            x: () => -window.innerWidth * 0.1,
+            ease: 'none',
+            scrollTrigger: sharedST,
+          })
+        }
 
-      // Mobile: slide off-screen to their respective sides on scroll
-      const mobileScrollST = {
-        trigger: document.body,
-        start:   'top top',
-        end:     '25% top',
-        scrub:   true,
-      }
-      gsap.to(abhayMobile.current, {
-        x:       () => window.innerWidth * 0.14,
-        opacity:  0,
-        ease:    'none',
-        scrollTrigger: mobileScrollST,
-      })
-      gsap.to(tejasMobile.current, {
-        x:       () => -window.innerWidth * 0.14,
-        opacity:  0,
-        ease:    'none',
-        scrollTrigger: mobileScrollST,
-      })
-    })
+        // Mobile: fade + slide off-screen
+        const mobileST = {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: '30% top',
+          scrub: 0.8,
+        }
+        if (abhayMobile.current) {
+          gsap.to(abhayMobile.current, {
+            x: () => window.innerWidth * 0.14,
+            opacity: 0,
+            ease: 'none',
+            scrollTrigger: mobileST,
+          })
+        }
+        if (tejasMobile.current) {
+          gsap.to(tejasMobile.current, {
+            x: () => -window.innerWidth * 0.14,
+            opacity: 0,
+            ease: 'none',
+            scrollTrigger: mobileST,
+          })
+        }
 
-    return () => ctx.revert()
+        ScrollTrigger.refresh()
+      }, sectionRef)
+
+      return ctx
+    }, 100)
+
+    return () => {
+      clearTimeout(timer)
+    }
   }, [])
 
-  // static display — editor removed
-
   return (
-    <>
-      {/* ── Decorative pillars (behind images) ───────────────────────── */}
+    <div ref={sectionRef} className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+      {/* ── Decorative pillars ─────────────────────────────────────────── */}
       <div
         className="absolute hidden md:block pointer-events-none"
         style={{
@@ -138,39 +150,51 @@ export default function ParallaxImages() {
         }}
       />
 
-      {/* ── Desktop ──────────────────────────────────────────── */}
+      {/* ── Desktop ────────────────────────────────────────────────── */}
       <div
         ref={abhayDesktop}
-        className={"absolute h-auto hidden md:block pointer-events-none"}
-        style={{ width: `${config.ABHAY.width}px`, left: config.ABHAY.left, top: config.ABHAY.top, transform: `rotate(${config.ABHAY.rotate}deg) translate(${(config.ABHAY.offset?.x||0)}px, ${(config.ABHAY.offset?.y||0)}px)`, zIndex: 10 }}
+        className="absolute h-auto hidden md:block pointer-events-none"
+        style={{
+          width: `${config.ABHAY.width}px`,
+          left: config.ABHAY.left,
+          top: config.ABHAY.top,
+          transform: `rotate(${config.ABHAY.rotate}deg) translate(${config.ABHAY.offset?.x || 0}px, ${config.ABHAY.offset?.y || 0}px)`,
+          zIndex: 10,
+          willChange: 'transform',
+        }}
       >
-        <Image src={config.ABHAY.src} alt="Abhay" width={config.ABHAY.width} height={500} className="w-full h-auto object-contain block" />
+        <Image src={config.ABHAY.src} alt="" width={config.ABHAY.width} height={500} className="w-full h-auto object-contain block" />
       </div>
       <div
         ref={tejasDesktop}
-        className={"absolute h-auto hidden md:block pointer-events-none"}
-        style={{ width: `${config.TEJAS.width}px`, right: config.TEJAS.right, top: config.TEJAS.top, transform: `rotate(${config.TEJAS.rotate}deg) translate(${(config.TEJAS.offset?.x||0)}px, ${(config.TEJAS.offset?.y||0)}px)`, zIndex: 10 }}
+        className="absolute h-auto hidden md:block pointer-events-none"
+        style={{
+          width: `${config.TEJAS.width}px`,
+          right: config.TEJAS.right,
+          top: config.TEJAS.top,
+          transform: `rotate(${config.TEJAS.rotate}deg) translate(${config.TEJAS.offset?.x || 0}px, ${config.TEJAS.offset?.y || 0}px)`,
+          zIndex: 10,
+          willChange: 'transform',
+        }}
       >
-        <Image src={config.TEJAS.src} alt="Tejas" width={config.TEJAS.width} height={500} className="w-full h-auto object-contain block" />
+        <Image src={config.TEJAS.src} alt="" width={config.TEJAS.width} height={500} className="w-full h-auto object-contain block" />
       </div>
 
-      {/* ── Mobile — fixed to viewport, no container clipping ───────────────── */}
+      {/* ── Mobile ─────────────────────────────────────────────────── */}
       <div
         ref={abhayMobile}
         className="fixed block md:hidden pointer-events-none"
-        style={{ width: 300, left: -135, top: '12vh', transform: 'rotate(22deg)', zIndex: 10 }}
+        style={{ width: 300, left: -135, top: '12vh', transform: 'rotate(22deg)', zIndex: 10, willChange: 'transform, opacity' }}
       >
-        <Image src={config.ABHAY.src} alt="Abhay" width={300} height={415} className="w-full h-auto object-contain block" />
+        <Image src={config.ABHAY.src} alt="" width={300} height={415} className="w-full h-auto object-contain block" />
       </div>
       <div
         ref={tejasMobile}
         className="fixed block md:hidden pointer-events-none"
-        style={{ width: 240, left: 'calc(100vw - 130px)', top: '22vh', transform: 'rotate(-18deg)', zIndex: 10 }}
+        style={{ width: 240, left: 'calc(100vw - 130px)', top: '22vh', transform: 'rotate(-18deg)', zIndex: 10, willChange: 'transform, opacity' }}
       >
-        <Image src={config.TEJAS.src} alt="Tejas" width={240} height={340} className="w-full h-auto object-contain block" />
+        <Image src={config.TEJAS.src} alt="" width={240} height={340} className="w-full h-auto object-contain block" />
       </div>
-
-      {/* editor removed */}
-    </>
+    </div>
   )
 }

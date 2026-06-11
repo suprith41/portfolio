@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 
-// Register GSAP plugins
 gsap.registerPlugin(ScrollToPlugin)
 
 const navItems = [
@@ -14,6 +13,10 @@ const navItems = [
   { name: "About", href: "/about" },
 ]
 
+// Shared flag so the page-in animation knows whether a transition overlay is
+// already handling the reveal (avoids double-animation races that cause freezes).
+let _isTransitioning = false
+
 export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
@@ -21,16 +24,18 @@ export default function Navbar() {
   const isCompactRef = useRef(false)
   const [activeItem, setActiveItem] = useState("Home")
 
+  // ── Entrance animation ──────────────────────────────────────────
   useEffect(() => {
-    // Subtle entrance animation for a minimalist nav reveal.
     if (navRef.current) {
-      gsap.fromTo(navRef.current,
+      gsap.fromTo(
+        navRef.current,
         { y: -20, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.1 }
       )
     }
   }, [])
 
+  // ── Compact on scroll ───────────────────────────────────────────
   useEffect(() => {
     const nav = navRef.current
     if (!nav) return
@@ -53,25 +58,21 @@ export default function Navbar() {
     const updateNavOnScroll = () => {
       const shouldCompact = window.scrollY > 24
       if (shouldCompact === isCompactRef.current) return
-
       isCompactRef.current = shouldCompact
       animateNav(shouldCompact)
     }
 
     updateNavOnScroll()
     window.addEventListener("scroll", updateNavOnScroll, { passive: true })
-
-    return () => {
-      window.removeEventListener("scroll", updateNavOnScroll)
-    }
+    return () => window.removeEventListener("scroll", updateNavOnScroll)
   }, [])
 
+  // ── Active item detection ───────────────────────────────────────
   useEffect(() => {
     if (pathname === "/about") {
       setActiveItem("About")
       return
     }
-
     if (pathname !== "/") {
       setActiveItem("")
       return
@@ -79,11 +80,7 @@ export default function Navbar() {
 
     const updateActiveItem = () => {
       const workSection = document.querySelector('[data-section="work"]')
-      if (!workSection) {
-        setActiveItem("Home")
-        return
-      }
-
+      if (!workSection) { setActiveItem("Home"); return }
       const rect = workSection.getBoundingClientRect()
       setActiveItem(rect.top <= 140 ? "Projects" : "Home")
     }
@@ -91,114 +88,99 @@ export default function Navbar() {
     updateActiveItem()
     window.addEventListener("scroll", updateActiveItem, { passive: true })
     window.addEventListener("resize", updateActiveItem)
-
     return () => {
       window.removeEventListener("scroll", updateActiveItem)
       window.removeEventListener("resize", updateActiveItem)
     }
   }, [pathname])
 
+  // ── Page-in animation (fires on every pathname change) ──────────
+  useEffect(() => {
+    // Kill any leftover out-animation on <main> so we always start fresh
+    gsap.killTweensOf("main")
+
+    if (_isTransitioning) {
+      // A navigate-with-transition call already set main to opacity:0 / y:50.
+      // Just animate back in.
+      _isTransitioning = false
+      gsap.fromTo(
+        "main",
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.55, ease: "power3.out", delay: 0.05 }
+      )
+    } else {
+      // Direct load / back-button: ensure main is visible immediately
+      gsap.set("main", { y: 0, opacity: 1 })
+    }
+  }, [pathname])
+
+  // ── Navigation helpers ──────────────────────────────────────────
+  const navigateWithTransition = (href: string, afterPush?: () => void) => {
+    if (_isTransitioning) return   // prevent double-clicks
+    _isTransitioning = true
+
+    gsap.to("main", {
+      y: 40,
+      opacity: 0,
+      duration: 0.32,
+      ease: "power2.in",
+      onComplete: () => {
+        router.push(href)
+        if (afterPush) afterPush()
+      },
+    })
+  }
+
+  const scrollToTop = () => {
+    const lenis = (window as any).__lenis
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 1.1, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
+    } else {
+      gsap.to(window, { duration: 1.1, scrollTo: { y: 0 }, ease: "power2.inOut" })
+    }
+  }
+
+  const scrollToWorkSection = () => {
+    const workSection = document.querySelector('[data-section="work"]')
+    if (!workSection) return
+    const lenis = (window as any).__lenis
+    if (lenis) {
+      lenis.scrollTo(workSection as HTMLElement, { offset: -100, duration: 1.1 })
+    } else {
+      gsap.to(window, { duration: 1.1, scrollTo: { y: workSection, offsetY: 100 }, ease: "power2.inOut" })
+    }
+  }
+
   const handleNavigation = (item: typeof navItems[0], e: React.MouseEvent) => {
     e.preventDefault()
-    
-    // Add click animation
-    if (navRef.current) {
-      gsap.to(navRef.current, {
-        scale: 0.95,
-        duration: 0.1,
-        yoyo: true,
-        repeat: 1,
-        ease: "power2.inOut"
-      })
-    }
 
     if (item.name === "Projects") {
       setActiveItem("Projects")
-      if (pathname === '/') {
+      if (pathname === "/") {
         scrollToWorkSection()
       } else {
-        navigateWithTransition('/', () => {
-          setTimeout(() => {
-            scrollToWorkSection()
-          }, 500)
+        navigateWithTransition("/", () => {
+          setTimeout(scrollToWorkSection, 620)
         })
       }
     } else if (item.name === "About") {
+      if (pathname === "/about") return   // already there
       setActiveItem("About")
-      navigateWithTransition('/about')
+      navigateWithTransition("/about")
     } else if (item.name === "Home") {
       setActiveItem("Home")
-      if (pathname !== '/') {
-        navigateWithTransition('/')
+      if (pathname !== "/") {
+        navigateWithTransition("/")
       } else {
-        // Already on home, scroll to top
         scrollToTop()
       }
     } else {
-      // Handle other navigation items
       if (pathname !== item.href) {
         navigateWithTransition(item.href)
       }
     }
   }
 
-  const navigateWithTransition = (href: string, callback?: () => void) => {
-    // Page transition out
-    gsap.to("main", {
-      y: 50,
-      opacity: 0,
-      duration: 0.4,
-      ease: "power2.inOut",
-      onComplete: () => {
-        router.push(href)
-        if (callback) callback()
-      }
-    })
-  }
-
-  const scrollToTop = () => {
-    gsap.to(window, {
-      duration: 1.2,
-      scrollTo: {
-        y: 0,
-        offsetY: 0
-      },
-      ease: "power2.inOut"
-    })
-  }
-
-  const scrollToWorkSection = () => {
-    const workSection = document.querySelector('[data-section="work"]')
-
-    if (workSection) {
-      gsap.to(window, {
-        duration: 1.2,
-        scrollTo: {
-          y: workSection,
-          offsetY: 100
-        },
-        ease: "power2.inOut"
-      })
-    }
-  }
-
-  // Page transition in effect
-  useEffect(() => {
-    gsap.fromTo("main", 
-      { 
-        y: 50, 
-        opacity: 0 
-      },
-      { 
-        y: 0, 
-        opacity: 1, 
-        duration: 0.6,
-        ease: "power2.out",
-        delay: 0.1
-      }
-    )
-  }, [pathname])
-  
   return (
     <div className="fixed top-0 left-0 right-0 flex justify-center px-4 py-4 pointer-events-none" style={{ zIndex: 10005 }}>
       <nav
@@ -209,7 +191,7 @@ export default function Navbar() {
           borderColor: 'rgba(255,255,255,0.20)',
           boxShadow: '0 4px 18px rgba(0,0,0,0.04)',
           WebkitBackdropFilter: 'blur(10px) saturate(115%)',
-          backdropFilter: 'blur(10px) saturate(115%)'
+          backdropFilter: 'blur(10px) saturate(115%)',
         }}
       >
         {navItems.map((item, index) => (

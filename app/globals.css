@@ -303,6 +303,14 @@ html {
   cursor: auto;
 }
 
+/* GPU compositing layer for page-level transitions — prevents paint jank */
+main {
+  will-change: opacity, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 /* Keep body simple so components render as normal */
 body {
   background: transparent;
@@ -719,7 +727,7 @@ html,
 body {
   background-color: #ffffff;
   background-image: none;
-  transition: background-color 300ms ease;
+  /* No background transition — prevents white flash during page switches */
 }
 
 .project-section-grid {

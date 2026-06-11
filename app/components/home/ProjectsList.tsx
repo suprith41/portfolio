@@ -3,77 +3,98 @@
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Github } from "lucide-react"
 
 /* ─────────────────────────────────────────────────────────────────
    DATA  — placeholder names & emojis; swap in real content later
 ───────────────────────────────────────────────────────────────── */
 
-const PROJECTS = [
+interface Project {
+  id: number
+  index: string
+  client: string
+  name: string
+  year: string
+  image?: string
+  description: string
+  emoji: string
+  accent: string
+  placeholderBg: string
+  link?: string
+  github?: string
+}
+
+const PROJECTS: Project[] = [
   {
     id: 1,
     index: "01",
-    client: "CLIENT · CATEGORY",
-    name: "Project A",
+    client: "AI Consulting Firm",
+    name: "Cosmog",
     year: "2025",
     image: "/images/HomeImages/cosmog1.png",
     description:
-      "Placeholder description for Project A. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
+      "Cosmog is your personal AI consultant. Answer 5 questions, get a specific diagnosis of exactly where your workflow breaks down and what to do about it.",
     emoji: "🔮",
     accent: "#f97316",
     placeholderBg: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+    link: "https://cosmog-theta.vercel.app/",
+    github: "https://github.com/suprith41/cosmog",
   },
   {
     id: 2,
     index: "02",
-    client: "CLIENT · CATEGORY",
-    name: "Project B",
+    client: "AI Wealth Tracking",
+    name: "Rapidash",
     year: "2025",
-    image: undefined as string | undefined,
+    image: "/images/HomeImages/Rapidash.png",
     description:
-      "Placeholder description for Project B. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
+      "Turn your broker PDF into a full portfolio dashboard. AI-powered parsing, health scoring, SIP recommendations and audit trails. Built for Indian retail investors.",
     emoji: "⚡",
     accent: "#f97316",
     placeholderBg: "linear-gradient(135deg, #2d1b69 0%, #6b21a8 50%, #9333ea 100%)",
+    github: "https://github.com/suprith41",
   },
   {
     id: 3,
     index: "03",
-    client: "CLIENT · CATEGORY",
+    client: "AI Consulting Firm",
     name: "Project C",
     year: "2024",
-    image: undefined as string | undefined,
+    image: undefined,
     description:
       "Placeholder description for Project C. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🌿",
     accent: "#f97316",
     placeholderBg: "linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)",
+    github: "https://github.com/suprith41",
   },
   {
     id: 4,
     index: "04",
-    client: "CLIENT · CATEGORY",
+    client: "AI Consulting Firm",
     name: "Project D",
     year: "2024",
-    image: undefined as string | undefined,
+    image: undefined,
     description:
       "Placeholder description for Project D. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🧪",
     accent: "#f97316",
     placeholderBg: "linear-gradient(135deg, #7c2d12 0%, #c2410c 50%, #ea580c 100%)",
+    github: "https://github.com/suprith41",
   },
   {
     id: 5,
     index: "05",
-    client: "CLIENT · CATEGORY",
+    client: "AI Consulting Firm",
     name: "Project E",
     year: "2023",
-    image: undefined as string | undefined,
+    image: undefined,
     description:
       "Placeholder description for Project E. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🛠",
     accent: "#f97316",
     placeholderBg: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)",
+    github: "https://github.com/suprith41",
   },
 ]
 
@@ -166,7 +187,7 @@ export default function ProjectsList() {
 
 
       {/* ── Project cards (alternating layout) ───────────────── */}
-      <div className="flex flex-col gap-12 md:gap-16 max-w-6xl mx-auto">
+      <div className="flex flex-col gap-12 md:gap-16 max-w-7xl mx-auto">
         {PROJECTS.map((project, i) => (
           <ProjectCard
             key={project.id}
@@ -213,7 +234,7 @@ function ProjectCard({ project, reversed }: CardProps) {
           className="text-2xl md:text-4xl leading-tight mb-5 text-gray-900"
           style={{
             fontFamily: "var(--font-playfair), serif",
-            fontWeight: 700,
+            fontWeight: 400,
             letterSpacing: "-0.01em",
           }}
         >
@@ -222,46 +243,71 @@ function ProjectCard({ project, reversed }: CardProps) {
 
         {/* Description */}
         <p
-          className="text-sm md:text-base text-gray-500 leading-relaxed max-w-md font-light"
+          className="text-sm md:text-base text-gray-500 leading-relaxed max-w-md font-normal"
           style={{ fontFamily: "FunnelDisplay, sans-serif" }}
         >
           {project.description}
         </p>
       </div>
 
-      {/* Bottom Section: Year + CTA Button */}
+      {/* Bottom Section: GitHub + CTA Button */}
       <div className="flex items-end justify-between w-full mt-10 md:mt-16">
-        {/* Year */}
-        <span
-          className="text-xs tracking-wider text-gray-400 font-mono"
-          style={{ fontFamily: "FunnelDisplay, sans-serif" }}
+        {/* GitHub Button */}
+        <motion.a
+          href={project.github || "https://github.com/suprith41"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 border px-5 py-2.5 text-xs uppercase tracking-wider font-normal bg-transparent"
+          style={{ textDecoration: "none", fontFamily: "FunnelDisplay, sans-serif" }}
+          animate={{
+            backgroundColor: hovered ? "rgba(17, 24, 39, 0.05)" : "rgba(255, 255, 255, 0)",
+            borderColor: hovered ? "#111827" : "rgba(229, 231, 235, 0.8)",
+            color: hovered ? "#111827" : "#9ca3af",
+          }}
+          transition={{ duration: 0.2 }}
         >
-          {project.year}
-        </span>
+          <Github size={14} />
+          GitHub
+        </motion.a>
 
         {/* CTA button (Rectangular outline style) */}
         <motion.a
-          href="#"
-          className="inline-flex items-center gap-2 border px-5 py-2.5 text-xs uppercase tracking-wider font-semibold bg-transparent"
-          style={{ textDecoration: "none", fontFamily: "FunnelDisplay, sans-serif" }}
+          href={project.link || "#"}
+          target={project.link ? "_blank" : undefined}
+          rel={project.link ? "noopener noreferrer" : undefined}
+          className="relative inline-flex items-center gap-2 border px-5 py-2.5 text-xs uppercase tracking-wider font-normal bg-transparent overflow-hidden"
+          style={{ textDecoration: "none", fontFamily: "FunnelDisplay, sans-serif", isolation: "isolate" }}
           animate={{
-            backgroundColor: hovered ? project.accent : "rgba(255, 255, 255, 0)",
             borderColor: hovered ? project.accent : "#111827",
             color: hovered ? "#ffffff" : "#111827",
           }}
           transition={{ duration: 0.2 }}
         >
-          View project
-          <motion.span
+          {/* Orange Gradient Overlay */}
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(135deg, ${project.accent} 0%, #ff8c3a 100%)`,
+              zIndex: 0,
+            }}
             animate={{
-              x: hovered ? 2 : 0,
-              y: hovered ? -2 : 0,
+              opacity: hovered ? 1 : 0,
             }}
             transition={{ duration: 0.2 }}
-            style={{ display: "inline-flex" }}
-          >
-            <ArrowUpRight size={14} />
-          </motion.span>
+          />
+          <span className="relative z-10 flex items-center gap-2">
+            View project
+            <motion.span
+              animate={{
+                x: hovered ? 2 : 0,
+                y: hovered ? -2 : 0,
+              }}
+              transition={{ duration: 0.2 }}
+              style={{ display: "inline-flex" }}
+            >
+              <ArrowUpRight size={14} />
+            </motion.span>
+          </span>
         </motion.a>
       </div>
     </div>
@@ -314,7 +360,7 @@ function ProjectCard({ project, reversed }: CardProps) {
 
   return (
     <motion.div
-      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default md:h-[430px]"
+      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default md:h-[478px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       animate={{

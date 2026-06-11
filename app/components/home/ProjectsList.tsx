@@ -14,6 +14,7 @@ const PROJECTS = [
     index: "01",
     client: "CLIENT · CATEGORY",
     name: "Project A",
+    year: "2025",
     description:
       "Placeholder description for Project A. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🔮",
@@ -25,6 +26,7 @@ const PROJECTS = [
     index: "02",
     client: "CLIENT · CATEGORY",
     name: "Project B",
+    year: "2025",
     description:
       "Placeholder description for Project B. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "⚡",
@@ -36,6 +38,7 @@ const PROJECTS = [
     index: "03",
     client: "CLIENT · CATEGORY",
     name: "Project C",
+    year: "2024",
     description:
       "Placeholder description for Project C. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🌿",
@@ -47,6 +50,7 @@ const PROJECTS = [
     index: "04",
     client: "CLIENT · CATEGORY",
     name: "Project D",
+    year: "2024",
     description:
       "Placeholder description for Project D. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🧪",
@@ -58,6 +62,7 @@ const PROJECTS = [
     index: "05",
     client: "CLIENT · CATEGORY",
     name: "Project E",
+    year: "2023",
     description:
       "Placeholder description for Project E. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🛠",
@@ -155,7 +160,7 @@ export default function ProjectsList() {
 
 
       {/* ── Project cards (alternating layout) ───────────────── */}
-      <div className="flex flex-col gap-0">
+      <div className="flex flex-col gap-12 md:gap-16">
         {PROJECTS.map((project, i) => (
           <ProjectCard
             key={project.id}
@@ -182,115 +187,146 @@ function ProjectCard({ project, reversed }: CardProps) {
   const [hovered, setHovered] = useState(false)
 
   const textBlock = (
-    <div className="flex flex-col justify-center h-full py-4 md:py-0">
-      {/* Client / category label */}
-      <p
-        className="text-[11px] uppercase tracking-[0.2em] mb-4 md:mb-5"
-        style={{
-          fontFamily: "FunnelDisplay, sans-serif",
-          color: hovered ? project.accent : "#9ca3af",
-          transition: "color 0.25s ease",
-        }}
-      >
-        {project.index} — {project.client}
-      </p>
+    <div className="flex flex-col justify-between h-full p-8 md:p-12">
+      {/* Top Section: Client + Title + Description */}
+      <div>
+        {/* Client / category label */}
+        <motion.p
+          className="text-[10px] uppercase tracking-[0.2em] mb-4 font-mono"
+          style={{ fontFamily: "FunnelDisplay, sans-serif" }}
+          animate={{
+            color: hovered ? project.accent : "#9ca3af",
+          }}
+          transition={{ duration: 0.25 }}
+        >
+          {project.index} — {project.client}
+        </motion.p>
 
-      {/* Project name */}
-      <h3
-        className="text-3xl md:text-5xl leading-tight mb-5 md:mb-6"
-        style={{
-          fontFamily: "var(--font-playfair), serif",
-          fontWeight: 700,
-          color: hovered ? "#111827" : "#1f2937",
-          transition: "color 0.25s ease",
-          letterSpacing: "-0.01em",
-        }}
-      >
-        {project.name}
-      </h3>
-
-      {/* Description */}
-      <p
-        className="text-sm md:text-base text-gray-500 leading-relaxed mb-8 md:mb-10 max-w-sm"
-        style={{ fontFamily: "FunnelDisplay, sans-serif", fontWeight: 300 }}
-      >
-        {project.description}
-      </p>
-
-      {/* CTA button */}
-      <motion.a
-        href="#"
-        className="inline-flex items-center gap-2 self-start"
-        whileHover={{ x: 3 }}
-        transition={{ duration: 0.2 }}
-        style={{ textDecoration: "none" }}
-      >
-        <span
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium"
+        {/* Project name */}
+        <h3
+          className="text-2xl md:text-4xl leading-tight mb-5 text-gray-900"
           style={{
-            fontFamily: "FunnelDisplay, sans-serif",
-            background: hovered ? "#111827" : "#1f2937",
-            color: "#fff",
-            transition: "background 0.25s ease",
-            letterSpacing: "0.02em",
+            fontFamily: "var(--font-playfair), serif",
+            fontWeight: 700,
+            letterSpacing: "-0.01em",
           }}
         >
-          View project
-          <ArrowUpRight size={14} />
+          {project.name}
+        </h3>
+
+        {/* Description */}
+        <p
+          className="text-sm md:text-base text-gray-500 leading-relaxed max-w-md font-light"
+          style={{ fontFamily: "FunnelDisplay, sans-serif" }}
+        >
+          {project.description}
+        </p>
+      </div>
+
+      {/* Bottom Section: Year + CTA Button */}
+      <div className="flex items-end justify-between w-full mt-10 md:mt-16">
+        {/* Year */}
+        <span
+          className="text-xs tracking-wider text-gray-400 font-mono"
+          style={{ fontFamily: "FunnelDisplay, sans-serif" }}
+        >
+          {project.year}
         </span>
-      </motion.a>
+
+        {/* CTA button (Rectangular outline style) */}
+        <motion.a
+          href="#"
+          className="inline-flex items-center gap-2 border px-5 py-2.5 text-xs uppercase tracking-wider font-semibold bg-transparent"
+          style={{ textDecoration: "none", fontFamily: "FunnelDisplay, sans-serif" }}
+          animate={{
+            backgroundColor: hovered ? project.accent : "rgba(255, 255, 255, 0)",
+            borderColor: hovered ? project.accent : "#111827",
+            color: hovered ? "#ffffff" : "#111827",
+          }}
+          transition={{ duration: 0.2 }}
+        >
+          View project
+          <motion.span
+            animate={{
+              x: hovered ? 2 : 0,
+              y: hovered ? -2 : 0,
+            }}
+            transition={{ duration: 0.2 }}
+            style={{ display: "inline-flex" }}
+          >
+            <ArrowUpRight size={14} />
+          </motion.span>
+        </motion.a>
+      </div>
     </div>
   )
 
   const imageBlock = (
     <motion.div
-      className="relative w-full overflow-hidden"
-      style={{
-        borderRadius: 20,
-        aspectRatio: "4/3",
-        background: project.placeholderBg,
-        cursor: "default",
+      className={`w-full h-full min-h-[300px] md:min-h-full relative overflow-hidden bg-gray-50 flex items-stretch border-t md:border-t-0 ${
+        reversed ? "md:border-r" : "md:border-l"
+      }`}
+      animate={{
+        borderColor: hovered ? `${project.accent}66` : "rgba(229, 231, 235, 0.8)",
       }}
-      animate={{ scale: hovered ? 1.015 : 1 }}
-      transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+      transition={{ duration: 0.3 }}
     >
-      {/* Placeholder content — replace with <Image> later */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 select-none">
-        <span style={{ fontSize: 72, lineHeight: 1 }}>{project.emoji}</span>
-        <span
-          className="text-xs uppercase tracking-[0.2em] text-white/50"
-          style={{ fontFamily: "FunnelDisplay, sans-serif" }}
-        >
-          Image coming soon
-        </span>
-      </div>
+      <motion.div
+        className="w-full h-full relative flex flex-col items-center justify-center min-h-[300px] md:min-h-full"
+        style={{
+          background: project.placeholderBg,
+        }}
+        animate={{
+          scale: hovered ? 1.025 : 1,
+        }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* Placeholder content */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 select-none">
+          <motion.span
+            animate={{
+              scale: hovered ? 1.15 : 1,
+              rotate: hovered ? [0, -6, 6, 0] : 0,
+              y: hovered ? -4 : 0,
+            }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            style={{ fontSize: 72, lineHeight: 1, display: "inline-block" }}
+          >
+            {project.emoji}
+          </motion.span>
+          <motion.span
+            className="text-xs uppercase tracking-[0.2em] text-white/50"
+            style={{ fontFamily: "FunnelDisplay, sans-serif" }}
+          >
+            Image coming soon
+          </motion.span>
+        </div>
 
-      {/* Subtle inner border */}
-      <div
-        className="absolute inset-0 rounded-[20px]"
-        style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}
-      />
+        {/* Subtle inner border */}
+        <div
+          className="absolute inset-0"
+          style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}
+        />
+      </motion.div>
     </motion.div>
   )
 
   return (
-    <div
-      className="relative py-14 md:py-20"
+    <motion.div
+      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      animate={{
+        borderColor: hovered ? project.accent : "rgba(229, 231, 235, 0.8)",
+        boxShadow: hovered
+          ? `0 30px 60px -20px rgba(0, 0, 0, 0.04), 0 0 0 1px ${project.accent}26, 0 10px 30px -10px ${project.accent}1f`
+          : "0 4px 20px -10px rgba(0, 0, 0, 0.02)",
+      }}
+      transition={{ duration: 0.4 }}
     >
-      {/* Top divider */}
-      <motion.div
-        className="absolute top-0 left-0 right-0 h-px"
-        animate={{
-          backgroundColor: hovered ? "rgba(249,115,22,0.3)" : "rgba(17,24,39,0.09)",
-        }}
-        transition={{ duration: 0.3 }}
-      />
-
       {/* Two-column grid — alternates on each row */}
       <div
-        className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center ${
+        className={`grid grid-cols-1 md:grid-cols-2 items-stretch gap-0 ${
           reversed ? "md:[direction:rtl]" : ""
         }`}
       >
@@ -302,6 +338,6 @@ function ProjectCard({ project, reversed }: CardProps) {
           {imageBlock}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

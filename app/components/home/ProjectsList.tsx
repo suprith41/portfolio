@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import Image from "next/image"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 
@@ -15,6 +16,7 @@ const PROJECTS = [
     client: "CLIENT · CATEGORY",
     name: "Project A",
     year: "2025",
+    image: "/images/HomeImages/cosmog1.png",
     description:
       "Placeholder description for Project A. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🔮",
@@ -27,6 +29,7 @@ const PROJECTS = [
     client: "CLIENT · CATEGORY",
     name: "Project B",
     year: "2025",
+    image: undefined as string | undefined,
     description:
       "Placeholder description for Project B. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "⚡",
@@ -39,6 +42,7 @@ const PROJECTS = [
     client: "CLIENT · CATEGORY",
     name: "Project C",
     year: "2024",
+    image: undefined as string | undefined,
     description:
       "Placeholder description for Project C. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🌿",
@@ -51,6 +55,7 @@ const PROJECTS = [
     client: "CLIENT · CATEGORY",
     name: "Project D",
     year: "2024",
+    image: undefined as string | undefined,
     description:
       "Placeholder description for Project D. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🧪",
@@ -63,6 +68,7 @@ const PROJECTS = [
     client: "CLIENT · CATEGORY",
     name: "Project E",
     year: "2023",
+    image: undefined as string | undefined,
     description:
       "Placeholder description for Project E. This will be replaced with a real summary of the work, the problem it solved, and the impact it created.",
     emoji: "🛠",
@@ -281,26 +287,37 @@ function ProjectCard({ project, reversed }: CardProps) {
         }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Placeholder content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 select-none">
-          <motion.span
-            animate={{
-              scale: hovered ? 1.15 : 1,
-              rotate: hovered ? [0, -6, 6, 0] : 0,
-              y: hovered ? -4 : 0,
-            }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            style={{ fontSize: 72, lineHeight: 1, display: "inline-block" }}
-          >
-            {project.emoji}
-          </motion.span>
-          <motion.span
-            className="text-xs uppercase tracking-[0.2em] text-white/50"
-            style={{ fontFamily: "FunnelDisplay, sans-serif" }}
-          >
-            Image coming soon
-          </motion.span>
-        </div>
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.name}
+            fill
+            sizes="(max-w-768px) 100vw, 50vw"
+            className="object-cover select-none pointer-events-none"
+            priority={project.id === 1}
+          />
+        ) : (
+          /* Placeholder content */
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 select-none">
+            <motion.span
+              animate={{
+                scale: hovered ? 1.15 : 1,
+                rotate: hovered ? [0, -6, 6, 0] : 0,
+                y: hovered ? -4 : 0,
+              }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              style={{ fontSize: 72, lineHeight: 1, display: "inline-block" }}
+            >
+              {project.emoji}
+            </motion.span>
+            <motion.span
+              className="text-xs uppercase tracking-[0.2em] text-white/50"
+              style={{ fontFamily: "FunnelDisplay, sans-serif" }}
+            >
+              Image coming soon
+            </motion.span>
+          </div>
+        )}
 
         {/* Subtle inner border */}
         <div
@@ -313,7 +330,7 @@ function ProjectCard({ project, reversed }: CardProps) {
 
   return (
     <motion.div
-      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default md:h-[440px]"
+      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default md:h-[380px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       animate={{
@@ -326,7 +343,7 @@ function ProjectCard({ project, reversed }: CardProps) {
     >
       {/* Two-column grid — alternates on each row */}
       <div
-        className={`grid grid-cols-1 md:grid-cols-2 items-stretch gap-0 h-full ${
+        className={`grid grid-cols-1 md:grid-cols-[42%_58%] items-stretch gap-0 h-full ${
           reversed ? "md:[direction:rtl]" : ""
         }`}
       >

@@ -1,6 +1,7 @@
 import PillarEditor from "./components/home/PillarEditor"
 import ParallaxImages from "./components/home/ParallaxImages"
 import EmailSection from "./components/home/EmailSection"
+import ProjectsList from "./components/home/ProjectsList"
 import { Great_Vibes, Playfair_Display } from "next/font/google"
 
 const greatVibes = Great_Vibes({ subsets: ["latin"], weight: "400", display: "swap" })
@@ -42,8 +43,7 @@ export default function Home() {
 
         {/* Work section */}
         <div data-section="work" />
-
-        {/* Unplugged section removed */}
+        <ProjectsList />
 
       </div>
 

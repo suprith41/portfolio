@@ -295,16 +295,8 @@ body.page-404 { background: black; }
 
 
 html {
-  /* Slightly off-white base so texture contrast is visible */
-  background-color: #f7f7f7;
-  /* Tile the provided texture so the crumples are visible */
-  background-image: url('/images/HomeImages/white-crumpled-paper-texture-background-vector.jpg');
-  background-position: center center;
-  background-repeat: repeat;
-  background-size: 800px 800px;
-  background-attachment: fixed;
-  /* Multiply blend helps the texture show against white elements */
-  background-blend-mode: multiply;
+  background-color: #ffffff;
+  background-image: none;
   color: #171717;
   font-family: 'Garamond', Georgia, serif;
   overflow-x: clip;
@@ -692,12 +684,7 @@ html {
   scrollbar-color: #9ca3af #f3f4f6;
 }
 
-/* Make utility bg-white slightly translucent so the paper texture shows through */
-.bg-white {
-  background-color: rgba(255,255,255,0.92) !important;
-}
-
-/* If an element intentionally needs to be fully opaque, use .bg-opaque */
+.bg-white,
 .bg-opaque {
   background-color: #ffffff !important;
 }
@@ -730,16 +717,9 @@ html {
 
 html,
 body {
-  background-color: var(--site-bg-color);
-  background-image: var(--site-bg-image);
-  background-repeat: repeat;
-  background-size: 900px auto;
-  transition: background-color 300ms ease, background-image 300ms ease;
-}
-
-html[data-theme='dark'] {
-  --site-bg-color: #f4f3ef;
-  --site-bg-image: url('/images/HomeImages/white-crumpled-paper-texture-background-vector.jpg');
+  background-color: #ffffff;
+  background-image: none;
+  transition: background-color 300ms ease;
 }
 
 .project-section-grid {

@@ -22,6 +22,7 @@ interface Project {
   placeholderBg: string
   link?: string
   github?: string
+  comingSoon?: boolean
 }
 
 const PROJECTS: Project[] = [
@@ -67,6 +68,7 @@ const PROJECTS: Project[] = [
     accent: "#f97316",
     placeholderBg: "linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)",
     github: "https://github.com/suprith41",
+    comingSoon: true,
   },
   {
     id: 4,
@@ -81,6 +83,7 @@ const PROJECTS: Project[] = [
     accent: "#f97316",
     placeholderBg: "linear-gradient(135deg, #7c2d12 0%, #c2410c 50%, #ea580c 100%)",
     github: "https://github.com/suprith41",
+    comingSoon: true,
   },
   {
     id: 5,
@@ -95,6 +98,7 @@ const PROJECTS: Project[] = [
     accent: "#f97316",
     placeholderBg: "linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)",
     github: "https://github.com/suprith41",
+    comingSoon: true,
   },
 ]
 
@@ -371,11 +375,17 @@ function ProjectCard({ project, reversed }: CardProps) {
       }}
       transition={{ duration: 0.4 }}
     >
-      {/* Two-column grid — alternates on each row */}
-      <div
+      {/* Container for content that will be blurred if project is coming soon */}
+      <motion.div
         className={`grid grid-cols-1 md:grid-cols-[42%_58%] items-stretch gap-0 h-full ${
           reversed ? "md:[direction:rtl]" : ""
-        }`}
+        } ${project.comingSoon ? "pointer-events-none select-none" : ""}`}
+        animate={
+          project.comingSoon
+            ? { filter: hovered ? "blur(3px)" : "blur(6px)", opacity: hovered ? 0.75 : 0.6 }
+            : {}
+        }
+        transition={{ duration: 0.3 }}
       >
         {/* direction:rtl flips column order; children use ltr so text stays normal */}
         <div className={reversed ? "[direction:ltr]" : ""}>
@@ -384,7 +394,41 @@ function ProjectCard({ project, reversed }: CardProps) {
         <div className={reversed ? "[direction:ltr]" : ""}>
           {imageBlock}
         </div>
-      </div>
+      </motion.div>
+
+      {/* "Coming Soon" Overlay Badge */}
+      {project.comingSoon && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+          <motion.div
+            className="flex flex-col items-center gap-2 px-6 py-4 rounded-2xl bg-white/75 backdrop-blur-md border border-gray-200/50 shadow-[0_20px_50px_rgba(0,0,0,0.12)] text-center max-w-[200px]"
+            animate={{
+              scale: hovered ? 1.05 : 1,
+              boxShadow: hovered 
+                ? "0 25px 60px rgba(0,0,0,0.16)" 
+                : "0 20px 50px rgba(0,0,0,0.12)"
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Glowing Accent Dot */}
+            <div className="relative flex h-2.5 w-2.5 mb-0.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span>
+            </div>
+            <span
+              className="text-xs uppercase tracking-[0.25em] text-gray-900 font-medium"
+              style={{ fontFamily: "FunnelDisplay, sans-serif" }}
+            >
+              Coming Soon
+            </span>
+            <span 
+              className="text-[10px] text-gray-400 uppercase tracking-wider"
+              style={{ fontFamily: "FunnelDisplay, sans-serif" }}
+            >
+              Project {project.index}
+            </span>
+          </motion.div>
+        </div>
+      )}
     </motion.div>
   )
 }

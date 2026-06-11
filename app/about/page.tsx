@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Github } from "lucide-react";
 
 export default function About() {
   const [imageHovered, setImageHovered] = useState(false);
@@ -263,9 +264,10 @@ export default function About() {
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <p
-                className="text-xl md:text-2xl text-gray-700 leading-snug mb-2"
+                className="text-xl md:text-2xl text-gray-700 leading-snug mb-2 flex items-center gap-2.5"
                 style={{ fontFamily: "SuprithSans, serif", fontWeight: 400 }}
               >
+                <Github className="w-5 h-5 md:w-6 md:h-6 text-gray-700 flex-shrink-0" />
                 GitHub Contributions
               </p>
             </div>

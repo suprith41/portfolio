@@ -134,9 +134,12 @@ export default function Navbar() {
   const scrollToTop = () => {
     const lenis = (window as any).__lenis
     if (lenis) {
-      lenis.scrollTo(0, { duration: 1.1, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })
+      lenis.scrollTo(0, { 
+        duration: 1.2, 
+        easing: (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2 
+      })
     } else {
-      gsap.to(window, { duration: 1.1, scrollTo: { y: 0 }, ease: "power2.inOut" })
+      gsap.to(window, { duration: 1.2, scrollTo: { y: 0 }, ease: "power3.inOut" })
     }
   }
 
@@ -145,9 +148,13 @@ export default function Navbar() {
     if (!workSection) return
     const lenis = (window as any).__lenis
     if (lenis) {
-      lenis.scrollTo(workSection as HTMLElement, { offset: -100, duration: 1.1 })
+      lenis.scrollTo(workSection as HTMLElement, { 
+        offset: -100, 
+        duration: 1.2, 
+        easing: (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2 
+      })
     } else {
-      gsap.to(window, { duration: 1.1, scrollTo: { y: workSection, offsetY: 100 }, ease: "power2.inOut" })
+      gsap.to(window, { duration: 1.2, scrollTo: { y: workSection, offsetY: 100 }, ease: "power3.inOut" })
     }
   }
 
@@ -201,14 +208,14 @@ export default function Navbar() {
               className={`cursor-pointer rounded-md px-5 md:px-6 py-1.5 text-xs md:text-sm transition-all duration-200 ${
                 activeItem === item.name
                   ? "bg-orange-500 text-white"
-                  : "text-zinc-500 hover:text-orange-500 hover:bg-white/10"
+                  : "text-zinc-700 hover:text-orange-500 hover:bg-white/10"
               }`}
               style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
             >
               {item.name}
             </button>
             {index < navItems.length - 1 && (
-              <span className="text-zinc-300/70 text-[10px]">•</span>
+              <span className="text-zinc-400/80 text-[10px]">•</span>
             )}
           </div>
         ))}

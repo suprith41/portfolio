@@ -235,7 +235,7 @@ function ProjectCard({ project, reversed }: CardProps) {
             letterSpacing: "0.02em",
           }}
         >
-          View case study
+          View project
           <ArrowUpRight size={14} />
         </span>
       </motion.a>

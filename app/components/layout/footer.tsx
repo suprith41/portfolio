@@ -37,9 +37,9 @@ const navLinks = [
 
 export default function Footer() {
   return (
-    <footer className="mt-32 md:mt-48 py-12 md:py-16 relative overflow-visible">
+    <footer className="mt-20 md:mt-24 relative overflow-visible">
       <div className="max-w-5xl mx-auto px-6 md:px-10">
-        <div className="footer-signature-glow pt-8 pb-12 text-center relative flex items-center justify-center gap-0">
+        <div className="footer-signature-glow pt-2 pb-6 text-center relative flex items-center justify-center gap-0">
           <div className="relative z-10 flex flex-col items-center">
             <h2
               className="text-[clamp(4.5rem,14vw,10.5rem)] leading-none tracking-tight text-black select-none"
@@ -59,7 +59,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-100" />
 
-        <div className="py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="py-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <span
               className="text-sm text-gray-400"

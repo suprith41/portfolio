@@ -203,7 +203,7 @@ export default function Navbar() {
     <div className="fixed top-0 left-0 right-0 flex justify-center px-4 py-4 pointer-events-none" style={{ zIndex: 10005 }}>
       <nav
         ref={navRef}
-        className="pointer-events-auto w-full max-w-fit flex items-center justify-center gap-1 rounded-lg border border-white/20 bg-white/12 px-1.5 py-1 shadow-[0_4px_18px_rgba(0,0,0,0.04)] backdrop-blur-md"
+        className="pointer-events-auto w-full max-w-fit flex items-center justify-center gap-2 md:gap-3 rounded-lg border border-white/20 bg-white/12 px-3 py-1.5 shadow-[0_4px_18px_rgba(0,0,0,0.04)] backdrop-blur-md"
         style={{
           backgroundColor: 'rgba(255,255,255,0.12)',
           borderColor: 'rgba(255,255,255,0.20)',
@@ -213,10 +213,10 @@ export default function Navbar() {
         }}
       >
         {navItems.map((item, index) => (
-          <div key={item.name} className="flex items-center gap-1">
+          <div key={item.name} className="flex items-center gap-2 md:gap-3">
             <button
               onClick={(e) => handleNavigation(item, e)}
-              className={`cursor-pointer rounded-md px-3 py-1.5 text-xs md:text-sm transition-all duration-200 ${
+              className={`cursor-pointer rounded-md px-5 md:px-6 py-1.5 text-xs md:text-sm transition-all duration-200 ${
                 activeItem === item.name
                   ? "bg-orange-500 text-white"
                   : "text-zinc-500 hover:text-orange-500 hover:bg-white/10"

@@ -13,11 +13,9 @@ export default function Home() {
     <div className="bg-transparent relative">
       <PillarEditor />
 
+      {/* First fold — name + description, full viewport height */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-10">
-
-        {/* First fold — name + description, full viewport height */}
         <div className="relative min-h-[calc(100vh-120px)] flex flex-col justify-center items-center text-center gap-6 overflow-hidden md:overflow-visible">
-
           <ParallaxImages />
 
           {/* Text isolated above the bloom layer so color blend doesn't affect it */}
@@ -40,13 +38,13 @@ export default function Home() {
             <EmailSection />
           </div>
         </div>
-
-        {/* Work section */}
-        <div data-section="work" />
-        <ProjectsList />
-
       </div>
 
+      {/* Work section — wider layout */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
+        <div data-section="work" />
+        <ProjectsList />
+      </div>
 
     </div>
   )

@@ -334,10 +334,15 @@ function ProjectCard({ project, reversed }: CardProps) {
   )
 
   const imageBlock = (
-    <div
+    <a
+      href={project.link || undefined}
+      target={project.link ? "_blank" : undefined}
+      rel={project.link ? "noopener noreferrer" : undefined}
       className={`w-full h-full min-h-[300px] md:min-h-full relative overflow-hidden bg-gray-50 flex items-stretch border-t md:border-t-0 border-gray-200/80 ${
         reversed ? "md:border-r" : "md:border-l"
-      }`}
+      } ${project.link ? "cursor-pointer" : "cursor-default"}`}
+      style={{ display: "flex" }}
+      tabIndex={project.link ? 0 : -1}
     >
       <div
         className="w-full h-full relative flex flex-col items-center justify-center min-h-[300px] md:min-h-full"
@@ -375,7 +380,7 @@ function ProjectCard({ project, reversed }: CardProps) {
           style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}
         />
       </div>
-    </div>
+    </a>
   )
 
   return (

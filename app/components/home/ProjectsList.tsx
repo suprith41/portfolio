@@ -386,9 +386,9 @@ function ProjectCard({ project, reversed }: CardProps) {
       onMouseLeave={() => setHovered(false)}
       onMouseMove={handleMouseMove}
       animate={{
-        borderColor: hovered ? project.accent : "rgba(229, 231, 235, 0.8)",
+        borderColor: hovered ? "rgba(0, 0, 0, 0.20)" : "rgba(229, 231, 235, 0.8)",
         boxShadow: hovered
-          ? `0 40px 80px -20px rgba(0, 0, 0, 0.10), 0 0 0 1px ${project.accent}, 0 0 28px ${project.accent}4D`
+          ? "0 40px 80px -20px rgba(0, 0, 0, 0.10), 0 0 0 1px rgba(0, 0, 0, 0.12)"
           : "0 4px 20px -10px rgba(0, 0, 0, 0.02)",
         y: hovered ? -6 : 0,
       }}

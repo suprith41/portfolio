@@ -134,8 +134,8 @@ export default function ProjectsList() {
     restDelta: 0.001
   })
 
-  // Responsive split width: words move apart by 38% of container width on each side
-  const maxTranslate = containerWidth * 0.38
+  // Responsive split width: words move apart by 28% of container width on each side
+  const maxTranslate = containerWidth * 0.28
   const xLeft = useTransform(smoothProgress, [0.35, 0.95], [0, -maxTranslate])
   const xRight = useTransform(smoothProgress, [0.35, 0.95], [0, maxTranslate])
   const lineScale = useTransform(smoothProgress, [0.45, 0.95], [0, 1])

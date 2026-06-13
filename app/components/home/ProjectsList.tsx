@@ -53,7 +53,8 @@ const PROJECTS: Project[] = [
     emoji: "⚡",
     accent: "#f97316",
     placeholderBg: "linear-gradient(135deg, #2d1b69 0%, #6b21a8 50%, #9333ea 100%)",
-    github: "https://github.com/suprith41",
+    link: "https://rapidash-7faj.vercel.app/",
+    github: "https://github.com/suprith41/rapidash",
   },
   {
     id: 3,

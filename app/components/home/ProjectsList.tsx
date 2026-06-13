@@ -127,12 +127,12 @@ export default function ProjectsList() {
     offset: ["start end", "center center"]
   })
 
-  // Responsive split width: words move apart by 32% of container width on each side
-  const maxTranslate = containerWidth * 0.32
-  const xLeft = useTransform(scrollYProgress, [0, 1], [0, -maxTranslate])
-  const xRight = useTransform(scrollYProgress, [0, 1], [0, maxTranslate])
-  const lineScale = useTransform(scrollYProgress, [0.2, 0.95], [0, 1])
-  const lineOpacity = useTransform(scrollYProgress, [0.2, 0.7], [0, 1])
+  // Responsive split width: words move apart by 38% of container width on each side
+  const maxTranslate = containerWidth * 0.38
+  const xLeft = useTransform(scrollYProgress, [0.35, 0.95], [0, -maxTranslate])
+  const xRight = useTransform(scrollYProgress, [0.35, 0.95], [0, maxTranslate])
+  const lineScale = useTransform(scrollYProgress, [0.45, 0.95], [0, 1])
+  const lineOpacity = useTransform(scrollYProgress, [0.45, 0.75], [0, 1])
 
   return (
     <section className="relative w-full pt-8 pb-0 md:pt-12 md:pb-0">
@@ -140,7 +140,7 @@ export default function ProjectsList() {
       {/* ── Heading with Curated [Line] Projects layout and scroll‑in animation ── */}
       <div
         ref={containerRef}
-        className="relative flex items-center justify-center w-full mb-20 md:mb-28 overflow-hidden h-16"
+        className="relative flex items-center justify-center w-full mb-20 md:mb-28 overflow-hidden h-16 gap-6 md:gap-8"
       >
         <motion.h2
           style={{ x: xLeft, fontFamily: "var(--font-playfair), serif", fontWeight: 400 }}

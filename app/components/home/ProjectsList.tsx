@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import { ArrowUpRight, Github } from "lucide-react"
 
 /* ─────────────────────────────────────────────────────────────────
@@ -124,15 +124,22 @@ export default function ProjectsList() {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "center center"]
+    offset: ["start end", "end 15%"]
+  })
+
+  // Smooth scroll progress using spring physics
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 70,
+    damping: 25,
+    restDelta: 0.001
   })
 
   // Responsive split width: words move apart by 38% of container width on each side
   const maxTranslate = containerWidth * 0.38
-  const xLeft = useTransform(scrollYProgress, [0.35, 0.95], [0, -maxTranslate])
-  const xRight = useTransform(scrollYProgress, [0.35, 0.95], [0, maxTranslate])
-  const lineScale = useTransform(scrollYProgress, [0.45, 0.95], [0, 1])
-  const lineOpacity = useTransform(scrollYProgress, [0.45, 0.75], [0, 1])
+  const xLeft = useTransform(smoothProgress, [0.35, 0.95], [0, -maxTranslate])
+  const xRight = useTransform(smoothProgress, [0.35, 0.95], [0, maxTranslate])
+  const lineScale = useTransform(smoothProgress, [0.45, 0.95], [0, 1])
+  const lineOpacity = useTransform(smoothProgress, [0.45, 0.75], [0, 1])
 
   return (
     <section className="relative w-full pt-8 pb-0 md:pt-12 md:pb-0">

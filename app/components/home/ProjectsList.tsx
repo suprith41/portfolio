@@ -140,7 +140,7 @@ export default function ProjectsList() {
       {/* ── Heading with Curated [Line] Projects layout and scroll‑in animation ── */}
       <div
         ref={containerRef}
-        className="relative flex items-center justify-center w-full mb-12 md:mb-16 overflow-hidden h-16"
+        className="relative flex items-center justify-center w-full mb-20 md:mb-28 overflow-hidden h-16"
       >
         <motion.h2
           style={{ x: xLeft, fontFamily: "var(--font-playfair), serif", fontWeight: 400 }}

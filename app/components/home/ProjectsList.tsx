@@ -224,6 +224,14 @@ interface CardProps {
 
 function ProjectCard({ project, reversed }: CardProps) {
   const [hovered, setHovered] = useState(false)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+  }
 
   const textBlock = (
     <div className="flex flex-col justify-between h-full p-8 md:p-12">
@@ -372,17 +380,29 @@ function ProjectCard({ project, reversed }: CardProps) {
 
   return (
     <motion.div
-      className="relative w-full overflow-hidden border bg-white rounded-2xl cursor-default md:h-[478px]"
+      ref={cardRef}
+      className="relative w-full overflow-hidden border bg-white cursor-default md:h-[478px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onMouseMove={handleMouseMove}
       animate={{
-        borderColor: hovered ? "rgba(0, 0, 0, 0.16)" : "rgba(229, 231, 235, 0.8)",
+        borderColor: hovered ? project.accent : "rgba(229, 231, 235, 0.8)",
         boxShadow: hovered
-          ? "0 30px 60px -20px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.015)"
+          ? `0 40px 80px -20px rgba(0, 0, 0, 0.10), 0 0 0 1px ${project.accent}, 0 0 28px ${project.accent}4D`
           : "0 4px 20px -10px rgba(0, 0, 0, 0.02)",
+        y: hovered ? -6 : 0,
       }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
+      {/* ── Cursor spotlight overlay ── */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
+        style={{
+          opacity: hovered ? 1 : 0,
+          background: `radial-gradient(160px circle at ${mousePos.x}px ${mousePos.y}px, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.02) 35%, transparent 55%)`,
+        }}
+      />
+
       {/* Container for content that will be blurred if project is coming soon */}
       <motion.div
         className={`grid grid-cols-1 md:grid-cols-[42%_58%] items-stretch gap-0 h-full ${

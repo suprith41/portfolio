@@ -19,7 +19,7 @@
 
 @media (max-width: 640px) {
   .tilted-card-mobile-alert {
-    display: block;
+    display: none; /* Let's hide the mobile warning as per design preference or if requested */
   }
   .tilted-card-caption {
     display: none;
@@ -29,6 +29,7 @@
 .tilted-card-inner {
   position: relative;
   transform-style: preserve-3d;
+  border-radius: 28px;
 }
 
 .tilted-card-img {
@@ -36,7 +37,7 @@
   top: 0;
   left: 0;
   object-fit: cover;
-  border-radius: 15px;
+  border-radius: 28px;
   will-change: transform;
   transform: translateZ(0);
 }

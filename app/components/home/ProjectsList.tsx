@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { motion, useMotionValue, useScroll, useTransform, useSpring } from "framer-motion"
 import { ArrowUpRight, Github } from "lucide-react"
 
 /* ─────────────────────────────────────────────────────────────────
@@ -222,15 +222,33 @@ interface CardProps {
   reversed: boolean
 }
 
+const TILT_SPRING = { damping: 30, stiffness: 100, mass: 2 }
+
 function ProjectCard({ project, reversed }: CardProps) {
   const [hovered, setHovered] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const cardRef = useRef<HTMLDivElement>(null)
 
+  // Tilt motion values for the whole card
+  const rotateX = useSpring(useMotionValue(0), TILT_SPRING)
+  const rotateY = useSpring(useMotionValue(0), TILT_SPRING)
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return
     const rect = cardRef.current.getBoundingClientRect()
     setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+
+    // Tilt calculation
+    const offsetX = e.clientX - rect.left - rect.width / 2
+    const offsetY = e.clientY - rect.top - rect.height / 2
+    rotateX.set((offsetY / (rect.height / 2)) * -6)
+    rotateY.set((offsetX / (rect.width / 2)) * 6)
+  }
+
+  const handleMouseLeaveWithTilt = () => {
+    setHovered(false)
+    rotateX.set(0)
+    rotateY.set(0)
   }
 
   const textBlock = (
@@ -346,16 +364,14 @@ function ProjectCard({ project, reversed }: CardProps) {
     >
       <div
         className="w-full h-full relative flex flex-col items-center justify-center min-h-[300px] md:min-h-full"
-        style={{
-          background: project.placeholderBg,
-        }}
+        style={{ background: project.placeholderBg }}
       >
         {project.image ? (
           <Image
             src={project.image}
             alt={project.name}
             fill
-            sizes="(max-w-768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover select-none pointer-events-none"
             priority={project.id === 1}
           />
@@ -384,18 +400,35 @@ function ProjectCard({ project, reversed }: CardProps) {
   )
 
   return (
+    // Outer wrapper: holds perspective so child 3D transforms are visible.
+    // Also handles lift, border colour and shadow so overflow-hidden on the
+    // inner card doesn't clip the tilt effect.
     <motion.div
       ref={cardRef}
-      className="relative w-full overflow-hidden border bg-white cursor-default md:h-[478px]"
+      className="relative w-full cursor-default md:h-[478px]"
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={handleMouseLeaveWithTilt}
       onMouseMove={handleMouseMove}
+      style={{ perspective: 1200 }}
+      animate={{
+        y: hovered ? -8 : 0,
+      }}
+      transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+    >
+    {/* Inner card: applies the actual 3D tilt + border + shadow */}
+    <motion.div
+      className="relative w-full h-full overflow-hidden border bg-white"
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+        borderRadius: "inherit",
+      }}
       animate={{
         borderColor: hovered ? "rgba(0, 0, 0, 0.20)" : "rgba(229, 231, 235, 0.8)",
         boxShadow: hovered
-          ? "0 40px 80px -20px rgba(0, 0, 0, 0.10), 0 0 0 1px rgba(0, 0, 0, 0.12)"
+          ? "0 40px 80px -20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.12)"
           : "0 4px 20px -10px rgba(0, 0, 0, 0.02)",
-        y: hovered ? -6 : 0,
       }}
       transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
@@ -462,6 +495,7 @@ function ProjectCard({ project, reversed }: CardProps) {
           </motion.div>
         </div>
       )}
+    </motion.div>
     </motion.div>
   )
 }

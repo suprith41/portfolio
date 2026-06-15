@@ -6,6 +6,7 @@ import NavbarClient from "./components/layout/NavbarClient"
 import SmoothScroll from "./components/layout/SmoothScroll"
 import ScrollReset from "./components/layout/ScrollReset"
 import Footer from "./components/layout/footer"
+import ClickSpark from "./components/layout/ClickSpark"
 
 const greatVibes = Great_Vibes({
   subsets: ["latin"],
@@ -68,6 +69,15 @@ export default function RootLayout({
         className={`${greatVibes.variable} ${playfairDisplay.variable} ${merriweather.variable}`}
         suppressHydrationWarning
       >
+        <ClickSpark
+          sparkColor="#F97316"
+          sparkSize={20}
+          sparkRadius={15}
+          sparkCount={10}
+          duration={750}
+          easing="ease-out"
+          extraScale={1}
+        />
         <SmoothScroll />
         <ScrollReset />
         <NavbarClient />

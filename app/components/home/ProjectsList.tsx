@@ -295,7 +295,7 @@ function ProjectCard({ project, reversed }: CardProps) {
           href={project.github || "https://github.com/suprith41"}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 border px-5 py-2.5 text-xs uppercase tracking-wider font-normal bg-transparent"
+          className="inline-flex items-center gap-2 border px-5 py-2.5 text-xs uppercase tracking-wider font-normal bg-transparent rounded-lg"
           style={{ textDecoration: "none", fontFamily: "FunnelDisplay, sans-serif" }}
           animate={{
             backgroundColor: hovered ? "rgba(17, 24, 39, 0.05)" : "rgba(255, 255, 255, 0)",
@@ -313,7 +313,7 @@ function ProjectCard({ project, reversed }: CardProps) {
           href={project.link || "#"}
           target={project.link ? "_blank" : undefined}
           rel={project.link ? "noopener noreferrer" : undefined}
-          className="relative inline-flex items-center gap-2 border px-5 py-2.5 text-xs uppercase tracking-wider font-normal bg-transparent overflow-hidden"
+          className="relative inline-flex items-center gap-2 border px-5 py-2.5 text-xs uppercase tracking-wider font-normal bg-transparent overflow-hidden rounded-lg"
           style={{ textDecoration: "none", fontFamily: "FunnelDisplay, sans-serif", isolation: "isolate" }}
           animate={{
             borderColor: hovered ? project.accent : "#111827",
@@ -405,7 +405,7 @@ function ProjectCard({ project, reversed }: CardProps) {
     // inner card doesn't clip the tilt effect.
     <motion.div
       ref={cardRef}
-      className="relative w-full cursor-default md:h-[478px]"
+      className="relative w-full cursor-default md:h-[478px] rounded-2xl md:rounded-[32px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeaveWithTilt}
       onMouseMove={handleMouseMove}
@@ -413,7 +413,7 @@ function ProjectCard({ project, reversed }: CardProps) {
     >
     {/* Inner card: applies the actual 3D tilt */}
     <motion.div
-      className="relative w-full h-full overflow-hidden bg-white"
+      className="relative w-full h-full overflow-hidden bg-white border border-gray-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.03)]"
       style={{
         rotateX,
         rotateY,

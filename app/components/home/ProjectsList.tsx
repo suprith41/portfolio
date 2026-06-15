@@ -410,37 +410,17 @@ function ProjectCard({ project, reversed }: CardProps) {
       onMouseLeave={handleMouseLeaveWithTilt}
       onMouseMove={handleMouseMove}
       style={{ perspective: 1200 }}
-      animate={{
-        y: hovered ? -8 : 0,
-      }}
-      transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-    {/* Inner card: applies the actual 3D tilt + border + shadow */}
+    {/* Inner card: applies the actual 3D tilt */}
     <motion.div
-      className="relative w-full h-full overflow-hidden border bg-white"
+      className="relative w-full h-full overflow-hidden bg-white"
       style={{
         rotateX,
         rotateY,
         transformStyle: "preserve-3d",
         borderRadius: "inherit",
       }}
-      animate={{
-        borderColor: hovered ? "rgba(0, 0, 0, 0.20)" : "rgba(229, 231, 235, 0.8)",
-        boxShadow: hovered
-          ? "0 40px 80px -20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.12)"
-          : "0 4px 20px -10px rgba(0, 0, 0, 0.02)",
-      }}
-      transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      {/* ── Cursor spotlight overlay ── */}
-      <div
-        className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
-        style={{
-          opacity: hovered ? 1 : 0,
-          background: `radial-gradient(160px circle at ${mousePos.x}px ${mousePos.y}px, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.02) 35%, transparent 55%)`,
-        }}
-      />
-
       {/* Container for content that will be blurred if project is coming soon */}
       <motion.div
         className={`grid grid-cols-1 md:grid-cols-[42%_58%] items-stretch gap-0 h-full ${

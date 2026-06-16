@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { motion, useMotionValue, useScroll, useTransform, useSpring } from "framer-motion"
 import { ArrowUpRight, Github } from "lucide-react"
+import ShinyText from "../layout/ShinyText"
 
 /* ─────────────────────────────────────────────────────────────────
    DATA  — placeholder names & emojis; swap in real content later
@@ -268,16 +269,20 @@ function ProjectCard({ project, reversed }: CardProps) {
         </motion.p>
 
         {/* Project name */}
-        <h3
+        <ShinyText
+          as="h3"
+          text={project.name}
+          color="#111827"
+          shineColor="#ffffff"
+          speed={3}
+          spread={120}
           className="text-2xl md:text-4xl leading-tight mb-5 text-gray-900"
           style={{
             fontFamily: "var(--font-playfair), serif",
             fontWeight: 400,
             letterSpacing: "-0.01em",
           }}
-        >
-          {project.name}
-        </h3>
+        />
 
         {/* Description */}
         <p

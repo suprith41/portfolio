@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import { Github } from "lucide-react";
 import VariableProximity from "../components/layout/VariableProximity";
 import TiltedCard from "../components/layout/TiltedCard";
+import StarBorder from "../components/layout/StarBorder";
 
 export default function About() {
   const [copied, setCopied] = useState(false);
@@ -75,11 +76,11 @@ export default function About() {
               <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-5" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>Design & Animations</p>
               <div className="flex flex-col gap-4">
                 {[
-                  { name: "Figma",         src: "/images/ToolsIcons/figma-icon.svg" },
-                  { name: "Photoshop",     src: "/images/ToolsIcons/adobe-photoshop-icon.svg" },
+                  { name: "Figma", src: "/images/ToolsIcons/figma-icon.svg" },
+                  { name: "Photoshop", src: "/images/ToolsIcons/adobe-photoshop-icon.svg" },
                   { name: "After Effects", src: "/images/ToolsIcons/adobe-after-effects-icon.svg" },
-                  { name: "Blender",       src: "/images/ToolsIcons/blender-icon.svg" },
-                  { name: "LottieFiles",   src: "/images/ToolsIcons/lottiefiles.svg" },
+                  { name: "Blender", src: "/images/ToolsIcons/blender-icon.svg" },
+                  { name: "LottieFiles", src: "/images/ToolsIcons/lottiefiles.svg" },
                 ].map((tool) => (
                   <div key={tool.name} className="flex items-center gap-3">
                     <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center">
@@ -97,41 +98,41 @@ export default function About() {
             {/* Development + AI combined on mobile */}
             <div className="flex flex-col gap-10 md:contents">
 
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-5" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>Development</p>
-              <div className="flex flex-col gap-4">
-                {[
-                  { name: "Cursor", src: "/images/ToolsIcons/cursor-ai-code-icon.svg" },
-                  { name: "GitHub", src: "/images/ToolsIcons/github-icon.svg" },
-                ].map((tool) => (
-                  <div key={tool.name} className="flex items-center gap-3">
-                    <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center">
-                      <Image src={tool.src} alt={tool.name} width={36} height={36} className="w-full h-full object-contain" />
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-5" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>Development</p>
+                <div className="flex flex-col gap-4">
+                  {[
+                    { name: "Cursor", src: "/images/ToolsIcons/cursor-ai-code-icon.svg" },
+                    { name: "GitHub", src: "/images/ToolsIcons/github-icon.svg" },
+                  ].map((tool) => (
+                    <div key={tool.name} className="flex items-center gap-3">
+                      <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center">
+                        <Image src={tool.src} alt={tool.name} width={36} height={36} className="w-full h-full object-contain" />
+                      </div>
+                      <span className="text-sm text-gray-700" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>{tool.name}</span>
                     </div>
-                    <span className="text-sm text-gray-700" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>{tool.name}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* AI & Assistive */}
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-5" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>AI & Assistive Tools</p>
-              <div className="flex flex-col gap-4">
-                {[
-                  { name: "Claude Code",   src: "/images/ToolsIcons/claude-ai-icon.svg" },
-                  { name: "ChatGPT",       src: "/images/ToolsIcons/chatgpt-icon.svg" },
-                  { name: "Google Gemini", src: "/images/ToolsIcons/google-gemini-icon.svg" },
-                ].map((tool) => (
-                  <div key={tool.name} className="flex items-center gap-3">
-                    <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center">
-                      <Image src={tool.src} alt={tool.name} width={36} height={36} className="w-full h-full object-contain" />
+              {/* AI & Assistive */}
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-5" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>AI & Assistive Tools</p>
+                <div className="flex flex-col gap-4">
+                  {[
+                    { name: "Claude Code", src: "/images/ToolsIcons/claude-ai-icon.svg" },
+                    { name: "ChatGPT", src: "/images/ToolsIcons/chatgpt-icon.svg" },
+                    { name: "Google Gemini", src: "/images/ToolsIcons/google-gemini-icon.svg" },
+                  ].map((tool) => (
+                    <div key={tool.name} className="flex items-center gap-3">
+                      <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center">
+                        <Image src={tool.src} alt={tool.name} width={36} height={36} className="w-full h-full object-contain" />
+                      </div>
+                      <span className="text-sm text-gray-700" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>{tool.name}</span>
                     </div>
-                    <span className="text-sm text-gray-700" style={{ fontFamily: "FunnelDisplay, sans-serif" }}>{tool.name}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
             </div>{/* closes mobile wrapper */}
 
@@ -192,34 +193,42 @@ export default function About() {
               style={{ lineHeight: "inherit" }}
             />
           </p>
-          <div className="inline-flex items-stretch gap-0">
-            <a
-              href="mailto:suprithraoj@gmail.com"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-gray-200 text-sm text-gray-500 hover:border-gray-400 hover:text-orange-500 transition-all duration-200"
-              style={{ fontFamily: "FunnelDisplay, sans-serif", letterSpacing: "0.05em" }}
+          <div className="flex justify-center">
+            <StarBorder
+              as="div"
+              color="#F97316"
+              speed="3.5s"
+              thickness={2}
+              className="merged-cta-border"
             >
-              say hey!
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
-            <div
-              className="flex items-center px-5 border border-l-0 border-gray-200 text-sm text-gray-400 select-all cursor-pointer"
-              style={{ fontFamily: "FunnelDisplay, sans-serif", letterSpacing: "0.03em" }}
-            >
-              suprithraoj@gmail.com
-              <button
-                onClick={handleCopy}
-                className="ml-2 text-gray-300 hover:text-gray-600 transition-colors duration-200 flex-shrink-0 cursor-pointer"
-                title="Copy email"
+              <a
+                href="mailto:suprithraoj@gmail.com"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm text-gray-500 hover:text-orange-500 transition-all duration-200"
+                style={{ fontFamily: "FunnelDisplay, sans-serif", letterSpacing: "0.05em", textDecoration: 'none' }}
               >
-                {copied ? (
-                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                ) : (
-                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="5" y="5" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.2"/><path d="M9 5V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                )}
-              </button>
-            </div>
+                say hey!
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M2.5 7h9M8 3.5l3.5 3.5L8 10.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+              <div
+                className="flex items-center px-6 py-3 border-l border-gray-200 text-sm text-gray-400 select-all cursor-pointer"
+                style={{ fontFamily: "FunnelDisplay, sans-serif", letterSpacing: "0.03em" }}
+              >
+                suprithraoj@gmail.com
+                <button
+                  onClick={handleCopy}
+                  className="ml-2 text-gray-400 hover:text-gray-700 transition-colors duration-200 flex-shrink-0 cursor-pointer"
+                  title="Copy email"
+                >
+                  {copied ? (
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  ) : (
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="5" y="5" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.2" /><path d="M9 5V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
+                  )}
+                </button>
+              </div>
+            </StarBorder>
           </div>
         </div>
 

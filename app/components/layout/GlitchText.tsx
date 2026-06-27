@@ -51,11 +51,18 @@ export default function GlitchText({
 
   return (
     <div
-      className={`glitch-text ${hoverClass} ${className}`.trim()}
+      className={`glitch-text-container ${hoverClass} ${className}`.trim()}
       style={inlineStyles}
-      data-text={resolvedDataText}
     >
-      {children}
+      <div className="glitch-text-main">
+        {children}
+      </div>
+      <div className="glitch-text-before" aria-hidden="true">
+        {children}
+      </div>
+      <div className="glitch-text-after" aria-hidden="true">
+        {children}
+      </div>
     </div>
   )
 }

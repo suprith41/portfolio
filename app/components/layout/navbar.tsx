@@ -316,6 +316,7 @@ export default function Navbar() {
       if (pathname === "/") {
         scrollToWorkSection()
       } else {
+        isScrollingToRef.current = true
         navigateWithTransition("/", () => {
           setTimeout(scrollToWorkSection, 620)
         })
@@ -327,7 +328,12 @@ export default function Navbar() {
     } else if (item.name === "Home") {
       setActiveItem("Home")
       if (pathname !== "/") {
-        navigateWithTransition("/")
+        isScrollingToRef.current = true
+        navigateWithTransition("/", () => {
+          setTimeout(() => {
+            isScrollingToRef.current = false
+          }, 620)
+        })
       } else {
         scrollToTop()
       }

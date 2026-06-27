@@ -49,8 +49,8 @@ export default function Footer() {
               <GlitchText
                 dataText="Suprith"
                 speed={1.5}
-                enableShadows={true}
-                enableOnHover={true}
+                enableShadows={false}
+                enableOnHover={false}
                 bgColor="rgb(255,255,255)"
                 className="text-black leading-none tracking-tight"
               >
@@ -59,7 +59,7 @@ export default function Footer() {
               </GlitchText>
             </h2>
             <p
-              className="mt-3 text-sm text-gray-400"
+              className="mt-3 text-sm text-gray-600"
               style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
             >
               AI Engineer
@@ -72,7 +72,7 @@ export default function Footer() {
         <div className="py-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <span
-              className="text-sm text-gray-400"
+              className="text-sm text-gray-600"
               style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
             >
               © 2026 Suprith Rao
@@ -84,7 +84,7 @@ export default function Footer() {
               <Link
                 key={l.label}
                 href={l.href}
-                className="text-sm text-gray-400 hover:text-orange-500 transition-colors duration-200"
+                className="text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200"
                 style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
               >
                 {l.label}
@@ -101,7 +101,7 @@ export default function Footer() {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-orange-500 transition-colors duration-200"
+                  className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200"
                   style={{ fontFamily: 'FunnelDisplay, sans-serif' }}
                 >
                   <Icon size={15} className="flex-shrink-0" />

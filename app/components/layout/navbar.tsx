@@ -238,27 +238,30 @@ export default function Navbar() {
           backdropFilter: 'blur(10px) saturate(115%)',
         }}
       >
-        {navItems.map((item, index) => (
-          <div key={item.name} className="flex items-center gap-4 md:gap-6 relative">
-            <button
-              onClick={(e) => handleNavigation(item, e)}
-              className={`cursor-pointer rounded-md px-8 md:px-10 py-2 text-xs md:text-sm transition-all duration-200 relative z-10 ${
-                activeItem === item.name
-                  ? "text-orange-500"
-                  : "text-zinc-700 hover:text-orange-500 hover:bg-white/10"
-              }`}
-              style={{
-                fontFamily: 'FunnelDisplay, sans-serif',
-                fontWeight: activeItem === item.name ? 500 : 300,
-              }}
-            >
-              {item.name}
-            </button>
-            {index < navItems.length - 1 && (
-              <span className="text-zinc-400/80 text-[10px] relative z-10">•</span>
-            )}
-          </div>
-        ))}
+        {navItems.map((item, index) => {
+          const isActive = activeItem === item.name && item.name !== "Home" && item.name !== "Projects"
+          return (
+            <div key={item.name} className="flex items-center gap-4 md:gap-6 relative">
+              <button
+                onClick={(e) => handleNavigation(item, e)}
+                className={`cursor-pointer rounded-md px-8 md:px-10 py-2 text-xs md:text-sm transition-all duration-200 relative z-10 ${
+                  isActive
+                    ? "text-orange-500"
+                    : "text-zinc-700 hover:text-orange-500 hover:bg-white/10"
+                }`}
+                style={{
+                  fontFamily: 'FunnelDisplay, sans-serif',
+                  fontWeight: isActive ? 500 : 300,
+                }}
+              >
+                {item.name}
+              </button>
+              {index < navItems.length - 1 && (
+                <span className="text-zinc-400/80 text-[10px] relative z-10">•</span>
+              )}
+            </div>
+          )
+        })}
       </nav>
     </div>
   )

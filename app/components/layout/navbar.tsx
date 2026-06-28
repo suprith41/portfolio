@@ -45,11 +45,11 @@ export default function Navbar() {
       gsap.to(nav, {
         y: compact ? -4 : 0,
         scale: compact ? 0.965 : 1,
-        backgroundColor: compact ? "rgba(255,255,255,0.28)" : "rgba(255,255,255,0.12)",
-        borderColor: compact ? "rgba(255,255,255,0.34)" : "rgba(255,255,255,0.20)",
+        backgroundColor: compact ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.05)",
+        borderColor: compact ? "#c8cdd5" : "#d1d5db",
         boxShadow: compact
-          ? "0 10px 30px rgba(0,0,0,0.08)"
-          : "0 4px 18px rgba(0,0,0,0.04)",
+          ? "0 8px 24px rgba(0,0,0,0.06)"
+          : "none",
         duration: 0.45,
         ease: "power2.out",
         overwrite: "auto",
@@ -229,22 +229,28 @@ export default function Navbar() {
     <div className="fixed top-0 left-0 right-0 flex justify-center px-4 py-4 pointer-events-none" style={{ zIndex: 10005 }}>
       <nav
         ref={navRef}
-        className="pointer-events-auto w-full max-w-fit flex items-center justify-center gap-4 md:gap-6 rounded-lg border border-white/20 bg-white/12 px-6 py-2 shadow-[0_4px_18px_rgba(0,0,0,0.04)] backdrop-blur-md relative"
+        className="pointer-events-auto w-full max-w-fit flex items-center justify-center gap-4 md:gap-6 border bg-white/5 px-6 py-2 backdrop-blur-md relative"
         style={{
-          backgroundColor: 'rgba(255,255,255,0.12)',
-          borderColor: 'rgba(255,255,255,0.20)',
-          boxShadow: '0 4px 18px rgba(0,0,0,0.04)',
-          WebkitBackdropFilter: 'blur(10px) saturate(115%)',
-          backdropFilter: 'blur(10px) saturate(115%)',
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          borderColor: '#d1d5db',
+          boxShadow: 'none',
+          WebkitBackdropFilter: 'blur(8px)',
+          backdropFilter: 'blur(8px)',
         }}
       >
+        {/* Corner bracket ticks — extend outside the border rectangle */}
+        <div className="absolute pointer-events-none" style={{ top: '-6px', left: '-6px', width: '12px', height: '12px', borderTop: '1.5px solid #9ca3af', borderLeft: '1.5px solid #9ca3af' }} />
+        <div className="absolute pointer-events-none" style={{ top: '-6px', right: '-6px', width: '12px', height: '12px', borderTop: '1.5px solid #9ca3af', borderRight: '1.5px solid #9ca3af' }} />
+        <div className="absolute pointer-events-none" style={{ bottom: '-6px', left: '-6px', width: '12px', height: '12px', borderBottom: '1.5px solid #9ca3af', borderLeft: '1.5px solid #9ca3af' }} />
+        <div className="absolute pointer-events-none" style={{ bottom: '-6px', right: '-6px', width: '12px', height: '12px', borderBottom: '1.5px solid #9ca3af', borderRight: '1.5px solid #9ca3af' }} />
+
         {navItems.map((item, index) => {
           const isActive = activeItem === item.name && item.name !== "Home" && item.name !== "Projects"
           return (
             <div key={item.name} className="flex items-center gap-4 md:gap-6 relative">
               <button
                 onClick={(e) => handleNavigation(item, e)}
-                className={`cursor-pointer rounded-md px-8 md:px-10 py-2 text-xs md:text-sm transition-all duration-200 relative z-10 ${
+                className={`cursor-pointer rounded-sm px-8 md:px-10 py-2 text-xs md:text-sm transition-all duration-200 relative z-10 ${
                   isActive
                     ? "text-orange-500"
                     : "text-zinc-700 hover:text-orange-500 hover:bg-white/10"

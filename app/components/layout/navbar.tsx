@@ -25,72 +25,9 @@ export default function Navbar() {
   const filterRef = useRef<HTMLSpanElement>(null)
   const isCompactRef = useRef(false)
   const [activeItem, setActiveItem] = useState("Home")
-  const isFirstRender = useRef(true)
   const isScrollingToRef = useRef(false)
 
   const activeIndex = navItems.findIndex((item) => item.name === activeItem)
-
-  const noise = (n = 1) => n / 2 - Math.random() * n
-
-  const getXY = (distance: number, pointIndex: number, totalPoints: number): [number, number] => {
-    const angle = ((360 + noise(8)) / totalPoints) * pointIndex * (Math.PI / 180)
-    return [distance * Math.cos(angle), distance * Math.sin(angle)]
-  }
-
-  const createParticle = (i: number, t: number, d: [number, number], r: number) => {
-    const rotate = noise(r / 10)
-    const count = 15
-    const colorsList = [1, 2, 3, 1, 2, 3, 1, 4]
-    return {
-      start: getXY(d[0], count - i, count),
-      end: getXY(d[1] + noise(7), count - i, count),
-      time: t,
-      scale: 1 + noise(0.2),
-      color: colorsList[Math.floor(Math.random() * colorsList.length)],
-      rotate: rotate > 0 ? (rotate + r / 20) * 10 : (rotate - r / 20) * 10,
-    }
-  }
-
-  const makeParticles = (element: HTMLElement) => {
-    const d: [number, number] = [90, 10]
-    const r = 100
-    const count = 15
-    const animationTime = 600
-    const timeVariance = 300
-    const bubbleTime = animationTime * 2 + timeVariance
-    element.style.setProperty('--time', `${bubbleTime}ms`)
-
-    for (let i = 0; i < count; i++) {
-      const t = animationTime * 2 + noise(timeVariance * 2)
-      const p = createParticle(i, t, d, r)
-
-      setTimeout(() => {
-        const particle = document.createElement('span')
-        const point = document.createElement('span')
-        particle.classList.add('particle')
-        particle.style.setProperty('--start-x', `${p.start[0]}px`)
-        particle.style.setProperty('--start-y', `${p.start[1]}px`)
-        particle.style.setProperty('--end-x', `${p.end[0]}px`)
-        particle.style.setProperty('--end-y', `${p.end[1]}px`)
-        particle.style.setProperty('--time', `${t}ms`)
-        particle.style.setProperty('--scale', `${p.scale}`)
-        particle.style.setProperty('--color', `var(--color-${p.color}, #f97316)`)
-        particle.style.setProperty('--rotate', `${p.rotate}deg`)
-
-        point.classList.add('point')
-        particle.appendChild(point)
-        element.appendChild(particle)
-
-        setTimeout(() => {
-          try {
-            element.removeChild(particle)
-          } catch {
-            // Do nothing
-          }
-        }, t)
-      }, 30)
-    }
-  }
 
   const updateEffectPosition = (element: HTMLElement) => {
     if (!navRef.current || !filterRef.current) return
@@ -116,15 +53,6 @@ export default function Navbar() {
       updateEffectPosition(activeEl as HTMLElement)
       if (filterRef.current) {
         filterRef.current.style.opacity = "1"
-      }
-      if (!isFirstRender.current) {
-        if (filterRef.current) {
-          const particles = filterRef.current.querySelectorAll('.particle')
-          particles.forEach((p) => filterRef.current?.removeChild(p))
-          makeParticles(filterRef.current)
-        }
-      } else {
-        isFirstRender.current = false
       }
     } else {
       if (filterRef.current) {

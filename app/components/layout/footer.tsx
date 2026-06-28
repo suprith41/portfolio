@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { Great_Vibes, Playfair_Display } from 'next/font/google'
 import { Linkedin, Github } from 'lucide-react'
-import GlitchText from './GlitchText'
 
 const greatVibes = Great_Vibes({ subsets: ['latin'], weight: '400', display: 'swap' })
 const playfairDisplay = Playfair_Display({ subsets: ['latin'], display: 'swap' })
@@ -46,17 +45,10 @@ export default function Footer() {
               className="text-[clamp(3rem,10vw,7.5rem)] leading-none tracking-tight text-black select-none"
               aria-hidden="true"
             >
-              <GlitchText
-                dataText="Suprith"
-                speed={1.5}
-                enableShadows={false}
-                enableOnHover={false}
-                bgColor="rgb(255,255,255)"
-                className="text-black leading-none tracking-tight"
-              >
+              <span className="text-black leading-none tracking-tight">
                 <span className={greatVibes.className} style={{ fontSize: '1.4em' }}>S</span>
                 <span className={playfairDisplay.className} style={{ marginLeft: '6px' }}>uprith</span>
-              </GlitchText>
+              </span>
             </h2>
             <p
               className="mt-3 text-sm text-gray-600"

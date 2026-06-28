@@ -4,7 +4,6 @@ import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
-import "./GooeyNav.css"
 
 gsap.registerPlugin(ScrollToPlugin)
 
@@ -22,55 +21,9 @@ export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const navRef = useRef<HTMLElement>(null)
-  const filterRef = useRef<HTMLSpanElement>(null)
   const isCompactRef = useRef(false)
   const [activeItem, setActiveItem] = useState("Home")
   const isScrollingToRef = useRef(false)
-
-  const activeIndex = navItems.findIndex((item) => item.name === activeItem)
-
-  const updateEffectPosition = (element: HTMLElement) => {
-    if (!navRef.current || !filterRef.current) return
-    const containerRect = navRef.current.getBoundingClientRect()
-    const pos = element.getBoundingClientRect()
-
-    const styles = {
-      left: `${pos.x - containerRect.x}px`,
-      top: `${pos.y - containerRect.y}px`,
-      width: `${pos.width}px`,
-      height: `${pos.height}px`,
-      opacity: "1",
-    }
-    Object.assign(filterRef.current.style, styles)
-  }
-
-  useEffect(() => {
-    if (!navRef.current) return
-    const buttons = navRef.current.querySelectorAll('button')
-    const activeEl = buttons[activeIndex]
-
-    if (activeEl) {
-      updateEffectPosition(activeEl as HTMLElement)
-      if (filterRef.current) {
-        filterRef.current.style.opacity = "1"
-      }
-    } else {
-      if (filterRef.current) {
-        filterRef.current.style.opacity = "0"
-      }
-    }
-
-    const resizeObserver = new ResizeObserver(() => {
-      const currentButtons = navRef.current?.querySelectorAll('button')
-      const currentActiveEl = currentButtons?.[activeIndex]
-      if (currentActiveEl) {
-        updateEffectPosition(currentActiveEl as HTMLElement)
-      }
-    })
-
-    resizeObserver.observe(navRef.current)
-    return () => resizeObserver.disconnect()
-  }, [activeIndex])
 
   // ── Entrance animation ──────────────────────────────────────────
   useEffect(() => {
@@ -273,52 +226,40 @@ export default function Navbar() {
   }
 
   return (
-    <>
-      {/* Hidden SVG Gooey Filter */}
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" className="hidden" style={{ display: 'none' }}>
-        <defs>
-          <filter id="gooey-nav-filter">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
-          </filter>
-        </defs>
-      </svg>
-
-      <div className="fixed top-0 left-0 right-0 flex justify-center px-4 py-4 pointer-events-none" style={{ zIndex: 10005 }}>
-        <nav
-          ref={navRef}
-          className="pointer-events-auto w-full max-w-fit flex items-center justify-center gap-2 md:gap-3 rounded-lg border border-white/20 bg-white/12 px-3 py-1.5 shadow-[0_4px_18px_rgba(0,0,0,0.04)] backdrop-blur-md relative"
-          style={{
-            backgroundColor: 'rgba(255,255,255,0.12)',
-            borderColor: 'rgba(255,255,255,0.20)',
-            boxShadow: '0 4px 18px rgba(0,0,0,0.04)',
-            WebkitBackdropFilter: 'blur(10px) saturate(115%)',
-            backdropFilter: 'blur(10px) saturate(115%)',
-          }}
-        >
-          {/* Gooey Sliding Highlight */}
-          <span className="effect filter" ref={filterRef} />
-
-          {navItems.map((item, index) => (
-            <div key={item.name} className="flex items-center gap-2 md:gap-3 relative">
-              <button
-                onClick={(e) => handleNavigation(item, e)}
-                className={`cursor-pointer rounded-md px-5 md:px-6 py-1.5 text-xs md:text-sm transition-all duration-200 relative z-10 ${
-                  activeItem === item.name
-                    ? "text-white"
-                    : "text-zinc-700 hover:text-orange-500 hover:bg-white/10"
-                }`}
-                style={{ fontFamily: 'FunnelDisplay, sans-serif', fontWeight: 300 }}
-              >
-                {item.name}
-              </button>
-              {index < navItems.length - 1 && (
-                <span className="text-zinc-400/80 text-[10px] relative z-10">•</span>
-              )}
-            </div>
-          ))}
-        </nav>
-      </div>
-    </>
+    <div className="fixed top-0 left-0 right-0 flex justify-center px-4 py-4 pointer-events-none" style={{ zIndex: 10005 }}>
+      <nav
+        ref={navRef}
+        className="pointer-events-auto w-full max-w-fit flex items-center justify-center gap-4 md:gap-6 rounded-lg border border-white/20 bg-white/12 px-6 py-2 shadow-[0_4px_18px_rgba(0,0,0,0.04)] backdrop-blur-md relative"
+        style={{
+          backgroundColor: 'rgba(255,255,255,0.12)',
+          borderColor: 'rgba(255,255,255,0.20)',
+          boxShadow: '0 4px 18px rgba(0,0,0,0.04)',
+          WebkitBackdropFilter: 'blur(10px) saturate(115%)',
+          backdropFilter: 'blur(10px) saturate(115%)',
+        }}
+      >
+        {navItems.map((item, index) => (
+          <div key={item.name} className="flex items-center gap-4 md:gap-6 relative">
+            <button
+              onClick={(e) => handleNavigation(item, e)}
+              className={`cursor-pointer rounded-md px-8 md:px-10 py-2 text-xs md:text-sm transition-all duration-200 relative z-10 ${
+                activeItem === item.name
+                  ? "text-orange-500"
+                  : "text-zinc-700 hover:text-orange-500 hover:bg-white/10"
+              }`}
+              style={{
+                fontFamily: 'FunnelDisplay, sans-serif',
+                fontWeight: activeItem === item.name ? 500 : 300,
+              }}
+            >
+              {item.name}
+            </button>
+            {index < navItems.length - 1 && (
+              <span className="text-zinc-400/80 text-[10px] relative z-10">•</span>
+            )}
+          </div>
+        ))}
+      </nav>
+    </div>
   )
 }
